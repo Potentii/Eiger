@@ -7,8 +7,8 @@ class Page{
       this._name = name;
       this._id = id;
 
-      this._onNavigate = new ListenerGroup();
-      this._onOnUnload = new ListenerGroup();
+      this._onNavigate = new HandledEvent();
+      this._onOnUnload = new HandledEvent();
    }
 
 
