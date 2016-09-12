@@ -78,7 +78,7 @@ var spa = (function(){
       if(history.state && page_name === history.state.page_name) return;
 
       // *Stacking up new state:
-      history.pushState({page_name: page_name, params: params}, page_name, page_name);
+      history.pushState({page_name: page_name, params: params}, page_name, page_name || '/');
 
       // *Loading the new content, and erasing the old one:
       loadPage();
@@ -215,15 +215,27 @@ var spa = (function(){
     * @author Guilherme Reginaldo Ruella
     */
    function onUserEnter(){
-      // *Checking if current page exists:
+
+      // *Checking if current page exists and if it has an history entry:
       if(history.state && pageExists(history.state.page_name)){
          // *If it exists:
          // *Loading it:
          loadPage();
       } else{
-         // *If not:
-         // *Navigating to fallback page:
-         navigateTo();
+         // *If not (The user may be hard typing the url):
+         // *Getting only the first part of the path:
+         let match = /[^/]\S*?[^/]*/gi.exec(window.location.pathname);
+         var page_name = match?match[0]:'';
+
+         // *Checking if it exists:
+         if(pageExists(page_name)){
+            // *If exists, navigate to it:
+            navigateTo(page_name);
+         } else{
+            // *If it not:
+            // *Navigating to fallback page:
+            navigateTo();
+         }
       }
    }
 
@@ -270,11 +282,11 @@ var spa = (function(){
 spa.subscribe(new Page('login', 'login-section'));
 spa.subscribe(new Page('vehicles', 'vehicles-section'));
 spa.subscribe(new Page('vehicle-schedule', 'vehicle-schedule-section'));
+spa.subscribe(new Page('', 'index-section'));
 spa.subscribe(new Page('404', 'not-found-section'));
-
 
 spa.setFallbackPage('404');
 
 spa.onReady(() => {
-   console.log('ola');
+   console.log('SPA ready');
 });
