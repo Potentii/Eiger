@@ -1,14 +1,15 @@
 
 
 /**
- * Module that manages and handles the pages
+ * Module that manages and handles all the pages
  * @namespace SPA
  */
 var spa = (function(){
    var spa_loaded = false;
    var ready_event = new HandledEvent();
-   var fallback_page_name;
+
    const pages = [];
+   var fallback_page_name;
    var current_page_name;
 
 
@@ -38,16 +39,16 @@ var spa = (function(){
 
       // *Defining the default action for navigation:
       let defaultLoad = function(this_page, params){
-         $('#' + this_page.getId()).show();
+         this_page.getDOM().show();
       }
 
       // *Defining the default action for unloading:
       let defaultUnload = function(this_page){
-         $('#' + this_page.getId()).hide();
+         this_page.getDOM().hide();
       }
 
       // *Hiding the page (only works when subscribing after DOM loads):
-      $('#' + page.getId()).hide();
+      page.getDOM().hide();
 
       // *Setting up default action to pages' load and unload events:
       spa.onNavigate(page.getName(), defaultLoad);
@@ -253,7 +254,7 @@ var spa = (function(){
 
       // *Hiding all the pages:
       for(page of pages) {
-         $('#' + page.getId()).hide();
+         page.getDOM().hide();
       }
 
       // *Resolving new access:
@@ -279,11 +280,11 @@ var spa = (function(){
 
 
 
-spa.subscribe(new Page('login', 'login-section'));
-spa.subscribe(new Page('vehicles', 'vehicles-section'));
-spa.subscribe(new Page('vehicle-schedule', 'vehicle-schedule-section'));
-spa.subscribe(new Page('', 'index-section'));
-spa.subscribe(new Page('404', 'not-found-section'));
+spa.subscribe(new Page('login'));
+spa.subscribe(new Page('vehicles'));
+spa.subscribe(new Page('vehicle-schedule'));
+spa.subscribe(new Page(''));
+spa.subscribe(new Page('404'));
 
 spa.setFallbackPage('404');
 

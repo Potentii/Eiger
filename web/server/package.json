@@ -1,7 +1,7 @@
 {
-  "name": "web-server",
+  "name": "eiger-web-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "This server hosts the entire web client application for Eiger",
   "main": "main.js",
   "scripts": {
     "start": "node main.js"
@@ -9,6 +9,6 @@
   "author": "Guilherme Reginaldo Ruella",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.14.0"
+    "express": "4.14.0"
   }
 }

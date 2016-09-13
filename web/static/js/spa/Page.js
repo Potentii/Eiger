@@ -3,24 +3,26 @@
  * Represents a SPA page object
  */
 class Page{
-   constructor(name, id){
+   constructor(name){
       this._name = name;
-      this._id = id;
 
       this._onNavigate = new HandledEvent();
       this._onOnUnload = new HandledEvent();
    }
 
 
-   // *Getters and Setters:
-   // *Id:
-   getId(){
-      return this._id;
-   }
-   setId(id){
-      this._id = id;
+
+   /**
+    * Retrieves the page's HTML element
+    * @return {jQuery}  The HTML element
+    */
+   getDOM(){
+      return $('[data-page=\'' + this._name + '\']');
    }
 
+
+
+   // *Getters and Setters:
    // *Name:
    getName(){
       return this._name;
