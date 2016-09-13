@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <!-- * Meta * -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width"/>
+
+      <!-- * CSS * -->
+      <link rel="stylesheet" href="./static/css/lib/material.min.css">
+      <link rel="stylesheet" href="./static/css/material-icons.css">
+
+      <link rel="stylesheet" href="./static/css/color.css">
+      <link rel="stylesheet" href="./static/css/font.css">
+      <link rel="stylesheet" href="./static/css/common.css">
+
+      <!--<link rel="stylesheet" href="./css/style.css">-->
+
+      <!-- * JS * -->
+      <script src="./static/js/lib/material.min.js"></script>
+      <script src="./static/js/lib/jquery.min.js"></script>
+
+      <script src="./static/js/util/Iterator.js"></script>
+      <script src="./static/js/util/HandledEvent.js"></script>
+
+      <script src="./static/js/spa/Page.js"></script>
+      <script src="./static/js/spa/spa.js"></script>
+
+
+      <title>Eiger</title>
+   </head>
+   <body>
+
+
+      <section id="not-found-section" data-page="404">
+         404
+      </section>
+
+      <section id="index-section" data-page="">
+         index
+      </section>
+
+      <section id="login-section" data-page="login">
+         login
+      </section>
+
+      <section id="vehicles-section" data-page="vehicles">
+         vehicles
+      </section>
+
+      <section id="vehicle-schedule-section" data-page="vehicle-schedule">
+         vehicle-schedule
+      </section>
+
+      <button type="button" onclick="spa.navigateTo('')">root</button>
+      <button type="button" onclick="spa.navigateTo()">404</button>
+      <button type="button" onclick="spa.navigateTo('login')">login</button>
+      <button type="button" onclick="spa.navigateTo('vehicles')">vehicles</button>
+      <button type="button" onclick="spa.navigateTo('vehicle-schedule')">vehicle-schedule</button>
+
+   </body>
+</html>
