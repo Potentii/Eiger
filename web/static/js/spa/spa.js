@@ -280,13 +280,11 @@ var spa = (function(){
 
 
 
-spa.subscribe(new Page('login'));
-spa.subscribe(new Page('vehicles'));
-spa.subscribe(new Page('vehicle-schedule'));
 spa.subscribe(new Page(''));
-spa.subscribe(new Page('404'));
+spa.subscribe(new Page('login'));
+spa.subscribe(new Page('fallback'));
 
-spa.setFallbackPage('404');
+spa.setFallbackPage('fallback');
 
 spa.onReady(() => {
    console.log('SPA ready');
