@@ -13,6 +13,8 @@
       <link rel="stylesheet" href="./static/css/font.css">
       <link rel="stylesheet" href="./static/css/common.css">
 
+      <link rel="stylesheet" href="./static/css/all.css">
+      <link rel="stylesheet" href="./static/css/login.css">
       <!--<link rel="stylesheet" href="./css/style.css">-->
 
       <!-- * JS * -->
@@ -33,31 +35,64 @@
    <body>
 
 
-      <section id="not-found-section" data-page="404">
-         404
+      <section id="fallback-section" data-page="fallback">
+         404<br/>Page Not Found
       </section>
 
-      <section id="index-section" data-page="">
-         index
-      </section>
 
       <section id="login-section" data-page="login">
-         login
+         <div id="login-container" class="center">
+
+            <!-- Branding -->
+            <div id="login-logo" class="center"></div>
+
+            <!-- Separators -->
+            <div class="horizontal-line"></div>
+            <div class="vertical-line"></div>
+
+            <!-- Login form -->
+            <form id="login-form" class="form center">
+               <!-- Username input -->
+               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="login-username-in">
+                  <label class="mdl-textfield__label" for="login-login-in">Username</label>
+               </div>
+
+               <!-- Password input -->
+               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="password" id="login-pass-in">
+                  <label class="mdl-textfield__label" for="login-pass-in">Password</label>
+               </div>
+
+               <!-- Submit button -->
+               <button type="submit" class="box card tinted raised">Login</button>
+            </form>
+         </div>
       </section>
 
-      <section id="vehicles-section" data-page="vehicles">
-         vehicles
+
+
+
+      <section id="vehicles-section" data-page="">
+         <header class="app-bar flex-horizontal-layout tinted raised">
+            <button type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">menu</button>
+            <span>Eiger</span>
+            <button type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab right">today</button>
+         </header>
+
+
+         <ul id="vehicles-list" class="list">
+         </ul>
       </section>
 
-      <section id="vehicle-schedule-section" data-page="vehicle-schedule">
-         vehicle-schedule
-      </section>
 
+
+      <!--
       <button type="button" onclick="spa.navigateTo('')">root</button>
       <button type="button" onclick="spa.navigateTo()">404</button>
       <button type="button" onclick="spa.navigateTo('login')">login</button>
       <button type="button" onclick="spa.navigateTo('vehicles')">vehicles</button>
       <button type="button" onclick="spa.navigateTo('vehicle-schedule')">vehicle-schedule</button>
-
+      -->
    </body>
 </html>

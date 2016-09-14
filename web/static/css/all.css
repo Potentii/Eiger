@@ -1,0 +1,12 @@
+section{
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+}
+section > .app-bar{
+   flex-grow: 0;
+   flex-shrink: 0;
+}
+section > .list{
+   overflow-y: auto;
+}

@@ -1,0 +1,67 @@
+/**
+ * Component that holds the logo, the line, and the login form
+ */
+#login-container{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+
+/**
+ * TODO Replace this with an image
+ */
+#login-logo{
+   height: 9em;
+   width: 9em;
+   flex-grow: 0;
+   flex-shrink: 0;
+   background: var(--primary-color-dark);
+}
+
+
+/**
+ * Adjusting the form width, and the submit vertical spacing
+ */
+#login-form{
+   flex-grow: 1;
+   width: 80%;
+} #login-form > button[type="submit"]{
+   margin: 4em auto 0 auto;
+} #login-form > *{
+   width: 100%;
+}
+
+
+/**
+ * When portrait assumes an vertical layout
+ */
+@media (orientation: portrait){
+   #login-container{
+      width: 90%;
+      flex-direction: column;
+   } #login-container > .vertical-line{
+      display: none;
+   }
+   #login-logo, #login-form{
+      margin: 4em 0;
+   }
+}
+
+
+/**
+ * When landscape assumes an horizontal layout
+ */
+@media (orientation: landscape){
+   #login-container{
+      top: 10vh;
+      width: 80%;
+      height: 80vh;
+      flex-direction: row;
+   } #login-container > .horizontal-line{
+      display: none;
+   }
+   #login-logo, #login-form{
+      margin: 0 4em;
+   }
+}
