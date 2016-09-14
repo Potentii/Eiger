@@ -1,3 +1,39 @@
 :root{
-   
+   /**
+    * Primary colors
+    */
+   /* main */
+   --primary-color-light: #673AB7;
+   --primary-color: #5E35B1;
+   --primary-color-dark: #512DA8;
+
+   /* contrast */
+   --primary-color-contrast: #F5F5F5;
+
+
+
+   /**
+    * Accent colors
+    */
+   /* main */
+   --accent-color-light: #673AB7;
+   --accent-color: #5E35B1;
+   --accent-color-dark: #512DA8;
+
+   /* contrast */
+   --accent-color-contrast: #F5F5F5;
+
+
+
+   /**
+    * Background colors
+    */
+   /* main */
+   --bg-color-light: #FAFAFA;
+   --bg-color: #EEEEEE;
+   --bg-color-dark: #E0E0E0;
+
+   /* contrast */
+   --bg-color-contrast: #212121;
+   --bg-color-contrast-faded: rgba(33, 33, 33, 0.5);
 }
