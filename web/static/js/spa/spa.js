@@ -109,11 +109,11 @@ var spa = (function(){
       // *Unloading the previous page:
       if(previous_page) previous_page.getOnUnload().resolveAll(f => f(previous_page));
 
-      // *Loading the new page:
-      page.getOnNavigate().resolveAll(f => f(page, params));
-
       // *Changing the current page flag:
       current_page_name = page_name;
+
+      // *Loading the new page:
+      page.getOnNavigate().resolveAll(f => f(page, params));
    };
 
 
@@ -310,6 +310,7 @@ var spa = (function(){
 spa.subscribe(new Page(''));
 spa.subscribe(new Page('login'));
 spa.subscribe(new Page('fallback'));
+spa.subscribe(new Page('auth'));
 
 spa.setFallbackPage('fallback');
 
