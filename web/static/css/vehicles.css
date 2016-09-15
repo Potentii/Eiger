@@ -1,0 +1,101 @@
+
+/**
+ * Each vehicle cardhas a flex layout
+ */
+#vehicles-list > li{
+	display: flex;
+}
+
+
+/**
+ * Vehicle info and thumbnail
+ */
+#vehicles-list .info{
+   align-items: center;
+   flex-shrink: 0;
+}
+#vehicles-list .info .round-thumbnail{
+   margin-right: 1em
+}
+
+
+/**
+ * Schedules sub-list
+ */
+#vehicles-list .schedules{
+   justify-content: space-between;
+   align-items: center;
+   overflow-x: auto;
+   flex-grow: 1;
+}
+#vehicles-list .schedules > *{
+   padding: 1em;
+   flex-grow: 0;
+}
+
+
+/**
+ * Center the date and schedule ball
+ * Reseting the cursors (because of the button element)
+ */
+#vehicles-list .schedules > * > *{
+   margin: auto;
+   text-align: center;
+   cursor: default;
+}
+
+
+/**
+ * When portrait, assumes a vertical and more compact layout
+ */
+@media (orientation: portrait){
+   #vehicles-list > li{
+      flex-direction: column;
+   }
+   #vehicles-list .info{
+      padding-bottom: 1em;
+   }
+   #vehicles-list > li > .vertical-line{
+      display: none;
+   }
+   #vehicles-list .schedules > li{
+      margin: 0;
+   }
+   #vehicles-list .schedules > li > *{
+      font-size: 0.7em;
+   }
+   #vehicles-list .schedules > li > .round{
+      width: 2.5em;
+      height: 2.5em;
+   }
+}
+
+
+/**
+ * When landscape, assumes a horizontal and larger layout
+ */
+@media (orientation: landscape){
+   #vehicles-list > li{
+      flex-direction: row;
+      align-items: center;
+   }
+   #vehicles-list .info{
+      padding-right: 1em;
+   }
+   #vehicles-list > li > .vertical-line{
+      height: 7em;
+   }
+   #vehicles-list > li > .horizontal-line{
+      display: none;
+   }
+   #vehicles-list .schedules > li{
+      margin: 0 1em;
+   }
+   #vehicles-list .schedules > li > *{
+      font-size: 0.9em;
+   }
+   #vehicles-list .schedules > li > .round{
+      width: 3em;
+      height: 3em;
+   }
+}

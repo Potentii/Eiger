@@ -15,6 +15,7 @@
 
       <link rel="stylesheet" href="./static/css/all.css">
       <link rel="stylesheet" href="./static/css/login.css">
+      <link rel="stylesheet" href="./static/css/vehicles.css">
       <!--<link rel="stylesheet" href="./css/style.css">-->
 
       <!-- * JS * -->
@@ -26,7 +27,6 @@
 
       <script src="./static/js/spa/Page.js"></script>
       <script src="./static/js/spa/spa.js"></script>
-
       <script src="./static/js/pages/login.js"></script>
 
 
@@ -35,11 +35,28 @@
    <body>
 
 
+
+      <!--
+      Authorization Page
+      -->
+      <section id="auth-section" data-page="auth">
+         auth
+      </section>
+
+
+
+      <!--
+      Fallback Page
+      -->
       <section id="fallback-section" data-page="fallback">
          404<br/>Page Not Found
       </section>
 
 
+
+      <!--
+      Login Page
+      -->
       <section id="login-section" data-page="login">
          <div id="login-container" class="center">
 
@@ -72,7 +89,9 @@
 
 
 
-
+      <!--
+      Vehicles Page
+      -->
       <section id="vehicles-section" data-page="">
          <header class="app-bar flex-horizontal-layout tinted raised">
             <button type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">menu</button>
@@ -80,23 +99,62 @@
             <button type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab right">today</button>
          </header>
 
-
+         <!-- Vehicles' cards list -->
          <ul id="vehicles-list" class="list">
+            <!-- Example of a vehicle card -->
+            <!--
+            <li data-id="1" class="card box raised">
+               <div class="info flex-horizontal-layout">
+                  <div class="round-thumbnail size-4" style="background-image: url(./static/res/image/test/test.jpg)"></div>
+                  <div class="vertical-layout">
+                     <span class="primary">[vehicle title]</span>
+                     <span class="secondary">[vehicle description]</span>
+                  </div>
+               </div>
+
+               <div class="horizontal-line"></div>
+               <div class="vertical-line"></div>
+
+               <ul class="schedules flex-horizontal-layout">
+                  <li class="vertical-layout">
+                     <span class="secondary">22/09</span>
+                     <button type="button" class="round" style="background-color: rgb(230, 180, 10)">5</button>
+                  </li>
+
+                  <li class="vertical-layout">
+                     <span class="secondary">23/09</span>
+                     <button type="button" class="round" style="background-color: rgb(230, 180, 10)">5</button>
+                  </li>
+
+                  <li class="vertical-layout">
+                     <span class="secondary">24/09</span>
+                     <button type="button" class="round" style="background-color: rgb(230, 180, 10)">5</button>
+                  </li>
+
+                  <li class="vertical-layout">
+                     <span class="secondary">25/09</span>
+                     <button type="button" class="round" style="background-color: rgb(230, 180, 10)">5</button>
+                  </li>
+
+                  <li class="vertical-layout">
+                     <span class="secondary">26/09</span>
+                     <button type="button" class="round" style="background-color: rgb(230, 180, 10)">5</button>
+                  </li>
+
+                  <li class="vertical-layout">
+                     <span class="secondary">27/09</span>
+                     <button type="button" class="round" style="background-color: rgb(230, 180, 10)">5</button>
+                  </li>
+
+                  <li class="vertical-layout">
+                     <span class="secondary">28/09</span>
+                     <button type="button" class="round" style="background-color: rgb(230, 180, 10)">5</button>
+                  </li>
+               </ul>
+            </li>
+
+            -->
          </ul>
       </section>
-
-
-      <section id="auth-section" data-page="auth">
-         Auth Page
-      </section>
-
-
-      <!--
-      <button type="button" onclick="spa.navigateTo('')">root</button>
-      <button type="button" onclick="spa.navigateTo()">404</button>
-      <button type="button" onclick="spa.navigateTo('login')">login</button>
-      <button type="button" onclick="spa.navigateTo('vehicles')">vehicles</button>
-      <button type="button" onclick="spa.navigateTo('vehicle-schedule')">vehicle-schedule</button>
-      -->
    </body>
 </html>

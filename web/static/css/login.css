@@ -34,7 +34,7 @@
 
 
 /**
- * When portrait assumes an vertical layout
+ * When portrait, assumes an vertical layout
  */
 @media (orientation: portrait){
    #login-container{
@@ -50,7 +50,7 @@
 
 
 /**
- * When landscape assumes an horizontal layout
+ * When landscape, assumes an horizontal layout
  */
 @media (orientation: landscape){
    #login-container{
