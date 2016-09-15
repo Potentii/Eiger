@@ -129,7 +129,14 @@ var spa = (function(){
       let page = findPage(page_name);
       if(!page) return;
 
-      // *Adding the action to the page's listener group:
+      // *Checking if it is trying to add listeners for the current page, and if spa is ready:
+      if(history.state && history.state.page_name === page_name && spa_loaded){
+         // *If it is:
+         // *Calling immediately:
+         action(page, history.state.params);
+      }
+
+      // *Adding the action to the page's event handler:
       page.getOnNavigate().addListener(action);
    }
 
@@ -146,7 +153,7 @@ var spa = (function(){
       let page = findPage(page_name);
       if(!page) return;
 
-      // *Adding the action to the page's listener group:
+      // *Adding the action to the page's event handler:
       page.getOnUnload().addListener(action);
    }
 
@@ -158,7 +165,16 @@ var spa = (function(){
     * @author Guilherme Reginaldo Ruella
     */
    function onReady(action){
-      ready_event.addListener(action);
+      // *Checking if spa is already loaded:
+      if(spa_loaded){
+         // *If it is:
+         // *Calling the action:
+         action();
+      } else{
+         // *Or else:
+         // *Adding to its event handler:
+         ready_event.addListener(action);
+      }
    }
 
 
@@ -207,6 +223,16 @@ var spa = (function(){
     */
    function getPages(){
       return pages;
+   }
+
+
+
+   /**
+    * Returns the current state of spa
+    * @return {object}  An object containing the current page_name and params
+    */
+   function getCurrentState(){
+      return {page_name: history.state.page_name, params: history.state.params};
    }
 
 
@@ -274,7 +300,8 @@ var spa = (function(){
       onUnload: onUnload,
       onReady: onReady,
       setFallbackPage: setFallbackPage,
-      getPages: getPages
+      getPages: getPages,
+      getCurrentState: getCurrentState
    }
 })();
 
