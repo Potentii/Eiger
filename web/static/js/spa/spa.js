@@ -310,6 +310,7 @@ var spa = (function(){
 spa.subscribe(new Page(''));
 spa.subscribe(new Page('login'));
 spa.subscribe(new Page('fallback'));
+spa.subscribe(new Page('auth'));
 
 spa.setFallbackPage('fallback');
 
