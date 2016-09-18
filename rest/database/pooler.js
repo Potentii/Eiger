@@ -25,6 +25,7 @@ pool.on('enqueue', () => {
  * @param  {string} sql    The SQL query
  * @param  {object} values The query values to escape
  * @return {Promise}       The query promise
+ * @author Guilherme Reginaldo Ruella
  */
 function query(sql, values){
    // *Returning the query promise:
@@ -65,6 +66,7 @@ function query(sql, values){
 /**
  * Ends all connections in the pool gracefully
  * @return {Promise}  The end connection promise
+ * @author Guilherme Reginaldo Ruella
  */
 function end(){
    // *Returning the end promise:
@@ -87,7 +89,7 @@ function end(){
 
 
 
-// *Exporting the module functions:
+// *Exporting the module:
 module.exports = {
    query: query,
    end: end

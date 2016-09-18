@@ -1,66 +1,97 @@
-// *Requesting packages:
-const express = require('express');
-const path = require('path');
-const morgan = require('morgan');
-const body_parser = require('body-parser');
-const app = express();
+// *Requesting electron:
+const electron = require('electron');
+const { app, BrowserWindow } = electron;
+
+// *Requesting the REST service:
+const REST = require('./rest');
+
+/**
+ * The main window frame
+ * @type BrowserWindow
+ */
+let win;
 
 
 
-// *Enabling json parsing:
-app.use(body_parser.json());
+/**
+ * Creates a new Eiger server window frame
+ * @author Guilherme Reginaldo Ruella
+ */
+function createWindow(){
+   // *Setting up the window frame:
+   win = new BrowserWindow({
+      title: 'Eiger',
+      width: 380,
+      height: 560
+   });
 
-// *Enabling request logs:
-app.use(morgan('dev'));
 
-// *Enabling cross domain connections:
-app.use((req, res, next) => {
-   // *CORS headers:
-   // *Origins allowed:
-   res.header('Access-Control-Allow-Origin', '*');
-   // *Methods allowed:
-   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-   // *Headers allowed:
-   res.header('Access-Control-Allow-Headers', 'Content-Type,Accept,Access-Token,Access-Key');
+   // *When the window closes:
+   win.on('closed', () => {
+      // *Removing the window reference:
+      win = null;
+   });
 
-   // *Sending to next handler:
-   next();
+
+   // *Removing the default toolbar:
+   win.setMenu(null);
+   // *Loading the html file:
+   win.loadURL('file://' + require('path').resolve(__dirname, './', 'ui/index.html'));
+   // *Displaying the window frame:
+   win.show();
+}
+
+
+// *When electron is ready:
+app.on('ready', () => {
+   // *Starting services:
+   REST.startServices()
+      .then(() => createWindow())
+      .catch(err => {
+         REST.stopServices()
+            .then(() => app.quit())
+            .catch(err => {throw err;});
+      });
 });
 
-// *Enabling POST requests via Ajax:
-app.options('/*', (req, res, next) => {
-   res.status(200).end();
+
+
+// *When all windows get closed:
+app.on('window-all-closed', () => {
+   // *Checking if the OS is a Macintosh:
+   if(process.platform !== 'darwin'){
+      // *If it's not:
+      // *Requesting REST to end all services before quitting:
+      REST.stopServices()
+         .then(() => app.quit())
+         .catch(err => {throw err;});
+   }
 });
 
 
 
-// *Applying authentication on '/api/v1' rout:
-app.all('/api/v1/*', require('./middlewares/authentication'));
-
-// *Applying authorization on '/api/v1/admin' rout:
-//app.all('/api/v1/admin/*', require('./middlewares/authorization'));
-
-// *Mapping the routes:
-app.use('/', require('./routes/routes'));
-
-// *Sending a 404 response status if the route isn't mapped:
-app.use((req, res, next) => {
-   var err = new Error('Resource not Found');
-   err.status = 404;
-   next(err);
+// *When user re-focus the application:
+app.on('activate', () => {
+   // *Checking if windows reference is lost:
+   if(win === null){
+      // *If it is:
+      // *Creates the window again:
+      createWindow();
+   }
 });
 
 
 
-// TODO end pooler when finish the service
+/**
+ * Retrieves the main window frame
+ * @return {BrowserWindow}  The window frame
+ */
+function getWindow(){
+   return win;
+}
 
 
-
-// *Setting up the server port:
-app.set('port', process.env.PORT || 3000);
-
-// *Starting up the server:
-var server = app.listen(app.get('port'), () => {
-   console.log(server.address());
-   console.log('REST service is running on port ' + server.address().port);
-});
+// *Exporting the module:
+module.exports = {
+   getWindow: getWindow
+};
