@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <!-- * Meta * -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width"/>
+
+      <!-- * CSS * -->
+      <link rel="stylesheet" href="../../web/static/css/lib/material.min.css">
+      <link rel="stylesheet" href="../../web/static/css/material-icons.css">
+
+      <link rel="stylesheet" href="../../web/static/css/color.css">
+      <link rel="stylesheet" href="../../web/static/css/font.css">
+      <link rel="stylesheet" href="../../web/static/css/common.css">
+
+      <link rel="stylesheet" href="../../web/static/css/all.css">
+      <link rel="stylesheet" href="./css/log.css">
+
+      <!-- * JS * -->
+      <script src="../../web/static/js/lib/material.min.js"></script>
+      <script>
+         window.$ = window.jQuery = require('../../web/static/js/lib/jquery.min.js');
+      </script>
+
+      <script src="./js/dev-tools.js"></script>
+      <script src="./js/logger.js"></script>
+
+      <title>Eiger REST API</title>
+   </head>
+   <body>
+
+
+
+      <!--
+      Logs Page
+      -->
+      <section id="log-section" data-page="log">
+         <header class="app-bar flex-horizontal-layout tinted raised">
+            <span>Response logs</span>
+         </header>
+
+         <!-- Logs list -->
+         <ul id="log-list" class="list">
+         </ul>
+      </section>
+   </body>
+</html>
