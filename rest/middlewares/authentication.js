@@ -34,7 +34,7 @@ module.exports = (req, res, next) => {
       .then(result => {
          // *If there's no error:
          // *Checking if there is any entry:
-         if(result.length){
+         if(result.rows.length){
             // *If there is:
             // *Send to next request handler:
             next();

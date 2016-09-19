@@ -34,7 +34,7 @@ module.exports = (permission) => {
       pooler.query('select * from ?? where ?? = ? and ?? = ?', ['user_permission_view', 'user_login', key_header, 'permission_title', permission])
          .then(result => {
             // *Checking if there is some result:
-            if(result.length>0){
+            if(result.rows.length>0){
                // *If there is:
                // *Authorize the request:
                next();
