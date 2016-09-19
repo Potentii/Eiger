@@ -16,13 +16,13 @@ create table if not exists `vehicle`(
 	`id` BIGINT unsigned not null auto_increment unique,
 	`title` TEXT not null,
 	`plate` VARCHAR(7) not null unique,
-	`year` 	INTEGER not null, 
+	`year` 	INTEGER not null,
 	`model`	TEXT not null,
 	`renavam` VARCHAR(11) not null unique,
 	`manufacturer` TEXT not null,
 	`photo`	TEXT,
 	`date` DATETIME not null default now(),
-	
+
 	primary key(`id`)
 );
 
@@ -37,7 +37,7 @@ create table if not exists `user`(
     `phone`	TEXT not null,
     `admin`	BOOLEAN,
     `date` DATETIME not null default now(),
-    
+
 	primary key(`id`)
 );
 
@@ -45,16 +45,16 @@ create table if not exists `schedule`(
 	`id` BIGINT unsigned not null auto_increment unique,
 	`id_vehicle_fk` BIGINT unsigned not null,
     `id_user_fk` BIGINT unsigned not null,
-    `start_date` DATETIME not null default now(),
-    `end_date` DATETIME not null default now(),
+    `start_date` DATETIME not null,
+    `end_date` DATETIME not null,
     `reason` TEXT,
     `date` DATETIME default now(),
-    
+
     foreign key(`id_vehicle_fk`) references `vehicle`(`id`),
     foreign key(`id_user_fk`) references `user`(`id`),
-    
+
     primary key (`id`)
-    
+
 );
 
 
@@ -63,9 +63,9 @@ create table if not exists `permission`(
 	`id` BIGINT unsigned not null auto_increment unique,
     `title` VARCHAR(16) not null unique,
     `date` DATETIME not null default now(),
-    
+
     primary key (`id`)
-    
+
 );
 
 
@@ -76,12 +76,12 @@ create table if not exists `user_permission`(
     `id_user_fk` BIGINT unsigned not null,
     `id_permission_fk` BIGINT unsigned not null,
     `date` DATETIME not null default now(),
-    
+
     foreign key(`id_user_fk`) references `user`(`id`),
     foreign key(`id_permission_fk`) references `permission`(`id`),
-    
+
     primary key(`id`)
-    
+
 );
 
 
@@ -93,8 +93,3 @@ create table if not exists `auth`(
 `date`	DATETIME not null default now()
 
 );
-
-
-	
-
-
