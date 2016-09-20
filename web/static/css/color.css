@@ -9,6 +9,7 @@
 
    /* contrast */
    --primary-color-contrast: #F5F5F5;
+   --primary-color-contrast-faded: rgba(245, 245, 245, 0.8);
 
 
 
@@ -22,6 +23,7 @@
 
    /* contrast */
    --accent-color-contrast: #F5F5F5;
+   --accent-color-contrast-faded: rgba(245, 245, 245, 0.8);
 
 
 
@@ -36,4 +38,5 @@
    /* contrast */
    --bg-color-contrast: #212121;
    --bg-color-contrast-faded: rgba(33, 33, 33, 0.5);
+   --bg-color-contrast-icon: rgba(33, 33, 33, 0.7);
 }
