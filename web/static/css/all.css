@@ -10,3 +10,18 @@ section > .app-bar{
 section > .list{
    overflow-y: auto;
 }
+
+
+/**
+ * Vehicle info on app-bar
+ */
+.vehicle-info-app-bar > .flex-horizontal-layout{
+   align-items: center;
+}
+.vehicle-info-app-bar .round-thumbnail{
+   margin-right: 1em;
+}
+.vehicle-info-app-bar .secondary{
+   color: var(--primary-color-contrast-faded);
+   font-size: 80%;
+}
