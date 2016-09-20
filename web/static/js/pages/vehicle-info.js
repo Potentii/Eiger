@@ -4,6 +4,8 @@ spa.onNavigate('vehicle-info', (page, params) => {
    // *Checking if the params is diferent undefined ou null:
    if(params && (params.id !== null && params.id !== undefined)){
       console.log(params.id);
+      console.log(vehicle);
+
       // *Is diferent of numm ou undefined:
       // *Make request to the data base:
       /*$.ajax({
