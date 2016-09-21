@@ -24,7 +24,7 @@ module.exports = (permission) => {
          // *If it hasn't:
          // *Sending 'unauthorize' response:
          res.status(403)
-            .json({message: 'Unaunthorized'})
+            .send('Unaunthorized')
             .end();
          return;
       }
@@ -34,7 +34,7 @@ module.exports = (permission) => {
       pooler.query('select * from ?? where ?? = ? and ?? = ?', ['user_permission_view', 'user_login', key_header, 'permission_title', permission])
          .then(result => {
             // *Checking if there is some result:
-            if(result.length>0){
+            if(result.rows.length>0){
                // *If there is:
                // *Authorize the request:
                next();
@@ -42,7 +42,7 @@ module.exports = (permission) => {
                // *If not:
                // *Sending 'unauthorize' response:
                res.status(403)
-                  .json({message: 'Unaunthorized'})
+                  .send('Unaunthorized')
                   .end();
             }
          })
@@ -50,7 +50,7 @@ module.exports = (permission) => {
             // *If something went wrong:
             // *Sending 'unauthorize' response:
             res.status(403)
-               .json({message: 'Unaunthorized'})
+               .send('Unaunthorized')
                .end();
          });
    };
