@@ -19,8 +19,8 @@ on v.id =  s.id_vehicle_fk inner join user u on u.id = s.id_user_fk;
 
 -- Creating user_view
 create view user_view as 
-select `u`.`id` as 'user_id', `u`.`name` as 'user_name', `u`.`login` as 'user_login', `u`.`email` as 'user_email',
-`u`.`cpf` as 'user_cpf', `u`.`phone` as 'user_phone', `u`.`admin` as 'user_admin', `u`.`date` as 'user_date'  
+select `u`.`id`, `u`.`name`, `u`.`login`, `u`.`email`,
+`u`.`cpf`, `u`.`phone`, `u`.`admin`, `u`.`date`
 from user u; 
 
 -- Creating user_permission_view
