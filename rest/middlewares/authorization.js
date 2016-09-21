@@ -24,7 +24,7 @@ module.exports = (permission) => {
          // *If it hasn't:
          // *Sending 'unauthorize' response:
          res.status(403)
-            .json({message: 'Unaunthorized'})
+            .send('Unaunthorized')
             .end();
          return;
       }
@@ -42,7 +42,7 @@ module.exports = (permission) => {
                // *If not:
                // *Sending 'unauthorize' response:
                res.status(403)
-                  .json({message: 'Unaunthorized'})
+                  .send('Unaunthorized')
                   .end();
             }
          })
@@ -50,7 +50,7 @@ module.exports = (permission) => {
             // *If something went wrong:
             // *Sending 'unauthorize' response:
             res.status(403)
-               .json({message: 'Unaunthorized'})
+               .send('Unaunthorized')
                .end();
          });
    };

@@ -14,7 +14,7 @@ const users = require('./users');
 router.get('/', api.echo);
 
 // *Setting up the authentication routes:
-router.get('/auth', auth.validate);
+router.get('/auth', require('../middlewares/authentication'), auth.onAuthenticated);
 router.post('/auth', auth.login);
 
 // *Setting up the users routes:
@@ -22,7 +22,7 @@ router.get('/api/v1/users', users.retrieveAll);
 router.get('/api/v1/users/:id', users.retrieve);
 router.post('/api/v1/users', users.create);
 router.put('/api/v1/users/:id', users.update);
-router.delete('/api/v1/users/:id', users.delete);
+router.delete('/api/v1/users/:id', users.erase);
 
 
 // *Exporting the router:

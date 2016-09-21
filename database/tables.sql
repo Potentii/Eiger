@@ -1,4 +1,4 @@
-drop schema eiger_schema;
+drop schema if exists eiger_schema;
 create schema if not exists `eiger_schema`;
 use `eiger_schema`;
 
@@ -35,7 +35,7 @@ create table if not exists `user`(
     `email`	TEXT not null,
     `cpf`	TEXT not null,
     `phone`	TEXT not null,
-    `admin`	BOOLEAN,
+    `admin`	BOOLEAN not null,
     `date` DATETIME not null default now(),
 
 	primary key(`id`)
@@ -88,8 +88,9 @@ create table if not exists `user_permission`(
 
 
 create table if not exists `auth`(
-`token`	VARCHAR(36) not null unique,
-`key`	VARCHAR(20) not null,
-`date`	DATETIME not null default now()
+	`token`	VARCHAR(36) not null unique,
+	`key`	VARCHAR(20) not null,
+	`date`	DATETIME not null default now(),
 
+	foreign key(`key`) references `user`(`login`)
 );

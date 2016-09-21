@@ -49,7 +49,7 @@ function start(){
    // *Sending a 404 response status if the route isn't mapped:
    app.use((req, res, next) => {
       res.status(404)
-         .json({message: 'Resource not found'})
+         .send('Resource not found')
          .end();
    });
 

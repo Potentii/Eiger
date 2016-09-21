@@ -19,7 +19,7 @@ function retrieveAll(req, res, next){
          // *If something went wrong:
          // *Sending a 500 error response:
          res.status(500)
-            .json({message: 'Database error'})
+            .send('Something went wrong')
             .end();
       });
 }
@@ -35,7 +35,7 @@ function retrieve(req, res, next){
    let id = req.params.id;
 
    // *Querying the database for the resource:
-   pooler.query('select * from ?? where ?? = ?', ['user_view', 'user_id', id])
+   pooler.query('select * from ?? where ?? = ?', ['user_view', 'id', id])
       .then(result => {
          // *Checking if there is something on result:
          if(result.rows.length){
@@ -48,7 +48,7 @@ function retrieve(req, res, next){
             // *If not:
             // *Sending a 404 response:
             res.status(404)
-               .json({message: 'Resource not found'})
+               .send('Resource not found')
                .end();
          }
       })
@@ -56,7 +56,7 @@ function retrieve(req, res, next){
          // *If something went wrong:
          // *Sending a 500 error response:
          res.status(500)
-            .json({message: 'Database error'})
+            .send('Something went wrong')
             .end();
       });
 }
@@ -74,29 +74,33 @@ function create(req, res, next){
    // *Inserting the resource in the database:
    pooler.query('insert into ?? set ?', ['user', values])
       .then(result => {
-         // *Checking if the resource was inserted:
-         if(result.affectedRows){
-            // *If it was:
-            // *Responding with the inserted element's id:
-            res.status(201)
-               .json({id: result.insertId})
-               .end();
-         } else{
-            // *If it wasn't:
-            // TODO test to know what happens if values isn't correct:
-            // TODO maybe we'll need to change this:
-            // *Sending a 400 response:
-            res.status(400)
-               .json({message: 'Invalid request'})
-               .end();
-         }
+         // *Responding with the inserted element's id:
+         res.status(201)
+            .json({id: result.rows.insertId})
+            .end();
       })
       .catch(err => {
          // *If something went wrong:
-         // *Sending a 500 error response:
-         res.status(500)
-            .json({message: 'Database error'})
-            .end();
+         // *Checking the error code:
+         switch(err.code){
+         case 'ER_NO_DEFAULT_FOR_FIELD':
+            // *Sending a 400 error response:
+            res.status(400)
+               .send('Missing required field')
+               .end();
+            break;
+         case 'ER_DUP_ENTRY':
+            // *Sending a 400 error response:
+            res.status(400)
+               .send('The resource already exists')
+               .end();
+            break;
+         default:
+            // *Sending a 500 error response:
+            res.status(500)
+               .send('Something went wrong')
+               .end();
+         }
       });
 }
 
@@ -117,27 +121,35 @@ function update(req, res, next){
    pooler.query('update ?? set ? where ?? = ?', ['user', values, 'id', id])
       .then(result => {
          // *Checking if the resource was updated:
-         if(result.affectedRows){
+         if(result.rows.affectedRows){
             // *If it was:
             // *Responding with 200 status:
             res.status(200)
                .end();
          } else{
             // *If it wasn't:
-            // TODO test to know what happens if values isn't correct:
-            // TODO maybe we'll need to change this:
             // *Sending a 404 response:
             res.status(404)
-               .json({message: 'Resource not found'})
+               .send('Resource not found')
                .end();
          }
       })
       .catch(err => {
          // *If something went wrong:
-         // *Sending a 500 error response:
-         res.status(500)
-            .json({message: 'Database error'})
-            .end();
+         // *Checking the error code:
+         switch(err.code){
+         case 'ER_DUP_ENTRY':
+            // *Sending a 400 error response:
+            res.status(400)
+               .send('The resource already exists')
+               .end();
+            break;
+         default:
+            // *Sending a 500 error response:
+            res.status(500)
+               .send('Something went wrong')
+               .end();
+         }
       });
 }
 
@@ -147,7 +159,7 @@ function update(req, res, next){
  * Deletes a resource in the database
  * @author Guilherme Reginaldo Ruella
  */
-function delete(req, res, next){
+function erase(req, res, next){
    // *Getting the id from request params:
    let id = req.params.id;
 
@@ -155,7 +167,7 @@ function delete(req, res, next){
    pooler.query('delete from ?? where ?? = ?', ['user', 'id', id])
       .then(result => {
          // *Checking if the resource was deleted:
-         if(result.affectedRows){
+         if(result.rows.affectedRows){
             // *If it was:
             // *Responding with 200 status:
             res.status(200)
@@ -164,7 +176,7 @@ function delete(req, res, next){
             // *If it wasn't:
             // *Sending a 404 response:
             res.status(404)
-               .json({message: 'Resource not found'})
+               .send('Resource not found')
                .end();
          }
       })
@@ -172,7 +184,7 @@ function delete(req, res, next){
          // *If something went wrong:
          // *Sending a 500 error response:
          res.status(500)
-            .json({message: 'Database error'})
+            .send('Something went wrong')
             .end();
       });
 }
@@ -185,5 +197,5 @@ module.exports = {
    retrieve: retrieve,
    create: create,
    update: update,
-   delete: delete
+   erase: erase
 };

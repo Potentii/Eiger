@@ -2,10 +2,22 @@
  * Removing the default padding
  */
 #log-list .row{
-   opacity: 1;
-   padding-top: 0.6em;
-   padding-bottom: 0.6em;
-   transition: opacity 0.7s ease;
+   padding-top: 0.8em;
+   padding-bottom: 0.8em;
+   font-size: 0.9em;
+
+   animation: logRowFadeIn 0.5s ease;
+   animation-fill-mode: forwards;
+}
+@keyframes logRowFadeIn{
+   0% {
+      opacity: 0;
+      padding-left: 2em;
+   }
+   100% {
+      opacity: 1;
+      padding-left: auto;
+   }
 }
 
 
@@ -14,36 +26,29 @@
  */
 #log-list .row::before{
    content: '';
-   position: absolute;
-   top: 0;
-   left: 0;
-   height: 100%;
-   width: 2px;
+   display: inline-block;
+
+   height: 0.5em;
+   width: 0.5em;
+   margin-right: 1em;
+
+   vertical-align: baseline;
+   border-radius: 50%;
    background: var(--accent-color);
+
+   animation: logLabelfadeOut 0.2s ease 8s;
+   animation-fill-mode: forwards;
 }
 
-
-/**
- * Changing the opacity, depending on the order
- */
-#log-list .row:nth-child(2){
-   opacity: 0.9;
-}
-#log-list .row:nth-child(3){
-   opacity: 0.6;
-}
-#log-list .row:nth-child(1n+4){
-   opacity: 0.3;
+@keyframes logLabelfadeOut{
+   0% {opacity: 1;}
+   100% {
+      opacity: 0;
+      transform: translateX(-1em);
+      margin-right: 0;
+   }
 }
 
-
-/**
- * When hover, get the opacity full again
- */
-#log-list .row:hover{
-   opacity: 1;
-   transition: opacity 0.25s ease;
-}
 
 
 /**
