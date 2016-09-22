@@ -1,5 +1,8 @@
+// *Global Variables:
+// *Variable of authorization:
+var authorized = false;
 
-// * When navigate the page Login:
+// *When navigate the page Login:
 spa.onNavigate('login', (page, params) => {
    $('#login-form').submit((e) => {
 
@@ -18,13 +21,26 @@ spa.onNavigate('login', (page, params) => {
          data: JSON.stringify({login: text_username, pass: text_pass})
       }).done((data, textStatus, xhr) => {
          saveAuthorization(data);
+         authorized = true;
          spa.navigateTo('');
+         console.log('POST Done');
       }).fail((xhr, textStatus, err) => {
          console.log(textStatus);
       });
    });
 });
 
+// * The page loading:
+spa.onReady(() => {
+
+   // *Getting name previous page:
+   let current_page_name = spa.getCurrentState().page_name;
+
+   // *Checking if that name of the previous page is unlike 'auth':
+   if(current_page_name !== 'auth') {
+      spa.navigateTo('auth', {pagina_anterior: current_page_name});
+   }
+});
 
 // *When navigate the page Auth:
 spa.onNavigate('auth', (page, params) => {
@@ -34,24 +50,38 @@ spa.onNavigate('auth', (page, params) => {
 
    // *Checking if the token or key is null:
    if(auth.token == null || auth.key == null) {
+
       // *If null:
       // *Send it to the login page Login:
       spa.navigateTo('login');
    } else {
+
       // *If not null:
-      // *Send it to the previous page:
-      spa.navigateTo(params.pagina_anterior);
+      // *Requests authorization:
+      $.ajax({
+         url: 'http://localhost:3000/auth',
+         method: 'GET',
+         headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
+      }).done((data, textStatus, xhr) => {
+
+         // *Set de variable for true:
+         authorized = true;
+
+         // *Send it to the previous page:
+         spa.navigateTo(params.pagina_anterior);
+      }).fail((xhr, textStatus, err) => {
+         console.log(textStatus);
+      });
+
    }
 });
 
-// * The page loading:
-spa.onReady(() => {
-   // *Getting name previous page:
-   let current_page_name = spa.getCurrentState().page_name;
-   // *Checking if that name of the previous page is unlike 'auth':
-   if(current_page_name !== 'auth') {
-      spa.navigateTo('auth', {pagina_anterior: current_page_name});
-   }
+
+// *When unload the login page:
+spa.onUnload('login', (page, params) => {
+
+   // *Remove event submit:
+   $('#login-form').off('submit');
 });
 
 /**
@@ -60,8 +90,10 @@ spa.onReady(() => {
 * @author Ralf Pablo Braga Soares
 */
 function saveAuthorization(data) {
+
    // *Setting token as an access key to the token code in cache:
-   localStorage.setItem('token', JSON.stringify(data.auth.token));
+   localStorage.setItem('token', JSON.stringify(data.token));
+
    // *saving key as an access key to the key code in cache:
    localStorage.setItem('key', JSON.stringify(data.user.login));
 }
