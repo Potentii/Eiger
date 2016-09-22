@@ -58,14 +58,13 @@ body{
  * Util classes
  * ========== * ========== * ========== * ==========
  */
-/*
- *	Regions:
+/**
+ * Appbar
  */
 .app-bar{
 	position: relative;
 	display: block;
-	width: 100%;/*
-	padding: 1.5em 1.5em 2em 1.5em;*/
+	width: 100%;
 	font-size: 1.2em;
 	z-index: 8;
 }
@@ -73,6 +72,13 @@ body{
 	padding: 1.5em;
 	vertical-align: middle;
 }
+.app-bar:nth-child(1n+2) > *{
+	padding: 0 1.5em 1em 1.5em;
+	font-size: 0.9em;
+}
+/**
+ * FAB inside appbars
+ */
 .app-bar .fab{
 	display: inline-block;
 	background: none !important;
@@ -81,27 +87,52 @@ body{
 	font-size: 1.2em;
 	box-shadow: none;
 }
+.app-bar .fab:not(.right){
+	margin-right: 0.5em;
+}
+.app-bar .fab:not(.right) + span{
+	padding-left: 0;
+}
 .app-bar.flex-horizontal-layout .fab{
 	flex-grow: 0;
 }
 .app-bar.flex-horizontal-layout .fab.right{
 	align-self: flex-end;
 }
+/**
+ * Boundary FAB
+ */
+.app-bar > .fab.boundary{
+	position: absolute;
+	bottom: -1.5em;
+	background-color: var(--accent-color-light) !important;
+}
+.app-bar > .fab.boundary.right{
+	right: 0.5em;
+}
 
 
+
+/**
+ * Cards
+ */
 .card{
    background: var(--bg-color-lighter);
 	border-radius: 2px;
 	overflow: hidden;
 }
 
+
+
+/**
+ * Boxes
+ */
 .box{
 	position: relative;
    display: block;
 	padding: 1em 1em;
    margin: 0.5em 1em;
 }
-
 
 
 
@@ -132,9 +163,9 @@ body{
 
 
 
-
-
-
+/**
+ * Navigation drawer
+ */
 .drawer{
 	position: fixed;
 	display: block;
@@ -252,10 +283,14 @@ div.raised, main.raised, nav.raised, section.raised{
 header.raised{
 	box-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.3);
 }
+.fab.boundary.raised{
+	box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
+}
 button.raised:active, a.raised:active, .dragging.raised {
 	box-shadow: 0 6px 11px 0 rgba(0, 0, 0, 0.2);
 	transition-delay: 0s;
 }
+
 
 .tinted{
 	background: var(--primary-color);
@@ -294,7 +329,7 @@ button.raised:active, a.raised:active, .dragging.raised {
    color: var(--accent-color-contrast) !important;
 	transition: opacity, background, 0.3s ease;
 }
-.fab:active{
+.fab:active:not(.boundary){
    opacity: 0.7;
    transition: opacity 0.1s ease;
 }
@@ -370,6 +405,53 @@ button.raised:active, a.raised:active, .dragging.raised {
 .radio-group input[type="radio"]{
 	margin-right: 0.5em;
 }
+
+
+/**
+ * All the form
+ */
+.info-form{
+	width: 100%;
+	padding-top: 2em;
+}
+/**
+ * Each row of the form
+ */
+.info-form > .row{
+	display: flex;
+	align-items:baseline;
+	justify-content: flex-start;
+
+	max-width: 100%;
+	padding: 2em;
+
+	transition: background 0.2s ease;
+}
+.info-form > .row:hover{
+	background: var(--bg-color-dark);
+}
+/**
+ * Row icon
+ */
+.info-form > .row > .material-icons{
+	padding-right: 1.5em;
+	color: var(--bg-color-contrast-icon);
+}
+
+.labeled-output{
+	font-size: 1em;
+	color: var(--bg-color-contrast);
+}
+.labeled-output::before{
+	content: attr(data-label);
+	position: absolute;
+	top: -1.5em;
+	left: 0;
+
+	font-size: 0.8em;
+	color: var(--bg-color-contrast-faded);
+}
+
 
 
 

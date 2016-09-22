@@ -28,6 +28,7 @@ pool.on('enqueue', () => {
  * @author Guilherme Reginaldo Ruella
  */
 function query(sql, values){
+   // TODO try to log errors on catch handler:
    // *Returning the query promise:
    return new Promise((resolve, reject) => {
 
@@ -37,6 +38,8 @@ function query(sql, values){
          if(err){
             // *If it was, rejecting the promise:
             reject(err);
+            // *Logging the error on console:
+            console.log(err);
             return;
          }
 
@@ -49,11 +52,13 @@ function query(sql, values){
             if(err){
                // *If it was, rejecting the promise:
                reject(err);
+               // *Logging the error on console:
+               console.log(err);
                return;
             }
 
             // *Resolving the promise:
-            resolve({result: result, fields: fields}); //TODO try to pass as separated parameters instead of an object
+            resolve({rows: result, fields: fields}); //TODO try to pass as separated parameters instead of an object
          });
 
       });
