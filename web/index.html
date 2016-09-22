@@ -24,13 +24,16 @@
 
       <script src="./static/js/util/Iterator.js"></script>
       <script src="./static/js/util/HandledEvent.js"></script>
+      <script src="./static/js/util/AutoConsumableQueue.js"></script>
+
+      <script src="./static/js/snack/snack.js"></script>
 
       <script src="./static/js/spa/Page.js"></script>
       <script src="./static/js/spa/spa.js"></script>
+
       <script src="./static/js/pages/login.js"></script>
       <script src="./static/js/pages/index.js"></script>
       <script src="./static/js/pages/vehicle-info.js"></script>
-
 
       <title>Eiger</title>
    </head>
@@ -162,7 +165,7 @@
 
 
       <!--
-      Vehicles Page
+      Vehicle info Page
       -->
       <section id="vehicle-info-section" data-page="vehicle-info">
          <!-- Appbar -->
@@ -207,5 +210,17 @@
             <button type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">edit</button>
          </div>
       </section>
+
+
+
+      <!--
+      Snackbar
+      -->
+      <div id="snackbar" class="snackbar raised">
+         <!-- Snackbar text -->
+         <span id="snackbar-text"></span>
+         <!-- Snackbar button -->
+         <button id="snackbar-button" type="button" class="mdl-js-button mdl-js-ripple-effect"></button>
+      </div>
    </body>
 </html>

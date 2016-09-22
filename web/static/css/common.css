@@ -609,9 +609,12 @@ li .secondary{
 	display: flex;
 	position: fixed;
 	flex-direction: row;
+	align-items: center;
 	bottom: 0;
 	width: 100%;
-	padding: 2em;
+	min-height: 4em;
+
+	padding-left: 2em;
 
 	font-size: 1em;
 	background: #212121;
@@ -622,9 +625,67 @@ li .secondary{
  */
 .snackbar > span{
 	flex-grow: 1;
+	padding: 0.5em 2em 0.5em 0;
 	color: #FAFAFA;
 }
 .snackbar > button{
 	flex-grow: 0;
+	flex-shrink: 0;
+	padding: 1.6em 2em;
+	text-transform: uppercase;
 	color: var(--accent-color);
+}
+
+/**
+ * Snackbar media queries:
+ */
+@media (orientation: landscape){
+	.snackbar{
+		min-width: 50%;
+		max-width: 70%;
+		margin: 1em;
+		border-radius: 3px;
+	}
+}
+@media (orientation: portrait){
+	.snackbar{
+	}
+}
+
+/**
+ * Snackbar animation:
+ */
+.snackbar:not(.active){
+	animation: snackbarFadeOff;
+	animation-timing-function: ease;
+	animation-fill-mode: forwards;
+}
+.snackbar.active{
+	animation: snackbarFadeIn;
+	animation-timing-function: ease;
+	animation-fill-mode: forwards;
+}
+
+/**
+ * Snackbar keyframes:
+ */
+@keyframes snackbarFadeIn{
+	0% {
+		opacity: 0;
+		transform: translateY(5em);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+@keyframes snackbarFadeOff{
+	0% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	100% {
+		opacity: 0;
+		transform: translateY(5em);
+	}
 }
