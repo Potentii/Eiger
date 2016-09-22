@@ -25,3 +25,12 @@ section > .list{
    color: var(--primary-color-contrast-faded);
    font-size: 80%;
 }
+
+
+
+/**
+ * Snackbar button color correction
+ */
+.snackbar > button{
+   color: #9575CD;
+}
