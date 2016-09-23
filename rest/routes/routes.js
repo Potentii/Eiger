@@ -1,6 +1,9 @@
 // *Requiring express router:
 const router = require('express').Router();
 
+// *Requiring the authentication middleware:
+const authentication = require('../middlewares/authentication');
+
 // *Requiring the authorization module:
 // const authorization = require('../middlewares/authorization');
 
@@ -17,8 +20,11 @@ const vehicles_schedules = require('./vehicles-schedules');
 router.get('/', api.echo);
 
 // *Setting up the authentication routes:
-router.get('/auth', require('../middlewares/authentication'), auth.onAuthenticated);
+router.get('/auth', authentication, auth.onAuthenticated);
 router.post('/auth', auth.login);
+
+// *Applying authentication on '/api/v1' route:
+router.all('/api/v1/*', authentication);
 
 // *Setting up the schedules routes:
 router.get('/api/v1/schedules', schedules.retrieveAll);
@@ -48,4 +54,6 @@ router.delete('/api/v1/vehicles/:id', vehicles.erase);
 router.get('/api/v1/vehicles/:id/schedules', vehicles_schedules.retrieveAll);
 
 // *Exporting the router:
-module.exports = router;
+module.exports = {
+   router: router
+};
