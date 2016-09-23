@@ -1,3 +1,4 @@
+const APP_NAME = 'eiger';
 
 
 
@@ -32,12 +33,12 @@ function create(directories){
       // *If it is:
       // *Creating all directories:
       for(directory of directories){
-         mkdirp.sync(app + '/eiger' + directory);
+         mkdirp.sync(app + '/' + APP_NAME + directory);
       }
    } else{
       // *If it isn't:
       // *Creating the directory:
-      mkdirp.sync(app + '/eiger' + directories);
+      mkdirp.sync(app + '/' + APP_NAME + directories);
    }
 }
 
@@ -46,5 +47,6 @@ function create(directories){
 // *Exporting the module:
 module.exports = {
    create: create,
-   getAppDirectory: getAppDirectory
+   getAppDirectory: getAppDirectory,
+   APP_NAME: APP_NAME
 };
