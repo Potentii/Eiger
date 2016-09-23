@@ -29,7 +29,7 @@ function start(){
       res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
       // *Headers allowed:
       res.header('Access-Control-Allow-Headers', 'Content-Type,Accept,Access-Token,Access-Key');
-      // *Sending to the next handler:
+      // *Sending to the next middleware:
       next();
    });
 
@@ -40,11 +40,11 @@ function start(){
 
 
 
-   // *Applying authentication on '/api/v1' rout:
-   app.all('/api/v1/*', require('./middlewares/authentication'));
+   // *Mapping the REST routes:
+   app.use('/', require('./routes/routes').router);
 
-   // *Mapping the routes:
-   app.use('/', require('./routes/routes'));
+   // *Mapping the media service:
+   app.use('/media/', require('./media/media').router);
 
    // *Sending a 404 response status if the route isn't mapped:
    app.use((req, res, next) => {
@@ -60,16 +60,21 @@ function start(){
 
    // *Starting up the server:
    let server = app.listen(app.get('port'), () => {
-      // *Logging the server instance information:
+      // *Logging the service instance information:
       let address = server.address();
-      console.log(`>> REST service is running\n   | http://${address.address==='::'?'localhost':address.address}:${address.port}`);
+      console.log(` > REST service is running`);
+      console.log(`   | Address`);
+      console.log(`   | http://${address.address==='::'?'localhost':address.address}:${address.port}/`);
+      console.log(`   |`);
+      console.log(`   | Media`);
+      console.log(`   | ${require('./media/media').media_path}`);
    });
 }
 
 
 
 /**
- * Builds a promise that starts the REST and static services:
+ * Builds a promise that starts the REST service:
  * @author Guilherme Reginaldo Ruella
  */
 function startServices(){
@@ -78,10 +83,6 @@ function startServices(){
       try{
          // *Setup the REST service:
          start();
-
-         // *Starting the static files service:
-         require('./static').start();
-
          // *If everything went well, resolving the promise:
          resolve();
       } catch(err){
@@ -117,6 +118,9 @@ function stopServices(){
       Promise.all([database_stop])
          .then(() => resolve())
          .catch(err => reject(err));
+   }).then(() => {
+      console.log(`   |`);
+      console.log(`   | REST service finished`);
    });
 }
 

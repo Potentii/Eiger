@@ -619,6 +619,8 @@ li .secondary{
 	font-size: 1em;
 	background: #212121;
 	z-index: 8;
+
+	transform: translateY(5em);
 }
 /*
  *	Snackbar content:
@@ -647,10 +649,6 @@ li .secondary{
 		border-radius: 3px;
 	}
 }
-@media (orientation: portrait){
-	.snackbar{
-	}
-}
 
 /**
  * Snackbar animation:
@@ -658,7 +656,6 @@ li .secondary{
 .snackbar:not(.active){
 	animation: snackbarFadeOff;
 	animation-timing-function: ease;
-	animation-fill-mode: forwards;
 }
 .snackbar.active{
 	animation: snackbarFadeIn;
