@@ -4,10 +4,11 @@ spa.onNavigate('vehicle-info', (page, params) => {
 
    // *Checking if the params is diferent undefined ou null:
    if(params && (params.id !== null && params.id !== undefined)){
-      //*
       let id = params.id;
-      // *
-      if(authorized == true) {
+      // *Checking if the user was authenticated:
+      if(authenticated == true) {
+         // *If true:
+         // *List the vehicle:
          requestVehicle(id);
       }
    } else {
@@ -18,14 +19,14 @@ spa.onNavigate('vehicle-info', (page, params) => {
 });
 
 /**
- * [requestVehicle description]
- * @param  {[type]} id [description]
- * @return {[type]}    [description]
+ * Requests the vehicle to the database
+ * @param  {number} id number ID the vehicle
+ * @author Ralf Pablo Braga Soares
  */
 function requestVehicle(id){
 
    // *Getting the key and the token:
-   let auth = getAuthorization();
+   let auth = getAuthentication();
 
    // *Request Vehicle to the vehicles data base:
    $.ajax({
@@ -35,7 +36,7 @@ function requestVehicle(id){
       }).done((data, textStatus, xhr) => {
 
          // *Setting the vehicle's photo:
-         $('#vehicle-info-photo').css('background-image', 'url(./static/res/'+id+'.jpg)');
+         $('#vehicle-info-photo').css('background-image', 'url(http://localhost:3000/media/v/p/'+ data.photo +')');
 
          // *Setting the vehicle's title and plate:
          $('#vehicle-info-title').text(data.title+" - "+data.plate);

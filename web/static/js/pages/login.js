@@ -1,6 +1,6 @@
 // *Global Variables:
-// *Variable of authorization:
-var authorized = false;
+// *Variable of authentication:
+var authenticated = false;
 
 // *When navigate the page Login:
 spa.onNavigate('login', (page, params) => {
@@ -20,8 +20,8 @@ spa.onNavigate('login', (page, params) => {
          contentType: 'application/json;charset=UTF-8',
          data: JSON.stringify({login: text_username, pass: text_pass})
       }).done((data, textStatus, xhr) => {
-         saveAuthorization(data);
-         authorized = true;
+         saveAuthentication(data);
+         authenticated = true;
          spa.navigateTo('');
          console.log('POST Done');
       }).fail((xhr, textStatus, err) => {
@@ -46,7 +46,7 @@ spa.onReady(() => {
 spa.onNavigate('auth', (page, params) => {
 
    // *Getting the key and the token:
-   let auth = getAuthorization();
+   let auth = getAuthentication();
 
    // *Checking if the token or key is null:
    if(auth.token == null || auth.key == null) {
@@ -57,7 +57,7 @@ spa.onNavigate('auth', (page, params) => {
    } else {
 
       // *If not null:
-      // *Requests authorization:
+      // *Requests authentication:
       $.ajax({
          url: 'http://localhost:3000/auth',
          method: 'GET',
@@ -65,7 +65,7 @@ spa.onNavigate('auth', (page, params) => {
       }).done((data, textStatus, xhr) => {
 
          // *Set de variable for true:
-         authorized = true;
+         authenticated = true;
 
          // *Send it to the previous page:
          spa.navigateTo(params.pagina_anterior);
@@ -85,11 +85,11 @@ spa.onUnload('login', (page, params) => {
 });
 
 /**
-* Saves the authorization keys in cache
+* Saves the authentication keys in cache
 * @param  {object} data The token and the user key
 * @author Ralf Pablo Braga Soares
 */
-function saveAuthorization(data) {
+function saveAuthentication(data) {
 
    // *Setting token as an access key to the token code in cache:
    localStorage.setItem('token', JSON.stringify(data.token));
@@ -99,11 +99,11 @@ function saveAuthorization(data) {
 }
 
 /**
-* Recovers the authorization keys in cache
+* Recovers the authentication keys in cache
 * @return {object} JSON The token and the user key
 * @author Ralf Pablo Braga Soares
 */
-function getAuthorization() {
+function getAuthentication() {
    let token = JSON.parse(localStorage.getItem('token'));
    let key = JSON.parse(localStorage.getItem('key'));
    return {token: token, key: key};
