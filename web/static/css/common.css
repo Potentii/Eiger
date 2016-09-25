@@ -19,7 +19,7 @@
 /*
  *	Specific elements:
  */
-span:hover{
+span:hover, .material-icons:hover{
    cursor: default;
 }
 a{
@@ -76,15 +76,25 @@ body{
 	padding: 0 1.5em 1em 1.5em;
 	font-size: 0.9em;
 }
+.app-bar.flex-horizontal-layout{
+	align-items: center;
+}
 /**
  * FAB inside appbars
  */
 .app-bar .fab{
 	display: inline-block;
-	background: none !important;
+
+	min-height: 2.6em;
+	min-width: 2.6em;
+	max-height: 2.6em;
+	max-width: 2.6em;
+
+	padding: 0;
 	margin: 0.5em;
-	padding: 0.7em;
+
 	font-size: 1.2em;
+	background: none !important;
 	box-shadow: none;
 }
 .app-bar .fab:not(.right){
@@ -104,6 +114,10 @@ body{
  */
 .app-bar > .fab.boundary{
 	position: absolute;
+	min-height: 2.1em;
+	min-width: 2.1em;
+	max-height: 2.1em;
+	max-width: 2.1em;
 	bottom: -1.5em;
 	background-color: var(--accent-color-light) !important;
 }
@@ -255,6 +269,7 @@ body{
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
+	background-color: #424242;
 
 	border-radius: 50%;
 }
@@ -302,8 +317,8 @@ button.raised:active, a.raised:active, .dragging.raised {
 
 
 
-/*
- *	Elements:
+/**
+ * FAB
  */
 .fab-container{
 	position: fixed;
@@ -341,10 +356,19 @@ button.raised:active, a.raised:active, .dragging.raised {
 	padding: 0.6em;
 }
 .fab-container > .fab:last-child{
-	font-size: 1.6em;
+	font-size: 1.5em;
 	padding: 0.8em;
 }
 
+.content-before-fab{
+	padding-bottom: 6em;
+}
+
+
+
+/**
+ * Flat button
+ */
 .flat-button{
 	position: relative;
 	padding: 1em;
@@ -367,6 +391,7 @@ button.raised:active, a.raised:active, .dragging.raised {
  * Form
  * ========== * ========== * ========== * ==========
  */
+/*
 .form > input, .form > select, .form > button, .form > .label, .form > .radio-group{
    position: relative;
    display: block;
@@ -386,8 +411,8 @@ button.raised:active, a.raised:active, .dragging.raised {
 .form > select > option{
 	color: var(--bg-color-contrast);
 }
-
-
+*/
+/*
 .radio-group > *{
 	position: relative;
 	display: block;
@@ -405,21 +430,21 @@ button.raised:active, a.raised:active, .dragging.raised {
 .radio-group input[type="radio"]{
 	margin-right: 0.5em;
 }
-
+*/
 
 /**
- * All the form
+ * Forms
  */
-.info-form{
+.form{
 	width: 100%;
-	padding-top: 2em;
+	overflow-y: auto;
 }
 /**
  * Each row of the form
  */
-.info-form > .row{
+.form > .row{
 	display: flex;
-	align-items:baseline;
+	align-items: baseline;
 	justify-content: flex-start;
 
 	max-width: 100%;
@@ -427,16 +452,20 @@ button.raised:active, a.raised:active, .dragging.raised {
 
 	transition: background 0.2s ease;
 }
-.info-form > .row:hover{
+.form > .row:hover{
 	background: var(--bg-color-dark);
 }
 /**
  * Row icon
  */
-.info-form > .row > .material-icons{
+.form > .row > .material-icons{
 	padding-right: 1.5em;
 	color: var(--bg-color-contrast-icon);
 }
+
+
+
+
 
 .labeled-output{
 	font-size: 1em;
