@@ -1,0 +1,19 @@
+#vehicle-create-pic{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   overflow: hidden;
+}
+#vehicle-create-pic > .material-icons{
+   opacity: 0.3;
+   font-size: 1.3em;
+   text-shadow: 0px 3px 8px rgba(0, 0, 0, 0.7);
+   cursor: pointer;
+   transition: opacity, font-size, 0.2s ease;
+}
+
+#vehicle-create-pic:hover > .material-icons{
+   opacity: 0.9;
+   font-size: 1.6em;
+}

@@ -34,3 +34,63 @@ section > .list{
 .snackbar > button{
    color: #9575CD;
 }
+
+
+
+/**
+ * MDL input
+ */
+.app-bar .mdl-textfield{
+	width: 100%;
+	margin: 0 0.5em;
+}
+.form > .row.mdl-input-row{
+	align-items: center;
+	padding: 0.5em 2em;
+}
+
+
+
+/**
+ * MDL color correction
+ */
+/**
+ * MDL input floating label color (focus)
+ */
+.mdl-textfield--floating-label.is-focused .mdl-textfield__label{
+   color: #9575CD;
+}
+.tinted .mdl-textfield--floating-label.is-focused .mdl-textfield__label{
+   color: #9575CD;
+}
+/**
+ * MDL input floating label color (blur)
+ */
+.mdl-textfield--floating-label.is-dirty .mdl-textfield__label{
+   color: #9575CD;
+}
+.tinted .mdl-textfield--floating-label.is-dirty .mdl-textfield__label{
+   color: #9575CD;
+}
+
+/**
+ * MDL input bottom line color (active)
+ */
+.mdl-textfield__label:after{
+   background-color: var(--accent-color);
+}
+.tinted .mdl-textfield__label:after{
+   background-color: var(--primary-color-contrast-faded);
+}
+/**
+ * MDL input bottom line color (inactive)
+ */
+.tinted .mdl-textfield__input{
+   border-bottom-color: #9575CD;
+}
+/**
+ * MDL input placeholder color
+ */
+.tinted .mdl-textfield__label{
+   color: var(--primary-color-contrast-faded);
+}
