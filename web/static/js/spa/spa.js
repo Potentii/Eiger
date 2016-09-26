@@ -304,17 +304,3 @@ var spa = (function(){
       getCurrentState: getCurrentState
    }
 })();
-
-
-
-spa.subscribe(new Page(''));
-spa.subscribe(new Page('vehicle-info'));
-spa.subscribe(new Page('login'));
-spa.subscribe(new Page('fallback'));
-spa.subscribe(new Page('auth'));
-
-spa.setFallbackPage('fallback');
-
-spa.onReady(() => {
-   console.log('SPA ready');
-});
