@@ -15,6 +15,7 @@ const users = require('./users');
 const users_schedules = require('./users-schedules');
 const vehicles = require('./vehicles');
 const vehicles_schedules = require('./vehicles-schedules');
+const vehicles_reservations = require('./vehicles-reservations');
 
 // *Setting up the api routes:
 router.get('/', api.echo);
@@ -52,6 +53,10 @@ router.delete('/api/v1/vehicles/:id', vehicles.erase);
 
 // *Setting up the vehicles-schedules routes:
 router.get('/api/v1/vehicles/:id/schedules', vehicles_schedules.retrieveAll);
+
+// *Setting up the vehicles-reservations routes:
+router.get('/api/v1/vehicles/:id/reservations', vehicles_reservations.retrieveAll);
+router.get('/api/v1/vehicles/:id/reservations/:date', vehicles_reservations.retrieveAllOnDate);
 
 // *Exporting the router:
 module.exports = {

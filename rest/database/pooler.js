@@ -8,7 +8,8 @@ const pool = mysql.createPool({
    user              : 'eiger_db',
    password          : 'asd123!',
    database          : 'eiger_schema',
-   supportBigNumbers : true
+   supportBigNumbers : true,
+   timezone          : 'local'
 });
 
 
