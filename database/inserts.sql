@@ -35,8 +35,16 @@ insert into `schedule` (`id_vehicle_fk`, `id_user_fk`, `start_date`,`end_date`, 
 	values (1, 1, '2016-09-20 10:30:00', '2016-09-27 15:00:00', 'Viagem');
 
 insert into `schedule` (`id_vehicle_fk`, `id_user_fk`, `start_date`,`end_date`, `reason`)
-	values (3, 2, '2016-09-23 09:00:00', '016-09-25 19:00:00', 'Evento');
+	values (3, 2, '2016-09-23 09:00:00', '2016-09-25 19:00:00', 'Evento');
 
+
+
+insert into `schedule` (`id_vehicle_fk`, `id_user_fk`, `start_date`,`end_date`, `reason`)
+	values (1, 2, '2016-09-25 09:00:00', '2016-09-26 06:00:00', 'comeco');
+insert into `schedule` (`id_vehicle_fk`, `id_user_fk`, `start_date`,`end_date`, `reason`)
+	values (1, 3, '2016-09-26 08:00:00', '2016-09-26 10:00:00', 'meio');
+insert into `schedule` (`id_vehicle_fk`, `id_user_fk`, `start_date`,`end_date`, `reason`)
+	values (1, 2, '2016-09-26 11:00:00', '2016-09-27 05:00:00', 'fim');
 
 
 
