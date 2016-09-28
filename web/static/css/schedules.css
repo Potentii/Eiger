@@ -1,0 +1,49 @@
+/**
+ * All item from the list
+ */
+#schedules-list > li{
+   display: flex;
+   flex-direction: row;
+   align-items: flex-start;
+}
+
+/**
+ * The user part
+ */
+#schedules-list li .user{
+   flex-grow: 1;
+   flex-shrink: 2;
+   padding-right: 2em;
+}
+
+/**
+ * The duration part
+ */
+#schedules-list li .duration{
+   flex-grow: 0;
+   width: 20%;
+   min-width: 5em;
+   align-items: center;
+   line-height: 1.2em;
+}
+/**
+ * Three dots icon
+ */
+#schedules-list li .duration > .material-icons{
+   line-height: 2em;
+   font-size: 1em;
+}
+/**
+ * Dates
+ */
+#schedules-list li .duration > span:nth-child(1),
+#schedules-list li .duration > span:nth-child(5){
+   font-size: 0.8em;
+}
+/**
+ * Times
+ */
+#schedules-list li .duration > span:nth-child(2),
+#schedules-list li .duration > span:nth-child(4){
+   font-size: 0.7em;
+}
