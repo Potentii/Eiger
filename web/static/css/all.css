@@ -20,9 +20,64 @@ section > .list{
 }
 .vehicle-info-app-bar .round-thumbnail{
    margin-right: 1em;
+   flex-shrink: 0;
 }
 .vehicle-info-app-bar .secondary{
    color: var(--primary-color-contrast-faded);
+   font-size: 80%;
+}
+.vehicle-info-app-bar .tertiary{
+   display: inline-block;
+   align-self: flex-end;
+   flex-shrink: 0;
+
+   margin: 0.2em;
+   margin-left: 0.5em;
+
+   text-align: right;
+   color: var(--primary-color-contrast-faded);
+}
+@media (orientation: portrait){
+   .vehicle-info-app-bar .tertiary{
+      font-size: 70%;
+   }
+}
+@media (orientation: landscape){
+   .vehicle-info-app-bar .tertiary{
+      font-size: 80%;
+   }
+}
+
+
+
+/**
+ * Schedule duration output
+ */
+.schedule-duration-output{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   line-height: 1.2em;
+}
+/**
+ * Three dots icon
+ */
+.schedule-duration-output > .material-icons{
+   line-height: 2em;
+   font-size: 1em;
+}
+/**
+ * Dates
+ */
+.schedule-duration-output > span:nth-child(1),
+.schedule-duration-output > span:nth-child(5){
+   font-size: 100%;
+}
+/**
+ * Times
+ */
+.schedule-duration-output > span:nth-child(2),
+.schedule-duration-output > span:nth-child(4){
    font-size: 80%;
 }
 

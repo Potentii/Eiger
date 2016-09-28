@@ -1,0 +1,27 @@
+/**
+ * All item from the list
+ */
+#schedules-list > li{
+   display: flex;
+   flex-direction: row;
+   align-items: flex-start;
+}
+
+/**
+ * Schedule user and reason
+ */
+#schedules-list li .user{
+   flex-grow: 1;
+   flex-shrink: 2;
+   padding-right: 2em;
+}
+
+/**
+ * Schedule duration
+ */
+#schedules-list li .schedule-duration-output{
+   flex-grow: 0;
+   width: 20%;
+   min-width: 5em;
+   font-size: 0.9em;
+}
