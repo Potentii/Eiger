@@ -51,6 +51,39 @@ section > .list{
 
 
 /**
+ * Schedule duration output
+ */
+.schedule-duration-output{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   line-height: 1.2em;
+}
+/**
+ * Three dots icon
+ */
+.schedule-duration-output > .material-icons{
+   line-height: 2em;
+   font-size: 1em;
+}
+/**
+ * Dates
+ */
+.schedule-duration-output > span:nth-child(1),
+.schedule-duration-output > span:nth-child(5){
+   font-size: 100%;
+}
+/**
+ * Times
+ */
+.schedule-duration-output > span:nth-child(2),
+.schedule-duration-output > span:nth-child(4){
+   font-size: 80%;
+}
+
+
+
+/**
  * Snackbar button color correction
  */
 .snackbar > button{

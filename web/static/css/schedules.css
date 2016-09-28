@@ -8,7 +8,7 @@
 }
 
 /**
- * The user part
+ * Schedule user and reason
  */
 #schedules-list li .user{
    flex-grow: 1;
@@ -17,33 +17,11 @@
 }
 
 /**
- * The duration part
+ * Schedule duration
  */
-#schedules-list li .duration{
+#schedules-list li .schedule-duration-output{
    flex-grow: 0;
    width: 20%;
    min-width: 5em;
-   align-items: center;
-   line-height: 1.2em;
-}
-/**
- * Three dots icon
- */
-#schedules-list li .duration > .material-icons{
-   line-height: 2em;
-   font-size: 1em;
-}
-/**
- * Dates
- */
-#schedules-list li .duration > span:nth-child(1),
-#schedules-list li .duration > span:nth-child(5){
-   font-size: 0.8em;
-}
-/**
- * Times
- */
-#schedules-list li .duration > span:nth-child(2),
-#schedules-list li .duration > span:nth-child(4){
-   font-size: 0.7em;
+   font-size: 0.9em;
 }
