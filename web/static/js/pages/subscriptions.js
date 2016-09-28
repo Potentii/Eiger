@@ -8,6 +8,7 @@ spa.subscribe(new Page(''));
 spa.subscribe(new Page('vehicle-info'));
 spa.subscribe(new Page('vehicle-create'));
 
+spa.subscribe(new Page('schedules'));
 
 // *Setting the fallback page:
 spa.setFallbackPage('fallback');
