@@ -18,6 +18,7 @@
       <link rel="stylesheet" href="./static/css/vehicles.css">
       <link rel="stylesheet" href="./static/css/vehicle-create.css">
       <link rel="stylesheet" href="./static/css/schedules.css">
+      <link rel="stylesheet" href="./static/css/schedule.css">
 
       <!-- * JS * -->
       <script src="./static/js/lib/material.min.js"></script>
@@ -200,8 +201,8 @@
          <form id="vehicle-info-form" class="form content-before-fab">
             <!-- Renavam output -->
             <div class="row">
-               <i class="material-icons">card_membership</i>
-               <span id="vehicle-info-renavam" class="labeled-output" data-label="renavam">[renavam]</span>
+               <i class="material-icons">chrome_reader_mode</i>
+               <span id="vehicle-info-renavam" class="labeled-output" data-label="Renavam">[renavam]</span>
             </div>
 
             <div class="horizontal-separator"></div>
@@ -209,7 +210,7 @@
             <!-- Added date output -->
             <div class="row">
                <i class="material-icons">today</i>
-               <span id="vehicle-info-date" class="labeled-output" data-label="registered in">[date]</span>
+               <span id="vehicle-info-date" class="labeled-output" data-label="Registered&nbsp;in">[date]</span>
             </div>
          </form>
 
@@ -349,20 +350,96 @@
                      [reason]
                   </span>
                </div>
-               <div class="duration flex-vertical-layout">
+               <div class="schedule-duration-output">
                   <span>[start-date]</span>
                   <span class="secondary">[start-time]</span>
                   <i class="material-icons secondary">more_vert</i>
                   <span class="secondary">[end-time]</span>
                   <span>[end-date]</span>
                </div>
-            </li> 
+            </li>
             -->
          </ul>
 
          <!-- Add FAB -->
          <div class="fab-container">
             <button type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">add</button>
+         </div>
+      </section>
+
+
+
+      <!--
+      Schedule info Page
+      -->
+      <section id="schedule-info-section" data-page="schedule-info">
+         <!-- Appbar -->
+         <header class="app-bar flex-horizontal-layout tinted">
+            <button type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
+            <span>Schedule</span>
+         </header>
+
+         <!-- Vehicle sub appbar -->
+         <header class="app-bar flex-horizontal-layout tinted raised vehicle-info-app-bar">
+
+            <!-- Vehicle appbar info -->
+            <div class="flex-horizontal-layout">
+               <div id="schedule-info-vehicle-photo" class="round-thumbnail size-3" style="background-image: url(http://localhost:3000/media/v/p/04.jpg)"></div>
+               <div class="vertical-layout">
+                  <span id="schedule-info-vehicle-title" class="primary">[title] - [plate]</span>
+                  <span id="schedule-info-vehicle-description" class="secondary">[year] - [manufacturer] - [type]</span>
+               </div>
+            </div>
+
+         </header>
+
+         <!-- User sub appbar -->
+         <header id="schedule-info-user-app-bar" class="app-bar flex-horizontal-layout tinted raised vehicle-info-app-bar">
+
+            <!-- User appbar info -->
+            <div class="flex-horizontal-layout">
+               <div class="vertical-layout">
+                  <span id="schedule-info-user-name" class="primary">[user-name]</span>
+               </div>
+            </div>
+
+            <!-- Delete FAB -->
+            <button type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab boundary right">delete</button>
+         </header>
+
+
+         <!-- Schedule' info form -->
+         <form id="schedule-info-form" class="form content-before-fab">
+            <!-- Reason output -->
+            <div class="row">
+               <i class="material-icons">feedback</i>
+               <span id="schedule-info-reason" class="labeled-output" data-label="Reason">[reason]</span>
+            </div>
+
+            <!-- Duration output -->
+            <div class="row">
+               <i class="material-icons">schedule</i>
+               <div class="schedule-duration-output labeled-output" data-label="Duration">
+                  <span>[start-date]</span>
+                  <span class="secondary">[start-time]</span>
+                  <i class="material-icons secondary">more_vert</i>
+                  <span class="secondary">[end-time]</span>
+                  <span>[end-date]</span>
+               </div>
+            </div>
+
+            <div class="horizontal-separator"></div>
+
+            <!-- Added date output -->
+            <div class="row">
+               <i class="material-icons">today</i>
+               <span id="schedule-info-date" class="labeled-output" data-label="Booked&nbsp;on">[date]</span>
+            </div>
+         </form>
+
+         <!-- Edit FAB -->
+         <div class="fab-container">
+            <button type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">edit</button>
          </div>
       </section>
 

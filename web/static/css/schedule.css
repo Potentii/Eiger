@@ -1,0 +1,14 @@
+/**
+ * User app-bar
+ */
+#schedule-info-user-app-bar > div{
+   margin-left: 4em;
+}
+
+/**
+ * Schedule duration
+ */
+#schedule-info-form .secondary{
+	font-size: 0.8em;
+	color: var(--bg-color-contrast-faded);
+}
