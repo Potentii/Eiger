@@ -21,8 +21,8 @@ function createWindow(){
    // *Setting up the window frame:
    win = new BrowserWindow({
       title: 'Eiger',
-      width: 460,
-      height: 560
+      width: 360,
+      height: 580
    });
 
 

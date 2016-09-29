@@ -244,11 +244,11 @@ body{
 
 .flex-horizontal-layout{
 	display: flex;
-	flex-flow: row;
+	flex-direction: row;
 }
 .flex-vertical-layout{
 	display: flex;
-	flex-flow: column;
+	flex-direction: column;
 }
 .flex-horizontal-layout > *, .flex-vertical-layout > *{
 	position: relative;
