@@ -18,7 +18,7 @@
       <link rel="stylesheet" href="./static/css/vehicles.css">
       <link rel="stylesheet" href="./static/css/vehicle-create.css">
       <link rel="stylesheet" href="./static/css/schedules.css">
-      <link rel="stylesheet" href="./static/css/schedule.css">
+      <link rel="stylesheet" href="./static/css/schedule-info.css">
 
       <!-- * JS * -->
       <script src="./static/js/lib/material.min.js"></script>
@@ -280,9 +280,7 @@
                </span>
             </div>
 
-
             <div class="horizontal-separator"></div>
-
 
             <!-- Licence plate input -->
             <div class="row mdl-input-row">
@@ -304,7 +302,7 @@
 
          </form>
 
-         <!-- Edit FAB -->
+         <!-- Done FAB -->
          <div class="fab-container">
             <button type="submit" form="vehicle-create-form" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">done</button>
          </div>
@@ -343,12 +341,8 @@
             <!--
             <li class="card box raised">
                <div class="user vertical-layout">
-                  <span class="primary">
-                     [user-name]
-                  </span>
-                  <span class="secondary">
-                     [reason]
-                  </span>
+                  <span class="primary">[user-name]</span>
+                  <span class="secondary">[reason]</span>
                </div>
                <div class="schedule-duration-output">
                   <span>[start-date]</span>
@@ -394,7 +388,7 @@
          </header>
 
          <!-- User sub appbar -->
-         <header id="schedule-info-user-app-bar" class="app-bar flex-horizontal-layout tinted raised vehicle-info-app-bar">
+         <header class="app-bar flex-horizontal-layout tinted raised user-info-app-bar">
 
             <!-- User appbar info -->
             <div class="flex-horizontal-layout">
@@ -406,7 +400,6 @@
             <!-- Delete FAB -->
             <button type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab boundary right">delete</button>
          </header>
-
 
          <!-- Schedule' info form -->
          <form id="schedule-info-form" class="form content-before-fab">
@@ -440,6 +433,102 @@
          <!-- Edit FAB -->
          <div class="fab-container">
             <button type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">edit</button>
+         </div>
+      </section>
+
+
+
+      <!--
+      Schedule create Page
+      -->
+      <section id="schedule-create-section" data-page="schedule-create">
+         <!-- Appbar -->
+         <header class="app-bar flex-horizontal-layout tinted">
+            <button type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
+            <span>Book new schedule</span>
+         </header>
+
+         <!-- Vehicle sub appbar -->
+         <header class="app-bar flex-horizontal-layout tinted raised vehicle-info-app-bar">
+
+            <!-- Vehicle appbar info -->
+            <div class="flex-horizontal-layout">
+               <div id="schedule-create-vehicle-photo" class="round-thumbnail size-3" style="background-image: url(http://localhost:3000/media/v/p/04.jpg)"></div>
+               <div class="vertical-layout">
+                  <span id="schedule-create-vehicle-title" class="primary">[title] - [plate]</span>
+                  <span id="schedule-create-vehicle-description" class="secondary">[year] - [manufacturer] - [type]</span>
+               </div>
+            </div>
+
+         </header>
+
+         <!-- User sub appbar -->
+         <header id="schedule-create-user-app-bar" class="app-bar flex-horizontal-layout tinted raised user-info-app-bar">
+
+            <!-- User appbar info -->
+            <div class="flex-horizontal-layout">
+               <div class="vertical-layout">
+                  <span id="schedule-create-user-name" class="primary">[user-name]</span>
+               </div>
+            </div>
+
+         </header>
+
+         <!-- Schedule creation form -->
+         <form id="schedule-create-form" class="form content-before-fab">
+
+            <!-- Manufacturer input -->
+            <div class="row mdl-input-row">
+               <i class="material-icons">feedback</i>
+               <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input id="schedule-create-reason" class="mdl-textfield__input" type="text" pattern=".*\S+.*" required="true">
+                  <label class="mdl-textfield__label" for="vehicle-create-reason">Reason</label>
+               </span>
+            </div>
+
+            <div class="horizontal-separator"></div>
+
+            <!-- Start date input -->
+            <div class="row mdl-input-row">
+               <i class="material-icons">schedule</i>
+               <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input id="schedule-create-start-date" class="mdl-textfield__input" type="date" pattern=".*\S+.*" required="true" data-date-format="dd.mm.YYYY">
+                  <label class="mdl-textfield__label" for="vehicle-create-start-date">Start date</label>
+               </span>
+            </div>
+
+            <!-- Start time input -->
+            <div class="row mdl-input-row">
+               <i class="material-icons">_</i>
+               <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input id="schedule-create-start-time" class="mdl-textfield__input" type="time" pattern=".*\S+.*" required="true">
+                  <label class="mdl-textfield__label" for="vehicle-create-start-time">Start time</label>
+               </span>
+            </div>
+
+            <!-- End date input -->
+            <div class="row mdl-input-row">
+               <i class="material-icons">_</i>
+               <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input id="schedule-create-end-date" class="mdl-textfield__input" type="date" pattern=".*\S+.*" required="true">
+                  <label class="mdl-textfield__label" for="vehicle-create-end-date">End date</label>
+               </span>
+            </div>
+
+            <!-- End time input -->
+            <div class="row mdl-input-row">
+               <i class="material-icons">_</i>
+               <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input id="schedule-create-end-time" class="mdl-textfield__input" type="time" pattern=".*\S+.*" required="true">
+                  <label class="mdl-textfield__label" for="vehicle-create-end-time">End time</label>
+               </span>
+            </div>
+
+         </form>
+
+         <!-- Done FAB -->
+         <div class="fab-container">
+            <button type="submit" form="schedule-create-form" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">done</button>
          </div>
       </section>
 
