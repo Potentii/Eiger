@@ -51,6 +51,15 @@ section > .list{
 
 
 /**
+ * User app-bar
+ */
+.user-info-app-bar > div{
+   margin-left: 4em;
+}
+
+
+
+/**
  * Schedule duration output
  */
 .schedule-duration-output{
@@ -102,6 +111,22 @@ section > .list{
 .form > .row.mdl-input-row{
 	align-items: center;
 	padding: 0.5em 2em;
+}
+
+
+
+/**
+ * MDL correction for date and time inputs
+ */
+.mdl-input-row input[type="date"]:invalid,
+.mdl-input-row input[type="time"]:invalid{
+   color: rgba(0, 0, 0, 0.0);
+}
+.mdl-input-row input[type="date"]:valid,
+.mdl-input-row input[type="date"]:focus,
+.mdl-input-row input[type="time"]:valid,
+.mdl-input-row input[type="time"]:focus{
+   color: inherit;
 }
 
 
