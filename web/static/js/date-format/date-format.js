@@ -20,7 +20,7 @@ var df = (function(){
 
 
    /**
-    * Formats a date as the MySQL's datetime string format
+    * Formats a date as the MySQL's datetime string format (DD-MM-YYYY HH:mm:ss)
     * @param  {Date} date  The date to format
     * @return {string}     The formatted date and time
     * @author Guilherme Reginaldo Ruella
@@ -43,7 +43,7 @@ var df = (function(){
 
 
    /**
-    * Formats a date as the MySQL's datetime string format (only the date part)
+    * Formats a date as the MySQL's datetime string format, but only the date part (DD-MM-YYYY)
     * @param  {Date} date  The date to format
     * @return {string}     The formatted date
     * @author Guilherme Reginaldo Ruella
@@ -77,10 +77,47 @@ var df = (function(){
 
 
 
+   /**
+    * Formats a date as HH:mm:ss string
+    * @param  {Date} date  The date to format
+    * @return {string}     The formatted date
+    * @author Guilherme Reginaldo Ruella
+    */
+   function asShortTime(date){
+      // *Getting the time:
+      let h = pad10(date.getHours());
+      let m = pad10(date.getMinutes());
+      let s = pad10(date.getSeconds());
+
+      // *Returning the string:
+      return `${h}:${m}:${s}`;
+   }
+
+
+
+   /**
+    * Formats a date as HH:mm string
+    * @param  {Date} date  The date to format
+    * @return {string}     The formatted date
+    * @author Guilherme Reginaldo Ruella
+    */
+   function asShorterTime(date){
+      // *Getting the time:
+      let h = pad10(date.getHours());
+      let m = pad10(date.getMinutes());
+
+      // *Returning the string:
+      return `${h}:${m}`;
+   }
+
+
+
    // *Exporting this module:
    return {
       asMysqlDatetime: asMysqlDatetime,
       asMysqlDate: asMysqlDate,
-      asShortDate: asShortDate
+      asShortDate: asShortDate,
+      asShortTime: asShortTime,
+      asShorterTime: asShorterTime
    };
 })();
