@@ -3,19 +3,46 @@
 
 /**
  * Builds a new list row for the log list
- * @param  {string} data The log text
+ * @param  {object} data The log object
  * @return {jQuery}      The row HTML element
  * @author Guilherme Reginaldo Ruella
  */
 function logRowFactory(data){
-   // *Processing the log, giving it some highlighting:
-   data = data.replace(/(\/.*\s)(\d)(\d)(\d)/i, '<span class="bold">$1</span><span data-status="$200">$2$3$4</span>');
    // *Building the row element:
-   let row = $('<li>').addClass('row');
-   // *Building the row's content element:
-   $('<span>').addClass('primary').appendTo(row).append(data);
+   let $row = $('<li>')
+      .addClass('row');
+
+   // *Building the status output:
+   $('<span>')
+      .addClass('status')
+      .attr('data-status', Math.floor(data.status/100)*100)
+      .text(data.status)
+      .appendTo($row);
+
+   // *Building the vertical line:
+   $('<div>')
+      .addClass('vertical-line')
+      .appendTo($row);
+
+   // *Building the method and route container:
+   let $method_route = $('<div>')
+      .addClass('vertical-layout')
+      .appendTo($row);
+
+   // *Building the method output:
+   $('<span>')
+      .addClass('primary')
+      .text(data.method)
+      .appendTo($method_route);
+
+   // *Building the route output:
+   $('<span>')
+      .addClass('secondary')
+      .text(data.url)
+      .appendTo($method_route);
+
    // *Returning the row:
-   return row;
+   return $row;
 }
 
 
