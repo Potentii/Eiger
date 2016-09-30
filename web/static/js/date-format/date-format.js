@@ -14,7 +14,7 @@ var df = (function(){
     * @author Guilherme Reginaldo Ruella
     */
    function pad10(v){
-      return v => v<10 ? '0'+v : v;
+      return v<10 ? '0'+v : v;
    }
 
 
@@ -121,3 +121,8 @@ var df = (function(){
       asShorterTime: asShorterTime
    };
 })();
+
+
+
+let date = new Date();
+console.log(df.asShortDate(date));
