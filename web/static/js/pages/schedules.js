@@ -67,12 +67,24 @@ function requestSchedules(){
          let schedules_user = $('<span>').addClass('primary').text('Ralf Pablo').appendTo(vertical_layout_div);
          let schedules_reason = $('<span>').addClass('secondary').text(element.reason).appendTo(vertical_layout_div);
 
+
          let schedules_duration_div = $('<div>').addClass('schedule-duration-output').appendTo(schedules_li);
-         let schedules_start_date = $('<span>').text(new Date(element.start_date)).appendTo(schedules_duration_div);
-         let schedules_start_time = $('<span>').addClass('secondary').text().appendTo(schedules_duration_div);
-         let icon = $('<i>').addClass('material-icons secondary').text('more_vert').appendTo(schedules_duration_div);
-         let schedules_end_time = $('<span>').addClass('secondary').text().appendTo(schedules_duration_div);
-         let schedules_end_date = $('<span>').text(new Date(element.end_date)).appendTo(schedules_duration_div);
+
+         let start_date = new Date(element.start_date);
+         console.log(df.asShortDate(start_date));
+         let schedules_start_date = $('<span>').text();
+
+
+
+         $(schedules_start_date).appendTo(schedules_duration_div);
+         let schedules_start_time = $('<span>').addClass('secondary').text();
+         $(schedules_start_time).appendTo(schedules_duration_div);
+         let icon = $('<i>').addClass('material-icons secondary').text('more_vert');
+         $(icon).appendTo(schedules_duration_div);
+         let schedules_end_time = $('<span>').addClass('secondary').text();
+         $(schedules_end_time).appendTo(schedules_duration_div);
+         let schedules_end_date = $('<span>').text(new Date(element.end_date));
+         $(schedules_end_date).appendTo(schedules_duration_div);
       });
    }).fail((xhr, textStatus, err) => {
       console.log(textStatus);
