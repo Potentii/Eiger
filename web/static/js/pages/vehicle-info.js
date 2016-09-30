@@ -30,13 +30,13 @@ function requestVehicle(id){
 
    // *Request Vehicle to the vehicles data base:
    $.ajax({
-      url: 'http://localhost:3000/api/v1/vehicles/'+id,
+      url: rest_url + '/api/v1/vehicles/' + id,
       method: 'GET',
       headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
       }).done((data, textStatus, xhr) => {
 
          // *Setting the vehicle's photo:
-         $('#vehicle-info-photo').css('background-image', 'url(http://localhost:3000/media/v/p/'+ data.photo +')');
+         $('#vehicle-info-photo').css('background-image', 'url(' + rest_url + '/media/v/p/'+ data.photo +')');
 
          // *Setting the vehicle's title and plate:
          $('#vehicle-info-title').text(data.title+" - "+data.plate);

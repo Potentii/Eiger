@@ -1,4 +1,6 @@
 // *Global Variables:
+let rest_url = 'http://localhost:3000';
+
 // *Variable of authentication:
 var authenticated = false;
 
@@ -15,7 +17,7 @@ spa.onNavigate('login', (page, params) => {
 
       // *Sends to the server Username and Password through the method POST:
       $.ajax({
-         url: 'http://localhost:3000/auth',
+         url: rest_url + '/auth',
          method: 'POST',
          contentType: 'application/json;charset=UTF-8',
          data: JSON.stringify({login: text_username, pass: text_pass})
@@ -59,7 +61,7 @@ spa.onNavigate('auth', (page, params) => {
       // *If not null:
       // *Requests authentication:
       $.ajax({
-         url: 'http://localhost:3000/auth',
+         url: rest_url + '/auth',
          method: 'GET',
          headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
       }).done((data, textStatus, xhr) => {

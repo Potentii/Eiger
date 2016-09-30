@@ -28,7 +28,7 @@ function requestVehicles(){
 
    // *Requests Vehicles to the vehicles data base:
    $.ajax({
-      url: 'http://localhost:3000/api/v1/vehicles',
+      url: rest_url + '/api/v1/vehicles',
       method: 'GET',
       headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
    }).done((data, textStatus, xhr) => {
@@ -43,7 +43,7 @@ function requestVehicles(){
 
          // *Divs layout horizontal/vertical:
          let horizontal_layout_div = $('<div>').addClass('info flex-horizontal-layout').appendTo(card_li);
-         let image_div = $('<div>').addClass('round-thumbnail size-4').css('background-image', 'url(http://localhost:3000/media/v/p/'+ element.photo +')').appendTo(horizontal_layout_div);
+         let image_div = $('<div>').addClass('round-thumbnail size-4').css('background-image', 'url('+ rest_url + '/media/v/p/' + element.photo +')').appendTo(horizontal_layout_div);
          let vertical_layout_div = $('<div>').addClass('vertical-layout').appendTo(horizontal_layout_div);
 
          // *Spans:
