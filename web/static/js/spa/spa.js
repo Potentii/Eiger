@@ -193,6 +193,7 @@ var spa = (function(){
 
    /**
     * Checks if a page exists, given its name
+    * @private
     * @param  {string} page_name The page's name
     * @return {boolean}          True if it exists, false otherwise
     * @author Guilherme Reginaldo Ruella
@@ -239,6 +240,7 @@ var spa = (function(){
 
    /**
     * Handles routing when user enter the application
+    * @private
     * @author Guilherme Reginaldo Ruella
     */
    function onUserEnter(){
