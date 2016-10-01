@@ -55,6 +55,34 @@ function requestVehicles(){
          let horizontal_line_div = $('<div>').addClass('horizontal-line').appendTo(card_li);
          let vertical_line_div = $('<div>').addClass('vertical-line').appendTo(card_li);
          // *--------------------------HERE'S THE PART OF THE BALLS---------------------------------:
+
+         let days = 12;
+
+         Date.prototype.addDays = function(days) {
+            let dat = new Date(this.valueOf())
+            dat.setDate(dat.getDate() + days);
+            return dat;
+         }
+
+         function getDates(startDate, stopDate) {
+            let dateArray = new Array();
+            let currentDate = startDate;
+            while (currentDate <= stopDate) {
+               dateArray.push(currentDate)
+               currentDate = currentDate.addDays(1);
+            }
+            return dateArray;
+         }
+
+         let dateArray = getDates(new Date(), (new Date()).addDays(days));
+
+
+         dateArray.forEach((element, index) => {
+
+               console.log(df.asShortDate(element));
+
+         });
+
       });
 
       // *Event by clicking on a vehicle:
