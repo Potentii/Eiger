@@ -121,8 +121,3 @@ var df = (function(){
       asShorterTime: asShorterTime
    };
 })();
-
-
-
-let date = new Date();
-console.log(df.asShortDate(date));
