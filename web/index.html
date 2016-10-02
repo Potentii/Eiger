@@ -5,29 +5,39 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width"/>
 
-      <!-- * CSS * -->
-      <link rel="stylesheet" href="./static/css/lib/material.min.css">
-      <link rel="stylesheet" href="./static/css/material-icons.css">
 
-      <link rel="stylesheet" href="./static/css/color.css">
+      <!-- * CSS * -->
+      <!-- * Fonts * -->
       <link rel="stylesheet" href="./static/css/font.css">
+
+      <!-- * Colors * -->
+      <link rel="stylesheet" href="./static/css/color.css">
+
+      <!-- * Libs * -->
+      <link rel="stylesheet" href="./static/css/lib/material.min.css">
+
+      <!-- * General * -->
       <link rel="stylesheet" href="./static/css/common.css">
 
+      <!-- * Pages * -->
       <link rel="stylesheet" href="./static/css/all.css">
       <link rel="stylesheet" href="./static/css/login.css">
       <link rel="stylesheet" href="./static/css/vehicles.css">
-      <link rel="stylesheet" href="./static/css/vehicle-create.css">
       <link rel="stylesheet" href="./static/css/schedules.css">
       <link rel="stylesheet" href="./static/css/schedule-info.css">
 
+
       <!-- * JS * -->
+      <!-- * Libs * -->
       <script src="./static/js/lib/material.min.js"></script>
       <script src="./static/js/lib/jquery.min.js"></script>
 
+      <!-- * Util * -->
       <script src="./static/js/util/Iterator.js"></script>
       <script src="./static/js/util/HandledEvent.js"></script>
       <script src="./static/js/util/AutoConsumableQueue.js"></script>
 
+      <!-- * Modules * -->
       <script src="./static/js/date-format/date-format.js"></script>
 
       <script src="./static/js/snack/snack.js"></script>
@@ -42,9 +52,12 @@
 
       <script src="./static/js/pages/subscriptions.js"></script>
 
+      <!-- * Pages * -->
       <script src="./static/js/pages/login.js"></script>
       <script src="./static/js/pages/index.js"></script>
       <script src="./static/js/pages/vehicle-info.js"></script>
+
+      <!-- * Dialogs * -->
 
       <title>Eiger</title>
    </head>
@@ -84,7 +97,7 @@
             <div class="vertical-line"></div>
 
             <!-- Login form -->
-            <form id="login-form" class="center">
+            <form id="login-form" class="center" autocomplete="on">
                <!-- Username input -->
                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input class="mdl-textfield__input" type="text" id="login-username-in">
@@ -242,10 +255,14 @@
 
             <!-- Vehicle appbar -->
             <div class="flex-horizontal-layout">
-               <div id="vehicle-create-pic" class="round-thumbnail size-3 raised">
-                  <i class="material-icons">add_a_photo</i>
+
+               <!-- Photo input -->
+               <div class="round-thumbnail-image-input round-thumbnail size-3 raised">
+                  <input id="vehicle-create-pic" type="file" accept="image/*" form="vehicle-create-form">
+                  <button type="button" class="material-icons mdl-js-button mdl-js-ripple-effect" onclick="$('#vehicle-create-pic').click()">add_a_photo</button>
                </div>
 
+               <!-- Title input -->
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input id="vehicle-create-title" class="mdl-textfield__input" type="text" form="vehicle-create-form" pattern=".*\S+.*" required="true">
                   <label class="mdl-textfield__label" for="vehicle-create-title">Vehicle title</label>
@@ -256,7 +273,7 @@
 
 
          <!-- Vehicle creation form -->
-         <form id="vehicle-create-form" class="form content-before-fab">
+         <form id="vehicle-create-form" class="form content-before-fab" autocomplete="off">
 
             <!-- Manufacturer input -->
             <div class="row mdl-input-row">
@@ -310,6 +327,98 @@
          <!-- Done FAB -->
          <div class="fab-container">
             <button type="submit" form="vehicle-create-form" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">done</button>
+         </div>
+      </section>
+
+
+
+      <!--
+      Vehicle update Page
+      -->
+      <section id="vehicle-update-section" data-page="vehicle-update">
+         <!-- Appbar -->
+         <header class="app-bar flex-horizontal-layout tinted">
+            <button type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
+            <span>Update vehicle</span>
+         </header>
+
+         <!-- Sub appbar -->
+         <header class="app-bar flex-horizontal-layout tinted raised vehicle-info-app-bar">
+
+            <!-- Vehicle appbar -->
+            <div class="flex-horizontal-layout">
+
+               <!-- Photo input -->
+               <div class="round-thumbnail-image-input round-thumbnail size-3 raised">
+                  <input id="vehicle-update-pic" type="file" accept="image/*" form="vehicle-update-form">
+                  <button type="button" class="material-icons mdl-js-button mdl-js-ripple-effect" onclick="$('#vehicle-update-pic').click()">add_a_photo</button>
+               </div>
+
+               <!-- Title input -->
+               <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input id="vehicle-update-title" class="mdl-textfield__input" type="text" form="vehicle-update-form" pattern=".*\S+.*" required="true">
+                  <label class="mdl-textfield__label" for="vehicle-update-title">Vehicle title</label>
+               </span>
+            </div>
+
+         </header>
+
+
+         <!-- Vehicle creation form -->
+         <form id="vehicle-update-form" class="form content-before-fab" autocomplete="off">
+
+            <!-- Manufacturer input -->
+            <div class="row mdl-input-row">
+               <i class="material-icons">directions_car</i>
+               <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input id="vehicle-update-manufacturer" class="mdl-textfield__input" type="text" pattern=".*\S+.*" required="true">
+                  <label class="mdl-textfield__label" for="vehicle-update-manufacturer">Manufacturer</label>
+               </span>
+            </div>
+
+            <!-- Type input -->
+            <div class="row mdl-input-row">
+               <i class="material-icons">_</i>
+               <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input id="vehicle-update-type" class="mdl-textfield__input" type="text" pattern=".*\S+.*" required="true">
+                  <label class="mdl-textfield__label" for="vehicle-update-type">Type</label>
+               </span>
+            </div>
+
+            <!-- Year input -->
+            <div class="row mdl-input-row">
+               <i class="material-icons">_</i>
+               <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input id="vehicle-update-year" class="mdl-textfield__input" type="text" pattern=".*\S+.*" required="true">
+                  <label class="mdl-textfield__label" for="vehicle-update-year">Year</label>
+               </span>
+            </div>
+
+            <div class="horizontal-separator"></div>
+
+            <!-- Licence plate input -->
+            <div class="row mdl-input-row">
+               <i class="material-icons">chrome_reader_mode</i>
+               <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input id="vehicle-update-plate" class="mdl-textfield__input" type="text" pattern=".*\S+.*" required="true">
+                  <label class="mdl-textfield__label" for="vehicle-update-plate">Licence plate</label>
+               </span>
+            </div>
+
+            <!-- Renavam input -->
+            <div class="row mdl-input-row">
+               <i class="material-icons">_</i>
+               <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input id="vehicle-update-renavam" class="mdl-textfield__input" type="text" pattern=".*\S+.*" required="true">
+                  <label class="mdl-textfield__label" for="vehicle-update-renavam">Renavam</label>
+               </span>
+            </div>
+
+         </form>
+
+         <!-- Done FAB -->
+         <div class="fab-container">
+            <button type="submit" form="vehicle-update-form" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">done</button>
          </div>
       </section>
 
@@ -480,7 +589,7 @@
          </header>
 
          <!-- Schedule creation form -->
-         <form id="schedule-create-form" class="form content-before-fab">
+         <form id="schedule-create-form" class="form content-before-fab" autocomplete="off">
 
             <!-- Manufacturer input -->
             <div class="row mdl-input-row">
