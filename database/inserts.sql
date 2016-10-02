@@ -29,13 +29,13 @@ insert into `vehicle` (`title`, `plate`, `year`, `type`, `renavam`, `manufacture
 -- Entering data in the table schedule
 
 insert into `schedule` (`id_vehicle_fk`, `id_user_fk`, `start_date`,`end_date`, `reason`)
-	values (2, 3, '2016-09-19 08:00:00', '2016-09-19 17:00:00', 'Negócios');
+	values (2, 3, '2016-10-01 08:00:00', '2016-10-01 17:00:00', 'Negócios');
 
 insert into `schedule` (`id_vehicle_fk`, `id_user_fk`, `start_date`,`end_date`, `reason`)
-	values (1, 1, '2016-09-20 10:30:00', '2016-09-27 15:00:00', 'Viagem');
+	values (1, 1, '2016-10-05 10:30:00', '2016-10-06 15:00:00', 'Viagem');
 
 insert into `schedule` (`id_vehicle_fk`, `id_user_fk`, `start_date`,`end_date`, `reason`)
-	values (3, 2, '2016-09-23 09:00:00', '2016-09-25 19:00:00', 'Evento');
+	values (3, 2, '2016-10-03 09:00:00', '2016-10-04 19:00:00', 'Evento');
 
 
 
