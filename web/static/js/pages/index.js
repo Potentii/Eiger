@@ -7,14 +7,15 @@ spa.onNavigate('', (page, params) => {
       // *If true:
       // *List the vehicles:
       requestVehicles();
+
    }
 });
 
 // *Define ul like empty after unload the page:
 spa.onUnload('', (page, params) => {
-   $('#vehicles-list').empty();
-   var card_ul = $('<ul>');
-   $(card_ul).attr("id", 'vehicles-list').addClass('list');
+   var card_ul = $('#vehicles-list');
+   card_ul.empty();
+   card_ul.off('click');
 });
 
 /**
@@ -25,6 +26,7 @@ function requestVehicles(){
 
    // *Getting the key and the token:
    let auth = getAuthentication();
+
 
    // *Requests Vehicles to the vehicles data base:
    $.ajax({
@@ -55,12 +57,15 @@ function requestVehicles(){
          let horizontal_line_div = $('<div>').addClass('horizontal-line').appendTo(card_li);
          let vertical_line_div = $('<div>').addClass('vertical-line').appendTo(card_li);
          // *--------------------------HERE'S THE PART OF THE BALLS---------------------------------:
+
+         let button_ul = $('<ul>').addClass('schedules flex-horizontal-layout').appendTo(card_li);
+         requestSchedules(element.id, button_ul);
       });
 
       // *Event by clicking on a vehicle:
-      $('li').on('click', '.info', function(){
-         let id = $(this).parent('li').data("id");
-         console.log(id);
+      card_ul.on('click', 'li > .info', function(){
+         var id = $(this).parent('li').data('id');
+
          // *Sending the id the li by parameter:
          spa.navigateTo('vehicle-info', {id: id});
       });
@@ -77,4 +82,42 @@ function requestVehicles(){
    }).fail((xhr, textStatus, err) => {
       console.log(textStatus);
    });
+}
+
+
+function requestSchedules(id, button_ul) {
+
+   let auth = getAuthentication();
+   let dates = getNextDays(6);
+
+   dates.forEach((element, index) => {
+
+      let button_li = $('<li>').addClass('vertical-layout').attr('data-date', df.asMysqlDate(element)).appendTo(button_ul);
+      let date_span = $('<span>').addClass('secondary').text(df.asShortDate(element)).appendTo(button_li);
+      let button_schedule = $('<button>').attr("type", 'button').addClass('round').css('background-color',  'rgb(230, 180, 10)').appendTo(button_li);
+
+      $.ajax({
+         url: 'http://localhost:3000/api/v1/vehicles/'+id+'/reservations/'+ df.asMysqlDate(element),
+         method: 'GET',
+         headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
+      }).done((data, textStatus, xhr) => {
+         button_schedule.text(data.length);
+      }).fail((xhr, textStatus, err) => {
+         console.log(textStatus);
+      });
+   });
+}
+
+
+
+function getNextDays(days_quantity){
+   var vet = [];
+
+   for(var i=0; i<days_quantity; i++) {
+      var data_atual = new Date();
+      var data_futura_ms = data_atual.setDate(data_atual.getDate() + i);
+      var data_futura = new Date(data_futura_ms);
+      vet.push(data_futura);
+   }
+   return vet;
 }

@@ -121,7 +121,3 @@ var df = (function(){
       asShorterTime: asShorterTime
    };
 })();
-
-
-
-let date = new Date();

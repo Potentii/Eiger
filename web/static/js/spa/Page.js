@@ -15,6 +15,7 @@ class Page{
    /**
     * Retrieves the page's HTML element
     * @return {jQuery}  The HTML element
+    * @author Guilherme Reginaldo Ruella
     */
    getDOM(){
       return $('[data-page=\'' + this._name + '\']');

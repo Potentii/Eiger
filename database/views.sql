@@ -34,3 +34,4 @@ from user u inner join permission p;
 
 
 
+
