@@ -4,10 +4,9 @@ spa.onNavigate('schedules', (page, params) => {
    // *Checking if the user was authenticated:
 if(authenticated == true) {
    // *If true:
-   // *List the vehicles:
-   requestVehicle();
-   requestSchedules();
 
+   requestVehicleSchedules();
+   requestUsersSchedules();
 }
 });
 
@@ -18,13 +17,14 @@ spa.onUnload('schedules', (page, params) => {
    $(schedules_ul).attr("id", 'schedules-list').addClass('list content-before-fab');
 });
 
-function requestVehicle(){
+
+function requestVehicleSchedules(id, date){
    // *Getting the key and the token:
    let auth = getAuthentication();
 
    // *Requests Vehicles to the vehicles data base:
    $.ajax({
-      url: rest_url + '/api/v1/vehicles/1',
+      url: rest_url + '/api/v1/vehicles/' + 1,
       method: 'GET',
       headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
    }).done((data, textStatus, xhr) => {
@@ -34,7 +34,7 @@ function requestVehicle(){
       $('#schedules-vehicle-title').text(data.title+" - "+data.plate);
       $('#schedules-vehicle-description').text(data.type+" - "+data.year+" - "+data.manufacturer);
 
-      $('#schedules-vehicle-date').text('30/09/2016');
+      $('#schedules-vehicle-date').text(date);
 
    }).fail((xhr, textStatus, err) => {
       console.log(textStatus);
@@ -42,48 +42,51 @@ function requestVehicle(){
 }
 
 
-function requestSchedules(){
+function requestUsersSchedules(id){
    // *Getting the key and the token:
    let auth = getAuthentication();
 
    // *Requests Vehicles to the vehicles data base:
    $.ajax({
-      url: rest_url + '/api/v1/schedules',
+      url: rest_url + '/api/v1/vehicles/' + id + '/reservations',
       method: 'GET',
       headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
    }).done((data, textStatus, xhr) => {
-      console.log(data);
 
       let schedules_ul = $('#schedules-list');
 
       // *Iterate and create vehicles list:
       data.forEach(function(element, index){
+
          // *Father li:
          let schedules_li = $('<li>');
          $(schedules_li).addClass('card box raised').appendTo(schedules_ul);
 
          // *Divs layout horizontal/vertical:
          let vertical_layout_div = $('<div>').addClass('user vertical-layout').appendTo(schedules_li);
-         let schedules_user = $('<span>').addClass('primary').text('Ralf Pablo').appendTo(vertical_layout_div);
-         let schedules_reason = $('<span>').addClass('secondary').text(element.reason).appendTo(vertical_layout_div);
-
+         let schedules_user = $('<span>').addClass('primary').text(element.user.name).appendTo(vertical_layout_div);
+         let schedules_reason = $('<span>').addClass('secondary').text(element.schedule.reason).appendTo(vertical_layout_div);
 
          let schedules_duration_div = $('<div>').addClass('schedule-duration-output').appendTo(schedules_li);
 
-         let start_date = new Date(element.start_date);
-         console.log(df.asShortDate(start_date));
-         let schedules_start_date = $('<span>').text();
-
-
-
+         let start_date = new Date(element.schedule.start_date);
+         let schedules_start_date = $('<span>').text(df.asShortDate(start_date));
          $(schedules_start_date).appendTo(schedules_duration_div);
-         let schedules_start_time = $('<span>').addClass('secondary').text();
+
+         let start_time = new Date(element.schedule.start_date);
+         let schedules_start_time = $('<span>').addClass('secondary').text(df.asShorterTime(start_time));
          $(schedules_start_time).appendTo(schedules_duration_div);
+
+         // *Icon between dates:
          let icon = $('<i>').addClass('material-icons secondary').text('more_vert');
          $(icon).appendTo(schedules_duration_div);
-         let schedules_end_time = $('<span>').addClass('secondary').text();
+
+         let end_time = new Date(element.schedule.end_date);
+         let schedules_end_time = $('<span>').addClass('secondary').text(df.asShorterTime(end_time));
          $(schedules_end_time).appendTo(schedules_duration_div);
-         let schedules_end_date = $('<span>').text(new Date(element.end_date));
+
+         let end_date = new Date(element.schedule.end_date);
+         let schedules_end_date = $('<span>').text(df.asShortDate(end_date));
          $(schedules_end_date).appendTo(schedules_duration_div);
       });
    }).fail((xhr, textStatus, err) => {

@@ -73,8 +73,8 @@ spa.onNavigate('auth', (page, params) => {
          spa.navigateTo(params.pagina_anterior);
       }).fail((xhr, textStatus, err) => {
          console.log(textStatus);
+         spa.navigateTo('login');
       });
-
    }
 });
 

@@ -125,4 +125,3 @@ var df = (function(){
 
 
 let date = new Date();
-console.log(df.asShortDate(date));

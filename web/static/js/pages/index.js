@@ -36,7 +36,7 @@ function requestVehicles(){
       let card_ul = $('#vehicles-list');
 
       // *Iterate and create vehicles list:
-      data.forEach(function(element, index){
+      data.forEach((element, index) => {
          // *Father li:
          let card_li = $('<li>');
          $(card_li).attr("data-id", element.id).addClass('card box raised').appendTo(card_ul);
@@ -59,10 +59,20 @@ function requestVehicles(){
 
       // *Event by clicking on a vehicle:
       $('li').on('click', '.info', function(){
-         var id = $(this).parent('li').data("id");
+         let id = $(this).parent('li').data("id");
          console.log(id);
          // *Sending the id the li by parameter:
          spa.navigateTo('vehicle-info', {id: id});
+      });
+
+      // *Event by clicking on a **********:
+      $('li').on('click', '.info', function(){
+         let id = $(this).parent('li').parent('li').data("id");
+         let date = $(this).parent('li').data("date");
+         console.log(id);
+         console.log(date);
+         // *Sending the id the li by parameter:
+         spa.navigateTo('schedules', {id: id, date: date});
       });
    }).fail((xhr, textStatus, err) => {
       console.log(textStatus);
