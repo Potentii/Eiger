@@ -18,6 +18,8 @@ spa.onNavigate('vehicle-info', (page, params) => {
    }
 });
 
+
+
 /**
  * Requests the vehicle to the database
  * @param  {number} id number ID the vehicle
@@ -46,7 +48,8 @@ function requestVehicle(id){
 
          // *Setting the vehicle's renavam and registred date:
          $('#vehicle-info-renavam').text(data.renavam);
-         $('#vehicle-info-date').text(data.date);
+         let date = new Date(data.date);
+         $('#vehicle-info-date').text(df.asMysqlDate(date));
 
       }).fail((xhr, textStatus, err) => {
          console.log(textStatus);

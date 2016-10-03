@@ -72,7 +72,6 @@ spa.onNavigate('auth', (page, params) => {
          // *Send it to the previous page:
          spa.navigateTo(params.pagina_anterior);
       }).fail((xhr, textStatus, err) => {
-         console.log(textStatus);
          spa.navigateTo('login');
       });
    }

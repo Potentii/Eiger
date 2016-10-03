@@ -1,4 +1,6 @@
 
+
+
 // *When navigate the page Index:
 spa.onNavigate('', (page, params) => {
 
@@ -7,16 +9,23 @@ spa.onNavigate('', (page, params) => {
       // *If true:
       // *List the vehicles:
       requestVehicles();
-
    }
 });
 
+
+
 // *Define ul like empty after unload the page:
 spa.onUnload('', (page, params) => {
-   var card_ul = $('#vehicles-list');
+   let card_ul = $('#vehicles-list');
    card_ul.empty();
    card_ul.off('click');
+   let button_ul = $('.schedules');
+   button_ul.empty();
+   button_ul.off('click');
 });
+
+
+
 
 /**
 * Requests the vehicles to the database
@@ -26,7 +35,6 @@ function requestVehicles(){
 
    // *Getting the key and the token:
    let auth = getAuthentication();
-
 
    // *Requests Vehicles to the vehicles data base:
    $.ajax({
@@ -56,33 +64,26 @@ function requestVehicles(){
          // *Divs line horizontal/vertical:
          let horizontal_line_div = $('<div>').addClass('horizontal-line').appendTo(card_li);
          let vertical_line_div = $('<div>').addClass('vertical-line').appendTo(card_li);
-         // *--------------------------HERE'S THE PART OF THE BALLS---------------------------------:
 
+         //
          let button_ul = $('<ul>').addClass('schedules flex-horizontal-layout').appendTo(card_li);
+
+         //
          requestSchedules(element.id, button_ul);
       });
 
       // *Event by clicking on a vehicle:
       card_ul.on('click', 'li > .info', function(){
-         var id = $(this).parent('li').data('id');
+         let id = $(this).parent().data('id');
 
          // *Sending the id the li by parameter:
          spa.navigateTo('vehicle-info', {id: id});
-      });
-
-      // *Event by clicking on a **********:
-      $('li').on('click', '.info', function(){
-         let id = $(this).parent('li').parent('li').data("id");
-         let date = $(this).parent('li').data("date");
-         console.log(id);
-         console.log(date);
-         // *Sending the id the li by parameter:
-         spa.navigateTo('schedules', {id: id, date: date});
       });
    }).fail((xhr, textStatus, err) => {
       console.log(textStatus);
    });
 }
+
 
 
 function requestSchedules(id, button_ul) {
@@ -97,15 +98,27 @@ function requestSchedules(id, button_ul) {
       let button_schedule = $('<button>').attr("type", 'button').addClass('round').css('background-color',  'rgb(230, 180, 10)').appendTo(button_li);
 
       $.ajax({
-         url: 'http://localhost:3000/api/v1/vehicles/'+id+'/reservations/'+ df.asMysqlDate(element),
+         url: 'http://localhost:3000/api/v1/vehicles/' + id + '/reservations/' + df.asMysqlDate(element),
          method: 'GET',
          headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
       }).done((data, textStatus, xhr) => {
+         //
          button_schedule.text(data.length);
+
       }).fail((xhr, textStatus, err) => {
          console.log(textStatus);
       });
    });
+
+      // *Event by clicking on a schedule:
+      button_ul.on('click', 'li > button', function(){
+      let id = $(this).parent().parent().parent().data('id');
+      let date = $(this).parent().data('date');
+
+      // *Sending the id and date of the li by parameter:
+      spa.navigateTo('schedules', {id: id, date: date});
+   });
+
 }
 
 
