@@ -97,6 +97,9 @@ body{
 	background: none !important;
 	box-shadow: none;
 }
+.app-bar:not(.tinted) .fab, .app-bar:not(.tinted) > i.material-icons{
+	color: var(--bg-color-contrast-icon) !important;
+}
 .app-bar .fab:not(.right){
 	margin-right: 0.5em;
 }
@@ -123,6 +126,14 @@ body{
 }
 .app-bar > .fab.boundary.right{
 	right: 0.5em;
+}
+/**
+ * Appbar icon
+ */
+.app-bar > i.material-icons{
+	font-size: 1.2em;
+	flex-grow: 0;
+	padding: 1em 0 1em 1em;
 }
 
 
@@ -367,59 +378,15 @@ button.raised:active, a.raised:active, .dragging.raised {
 
 
 /* ========== * ========== * ========== * ==========
- * Form
- * ========== * ========== * ========== * ==========
- */
-/*
-.form > input, .form > select, .form > button, .form > .label, .form > .radio-group{
-   position: relative;
-   display: block;
-   width: 100%;
-   margin: 1em 0;
-}
-.form > input, .form > select, .form > .label, .form > .radio-group{
-   padding: 0.5em 1em;
-   font-size: 1.1em;
-}
-.form > .label{
-	color: var(--bg-color-contrast-faded);
-}
-.form > select, .form > select > option[value=""]{
-	color: var(--bg-color-contrast);
-}
-.form > select > option{
-	color: var(--bg-color-contrast);
-}
-*/
-/*
-.radio-group > *{
-	position: relative;
-	display: block;
-	width: 100%;
-	margin: 0.5em 0;
-	color: var(--bg-color-contrast);
-}
-.radio-group > .label{
-   font-size: 0.8em;
-}
-.radio-group > label, .radio-group > input[type="radio"]{
-	padding: 0.5em 1em;
-   font-size: 0.7em;
-}
-.radio-group input[type="radio"]{
-	margin-right: 0.5em;
-}
-*/
-
-/**
  * Forms
+ * ========== * ========== * ========== * ==========
  */
 .form{
 	width: 100%;
 	overflow-y: auto;
 }
 /**
- * Each row of the form
+ * Form rows
  */
 .form > .row{
 	display: flex;
@@ -435,7 +402,7 @@ button.raised:active, a.raised:active, .dragging.raised {
 	background: var(--bg-color-dark);
 }
 /**
- * Row icon
+ * Form row icon
  */
 .form > .row > .material-icons{
 	padding-right: 1.5em;
@@ -444,8 +411,46 @@ button.raised:active, a.raised:active, .dragging.raised {
 
 
 
+/* ========== * ========== * ========== * ==========
+ * Round image input
+ * ========== * ========== * ========== * ==========
+ */
+.round-thumbnail-image-input{
+   display: flex;
+   overflow: hidden;
+}
+/**
+ * Hidden file input
+ */
+.round-thumbnail-image-input > input[type="file"]{
+	visibility: hidden;
+   width: 0;
+   height: 0;
+}
+/**
+ * Icon
+ */
+.round-thumbnail-image-input > .material-icons{
+	width: 100%;
+	height: 100%;
+   opacity: 0.3;
+	font-size: 1.2em;
+	border-radius: 50%;
+	overflow: hidden;
+   transition: opacity, font-size, 0.2s ease;
+}
+.round-thumbnail-image-input:hover > .material-icons{
+   opacity: 0.9;
+   font-size: 2em;
+   cursor: pointer;
+}
 
 
+
+/* ========== * ========== * ========== * ==========
+ * Labeled output
+ * ========== * ========== * ========== * ==========
+ */
 .labeled-output{
 	font-size: 1em;
 	color: var(--bg-color-contrast);
@@ -462,7 +467,10 @@ button.raised:active, a.raised:active, .dragging.raised {
 
 
 
-
+/* ========== * ========== * ========== * ==========
+ * List default text
+ * ========== * ========== * ========== * ==========
+ */
 li .primary{
 	font-size: 1.1em;
 	color: var(--bg-color-contrast);
@@ -474,7 +482,10 @@ li .secondary{
 
 
 
-
+/* ========== * ========== * ========== * ==========
+ * Listing
+ * ========== * ========== * ========== * ==========
+ */
 .grid {
 	display: flex;
 	flex-direction: row;
@@ -539,7 +550,7 @@ li .secondary{
 }
 
 
-
+/*
 .black-screen{
 	position: fixed;
 	top: 0;
@@ -547,10 +558,10 @@ li .secondary{
 	background: rgba(0, 0, 0, 0.8);
 }
 .black-screen.main{
-
 	z-index: 8;
 	padding: 2em;
 }
+*/
 
 
 
@@ -576,10 +587,21 @@ li .secondary{
  * Dialog
  */
 .dialog{
+	max-height: 100%;
 	width: 50vw;
 	margin: auto;
 	height: auto;
 	background: var(--bg-color);
+}
+@media handheld, (max-width: 25em), (max-height: 25em){
+	.dialog{
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		border-radius: 0;
+	}
 }
 @media (orientation: landscape){
 	.dialog{

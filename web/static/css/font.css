@@ -11,3 +11,12 @@
    font-weight: 400;
    src:  url(../../static/res/font/Roboto-Bold.ttf) format('truetype');
 }
+
+@font-face {
+   font-family: 'Material Icons';
+   font-style: normal;
+   font-weight: 400;
+   src:  url(../res/icon/MaterialIcons-Regular.woff2) format('woff2'),
+         url(../res/icon/MaterialIcons-Regular.eot) format('eot'),
+         url(../res/icon/MaterialIcons-Regular.ttf) format('truetype');
+}
