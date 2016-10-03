@@ -1,4 +1,6 @@
 
+
+
 // *When navigate the page vehicle-info:
 spa.onNavigate('vehicle-info', (page, params) => {
 
@@ -9,7 +11,7 @@ spa.onNavigate('vehicle-info', (page, params) => {
       if(authenticated == true) {
          // *If true:
          // *List the vehicle:
-         requestVehicle(id);
+         requestVehicleInfo(id);
       }
    } else {
       // *Is not diferent of null ou undefined:
@@ -25,7 +27,7 @@ spa.onNavigate('vehicle-info', (page, params) => {
  * @param  {number} id number ID the vehicle
  * @author Ralf Pablo Braga Soares
  */
-function requestVehicle(id){
+function requestVehicleInfo(id){
 
    // *Getting the key and the token:
    let auth = getAuthentication();

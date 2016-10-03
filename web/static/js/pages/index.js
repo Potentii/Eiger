@@ -26,7 +26,6 @@ spa.onUnload('', (page, params) => {
 
 
 
-
 /**
 * Requests the vehicles to the database
 * @author Ralf Pablo Braga Soares
@@ -85,23 +84,27 @@ function requestVehicles(){
 }
 
 
-
+//
 function requestSchedules(id, button_ul) {
 
    let auth = getAuthentication();
    let dates = getNextDays(6);
 
+   //
    dates.forEach((element, index) => {
 
+      //
       let button_li = $('<li>').addClass('vertical-layout').attr('data-date', df.asMysqlDate(element)).appendTo(button_ul);
       let date_span = $('<span>').addClass('secondary').text(df.asShortDate(element)).appendTo(button_li);
       let button_schedule = $('<button>').attr("type", 'button').addClass('round').appendTo(button_li);
 
+      //
       $.ajax({
          url: 'http://localhost:3000/api/v1/vehicles/' + id + '/reservations/' + df.asMysqlDate(element),
          method: 'GET',
          headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
       }).done((data, textStatus, xhr) => {
+
          //
          button_schedule.text(data.length);
 
@@ -118,11 +121,10 @@ function requestSchedules(id, button_ul) {
       // *Sending the id and date of the li by parameter:
       spa.navigateTo('schedules', {id: id, date: date});
    });
-
 }
 
 
-
+//
 function getNextDays(days_quantity){
    var vet = [];
 

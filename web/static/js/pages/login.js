@@ -4,6 +4,8 @@ let rest_url = 'http://localhost:3000';
 // *Variable of authentication:
 var authenticated = false;
 
+
+
 // *When navigate the page Login:
 spa.onNavigate('login', (page, params) => {
    $('#login-form').submit((e) => {
@@ -22,15 +24,18 @@ spa.onNavigate('login', (page, params) => {
          contentType: 'application/json;charset=UTF-8',
          data: JSON.stringify({login: text_username, pass: text_pass})
       }).done((data, textStatus, xhr) => {
+         
          saveAuthentication(data);
          authenticated = true;
          spa.navigateTo('');
-         console.log('POST Done');
+
       }).fail((xhr, textStatus, err) => {
          console.log(textStatus);
       });
    });
 });
+
+
 
 // * The page loading:
 spa.onReady(() => {
@@ -43,6 +48,8 @@ spa.onReady(() => {
       spa.navigateTo('auth', {pagina_anterior: current_page_name});
    }
 });
+
+
 
 // *When navigate the page Auth:
 spa.onNavigate('auth', (page, params) => {
@@ -71,11 +78,13 @@ spa.onNavigate('auth', (page, params) => {
 
          // *Send it to the previous page:
          spa.navigateTo(params.pagina_anterior);
+
       }).fail((xhr, textStatus, err) => {
          spa.navigateTo('login');
       });
    }
 });
+
 
 
 // *When unload the login page:
@@ -84,6 +93,8 @@ spa.onUnload('login', (page, params) => {
    // *Remove event submit:
    $('#login-form').off('submit');
 });
+
+
 
 /**
 * Saves the authentication keys in cache
@@ -98,6 +109,8 @@ function saveAuthentication(data) {
    // *saving key as an access key to the key code in cache:
    localStorage.setItem('key', JSON.stringify(data.user.login));
 }
+
+
 
 /**
 * Recovers the authentication keys in cache
