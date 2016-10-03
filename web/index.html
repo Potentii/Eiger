@@ -649,6 +649,44 @@
 
 
       <!--
+      Dialogs
+      -->
+      <div id="dialog-overlay" class="dialogs">
+         <!--
+         User picker Dialog
+         -->
+         <section class="dialog card raised" data-dialog="user-picker">
+            <!-- Appbar -->
+            <header class="app-bar flex-horizontal-layout">
+               <i class="material-icons">person</i>
+               <span>Select an user</span>
+            </header>
+
+            <!-- User picker list -->
+            <ul class="list" id="user-picker-list">
+               <!-- User picker row example -->
+               <!--
+               <li class="row vertical-layout">
+                  <span class="primary">[user-name]</span>
+                  <span class="secondary">[description]</span>
+               </li>
+               -->
+            </ul>
+
+            <!-- Button container -->
+            <div class="flat-button-container">
+               <button id="user-picker-cancel-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect">cancel</button>
+               <button id="user-picker-ok-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect highlighted">ok</button>
+            </div>
+         </section>
+
+
+
+      </div>
+
+
+
+      <!--
       Snackbar
       -->
       <div id="snackbar" class="snackbar raised">

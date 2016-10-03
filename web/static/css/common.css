@@ -97,6 +97,9 @@ body{
 	background: none !important;
 	box-shadow: none;
 }
+.app-bar:not(.tinted) .fab, .app-bar:not(.tinted) > i.material-icons{
+	color: var(--bg-color-contrast-icon) !important;
+}
 .app-bar .fab:not(.right){
 	margin-right: 0.5em;
 }
@@ -123,6 +126,14 @@ body{
 }
 .app-bar > .fab.boundary.right{
 	right: 0.5em;
+}
+/**
+ * Appbar icon
+ */
+.app-bar > i.material-icons{
+	font-size: 1.2em;
+	flex-grow: 0;
+	padding: 1em 0 1em 1em;
 }
 
 
@@ -576,10 +587,21 @@ li .secondary{
  * Dialog
  */
 .dialog{
+	max-height: 100%;
 	width: 50vw;
 	margin: auto;
 	height: auto;
 	background: var(--bg-color);
+}
+@media handheld, (max-width: 25em), (max-height: 25em){
+	.dialog{
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		border-radius: 0;
+	}
 }
 @media (orientation: landscape){
 	.dialog{

@@ -83,7 +83,7 @@ function requestSchedules(id, button_ul) {
 
       let button_li = $('<li>').addClass('vertical-layout').attr('data-date', df.asMysqlDate(element)).appendTo(button_ul);
       let date_span = $('<span>').addClass('secondary').text(df.asShortDate(element)).appendTo(button_li);
-      let button_schedule = $('<button>').attr("type", 'button').addClass('round').css('background-color',  'rgb(230, 180, 10)').appendTo(button_li);
+      let button_schedule = $('<button>').attr("type", 'button').addClass('round').appendTo(button_li);
 
       $.ajax({
          url: 'http://localhost:3000/api/v1/vehicles/'+id+'/reservations/'+ df.asMysqlDate(element),
