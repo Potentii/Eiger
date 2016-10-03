@@ -13,7 +13,7 @@ spa.onNavigate('schedules', (page, params) => {
       if(authenticated == true) {
          // *If true:
          // *List the reserves of that vehicle:
-         requestVehicleSchedules(id, date);
+         requestVehicle(id, date);
          buildReservationsOnDate(id, date);
       }
    } else {
