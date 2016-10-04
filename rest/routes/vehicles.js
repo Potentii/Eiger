@@ -1,4 +1,5 @@
 const pooler = require('../database/pooler');
+const media = require('../media/media');
 
 
 
@@ -70,6 +71,31 @@ function retrieve(req, res, next){
 function create(req, res, next){
    // *Getting the body of the request:
    let values = req.body;
+
+   //
+   // *Getting the Base64 encoded file:
+   let base64_file = values.photo;
+   media.createBase64VehiclePhoto(base64_file)
+      .then(file_name => {
+
+         // TODO colocar a request aqui dentro
+         res.status(201)
+            .send(file_name)
+            .end();
+      })
+      .catch(err => {
+         console.log(err);
+         res.status(500)
+            .send(err)
+            .end();
+      });
+
+
+
+   return;
+   //
+
+
 
    // *Inserting the resource in the database:
    pooler.query('insert into ?? set ?', ['vehicle', values])
