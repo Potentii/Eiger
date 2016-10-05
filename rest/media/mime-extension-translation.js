@@ -1,3 +1,4 @@
+// *Defining the mime types - extensions dictionary:
 const DICTIONARY = [
    /* PNG */
    {mime: 'image/png', ext: 'png'},
@@ -29,22 +30,32 @@ const DICTIONARY = [
 
 
 
-
-
-
-
+/**
+ * Translates a mime type to an extension
+ * @param  {string} mime_type The mime type
+ * @return {string}           The extension if found any, undefined otherwise
+ * @author Guilherme Reginaldo Ruella
+ */
 function translateMime(mime_type){
    // *Trying to find the mime type:
    let o = DICTIONARY.find(o => o.mime === mime_type);
    // *Returning the extension:
-   return o?o.ext:o;
+   return o?o.ext:undefined;
 }
 
+
+
+/**
+ * Translates an extension to a mime type
+ * @param  {string} extension The extension
+ * @return {string}           The mime type if found any, undefined otherwise
+ * @author Guilherme Reginaldo Ruella
+ */
 function translateExtension(extension){
    // *Trying to find the extension:
    let find = DICTIONARY.find(o => o.ext === extension);
    // *Returning the mime type:
-   return o?o.mime:o;
+   return o?o.mime:undefined;
 }
 
 
