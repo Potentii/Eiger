@@ -15,7 +15,7 @@ function start(){
 
 
    // *Enabling json parsing:
-   app.use(body_parser.json());
+   app.use(body_parser.json({limit: '10mb'}));
 
    // *Enabling response logs inside electron:
    app.use(logger());
