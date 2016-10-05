@@ -1,7 +1,5 @@
 
 // *Global Variables:
-let rest_url = 'http://localhost:3000';
-
 // *Variable of authentication:
 var authenticated = false;
 
