@@ -30,11 +30,8 @@ spa.onNavigate('schedules', (page, params) => {
 // *Defining ul like empty after unload the page:
 spa.onUnload('schedules', (page, params) => {
 
-   // *Setting the element ul to the variable:
-   var schedules_ul = $('#schedules-list');
-
-   // *Wiping the element ul:
-   schedules_ul.empty();
+   // *Wiping and removing the event click from ul:
+   $('#schedules-list').empty().off('click');
 });
 
 
@@ -101,8 +98,7 @@ function buildReservationsOnDate(id, date) {
       data.forEach(function(element, index){
 
          // *Building the schedule's li:
-         let schedules_li = $('<li>');
-         schedules_li.addClass('card box raised').appendTo(schedules_ul);
+         let schedules_li = $('<li>').attr('data-id', element.schedule.id).addClass('card box raised').appendTo(schedules_ul);
 
          // *Building the schedule's div:
          let vertical_layout_div = $('<div>').addClass('user vertical-layout').appendTo(schedules_li);
@@ -139,6 +135,15 @@ function buildReservationsOnDate(id, date) {
          schedules_end_date.appendTo(schedules_duration_div);
 
       });
+
+      // *Clicking on a reservation:
+      schedules_ul.on('click', 'li', function(){
+         let id = $(this).data('id');
+
+         // *Sending the id of the li by parameter:
+         spa.navigateTo('schedule-info', {id: id});
+      });
+
    }).fail((xhr, textStatus, err) => {
       console.log(textStatus);
    });

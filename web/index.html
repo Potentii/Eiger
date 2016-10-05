@@ -52,12 +52,15 @@
 
       <script src="./static/js/pages/subscriptions.js"></script>
 
+      <script src="./static/js/requests/requests.js"></script>
+
       <!-- * Pages * -->
       <script src="./static/js/pages/login.js"></script>
       <script src="./static/js/pages/index.js"></script>
       <script src="./static/js/pages/vehicle-info.js"></script>
       <script src="./static/js/pages/schedule-create.js"></script>
       <script src="./static/js/pages/schedules.js"></script>
+      <script src="./static/js/pages/schedule-info.js"></script>
 
       <!-- * Dialogs * -->
 
@@ -494,7 +497,7 @@
 
             <!-- Vehicle appbar info -->
             <div class="flex-horizontal-layout">
-               <div id="schedule-info-vehicle-photo" class="round-thumbnail size-3" style="background-image: url(http://localhost:3000/media/v/p/04.jpg)"></div>
+               <div id="schedule-info-vehicle-photo" class="round-thumbnail size-3"></div>
                <div class="vertical-layout">
                   <span id="schedule-info-vehicle-title" class="primary">[title] - [plate]</span>
                   <span id="schedule-info-vehicle-description" class="secondary">[year] - [manufacturer] - [type]</span>
@@ -522,18 +525,18 @@
             <!-- Reason output -->
             <div class="row">
                <i class="material-icons">feedback</i>
-               <span id="schedule-info-reason" class="labeled-output" data-label="Reason">[reason]</span>
+               <span id="schedule-info-reason" class="labeled-output" data-label="Reason"></span>
             </div>
 
             <!-- Duration output -->
             <div class="row">
                <i class="material-icons">schedule</i>
                <div class="schedule-duration-output labeled-output" data-label="Duration">
-                  <span>[start-date]</span>
-                  <span class="secondary">[start-time]</span>
+                  <span id="schedule-info-start-date">[start-date]</span>
+                  <span id="schedule-info-start-time" class="secondary">[start-time]</span>
                   <i class="material-icons secondary">more_vert</i>
-                  <span class="secondary">[end-time]</span>
-                  <span>[end-date]</span>
+                  <span id="schedule-info-end-time" class="secondary">[end-time]</span>
+                  <span id="schedule-info-end-date">[end-date]</span>
                </div>
             </div>
 

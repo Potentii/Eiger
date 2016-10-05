@@ -4,7 +4,7 @@
 // *Browsing the index page:
 spa.onNavigate('', (page, params) => {
 
-      // *Checking if the user was authenticated:
+   // *Checking if the user was authenticated:
    if(authenticated == true) {
       // *If true:
       // *Listing the vehicles:
@@ -17,20 +17,11 @@ spa.onNavigate('', (page, params) => {
 // *Defining ul like empty and disabling events after unload the page:
 spa.onUnload('', (page, params) => {
 
-   // *Setting the element ul to the variable:
-   let card_ul = $('#vehicles-list');
-
-   // *Wiping the element ul:
-   card_ul.empty();
+   // *Wiping and removing the event click from ul:
+   $('#vehicles-list').empty().off('click');
 
    // *Removing the event click:
-   card_ul.off('click');
-
-   // *Setting the the element to the variable :
-   let button_ul = $('.schedules');
-
-   // *Removing the event click:
-   button_ul.off('click');
+   $('#vehicles-list .schedules').off('click');
 });
 
 
@@ -59,7 +50,7 @@ function requestVehicles(){
 
          // *Building the vehicle's li:
          let card_li = $('<li>');
-         card_li.attr("data-id", element.id).addClass('card box raised').appendTo(card_ul);
+         card_li.attr('data-id', element.id).addClass('card box raised').appendTo(card_ul);
 
          // *Building the vehicle's div:
          let horizontal_layout_div = $('<div>').addClass('info flex-horizontal-layout').appendTo(card_li);
@@ -71,11 +62,11 @@ function requestVehicles(){
          let vertical_layout_div = $('<div>').addClass('vertical-layout').appendTo(horizontal_layout_div);
 
          // *Building and setting the vehicle's title and plate:
-         let vehicle_title = $('<span>').addClass('primary').text(element.title+" - "+element.plate).appendTo(vertical_layout_div);
+         let vehicle_title = $('<span>').addClass('primary').text(element.title + ' - ' + element.plate).appendTo(vertical_layout_div);
          $('<br>').appendTo(vehicle_title);
 
          // *Building and setting the vehicle's year, type and manufacturer:
-         let vehicle_description = $('<span>').addClass('secondary').text(element.year+" - "+element.type+" - "+element.manufacturer).appendTo(vertical_layout_div);
+         let vehicle_description = $('<span>').addClass('secondary').text(element.year + ' - ' + element.type + ' - ' + element.manufacturer).appendTo(vertical_layout_div);
 
          // *Building the vehicle's divs:
          let horizontal_line_div = $('<div>').addClass('horizontal-line').appendTo(card_li);
@@ -133,14 +124,14 @@ function requestSchedules(id, button_ul) {
       });
    });
 
-      // *Clicking on a schedule's button:
-      button_ul.on('click', 'li > button', function(){
-         let id = $(this).parent().parent().parent().data('id');
-         let date = $(this).parent().data('date');
+   // *Clicking on a schedule's button:
+   button_ul.on('click', 'li', function(){
+      let id = $(this).parent().parent().data('id');
+      let date = $(this).data('date');
 
-         // *Sending the id and date of the li by parameter:
-         spa.navigateTo('schedules', {id: id, date: date});
-      });
+      // *Sending the id and date of the li by parameter:
+      spa.navigateTo('schedules', {id: id, date: date});
+   });
 }
 
 
