@@ -80,6 +80,7 @@ spa.onNavigate('schedules', (page, params) => {
                   let schedules_end_date = $('<span>').text(df.asShortDate(end_date));
                   schedules_end_date.appendTo(schedules_duration_div);
 
+
                });
 
                // *Clicking on a reservation:
@@ -94,7 +95,18 @@ spa.onNavigate('schedules', (page, params) => {
             .fail((xhr, textStatus, err) => {
             console.log(textStatus);
             });
+
       }
+
+      // *Getting element button:
+      let addButton = $('#schedules-create-done-fab');
+
+      addButton.on('click', function(){
+         let id = params.id;
+         let date = params.date;
+         // *Sending the id of the vehicle and date of the schedule by parameter:
+         spa.navigateTo('schedule-create', {id: id});
+      });
    } else {
       // *Is not diferent of null ou undefined:
       // *Redirecting the user to index page:
@@ -109,4 +121,7 @@ spa.onUnload('schedules', (page, params) => {
 
    // *Wiping and removing the event click from ul:
    $('#schedules-list').empty().off('click');
+
+   // *Removing the event click from button:
+   $('#schedules-create-done-fab').off('click');
 });
