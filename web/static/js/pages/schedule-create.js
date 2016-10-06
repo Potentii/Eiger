@@ -1,12 +1,14 @@
-// *When navigate to the page Schedule Create:
+
+
+
+// *Browsing the schedule-create page:
 spa.onNavigate('schedule-create', (page, params) => {
+
    // *When the user submit the form:
    $('#schedule-create-form').submit((e) => {
 
       // *The default action of the event will not be triggered:
       e.preventDefault();
-      // *Getting the key and the token:
-      let auth = getAuthentication();
 
       // *Retrieving the values of the all fields:
       let text_reason = $('#schedule-create-reason').val();
@@ -23,19 +25,23 @@ spa.onNavigate('schedule-create', (page, params) => {
       let user_id = 1;
       let vehicle_id = 1;
 
-      // *Sending the insert request:
-      $.ajax({
-         url: 'http://localhost:3000/api/v1/schedules',
-         method: 'POST',
-         contentType: 'application/json;charset=UTF-8',
-         data: JSON.stringify({id_vehicle_fk: vehicle_id, id_user_fk: user_id, reason: text_reason, start_date: start_date_time, end_date: end_date_time}),
-         headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
-      }).done((data, textStatus, xhr) => {
-         // *Sending user to index page:
-         spa.navigateTo('');
-      }).fail((xhr, textStatus, err) => {
-         console.log(textStatus);
-      });
+      // *Saving all values in a object_data:
+      let object_data = {
+         id_vehicle_fk: vehicle_id,
+         id_user_fk: user_id,
+         reason: text_reason,
+         start_date: start_date_time,
+         end_date: end_date_time
+      };
+
+      request.postSchedule(object_data)
+         .done((data, textStatus, xhr) => {
+            // *Sending user to index page:
+            spa.navigateTo('');
+         })
+         .fail((xhr, textStatus, err) => {
+            console.log(textStatus);
+         });
    });
 });
 

@@ -14,30 +14,28 @@ spa.onNavigate('login', (page, params) => {
       // *The default action of the event will not be triggered:
       e.preventDefault();
 
-      // *Retrieving the values of the fields 'Username' and 'Password':
+      // *Retrieving the values of the all fields:
       let text_username = $('#login-username-in').val();
       let text_pass = $('#login-pass-in').val();
 
-      // *Sending Username and Password to the server through the method POST:
-      $.ajax({
-         url: rest_url + '/auth',
-         method: 'POST',
-         contentType: 'application/json;charset=UTF-8',
-         data: JSON.stringify({login: text_username, pass: text_pass})
-      }).done((data, textStatus, xhr) => {
+      // *Saving all values in a object_data:
+      let object_data = {login: text_username, pass: text_pass};
 
-         // *Saving user authentication data:
-         saveAuthentication(data);
+      request.postAuth(object_data)
+         .done((data, textStatus, xhr) => {
 
-         // *Setting the variable value for true:
-         authenticated = true;
+            // *Saving user authentication data:
+            saveAuthentication(data);
 
-         // *Redirecting the user to index page:
-         spa.navigateTo('');
+            // *Setting the variable value for true:
+            authenticated = true;
 
-      }).fail((xhr, textStatus, err) => {
-         console.log(textStatus);
-      });
+            // *Redirecting the user to index page:
+            spa.navigateTo('');
+         })
+         .fail((xhr, textStatus, err) => {
+            console.log(textStatus);
+         });
    });
 });
 
@@ -61,7 +59,7 @@ spa.onReady(() => {
 spa.onNavigate('auth', (page, params) => {
 
    // *Getting the key and the token:
-   let auth = getAuthentication();
+   let auth = request.retrieveAccessCredentials();
 
    // *Checking if the token or key is null:
    if(auth.token == null || auth.key == null) {
@@ -73,24 +71,20 @@ spa.onNavigate('auth', (page, params) => {
    } else {
 
       // *If not null:
-      // *Requesting authentication:
-      $.ajax({
-         url: rest_url + '/auth',
-         method: 'GET',
-         headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
-      }).done((data, textStatus, xhr) => {
+      request.getAuth()
+         .done((data, textStatus, xhr) => {
 
-         // *Setting the variable value for true:
-         authenticated = true;
+            // *Setting the variable value for true:
+            authenticated = true;
 
-         // *Redirecting the user to previous page:
-         spa.navigateTo(params.pagina_anterior);
+            // *Redirecting the user to previous page:
+            spa.navigateTo(params.pagina_anterior);
+         })
+         .fail((xhr, textStatus, err) => {
 
-      }).fail((xhr, textStatus, err) => {
-
-         // *Redirecting the user to login page:
-         spa.navigateTo('login');
-      });
+            // *Redirecting the user to login page:
+            spa.navigateTo('login');
+         });
    }
 });
 
@@ -117,17 +111,4 @@ function saveAuthentication(data) {
 
    // *saving key as an access key to the key code in cache:
    localStorage.setItem('key', JSON.stringify(data.user.login));
-}
-
-
-
-/**
-* Recovers the authentication keys in cache
-* @return {object} JSON The token and the user key
-* @author Ralf Pablo Braga Soares
-*/
-function getAuthentication() {
-   let token = JSON.parse(localStorage.getItem('token'));
-   let key = JSON.parse(localStorage.getItem('key'));
-   return {token: token, key: key};
 }
