@@ -344,7 +344,8 @@ var request = (function(){
          url: rest_url + '/api/v1/users',
          method: 'POST',
          contentType: 'application/json;charset=UTF-8',
-         data: JSON.stringify(object_data)
+         data: JSON.stringify(object_data),
+         headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
       });
    }
 
@@ -364,7 +365,8 @@ var request = (function(){
          url: rest_url + '/api/v1/vehicles',
          method: 'POST',
          contentType: 'application/json;charset=UTF-8',
-         data: JSON.stringify(object_data)
+         data: JSON.stringify(object_data),
+         headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
       });
    }
 
@@ -388,7 +390,8 @@ var request = (function(){
          url: rest_url + '/api/v1/users/' + id,
          method: 'PUT',
          contentType: 'application/json;charset=UTF-8',
-         data: JSON.stringify(object_data)
+         data: JSON.stringify(object_data),
+         headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
       });
    }
 
@@ -410,7 +413,8 @@ var request = (function(){
          url: rest_url + '/api/v1/vehicles/' + id,
          method: 'PUT',
          contentType: 'application/json;charset=UTF-8',
-         data: JSON.stringify(object_data)
+         data: JSON.stringify(object_data),
+         headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
       });
    }
 
@@ -432,7 +436,8 @@ var request = (function(){
          url: rest_url + '/api/v1/schedules/' + id,
          method: 'PUT',
          contentType: 'application/json;charset=UTF-8',
-         data: JSON.stringify(object_data)
+         data: JSON.stringify(object_data),
+         headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
       });
    }
 
@@ -456,6 +461,7 @@ var request = (function(){
          url: rest_url + '/api/v1/users/' + id,
          method: 'DELETE',
          contentType: 'application/json;charset=UTF-8',
+         headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
       });
    }
 
@@ -477,6 +483,7 @@ var request = (function(){
          url: rest_url + '/api/v1/vehicles/' + id,
          method: 'DELETE',
          contentType: 'application/json;charset=UTF-8',
+         headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
       });
    }
 
@@ -498,6 +505,7 @@ var request = (function(){
          url: rest_url + '/api/v1/schedules/' + id,
          method: 'DELETE',
          contentType: 'application/json;charset=UTF-8',
+         headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
       });
    }
 
