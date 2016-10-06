@@ -28,7 +28,7 @@ var request = (function(){
 
    /**
     * Returns the object of the authentication
-    * @return {object} jqXHR Return a ajax request
+    * @return {jqXHR}  The ajax request
     * @author Ralf Pablo Braga Soares
     */
    function getAuth(){
@@ -47,8 +47,8 @@ var request = (function(){
 
    /**
     * Returns the object of a vehicle
-    * @param  {number} id    Vehicle id
-    * @return {object} jqXHR Return a ajax request
+    * @param  {number} id Vehicle id
+    * @return {jqXHR}     The ajax request
     * @author Ralf Pablo Braga Soares
     */
    function getVehicle(id){
@@ -67,8 +67,8 @@ var request = (function(){
 
    /**
     * Returns the object of a schedule
-    * @param  {number} id    Schedule id
-    * @return {object} jqXHR Return a ajax request
+    * @param  {number} id Schedule id
+    * @return {jqXHR}     The ajax request
     * @author Ralf Pablo Braga Soares
     */
    function getSchedule(id){
@@ -87,7 +87,7 @@ var request = (function(){
 
    /**
    * Returns the object of a schedules
-   * @return {object} jqXHR Return a ajax request
+   * @return {jqXHR}  The ajax request
    * @author Ralf Pablo Braga Soares
    */
    function getSchedules(){
@@ -107,7 +107,7 @@ var request = (function(){
 
    /**
    * Returns the object of a vehicles
-   * @return {object} jqXHR Return a ajax request
+   * @return {jqXHR}  The ajax request
    * @author Ralf Pablo Braga Soares
    */
    function getVehicles(){
@@ -127,7 +127,7 @@ var request = (function(){
 
    /**
    * Returns the object of a users
-   * @return {object} jqXHR Return a ajax request
+   * @return {jqXHR}  The ajax request
    * @author Ralf Pablo Braga Soares
    */
    function getUsers(){
@@ -147,8 +147,8 @@ var request = (function(){
 
    /**
     * Returns the object of a user
-    * @param  {number} id    User id
-    * @return {object} jqXHR Return a ajax request
+    * @param  {number} id User id
+    * @return {jqXHR}     The ajax request
     * @author Ralf Pablo Braga Soares
     */
    function getUser(id){
@@ -169,7 +169,7 @@ var request = (function(){
    /**
    * Returns the object of all schedules the vehicle
    * @param  {number} id Vehicle id
-   * @return {object} jqXHR Return a ajax request
+   * @return {jqXHR}     The ajax request
    * @author Ralf Pablo Braga Soares
    */
    function getVehiclesSchedules(id){
@@ -189,7 +189,7 @@ var request = (function(){
    /**
    * Returns the object of all schedules the user
    * @param  {number} id User id
-   * @return {object} jqXHR Return a ajax request
+   * @return {jqXHR}     The ajax request
    * @author Ralf Pablo Braga Soares
    */
    function getUsersSchedules(id){
@@ -209,7 +209,7 @@ var request = (function(){
    /**
    * Returns the object of all reservation the vehicle
    * @param  {number} id Vehicle id
-   * @return {object} jqXHR Return a ajax request
+   * @return {jqXHR}     The ajax request
    * @author Ralf Pablo Braga Soares
    */
    function getVehiclesReservations(id){
@@ -230,7 +230,7 @@ var request = (function(){
     * Returns the object the vehicle reservation for this date
     * @param  {number} id Vehicle id
     * @param  {date} date Schedule date
-    * @return {object} jqXHR Return a ajax request
+    * @return {jqXHR}     The ajax request
     * @author Ralf Pablo Braga Soares
     */
    function getVehiclesReservationsOnDate(id, date){
@@ -250,7 +250,7 @@ var request = (function(){
    /**
    * Returns the object of all reservation the user
    * @param  {number} id User id
-   * @return {object} jqXHR Return a ajax request
+   * @return {jqXHR}     The ajax request
    * @author Ralf Pablo Braga Soares
    */
    function getUsersReservations(id){
@@ -271,7 +271,7 @@ var request = (function(){
     * Returns the object the user reservation for this date
     * @param  {number} id User id
     * @param  {date} date Schedule date
-    * @return {object} jqXHR Return a ajax request
+    * @return {jqXHR}     The ajax request
     * @author Ralf Pablo Braga Soares
     */
    function getUsersReservationsOnDate(id, date){
@@ -292,7 +292,7 @@ var request = (function(){
 
    /**
     * Returns the send of the Username and Password to the server
-    * @return {object} jqXHR Return a ajax request
+    * @return {jqXHR}  The ajax request
     * @author Ralf Pablo Braga Soares
     */
    function postAuth(object_data){
@@ -310,7 +310,7 @@ var request = (function(){
 
    /**
     * Returns the send message and adds a new schedule
-    * @return {object} jqXHR Return a ajax request
+    * @return {jqXHR}  The ajax request
     * @author Ralf Pablo Braga Soares
     */
    function postSchedule(object_data){
@@ -331,7 +331,7 @@ var request = (function(){
 
    /**
     * Returns the send message and adds a new user
-    * @return {object} jqXHR Return a ajax request
+    * @return {jqXHR}  The ajax request
     * @author Ralf Pablo Braga Soares
     */
    function postUser(object_data){
@@ -351,7 +351,7 @@ var request = (function(){
 
    /**
     * Returns the send message and adds a new vehicle
-    * @return {object} jqXHR Return a ajax request
+    * @return {jqXHR}  The ajax request
     * @author Ralf Pablo Braga Soares
     */
    function postVehicle(object_data){
@@ -375,7 +375,7 @@ var request = (function(){
    /**
     * Returns the send message and updates the user
     * @param  {number} id User id
-    * @return {object} jqXHR Return a ajax request
+    * @return {jqXHR}     The ajax request
     * @author Ralf Pablo Braga Soares
     */
    function putUser(id, object_data){
@@ -397,7 +397,7 @@ var request = (function(){
    /**
     * Returns the send message and updates the vehicle
     * @param  {number} id Vehicle id
-    * @return {object} jqXHR Return a ajax request
+    * @return {jqXHR}     The ajax request
     * @author Ralf Pablo Braga Soares
     */
    function putVehicle(id, object_data){
@@ -419,7 +419,7 @@ var request = (function(){
    /**
     * Returns the send message and updates the schedule
     * @param  {number} id Schedule id
-    * @return {object} jqXHR Return a ajax request
+    * @return {jqXHR}     The ajax request
     * @author Ralf Pablo Braga Soares
     */
    function putSchedule(id, object_data){
@@ -443,7 +443,7 @@ var request = (function(){
    /**
    * Returns the send message and deletes the user
    * @param  {number} id User id
-   * @return {object} jqXHR Return a ajax request
+   * @return {jqXHR}     The ajax request
    * @author Ralf Pablo Braga Soares
    */
    function deleteUser(id){
@@ -464,7 +464,7 @@ var request = (function(){
    /**
    * Returns the send message and deletes the vehicle
    * @param  {number} id Vehicle id
-   * @return {object} jqXHR Return a ajax request
+   * @return {jqXHR}     The ajax request
    * @author Ralf Pablo Braga Soares
    */
    function deleteVehicle(id){
@@ -485,7 +485,7 @@ var request = (function(){
    /**
    * Returns the send message and deletes the schedule
    * @param  {number} id Schedule id
-   * @return {object} jqXHR Return a ajax request
+   * @return {jqXHR}     The ajax request
    * @author Ralf Pablo Braga Soares
    */
    function deleteSchedule(id){
