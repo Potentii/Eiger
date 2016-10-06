@@ -417,6 +417,71 @@ var request = (function(){
       });
    }
 
+
+   // *------------------------ DELETES -------------------------------:
+
+
+   /**
+   * Returns the send message and deletes the user
+   * @param  {number} id User id
+   * @return {object} jqXHR Return a ajax request
+   * @author Ralf Pablo Braga Soares
+   */
+   function deleteUser(id){
+
+      // *Getting the key and the token:
+      let auth = retrieveAccessCredentials();
+
+      // *Sending the update request:
+      return $.ajax({
+         url: rest_url + '/api/v1/users/' + id,
+         method: 'DELETE',
+         contentType: 'application/json;charset=UTF-8',
+      });
+   }
+
+
+
+   /**
+   * Returns the send message and deletes the vehicle
+   * @param  {number} id Vehicle id
+   * @return {object} jqXHR Return a ajax request
+   * @author Ralf Pablo Braga Soares
+   */
+   function deleteVehicle(id){
+
+      // *Getting the key and the token:
+      let auth = retrieveAccessCredentials();
+
+      // *Sending the update request:
+      return $.ajax({
+         url: rest_url + '/api/v1/vehicles/' + id,
+         method: 'DELETE',
+         contentType: 'application/json;charset=UTF-8',
+      });
+   }
+
+
+
+   /**
+   * Returns the send message and deletes the schedule
+   * @param  {number} id Schedule id
+   * @return {object} jqXHR Return a ajax request
+   * @author Ralf Pablo Braga Soares
+   */
+   function deleteSchedule(id){
+
+      // *Getting the key and the token:
+      let auth = retrieveAccessCredentials();
+
+      // *Sending the update request:
+      return $.ajax({
+         url: rest_url + '/api/v1/schedules/' + id,
+         method: 'DELETE',
+         contentType: 'application/json;charset=UTF-8',
+      });
+   }
+
    // *Exporting this module:
    return {
 
@@ -438,6 +503,9 @@ var request = (function(){
       putUser: putUser,
       putVehicle: putVehicle,
       putSchedule: putSchedule,
+      deleteUser: deleteUser,
+      deleteVehicle: deleteVehicle,
+      deleteSchedule: deleteSchedule,
       retrieveAccessCredentials: retrieveAccessCredentials
    };
 })();
