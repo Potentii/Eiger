@@ -91,7 +91,7 @@ function listBalls(id, button_ul) {
       let button_schedule = $('<button>').attr("type", 'button').addClass('round').appendTo(button_li);
 
       //
-      request.getVehicleAndReservationDate(id, df.asMysqlDate(element))
+      request.getVehiclesReservationsOnDate(id, df.asMysqlDate(element))
          .done((data, textStatus, xhr) => {
 
             //

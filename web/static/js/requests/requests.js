@@ -167,12 +167,52 @@ var request = (function(){
 
 
    /**
-   * Returns the object of all reservation the vehicle
+   * Returns the object of all schedules the vehicle
+   * @param  {number} id Vehicle id
+   * @return {object} jqXHR Return a ajax request
+   * @author Ralf Pablo Braga Soares
+   */
+   function getVehiclesSchedules(id){
+
+      // *Getting the key and the token:
+      let auth = retrieveAccessCredentials();
+
+      return $.ajax({
+         url: rest_url + '/api/v1/vehicles/' + id + '/schedules/',
+         method: 'GET',
+         headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
+      });
+   }
+
+
+
+   /**
+   * Returns the object of all schedules the user
    * @param  {number} id User id
    * @return {object} jqXHR Return a ajax request
    * @author Ralf Pablo Braga Soares
    */
-   function getVehicleAndReservations(id){
+   function getUsersSchedules(id){
+
+      // *Getting the key and the token:
+      let auth = retrieveAccessCredentials();
+
+      return $.ajax({
+         url: rest_url + '/api/v1/users/' + id + '/schedules/',
+         method: 'GET',
+         headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
+      });
+   }
+
+
+
+   /**
+   * Returns the object of all reservation the vehicle
+   * @param  {number} id Vehicle id
+   * @return {object} jqXHR Return a ajax request
+   * @author Ralf Pablo Braga Soares
+   */
+   function getVehiclesReservations(id){
 
       // *Getting the key and the token:
       let auth = retrieveAccessCredentials();
@@ -188,12 +228,12 @@ var request = (function(){
 
    /**
     * Returns the object the vehicle reservation for this date
-    * @param  {number} id User id
+    * @param  {number} id Vehicle id
     * @param  {date} date Schedule date
     * @return {object} jqXHR Return a ajax request
     * @author Ralf Pablo Braga Soares
     */
-   function getVehicleAndReservationDate(id, date){
+   function getVehiclesReservationsOnDate(id, date){
 
       // *Getting the key and the token:
       let auth = retrieveAccessCredentials();
@@ -213,7 +253,7 @@ var request = (function(){
    * @return {object} jqXHR Return a ajax request
    * @author Ralf Pablo Braga Soares
    */
-   function getUserAndReservations(id){
+   function getUsersReservations(id){
 
       // *Getting the key and the token:
       let auth = retrieveAccessCredentials();
@@ -234,7 +274,7 @@ var request = (function(){
     * @return {object} jqXHR Return a ajax request
     * @author Ralf Pablo Braga Soares
     */
-   function getUserAndReservationDate(id, date){
+   function getUsersReservationsOnDate(id, date){
 
       // *Getting the key and the token:
       let auth = retrieveAccessCredentials();
@@ -248,7 +288,6 @@ var request = (function(){
 
 
 // *------------------------ POSTS -------------------------------:
-
 
 
    /**
@@ -350,7 +389,6 @@ var request = (function(){
 
 
 // *------------------------ PUTS -------------------------------:
-
 
 
    /**
@@ -484,28 +522,33 @@ var request = (function(){
 
    // *Exporting this module:
    return {
-
       getAuth: getAuth,
       getVehicle: getVehicle,
       getVehicles: getVehicles,
       getSchedule: getSchedule,
       getSchedules: getSchedules,
-      getVehicleAndReservations: getVehicleAndReservations,
-      getVehicleAndReservationDate: getVehicleAndReservationDate,
-      getUserAndReservations: getUserAndReservations,
-      getUserAndReservationDate: getUserAndReservationDate,
+      getVehiclesSchedules: getVehiclesSchedules,
+      getUsersSchedules: getUsersSchedules,
+      getVehiclesReservations: getVehiclesReservations,
+      getVehiclesReservationsOnDate: getVehiclesReservationsOnDate,
+      getUsersReservations: getUsersReservations,
+      getUsersReservationsOnDate: getUsersReservationsOnDate,
       getUser: getUser,
       getUsers: getUsers,
+
       postAuth: postAuth,
       postSchedule: postSchedule,
       postUser: postUser,
       postVehicle: postVehicle,
+
       putUser: putUser,
       putVehicle: putVehicle,
       putSchedule: putSchedule,
+
       deleteUser: deleteUser,
       deleteVehicle: deleteVehicle,
       deleteSchedule: deleteSchedule,
+
       retrieveAccessCredentials: retrieveAccessCredentials
    };
 })();

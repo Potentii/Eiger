@@ -34,7 +34,7 @@ spa.onNavigate('schedules', (page, params) => {
             });
 
          // *Listing the reserves of that vehicle:
-         request.getVehicleAndReservationDate(id, date)
+         request.getVehiclesReservationsOnDate(id, date)
             .done((data, textStatus, xhr) => {
 
                // *Building the schedule's ul:
