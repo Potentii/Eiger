@@ -13,6 +13,7 @@ const auth = require('./auth');
 const schedules = require('./schedules');
 const users = require('./users');
 const users_schedules = require('./users-schedules');
+const users_reservations = require('./users-reservations');
 const vehicles = require('./vehicles');
 const vehicles_schedules = require('./vehicles-schedules');
 const vehicles_reservations = require('./vehicles-reservations');
@@ -43,6 +44,10 @@ router.delete('/api/v1/users/:id', users.erase);
 
 // *Setting up the users-schedules routes:
 router.get('/api/v1/users/:id/schedules', users_schedules.retrieveAll);
+
+// *Setting up the users-reservations routes:
+router.get('/api/v1/users/:id/reservations', users_reservations.retrieveAll);
+router.get('/api/v1/users/:id/reservations/:date', users_reservations.retrieveAllOnDate);
 
 // *Setting up the vehicles routes:
 router.get('/api/v1/vehicles', vehicles.retrieveAll);
