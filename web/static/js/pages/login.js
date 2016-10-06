@@ -14,7 +14,14 @@ spa.onNavigate('login', (page, params) => {
       // *The default action of the event will not be triggered:
       e.preventDefault();
 
-      request.postAuth()
+      // *Retrieving the values of the all fields:
+      let text_username = $('#login-username-in').val();
+      let text_pass = $('#login-pass-in').val();
+
+      // *Saving all values in a object_data:
+      let object_data = {login: text_username, pass: text_pass};
+
+      request.postAuth(object_data)
          .done((data, textStatus, xhr) => {
 
             // *Saving user authentication data:

@@ -295,18 +295,14 @@ var request = (function(){
     * @return {object} jqXHR Return a ajax request
     * @author Ralf Pablo Braga Soares
     */
-   function postAuth(){
-
-      // *Retrieving the values of the all fields:
-      let text_username = $('#login-username-in').val();
-      let text_pass = $('#login-pass-in').val();
+   function postAuth(object_data){
 
       // *Sending the insert request:
       return $.ajax({
          url: rest_url + '/auth',
          method: 'POST',
          contentType: 'application/json;charset=UTF-8',
-         data: JSON.stringify({login: text_username, pass: text_pass})
+         data: JSON.stringify(object_data)
       });
    }
 
@@ -317,32 +313,17 @@ var request = (function(){
     * @return {object} jqXHR Return a ajax request
     * @author Ralf Pablo Braga Soares
     */
-   function postSchedule(){
+   function postSchedule(object_data){
 
       // *Getting the key and the token:
       let auth = retrieveAccessCredentials();
-
-      // *Retrieving the values of the all fields:
-      let text_reason = $('#schedule-create-reason').val();
-      let date_startdate = $('#schedule-create-start-date').val();
-      let time_starttime = $('#schedule-create-start-time').val();
-      let date_enddate = $('#schedule-create-end-date').val();
-      let time_endtime = $('#schedule-create-end-time').val();
-
-      // *Joining date and time:
-      let start_date_time = date_startdate + ' ' + time_starttime;
-      let end_date_time = date_enddate + ' ' + time_endtime;
-
-      // TODO Replace the ids with the actual value:
-      let user_id = 1;
-      let vehicle_id = 1;
 
       // *Sending the insert request:
       return $.ajax({
          url: rest_url + '/api/v1/schedules',
          method: 'POST',
          contentType: 'application/json;charset=UTF-8',
-         data: JSON.stringify({id_vehicle_fk: vehicle_id, id_user_fk: user_id, reason: text_reason, start_date: start_date_time, end_date: end_date_time}),
+         data: JSON.stringify(object_data),
          headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
       });
    }
@@ -353,7 +334,7 @@ var request = (function(){
     * @return {object} jqXHR Return a ajax request
     * @author Ralf Pablo Braga Soares
     */
-   function postUser(){
+   function postUser(object_data){
 
       // *Getting the key and the token:
       let auth = retrieveAccessCredentials();
@@ -363,7 +344,7 @@ var request = (function(){
          url: rest_url + '/api/v1/users',
          method: 'POST',
          contentType: 'application/json;charset=UTF-8',
-         data: JSON.stringify({})
+         data: JSON.stringify(object_data)
       });
    }
 
@@ -373,7 +354,7 @@ var request = (function(){
     * @return {object} jqXHR Return a ajax request
     * @author Ralf Pablo Braga Soares
     */
-   function postVehicle(){
+   function postVehicle(object_data){
 
       // *Getting the key and the token:
       let auth = retrieveAccessCredentials();
@@ -383,7 +364,7 @@ var request = (function(){
          url: rest_url + '/api/v1/vehicles',
          method: 'POST',
          contentType: 'application/json;charset=UTF-8',
-         data: JSON.stringify({})
+         data: JSON.stringify(object_data)
       });
    }
 
@@ -397,7 +378,7 @@ var request = (function(){
     * @return {object} jqXHR Return a ajax request
     * @author Ralf Pablo Braga Soares
     */
-   function putUser(id){
+   function putUser(id, object_data){
 
       // *Getting the key and the token:
       let auth = retrieveAccessCredentials();
@@ -407,7 +388,7 @@ var request = (function(){
          url: rest_url + '/api/v1/users/' + id,
          method: 'PUT',
          contentType: 'application/json;charset=UTF-8',
-         data: JSON.stringify({})
+         data: JSON.stringify(object_data)
       });
    }
 
@@ -419,7 +400,7 @@ var request = (function(){
     * @return {object} jqXHR Return a ajax request
     * @author Ralf Pablo Braga Soares
     */
-   function putVehicle(id){
+   function putVehicle(id, object_data){
 
       // *Getting the key and the token:
       let auth = retrieveAccessCredentials();
@@ -429,7 +410,7 @@ var request = (function(){
          url: rest_url + '/api/v1/vehicles/' + id,
          method: 'PUT',
          contentType: 'application/json;charset=UTF-8',
-         data: JSON.stringify({})
+         data: JSON.stringify(object_data)
       });
    }
 
@@ -441,7 +422,7 @@ var request = (function(){
     * @return {object} jqXHR Return a ajax request
     * @author Ralf Pablo Braga Soares
     */
-   function putSchedule(id){
+   function putSchedule(id, object_data){
 
       // *Getting the key and the token:
       let auth = retrieveAccessCredentials();
@@ -451,7 +432,7 @@ var request = (function(){
          url: rest_url + '/api/v1/schedules/' + id,
          method: 'PUT',
          contentType: 'application/json;charset=UTF-8',
-         data: JSON.stringify({})
+         data: JSON.stringify(object_data)
       });
    }
 
