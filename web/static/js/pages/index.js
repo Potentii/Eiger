@@ -11,12 +11,15 @@ spa.onNavigate('', (page, params) => {
    }
 });
 
-// *Define ul like empty after unload the page:
+
+// *When user left the page:
 spa.onUnload('', (page, params) => {
    var card_ul = $('#vehicles-list');
    card_ul.empty();
    card_ul.off('click');
 });
+
+
 
 /**
 * Requests the vehicles to the database
@@ -56,7 +59,6 @@ function requestVehicles(){
          // *Divs line horizontal/vertical:
          let horizontal_line_div = $('<div>').addClass('horizontal-line').appendTo(card_li);
          let vertical_line_div = $('<div>').addClass('vertical-line').appendTo(card_li);
-         // *--------------------------HERE'S THE PART OF THE BALLS---------------------------------:
 
          let button_ul = $('<ul>').addClass('schedules flex-horizontal-layout').appendTo(card_li);
          requestSchedules(element.id, button_ul);
@@ -74,16 +76,23 @@ function requestVehicles(){
 }
 
 
+
+/**
+ * Request all the schedules from vehicle
+ * @param  {number} id        The vehicle's id
+ * @param  {button} button_ul The schedules container
+ * @author Willian Conti Rezende
+ */
 function requestSchedules(id, button_ul) {
 
    let auth = getAuthentication();
-   let dates = getNextDays(6);
+   let dates = getNextDays(14);
 
    dates.forEach((element, index) => {
 
       let button_li = $('<li>').addClass('vertical-layout').attr('data-date', df.asMysqlDate(element)).appendTo(button_ul);
       let date_span = $('<span>').addClass('secondary').text(df.asShortDate(element)).appendTo(button_li);
-      let button_schedule = $('<button>').attr("type", 'button').addClass('round').css('background-color',  'rgb(230, 180, 10)').appendTo(button_li);
+      let button_schedule = $('<button>').attr("type", 'button').addClass('round').appendTo(button_li);
 
       $.ajax({
          url: 'http://localhost:3000/api/v1/vehicles/'+id+'/reservations/'+ df.asMysqlDate(element),
@@ -99,14 +108,20 @@ function requestSchedules(id, button_ul) {
 
 
 
-function getNextDays(days_quantity){
+/**
+ * Retrieves an array of days, begining on the given date
+ * @param  {number} days_quantity Number of days
+ * @param  {Date} from_date       The start date
+ * @author Guilherme Reginaldo Ruella
+ */
+function getNextDays(days_quantity, from_date){
    var vet = [];
 
    for(var i=0; i<days_quantity; i++) {
-      var data_atual = new Date();
-      var data_futura_ms = data_atual.setDate(data_atual.getDate() + i);
-      var data_futura = new Date(data_futura_ms);
-      vet.push(data_futura);
+      var current_date = from_date || new Date('2016-10-01 00:00:00');
+      var next_date_ms = current_date.setDate(current_date.getDate() + i);
+      var next_date = new Date(next_date_ms);
+      vet.push(next_date);
    }
    return vet;
 }
