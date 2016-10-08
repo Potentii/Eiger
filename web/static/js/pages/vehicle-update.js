@@ -1,39 +1,18 @@
-
-
-/**
- * Encodes a file into a Base64 URL
- * @param  {File} file        File to select
- * @param  {function} onReady The encode completion callback
- * @author Guilherme Reginaldo Ruella
- */
-function getBase64(file, onReady){
-   var reader = new FileReader();
-   reader.addEventListener('load', function(){
-      onReady(reader.result);
-   }, false);
-
-   if(file){
-      reader.readAsDataURL(file);
-   }
-}
-
-
-// *When navigate the page vehicle-update:
+// *When the user navigate to the vehicle-update page:
 spa.onNavigate('vehicle-update', (page, params) => {
    let vehicle_photo_base64 = '';
 
 
-   // *Checking if the params is diferent undefined ou null:
+   // *Checking if the params is diferent undefined or null:
    if(params && (params.id !== null && params.id !== undefined)){
       let id = params.id;
       // *Checking if the user was authenticated:
       if(authenticated == true) {
          // *If true:
          // *Show the page to update vehicle:
-         //spa.navigateTo('vehicle-update');
          $('#vehicle-update-pic').on('change', (e) => {
             let vehicle_pic_file = document.querySelector('#vehicle-update-pic').files[0];
-            getBase64(vehicle_pic_file, function(res){
+            file_encoder.asBase64(vehicle_pic_file, res => {
                vehicle_photo_base64 = res;
             });
          });
@@ -44,9 +23,6 @@ spa.onNavigate('vehicle-update', (page, params) => {
             updateVehicle(id);
 
          });
-
-
-
       }
    } else {
       // *Is not diferent of null ou undefined:
