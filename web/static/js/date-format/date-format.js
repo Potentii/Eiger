@@ -3,7 +3,7 @@
  * Module that transforms dates into strings formats
  * @namespace DF
  */
-var df = (function(){
+const df = (function(){
 
 
 
