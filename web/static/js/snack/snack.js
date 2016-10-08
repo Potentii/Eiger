@@ -4,7 +4,7 @@
  * Module that manages the Snackbar
  * @namespace Snack
  */
-var snack = (function(){
+const snack = (function(){
    let $snackbar;
    let $message;
    let $button;

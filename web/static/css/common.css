@@ -636,6 +636,12 @@ li .secondary{
 	font-size: 1.5em;
 }
 
+@media handheld, (max-width: 25em), (max-height: 25em){
+	.dialog > .flat-button-container{
+		margin-top: auto;
+		bottom: 0;
+	}
+}
 
 
 /* ========== * ========== * ========== * ==========

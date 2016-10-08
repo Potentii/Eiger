@@ -4,11 +4,16 @@
  * Provides access to dialog system
  * @namespace Dialogger
  */
-var dialogger = (function(){
+const dialogger = (function(){
    let dialogs = [];
    let current_dialog = undefined;
+
    let overlay_id = '';
    let $overlay = undefined;
+
+   const DIALOG_STATUS_NEGATIVE = 1;
+   const DIALOG_STATUS_NEUTRAL = 2;
+   const DIALOG_STATUS_POSITIVE = 3;
 
 
 
@@ -28,13 +33,13 @@ var dialogger = (function(){
       dialogs.push(dialog);
 
       // *Defining the default action for opening:
-      let defaultOpen = function(dialog){
+      let defaultOpen = function(dialog, params){
          getOverlay().show();
          dialog.getDOM().show();
       }
 
       // *Defining the default action for dismissing:
-      let defaultDismiss = function(dialog){
+      let defaultDismiss = function(dialog, status, params){
          dialog.getDOM().hide();
          getOverlay().hide();
       }
@@ -51,19 +56,22 @@ var dialogger = (function(){
 
    /**
     * Opens a new dialog
-    * @param  {string} dialog_name  The name of the dialog to be opened
-    * @param  {object} params       The parameters that will be passed to its open listeners
+    * @param  {string} dialog_name        The name of the dialog to be opened
+    * @param  {object} params             The parameters that will be passed to its open listeners
+    * @param  {function} onQuickDismiss   A dismiss listeners that will be called once when the user closes this dialog. It's not a permanent listener
     * @author Guilherme Reginaldo Ruella
     */
-   function open(dialog_name, params){
+   function open(dialog_name, params, onQuickDismiss){
       // *Checking if the given dialog exists, returning if it does not:
       if(!dialogExists(dialog_name)) return;
 
       // *Checking if there is some dialog currently opened, dismissing it if there is:
-      if(current_dialog) dismiss();
+      if(current_dialog) dismiss(DIALOG_STATUS_NEUTRAL);
 
       // *Getting the dialog object:
       let dialog = findDialog(dialog_name);
+
+      dialog.setOnQuickDismiss(onQuickDismiss);
 
       // *Setting the current dialog:
       current_dialog = dialog;
@@ -76,19 +84,31 @@ var dialogger = (function(){
 
    /**
     * Dismisses the current dialog
+    * @param  {number} status The dismissing status of this dialog, it could be either DIALOG_STATUS_NEGATIVE, DIALOG_STATUS_NEUTRAL, or DIALOG_STATUS_POSITIVE
+    * @param  {object} params The parameters that will be passed to all dismiss listeners
     * @author Guilherme Reginaldo Ruella
     */
-   function dismiss(){
+   function dismiss(status, params){
       // *Checking if there is a currently opened dialog, returning if there isn't:
       if(!current_dialog) return;
 
       // *Getting the current opened dialog:
       let dialog = current_dialog;
 
+      // *Checking if a quick dismiss action was set:
+      if(dialog.getOnQuickDismiss()){
+         // *If it was:
+         // *Calling the action:
+         dialog.getOnQuickDismiss()(dialog, status, params);
+         // *Cleaning the action:
+         dialog.setOnQuickDismiss(undefined);
+      }
+
+      // *Reseting the current dialog flag:
       current_dialog = undefined;
 
       // *Calling all the dismissing event listeners:
-      dialog.getOnDismiss().resolveAll(f => f(dialog));
+      dialog.getOnDismiss().resolveAll(f => f(dialog, status, params));
    }
 
 
@@ -203,7 +223,7 @@ var dialogger = (function(){
             if(this == e.target){
                // *If it is:
                // *Dismissing the current dialog:
-               dialogger.dismiss();
+               dialogger.dismiss(DIALOG_STATUS_NEUTRAL);
             }
          });
       }
@@ -219,11 +239,18 @@ var dialogger = (function(){
    // *Exporting this module:
    return {
       subscribe: subscribe,
+
       open: open,
       dismiss: dismiss,
+
       onOpen: onOpen,
       onDismiss: onDismiss,
+
       setOverlay: setOverlay,
-      getDialogs: getDialogs
+      getDialogs: getDialogs,
+
+      DIALOG_STATUS_NEGATIVE: DIALOG_STATUS_NEGATIVE,
+      DIALOG_STATUS_NEUTRAL: DIALOG_STATUS_NEUTRAL,
+      DIALOG_STATUS_POSITIVE: DIALOG_STATUS_POSITIVE
    };
 })();
