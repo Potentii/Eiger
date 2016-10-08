@@ -1,4 +1,9 @@
 
+
+/**
+ * Module that encode files
+ * @namespace FileEncoder
+ */
 const file_encoder = (function(){
 
 
