@@ -50,8 +50,8 @@ create table if not exists `schedule`(
     `reason` TEXT,
     `date` DATETIME default now(),
 
-    foreign key(`id_vehicle_fk`) references `vehicle`(`id`),
-    foreign key(`id_user_fk`) references `user`(`id`),
+    foreign key(`id_vehicle_fk`) references `vehicle`(`id`) on delete cascade,
+    foreign key(`id_user_fk`) references `user`(`id`) on delete cascade,
 
     primary key (`id`)
 
@@ -77,7 +77,7 @@ create table if not exists `user_permission`(
     `id_permission_fk` BIGINT unsigned not null,
     `date` DATETIME not null default now(),
 
-    foreign key(`id_user_fk`) references `user`(`id`),
+    foreign key(`id_user_fk`) references `user`(`id`) on delete cascade,
     foreign key(`id_permission_fk`) references `permission`(`id`),
 
     primary key(`id`)
