@@ -49,7 +49,7 @@ spa.onReady(() => {
 
    // *Checking if that name of the previous page is unlike 'auth':
    if(current_page_name !== 'auth') {
-      spa.navigateTo('auth', {pagina_anterior: current_page_name});
+      spa.navigateTo('auth', {previous_page_name: current_page_name});
    }
 });
 
@@ -69,22 +69,31 @@ spa.onNavigate('auth', (page, params) => {
       spa.navigateTo('login');
 
    } else {
-
       // *If not null:
+
+      // *Checking if the previous page name is set:
+      if(params && (params.previous_page_name!==undefined || params.previous_page_name!==null)){
+      // *If it is:
+      // *Requesting for the user authentication:
       request.getAuth()
          .done((data, textStatus, xhr) => {
 
-            // *Setting the variable value for true:
+            // *Setting the authenticated variable value as true:
             authenticated = true;
-
             // *Redirecting the user to previous page:
-            spa.navigateTo(params.pagina_anterior);
+            spa.navigateTo(params.previous_page_name);
          })
          .fail((xhr, textStatus, err) => {
 
             // *Redirecting the user to login page:
             spa.navigateTo('login');
          });
+      } else{
+         // *If it's not:
+         // *Backing the history two pages:
+         history.back();
+         history.back();
+      }
    }
 });
 
