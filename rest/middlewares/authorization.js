@@ -9,13 +9,8 @@ const pooler = require('../database/pooler');
  * @author Guilherme Reginaldo Ruella
  */
 module.exports = (permission) => {
-   // *Skiping authentication if request is OPTIONS:
-   // TODO test without brackets:
-   // TODO remove this if, as 'OPTIONS' requests resolves itself:
-   if(req.method == 'OPTIONS') return (req, res, next) => {next();};
 
-
-   // *Returning Authorization middleware:
+   // *Returning the authorization middleware:
    return (req, res, next) => {
       let key_header = req.get('Access-Key');
 
@@ -30,17 +25,16 @@ module.exports = (permission) => {
       }
 
       // *Querying for an entry with the given key(login) and permission:
-      // TODO try this with count(*):
-      pooler.query('select * from ?? where ?? = ? and ?? = ?', ['user_permission_view', 'user_login', key_header, 'permission_title', permission])
+      pooler.query('select count(*) as counting from ?? where ?? = ? and ?? = ?', ['user_permission_view', 'user_login', key_header, 'permission_title', permission])
          .then(result => {
-            // *Checking if there is some result:
-            if(result.rows.length>0){
-               // *If there is:
-               // *Authorize the request:
+            // *Checking if the user has the needed clearance:
+            if(result.rows[0].counting){
+               // *If it has:
+               // *Authorizing the request:
                next();
             } else{
-               // *If not:
-               // *Sending 'unauthorize' response:
+               // *If it hasn't:
+               // *Sending a 403 response:
                res.status(403)
                   .send('Unaunthorized')
                   .end();
@@ -48,9 +42,9 @@ module.exports = (permission) => {
          })
          .catch(err => {
             // *If something went wrong:
-            // *Sending 'unauthorize' response:
-            res.status(403)
-               .send('Unaunthorized')
+            // *Sending a 500 response:
+            res.status(500)
+               .send('Something went wrong')
                .end();
          });
    };

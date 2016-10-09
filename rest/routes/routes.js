@@ -5,7 +5,7 @@ const router = require('express').Router();
 const authentication = require('../middlewares/authentication');
 
 // *Requiring the authorization module:
-// const authorization = require('../middlewares/authorization');
+const authorization = require('../middlewares/authorization');
 
 // *Requiring all the routes modules:
 const api = require('./api');
@@ -29,39 +29,39 @@ router.post('/auth', auth.login);
 router.all('/api/v1/*', authentication);
 
 // *Setting up the schedules routes:
-router.get('/api/v1/schedules', schedules.retrieveAll);
-router.get('/api/v1/schedules/:id', schedules.retrieve);
-router.post('/api/v1/schedules', schedules.create);
-router.put('/api/v1/schedules/:id', schedules.update);
-router.delete('/api/v1/schedules/:id', schedules.erase);
+router.get('/api/v1/schedules',           authorization('schedules'), schedules.retrieveAll);
+router.get('/api/v1/schedules/:id',       authorization('schedules'), schedules.retrieve);
+router.post('/api/v1/schedules',          authorization('schedules'), schedules.create);
+router.put('/api/v1/schedules/:id',       authorization('schedules'), schedules.update);
+router.delete('/api/v1/schedules/:id',    authorization('schedules'), schedules.erase);
 
 // *Setting up the users routes:
-router.get('/api/v1/users', users.retrieveAll);
-router.get('/api/v1/users/:id', users.retrieve);
-router.post('/api/v1/users', users.create);
-router.put('/api/v1/users/:id', users.update);
-router.delete('/api/v1/users/:id', users.erase);
+router.get('/api/v1/users',         authorization('users'), users.retrieveAll);
+router.get('/api/v1/users/:id',     authorization('users'), users.retrieve);
+router.post('/api/v1/users',        authorization('users'), users.create);
+router.put('/api/v1/users/:id',     authorization('users'), users.update);
+router.delete('/api/v1/users/:id',  authorization('users'), users.erase);
 
 // *Setting up the users-schedules routes:
-router.get('/api/v1/users/:id/schedules', users_schedules.retrieveAll);
+router.get('/api/v1/users/:id/schedules', authorization('schedules'), users_schedules.retrieveAll);
 
 // *Setting up the users-reservations routes:
-router.get('/api/v1/users/:id/reservations', users_reservations.retrieveAll);
-router.get('/api/v1/users/:id/reservations/:date', users_reservations.retrieveAllOnDate);
+router.get('/api/v1/users/:id/reservations',       authorization('schedules'), users_reservations.retrieveAll);
+router.get('/api/v1/users/:id/reservations/:date', authorization('schedules'), users_reservations.retrieveAllOnDate);
 
 // *Setting up the vehicles routes:
-router.get('/api/v1/vehicles', vehicles.retrieveAll);
-router.get('/api/v1/vehicles/:id', vehicles.retrieve);
-router.post('/api/v1/vehicles', vehicles.create);
-router.put('/api/v1/vehicles/:id', vehicles.update);
-router.delete('/api/v1/vehicles/:id', vehicles.erase);
+router.get('/api/v1/vehicles',         authorization('vehicles'), vehicles.retrieveAll);
+router.get('/api/v1/vehicles/:id',     authorization('vehicles'), vehicles.retrieve);
+router.post('/api/v1/vehicles',        authorization('vehicles'), vehicles.create);
+router.put('/api/v1/vehicles/:id',     authorization('vehicles'), vehicles.update);
+router.delete('/api/v1/vehicles/:id',  authorization('vehicles'), vehicles.erase);
 
 // *Setting up the vehicles-schedules routes:
-router.get('/api/v1/vehicles/:id/schedules', vehicles_schedules.retrieveAll);
+router.get('/api/v1/vehicles/:id/schedules', authorization('schedules'), vehicles_schedules.retrieveAll);
 
 // *Setting up the vehicles-reservations routes:
-router.get('/api/v1/vehicles/:id/reservations', vehicles_reservations.retrieveAll);
-router.get('/api/v1/vehicles/:id/reservations/:date', vehicles_reservations.retrieveAllOnDate);
+router.get('/api/v1/vehicles/:id/reservations',       authorization('schedules'), vehicles_reservations.retrieveAll);
+router.get('/api/v1/vehicles/:id/reservations/:date', authorization('schedules'), vehicles_reservations.retrieveAllOnDate);
 
 // *Exporting the router:
 module.exports = {

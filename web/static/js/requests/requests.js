@@ -1,13 +1,13 @@
 
 // *Global Variables:
-let rest_url = 'http://localhost:3000';
+const rest_url = 'http://localhost:3000';
 
 
 /**
  * Module that makes requests to the rest server
  * @namespace REQUEST
  */
-var request = (function(){
+const request = (function(){
 
 
 

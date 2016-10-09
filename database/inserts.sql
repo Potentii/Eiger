@@ -56,7 +56,8 @@ insert into `permission` (`title`)
 insert into `permission` (`title`)
 	values ('vehicles');
 
-
+insert into `permission` (`title`)
+	values ('schedules');
 
 
 
@@ -64,11 +65,19 @@ insert into `permission` (`title`)
 
 insert into `user_permission` (`id_user_fk`, `id_permission_fk`)
 	values(1, 1);
-
 insert into `user_permission` (`id_user_fk`, `id_permission_fk`)
 	values(1, 2);
+insert into `user_permission` (`id_user_fk`, `id_permission_fk`)
+	values(1, 3);
 
 insert into `user_permission` (`id_user_fk`, `id_permission_fk`)
-	values(2, 2);
+	values(2, 1);
+insert into `user_permission` (`id_user_fk`, `id_permission_fk`)
+	values(2, 3);
+insert into `user_permission` (`id_user_fk`, `id_permission_fk`)
+	values(2, 3);
 
-
+insert into `user_permission` (`id_user_fk`, `id_permission_fk`)
+	values(3, 2);
+insert into `user_permission` (`id_user_fk`, `id_permission_fk`)
+	values(3, 3);
