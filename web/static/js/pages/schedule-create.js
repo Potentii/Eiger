@@ -10,8 +10,8 @@ spa.onNavigate('schedule-create', (page, params) => {
 
       // *Checking if the user was authenticated:
       if(authenticated == true) {
-
-         // *:
+         // *If true:
+         // *Showing the vehicle in app bar:
          request.getVehicle(id)
             .done((data, textStatus, xhr) => {
                // *Setting the vehicle's photo:
@@ -28,15 +28,51 @@ spa.onNavigate('schedule-create', (page, params) => {
                console.log(textStatus);
             });
 
-            request.getAuth()
-               .done((data, textStatus, xhr) => {
+         // *Setting user id the cache in the variable:
+         let idUser = request.retrieveAccessCredentials();
 
-                  // *Setting the User name:
-                  $('#schedule-create-user-name').text(data.user.name);
-               })
-               .fail((xhr, textStatus, err) => {
-                  console.log(textStatus);
-               });
+         // *Showing the user in app bar:
+         request.getUser(idUser.id)
+            .done((data, textStatus, xhr) => {
+
+               // *Setting the User name:
+               $('#schedule-create-user-name').text(data.name);
+            })
+            .fail((xhr, textStatus, err) => {
+               console.log(textStatus);
+            });
+
+
+
+         // *Clicking on a user header:
+         $('#schedule-create-user-app-bar').on('click', function(){
+            let selected_user;
+
+            // *Opening the user-picker page:
+            dialogger.open('user-picker', {previous_selected_user: idUser.id}, (dialog, status, params) => {
+
+               // *Checking if the case was positive:
+               switch(status){
+               case dialogger.DIALOG_STATUS_POSITIVE:
+                  selected_user = params.id;
+
+                  // *Replacing the user in app bar:
+                  request.getUser(selected_user)
+                     .done((data, textStatus, xhr) => {
+                        selected_user = data.id;
+
+                        // *Setting the User name:
+                        $('#schedule-create-user-name').attr('data-id', selected_user).text(data.name);
+                     })
+                     .fail((xhr, textStatus, err) => {
+                        console.log(textStatus);
+                     });
+                  break;
+               }
+            });
+         });
+
+
 
          // *When the user submit the form:
          $('#schedule-create-form').submit((e) => {
@@ -55,9 +91,9 @@ spa.onNavigate('schedule-create', (page, params) => {
             let start_date_time = date_startdate + ' ' + time_starttime;
             let end_date_time = date_enddate + ' ' + time_endtime;
 
-            // TODO Replace the ids with the actual value:
-            let user_id = 1;
-            let vehicle_id = 1;
+            // *Setting variables user_id and vehicle_id:
+            let user_id = $('#schedule-create-user-name').data('id');
+            let vehicle_id = id;
 
             // *Saving all values in a object_data:
             let object_data = {
@@ -91,4 +127,7 @@ spa.onNavigate('schedule-create', (page, params) => {
 spa.onUnload('schedule-create', (page)=> {
    // *Removing the submit listeners from the form:
    $('#schedule-create-form').off('submit');
+
+   // *Removing the event onClick:
+   $('#schedule-create-user-app-bar').off('click');
 });
