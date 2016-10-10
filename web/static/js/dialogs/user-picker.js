@@ -23,6 +23,7 @@ dialogger.onOpen('user-picker', (dialog, params) => {
             $('<span>').addClass('primary').text(user.name).appendTo(userPicker_li);
             $('<span>').addClass('secondary').text(user.login).appendTo(userPicker_li);
 
+            // *Checking if the user selected is exactly equals user.id:
             if(user.id === selected_user){
                // *If this:
                // *Adding a user's li class:
