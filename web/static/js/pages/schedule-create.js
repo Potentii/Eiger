@@ -7,6 +7,10 @@ spa.onNavigate('schedule-create', (page, params) => {
    // *Checking if the params is diferent undefined ou null:
    if(params && (params.id !== null && params.id !== undefined)){
       let id = params.id;
+      let selected_user;
+
+      // *Setting user id the cache in the variable:
+      let idUser = request.retrieveAccessCredentials().id;
 
       // *Checking if the user was authenticated:
       if(authenticated == true) {
@@ -28,11 +32,8 @@ spa.onNavigate('schedule-create', (page, params) => {
                console.log(textStatus);
             });
 
-         // *Setting user id the cache in the variable:
-         let idUser = request.retrieveAccessCredentials();
-
          // *Showing the user in app bar:
-         request.getUser(idUser.id)
+         request.getUser(idUser)
             .done((data, textStatus, xhr) => {
 
                // *Setting the User name:
@@ -46,7 +47,6 @@ spa.onNavigate('schedule-create', (page, params) => {
 
          // *Clicking on a user header:
          $('#schedule-create-user-app-bar').on('click', function(){
-            let selected_user;
 
             // *Opening the user-picker page:
             dialogger.open('user-picker', {previous_selected_user: idUser.id}, (dialog, status, params) => {
@@ -92,7 +92,7 @@ spa.onNavigate('schedule-create', (page, params) => {
             let end_date_time = date_enddate + ' ' + time_endtime;
 
             // *Setting variables user_id and vehicle_id:
-            let user_id = $('#schedule-create-user-name').data('id');
+            let user_id = selected_user;
             let vehicle_id = id;
 
             // *Saving all values in a object_data:

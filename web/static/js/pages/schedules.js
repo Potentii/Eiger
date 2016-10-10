@@ -79,8 +79,6 @@ spa.onNavigate('schedules', (page, params) => {
                   let end_date = new Date(element.schedule.end_date);
                   let schedules_end_date = $('<span>').text(df.asShortDate(end_date));
                   schedules_end_date.appendTo(schedules_duration_div);
-
-
                });
 
                // *Clicking on a reservation:
@@ -95,12 +93,12 @@ spa.onNavigate('schedules', (page, params) => {
             .fail((xhr, textStatus, err) => {
             console.log(textStatus);
             });
-
       }
 
       // *Getting element button:
       let addButton = $('#schedules-create-done-fab');
 
+      // *When a user click in a button the list:
       addButton.on('click', function(){
          let id = params.id;
          let date = params.date;

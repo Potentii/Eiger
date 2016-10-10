@@ -15,27 +15,27 @@ spa.onNavigate('', (page, params) => {
             let card_ul = $('#vehicles-list');
 
             // *Iterating and creating the vehicles list:
-            data.forEach((element, index) => {
+            data.forEach((vehicle, index) => {
 
                // *Building the vehicle's li:
                let card_li = $('<li>');
-               card_li.attr('data-id', element.id).addClass('card box raised').appendTo(card_ul);
+               card_li.attr('data-id', vehicle.id).addClass('card box raised').appendTo(card_ul);
 
                // *Building the vehicle's div:
                let horizontal_layout_div = $('<div>').addClass('info flex-horizontal-layout').appendTo(card_li);
 
                // *Building and setting the vehicle's photo:
-               let image_div = $('<div>').addClass('round-thumbnail size-4').css('background-image', 'url('+ rest_url + '/media/v/p/' + element.photo +')').appendTo(horizontal_layout_div);
+               let image_div = $('<div>').addClass('round-thumbnail size-4').css('background-image', 'url('+ rest_url + '/media/v/p/' + vehicle.photo +')').appendTo(horizontal_layout_div);
 
                // *Building the vehicle's div:
                let vertical_layout_div = $('<div>').addClass('vertical-layout').appendTo(horizontal_layout_div);
 
                // *Building and setting the vehicle's title and plate:
-               let vehicle_title = $('<span>').addClass('primary').text(element.title + ' - ' + element.plate).appendTo(vertical_layout_div);
+               let vehicle_title = $('<span>').addClass('primary').text(vehicle.title + ' - ' + vehicle.plate).appendTo(vertical_layout_div);
                $('<br>').appendTo(vehicle_title);
 
                // *Building and setting the vehicle's year, type and manufacturer:
-               let vehicle_description = $('<span>').addClass('secondary').text(element.year + ' - ' + element.type + ' - ' + element.manufacturer).appendTo(vertical_layout_div);
+               let vehicle_description = $('<span>').addClass('secondary').text(vehicle.year + ' - ' + vehicle.type + ' - ' + vehicle.manufacturer).appendTo(vertical_layout_div);
 
                // *Building the vehicle's divs:
                let horizontal_line_div = $('<div>').addClass('horizontal-line').appendTo(card_li);
@@ -45,7 +45,7 @@ spa.onNavigate('', (page, params) => {
                let button_ul = $('<ul>').addClass('schedules flex-horizontal-layout').appendTo(card_li);
 
                //
-               requestSchedules(element.id, button_ul);
+               requestSchedules(vehicle.id, button_ul);
             });
 
             // *Clicking on a vehicle's li:
