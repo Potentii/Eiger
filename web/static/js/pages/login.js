@@ -25,7 +25,7 @@ spa.onNavigate('login', (page, params) => {
          .done((data, textStatus, xhr) => {
 
             // *Saving user authentication data:
-            saveAuthentication(data);
+            request.saveAuthentication(data);
 
             // *Setting the variable value for true:
             authenticated = true;
@@ -105,19 +105,3 @@ spa.onUnload('login', (page, params) => {
    // *Removing the event submit:
    $('#login-form').off('submit');
 });
-
-
-
-/**
-* Saves the authentication keys in cache
-* @param  {object} data The token and the user key
-* @author Ralf Pablo Braga Soares
-*/
-function saveAuthentication(data) {
-
-   // *Setting token as an access key to the token code in cache:
-   localStorage.setItem('token', JSON.stringify(data.token));
-
-   // *saving key as an access key to the key code in cache:
-   localStorage.setItem('key', JSON.stringify(data.user.login));
-}
