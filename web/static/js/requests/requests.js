@@ -19,7 +19,27 @@ const request = (function(){
    function retrieveAccessCredentials() {
       let token = JSON.parse(localStorage.getItem('token'));
       let key = JSON.parse(localStorage.getItem('key'));
-      return {token: token, key: key};
+      let id = JSON.parse(localStorage.getItem('id'));
+      return {token: token, key: key, id: id};
+   }
+
+
+
+   /**
+   * Saves the authentication keys in cache
+   * @param  {object} data The token and the user key
+   * @author Ralf Pablo Braga Soares
+   */
+   function saveAuthentication(data) {
+
+      // *Setting token as an access key to the token code in cache:
+      localStorage.setItem('token', JSON.stringify(data.token));
+
+      // *Saving id as an access key to the id code in cache:
+      localStorage.setItem('id', JSON.stringify(data.user.id));
+
+      // *Setting key as an access key to the key code in cache:
+      localStorage.setItem('key', JSON.stringify(data.user.login));
    }
 
 
@@ -538,6 +558,7 @@ const request = (function(){
       deleteVehicle: deleteVehicle,
       deleteSchedule: deleteSchedule,
 
-      retrieveAccessCredentials: retrieveAccessCredentials
+      retrieveAccessCredentials: retrieveAccessCredentials,
+      saveAuthentication: saveAuthentication
    };
 })();

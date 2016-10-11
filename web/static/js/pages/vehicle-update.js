@@ -3,7 +3,7 @@ spa.onNavigate('vehicle-update', (page, params) => {
    let vehicle_photo_base64 = '';
 
    // * TODO remove this when the actual id is being sent to this page
-      params = {id:1};
+   params = {id:1};
 
    // *Checking if the params is diferent undefined or null:
    if(params && (params.id !== null && params.id !== undefined)){
@@ -14,9 +14,8 @@ spa.onNavigate('vehicle-update', (page, params) => {
          // *Show the page to update vehicle:
          request.getVehicle(id)
             .done((data, textStatus, xhr) => {
-
                // *Setting the vehicle's photo:
-               $('#vehicle-update-pic').parent().css('background-image', 'url(' + rest_url + '/media/v/p/'+ data.photo +')');
+               $('#vehicle-update-pic').parent().css('background-image', data.photo?'url(' + rest_url + '/media/v/p/'+ data.photo +')':'');
 
                // *Setting the vehicle's update title:
                $('#vehicle-update-title').val(data.title);
@@ -41,8 +40,8 @@ spa.onNavigate('vehicle-update', (page, params) => {
                let mdl_textfields = document.querySelectorAll('#vehicle-update-section .mdl-js-textfield');
                // *Updating the states of each MDL textfield:
                for(mdl_textfield of mdl_textfields){
-               // *Updating the status:
-               mdl_textfield.MaterialTextfield.updateClasses_();
+                  // *Updating the status:
+                  mdl_textfield.MaterialTextfield.updateClasses_();
                }
 
             })
@@ -57,7 +56,7 @@ spa.onNavigate('vehicle-update', (page, params) => {
                vehicle_photo_base64 = res;
 
                // *Showing a preview of a photo to update vehicle:
-               $('#vehicle-update-pic').parent().css('background-image', 'url(' + vehicle_photo_base64 + ')');
+               $('#vehicle-update-pic').parent().css('background-image', vehicle_photo_base64?'url(' + vehicle_photo_base64 + ')':'');
             });
          });
 
@@ -65,7 +64,7 @@ spa.onNavigate('vehicle-update', (page, params) => {
          // Button to call a function updateVechile and prevent te action default of browser happen
          $('#vehicle-update-form').on('submit', (e) => {
             e.preventDefault();
-            updateVehicle(id);
+            updateVehicle(id, vehicle_photo_base64);
 
          });
 
@@ -73,14 +72,16 @@ spa.onNavigate('vehicle-update', (page, params) => {
    } else {
       // *Is not diferent of null ou undefined:
       // *Send it to the index page:
-      //spa.navigateTo('');
+      spa.navigateTo('');
    }
 });
 
 
- //Cleaning listernes from this page
+ // *Cleaning listernes from this page:
 spa.onUnload('vehicle-update', (page) => {
+   // *Cleaning the event submit:
    $('#vehicle-update-form').off('submit');
+   // *Cleaning the event change:
    $('#vehicle-update-pic').off('change');
 });
 
@@ -91,9 +92,6 @@ spa.onUnload('vehicle-update', (page) => {
  */
 function updateVehicle(id, vehicle_photo_base64){
 
-   // *Getting the key and the token:
-   let auth = getAuthentication();
-
    // *Getting data of inputs:
    let vehicle_pic = $('#vehicle-update-pic').val();
    let vehicle_title = $('#vehicle-update-title').val();
@@ -103,7 +101,7 @@ function updateVehicle(id, vehicle_photo_base64){
    let vehicle_plate = $('#vehicle-update-plate').val();
    let vehicle_revavam = $('#vehicle-update-renavam').val();
 
-
+   // *Create a objetct to receiva values to update a vehicle:
    let data_update_vehicle = {
       title: vehicle_title,
       manufacturer: vehicle_manufacturer,
@@ -117,14 +115,14 @@ function updateVehicle(id, vehicle_photo_base64){
 
 
    // *Sending a Update Vehicle to the table vehicle on database:
-      request.putVehicle(id, data_update_vehicle)
-         .done((data, textStatus, xhr) => {
-         saveAuthentication(data);
-         authenticated = true;
-         spa.navigateTo('');
+   request.putVehicle(id, data_update_vehicle)
+      .done((data, textStatus, xhr) => {
+         // *Showing the snack with the message:
          snack.show('Vehicle updated', snack.TIME_SHORT);
-
-   }).fail((xhr, textStatus, err) => {
-      console.log(textStatus);
-   });
+         // *Going to index page:
+         spa.navigateTo('');
+      })
+      .fail((xhr, textStatus, err) => {
+         console.log(textStatus);
+      });
 }
