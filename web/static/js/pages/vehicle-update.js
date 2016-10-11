@@ -2,6 +2,9 @@
 spa.onNavigate('vehicle-update', (page, params) => {
    let vehicle_photo_base64 = '';
 
+   // * TODO remove this when the actual id is being sent to this page
+      params = {id:1};
+
    // *Checking if the params is diferent undefined or null:
    if(params && (params.id !== null && params.id !== undefined)){
       let id = params.id;
@@ -9,17 +12,17 @@ spa.onNavigate('vehicle-update', (page, params) => {
       if(authenticated == true) {
          // *If true:
          // *Show the page to update vehicle:
-         request.getVehicle(1)
+         request.getVehicle(id)
             .done((data, textStatus, xhr) => {
 
                // *Setting the vehicle's photo:
-               $('#vehicle-update-pic').css('background-image', 'url(' + rest_url + '/media/v/p/'+ data.photo +')');
+               $('#vehicle-update-pic').parent().css('background-image', 'url(' + rest_url + '/media/v/p/'+ data.photo +')');
 
                // *Setting the vehicle's update title:
                $('#vehicle-update-title').val(data.title);
 
                // *Setting the vehicle's update manufacturer:
-               $('#vehicle-update-manufacturer').val(data.manufacturer)
+               $('#vehicle-update-manufacturer').val(data.manufacturer);
 
                // *Setting the vehicle's update type:
                $('#vehicle-update-type').val(data.type);
@@ -33,17 +36,28 @@ spa.onNavigate('vehicle-update', (page, params) => {
                // *Setting the vehicle's update plate:
                $('#vehicle-update-renavam').val(data.renavam);
 
+
+               // *Getting all MDL textfields:
+               let mdl_textfields = document.querySelectorAll('#vehicle-update-section .mdl-js-textfield');
+               // *Updating the states of each MDL textfield:
+               for(mdl_textfield of mdl_textfields){
+               // *Updating the status:
+               mdl_textfield.MaterialTextfield.updateClasses_();
+               }
+
             })
             .fail((xhr, textStatus, err) => {
                console.log(textStatus);
             });
 
-
+            // *Listening to receiva a photo in base64:
          $('#vehicle-update-pic').on('change', (e) => {
             let vehicle_pic_file = document.querySelector('#vehicle-update-pic').files[0];
             file_encoder.asBase64(vehicle_pic_file, res => {
                vehicle_photo_base64 = res;
-               $('#vehicle_pic_file').css('background-image');
+
+               // *Showing a preview of a photo to update vehicle:
+               $('#vehicle-update-pic').parent().css('background-image', 'url(' + vehicle_photo_base64 + ')');
             });
          });
 
@@ -75,7 +89,7 @@ spa.onUnload('vehicle-update', (page) => {
  * @param  {number} id  The number of id from vehicle
  * @author Willian Conti Rezende
  */
-function updateVehicle(id){
+function updateVehicle(id, vehicle_photo_base64){
 
    // *Getting the key and the token:
    let auth = getAuthentication();
@@ -89,7 +103,7 @@ function updateVehicle(id){
    let vehicle_plate = $('#vehicle-update-plate').val();
    let vehicle_revavam = $('#vehicle-update-renavam').val();
 
-   
+
    let data_update_vehicle = {
       title: vehicle_title,
       manufacturer: vehicle_manufacturer,

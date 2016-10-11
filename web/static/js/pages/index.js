@@ -87,11 +87,8 @@ function requestVehicles(){
 
 
    // *Requests Vehicles to the vehicles data base:
-   $.ajax({
-      url: 'http://localhost:3000/api/v1/vehicles',
-      method: 'GET',
-      headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
-   }).done((data, textStatus, xhr) => {
+   request.getVehicle(id)
+      .done((data, textStatus, xhr) => {
       // *Father ul:
       let card_ul = $('#vehicles-list');
 
