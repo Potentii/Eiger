@@ -1,4 +1,4 @@
-drop schema if exists eiger_schema;
+drop schema if exists `eiger_schema`;
 create schema if not exists `eiger_schema`;
 use `eiger_schema`;
 
@@ -8,7 +8,6 @@ drop table if exists `user_permission`;
 drop table if exists `permission`;
 drop table if exists `schedule`;
 drop table if exists `auth`;
-
 
 
 
@@ -41,6 +40,7 @@ create table if not exists `user`(
 	primary key(`id`)
 );
 
+
 create table if not exists `schedule`(
 	`id` BIGINT unsigned not null auto_increment unique,
 	`id_vehicle_fk` BIGINT unsigned not null,
@@ -48,15 +48,16 @@ create table if not exists `schedule`(
     `start_date` DATETIME not null,
     `end_date` DATETIME not null,
     `reason` TEXT,
+    `id_user_owner_fk` BIGINT unsigned not null,
     `date` DATETIME default now(),
 
     foreign key(`id_vehicle_fk`) references `vehicle`(`id`),
     foreign key(`id_user_fk`) references `user`(`id`),
-
+	foreign key(`id_user_owner_fk`) references `user`(`id`),
+    
     primary key (`id`)
 
 );
-
 
 
 create table if not exists `permission`(
@@ -67,8 +68,6 @@ create table if not exists `permission`(
     primary key (`id`)
 
 );
-
-
 
 
 create table if not exists `user_permission`(
@@ -83,8 +82,6 @@ create table if not exists `user_permission`(
     primary key(`id`)
 
 );
-
-
 
 
 create table if not exists `auth`(

@@ -182,10 +182,20 @@ function erase(req, res, next){
       })
       .catch(err => {
          // *If something went wrong:
-         // *Sending a 500 error response:
-         res.status(500)
-            .send('Something went wrong')
-            .end();
+         // *Checking the error code:
+         switch(err.code){
+         case 'ER_ROW_IS_REFERENCED_2':
+            // *Sending a 409 error response:
+            res.status(409)
+               .send('The resource has dependencies left')
+               .end();
+            break;
+         default:
+            // *Sending a 500 error response:
+            res.status(500)
+               .send('Something went wrong')
+               .end();
+         }
       });
 }
 

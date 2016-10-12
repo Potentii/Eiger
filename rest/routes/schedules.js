@@ -70,6 +70,11 @@ function retrieve(req, res, next){
 function create(req, res, next){
    // *Getting the body of the request:
    let values = req.body;
+   // *Getting the request owner's id:
+   let owner_id = req.headers['Access-Id'];
+   // *Adding the owner reference into the insert parameters:
+   values.id_user_owner_fk = owner_id;
+
 
    // *Inserting the resource in the database:
    pooler.query('insert into ?? set ?', ['schedule', values])
@@ -83,6 +88,24 @@ function create(req, res, next){
          // *If something went wrong:
          // *Checking the error code:
          switch(err.code){
+         case 'EIGER_INVALID_DATE':
+            // *Sending a 400 error response:
+            res.status(400)
+               .send('Invalid date')
+               .end();
+            break;
+         case 'EIGER_NOT_AUTHORIZED':
+            // *Sending a 403 error response:
+            res.status(403)
+               .send('Not authorized')
+               .end();
+            break;
+         case 'EIGER_VEHICLE_UNAVAILABLE':
+            // *Sending a 409 error response:
+            res.status(409)
+               .send('Vehicle unavailable')
+               .end();
+            break;
          case 'ER_NO_DEFAULT_FOR_FIELD':
             // *Sending a 400 error response:
             res.status(400)
@@ -93,6 +116,12 @@ function create(req, res, next){
             // *Sending a 400 error response:
             res.status(400)
                .send('The resource already exists')
+               .end();
+            break;
+         case 'ER_NO_REFERENCED_ROW_2':
+            // *Sending a 404 error response:
+            res.status(404)
+               .send('Resource not found')
                .end();
             break;
          default:
@@ -115,6 +144,10 @@ function update(req, res, next){
    let id = req.params.id;
    // *Getting the body of the request:
    let values = req.body;
+   // *Getting the request owner's id:
+   let owner_id = req.headers['Access-Id'];
+   // *Adding the owner reference into the insert parameters:
+   values.id_user_owner_fk = owner_id;
 
 
    // *Updating the resource in the database:
