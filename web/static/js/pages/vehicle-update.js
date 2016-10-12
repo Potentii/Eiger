@@ -2,7 +2,7 @@
 spa.onNavigate('vehicle-update', (page, params) => {
    let vehicle_photo_base64 = '';
 
-   // * TODO remove this when the actual id is being sent to this page
+   // *TODO remove this when the actual id is being sent to this page:
    params = {id:1};
 
    // *Checking if the params is diferent undefined or null:
@@ -83,6 +83,15 @@ spa.onUnload('vehicle-update', (page) => {
    $('#vehicle-update-form').off('submit');
    // *Cleaning the event change:
    $('#vehicle-update-pic').off('change');
+   // *Cleaning inputs when the page is left:
+   $('#vehicle-update-pic').val('');
+   $('#vehicle-update-title').val('');
+   $('#vehicle-update-manufacturer').val('');
+   $('#vehicle-update-type').val('');
+   $('#vehicle-update-year').val('');
+   $('#vehicle-update-plate').val('');
+   $('#vehicle-update-renavam').val('');
+   $('#vehicle-update-pic').parent().css('background-image', '');
 });
 
 /**
