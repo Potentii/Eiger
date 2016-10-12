@@ -75,7 +75,6 @@ function create(req, res, next){
    // *Adding the owner reference into the insert parameters:
    values.id_user_owner_fk = owner_id;
 
-
    // *Inserting the resource in the database:
    pooler.query('insert into ?? set ?', ['schedule', values])
       .then(result => {
@@ -149,7 +148,6 @@ function update(req, res, next){
    // *Adding the owner reference into the insert parameters:
    values.id_user_owner_fk = owner_id;
 
-
    // *Updating the resource in the database:
    pooler.query('update ?? set ? where ?? = ?', ['schedule', values, 'id', id])
       .then(result => {
@@ -171,10 +169,34 @@ function update(req, res, next){
          // *If something went wrong:
          // *Checking the error code:
          switch(err.code){
+         case 'EIGER_INVALID_DATE':
+            // *Sending a 400 error response:
+            res.status(400)
+               .send('Invalid date')
+               .end();
+            break;
+         case 'EIGER_NOT_AUTHORIZED':
+            // *Sending a 403 error response:
+            res.status(403)
+               .send('Not authorized')
+               .end();
+            break;
+         case 'EIGER_VEHICLE_UNAVAILABLE':
+            // *Sending a 409 error response:
+            res.status(409)
+               .send('Vehicle unavailable')
+               .end();
+            break;
          case 'ER_DUP_ENTRY':
             // *Sending a 400 error response:
             res.status(400)
                .send('The resource already exists')
+               .end();
+            break;
+         case 'ER_NO_REFERENCED_ROW_2':
+            // *Sending a 404 error response:
+            res.status(404)
+               .send('Resource not found')
                .end();
             break;
          default:
@@ -195,23 +217,77 @@ function update(req, res, next){
 function erase(req, res, next){
    // *Getting the id from request params:
    let id = req.params.id;
+   // *Getting the request owner's id:
+   let owner_id = req.headers['Access-Id'];
 
-   // *Deleting the resource from database:
-   pooler.query('delete from ?? where ?? = ?', ['schedule', 'id', id])
-      .then(result => {
-         // *Checking if the resource was deleted:
-         if(result.rows.affectedRows){
-            // *If it was:
-            // *Responding with 200 status:
-            res.status(200)
-               .end();
-         } else{
-            // *If it wasn't:
-            // *Sending a 404 response:
-            res.status(404)
-               .send('Resource not found')
-               .end();
-         }
+   // *Querying this schedule's user:
+   pooler.query('select ?? from ?? where ?? = ?', ['id_user_fk', 'schedule', 'id', id])
+      .then(referenced_user_result => {
+         // *Querying the request owner's admin status:
+         pooler.query('select ?? from ?? where ?? = ?', ['admin', 'user', 'id', owner_id])
+            .then(admin_result => {
+               // *Checking if the user could be found:
+               if(admin_result.rows.length){
+                  // *If they could be found:
+                  // *Checking if the schedule could be found:
+                  if(referenced_user_result.rows.length){
+                     // *If it could:
+                     // *Checking if the user is an admin, but if not, checking if the user is the same as the one referenced by this schedule:
+                     if(admin_result.rows[0].admin || referenced_user_result.rows[0].id_user_fk === owner_id){
+                        // *If they're:
+                        // *Deleting the resource from database:
+                        pooler.query('delete from ?? where ?? = ?', ['schedule', 'id', id])
+                           .then(result => {
+                              // *Checking if the resource was deleted:
+                              if(result.rows.affectedRows){
+                                 // *If it was:
+                                 // *Responding with 200 status:
+                                 res.status(200)
+                                    .end();
+                              } else{
+                                 // *If it wasn't:
+                                 // *Sending a 404 response:
+                                 res.status(404)
+                                    .send('Resource not found')
+                                    .end();
+                              }
+                           })
+                           .catch(err => {
+                              // *If something went wrong:
+                              // *Sending a 500 error response:
+                              res.status(500)
+                                 .send('Something went wrong')
+                                 .end();
+                           });
+                     } else{
+                        // *If not:
+                        // *Sending a 403 error response:
+                        res.status(403)
+                           .send('Not authorized')
+                           .end();
+                     }
+                  } else{
+                     // *If it couldn't:
+                     // *Sending a 404 error response:
+                     res.status(404)
+                        .send('Resource not found')
+                        .end();
+                  }
+               } else{
+                  // *If they couldn't:
+                  // *Sending a 500 error response:
+                  res.status(500)
+                     .send('Something went wrong')
+                     .end();
+               }
+            })
+            .catch(err => {
+               // *If something went wrong:
+               // *Sending a 500 error response:
+               res.status(500)
+                  .send('Something went wrong')
+                  .end();
+            });
       })
       .catch(err => {
          // *If something went wrong:

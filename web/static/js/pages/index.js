@@ -125,7 +125,7 @@ function getNextDays(days_quantity, from_date){
    var vet = [];
 
    for(var i=0; i<days_quantity; i++) {
-      var current_date = from_date || new Date('2016-10-01 00:00:00');
+      var current_date = from_date || new Date();
       var next_date_ms = current_date.setDate(current_date.getDate() + i);
       var next_date = new Date(next_date_ms);
       vet.push(next_date);
