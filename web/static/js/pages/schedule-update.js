@@ -24,11 +24,11 @@ spa.onNavigate('schedule-update', (page, params) => {
 
                // *Setting the schedule start time:
                let start_time = new Date(data.start_date);
-               $('#schedule-update-start-time').val(df.asShorterTime(start_time));
+               $('#schedule-update-start-time').val(df.asShortTime(start_time));
 
                // *Setting the schedule end time:
                let end_time = new Date(data.end_date);
-               $('#schedule-update-end-time').val(df.asShorterTime(end_time));
+               $('#schedule-update-end-time').val(df.asShortTime(end_time));
 
                // *Setting the schedule end date:
                let end_date = new Date(data.end_date);
@@ -97,7 +97,8 @@ function updateSchedule(id){
   let start_date_schedule = schedule_start_date + ' ' + schedule_start_time;
   let end_date_schedule = schedule_end_date + ' ' + schedule_end_time;
 
-  // *Create a objetct to receiva values to update a vehicle:
+  // *Create a objetct to receiva values to update a schedule:
+  // *TODO Add the vehicle and user's id:
   let data_update_schedule = {
      reason: schedule_reason,
      start_date: start_date_schedule,
