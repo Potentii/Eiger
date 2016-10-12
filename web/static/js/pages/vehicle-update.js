@@ -49,7 +49,7 @@ spa.onNavigate('vehicle-update', (page, params) => {
                console.log(textStatus);
             });
 
-            // *Listening to receiva a photo in base64:
+         // *Listening to receiva a photo in base64:
          $('#vehicle-update-pic').on('change', (e) => {
             let vehicle_pic_file = document.querySelector('#vehicle-update-pic').files[0];
             file_encoder.asBase64(vehicle_pic_file, res => {
@@ -61,7 +61,7 @@ spa.onNavigate('vehicle-update', (page, params) => {
          });
 
 
-         // Button to call a function updateVechile and prevent te action default of browser happen
+         // Button to call a function updateVechile and prevent the action default of browser happen
          $('#vehicle-update-form').on('submit', (e) => {
             e.preventDefault();
             updateVehicle(id, vehicle_photo_base64);
@@ -96,7 +96,8 @@ spa.onUnload('vehicle-update', (page) => {
 
 /**
  * Sends the vehicle update request to REST
- * @param  {number} id  The number of id from vehicle
+ * @param  {number} id                   Id of vehicle
+ * @param  {string} vehicle_photo_base64 The base64 encoded image of vehicle
  * @author Willian Conti Rezende
  */
 function updateVehicle(id, vehicle_photo_base64){
