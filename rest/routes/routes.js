@@ -29,11 +29,11 @@ router.post('/auth', auth.login);
 router.all('/api/v1/*', authentication);
 
 // *Setting up the schedules routes:
-router.get('/api/v1/schedules',           authorization('schedules-view'), schedules.retrieveAll);
-router.get('/api/v1/schedules/:id',       authorization('schedules-view'), schedules.retrieve);
-router.post('/api/v1/schedules',          authorization('schedules-modify'), schedules.create);
-router.put('/api/v1/schedules/:id',       authorization('schedules-modify'), schedules.update);
-router.delete('/api/v1/schedules/:id',    authorization('schedules-modify'), schedules.erase);
+router.get('/api/v1/schedules',                             authorization('schedules-view'), schedules.retrieveAll);
+router.get('/api/v1/schedules/:id',                         authorization('schedules-view'), schedules.retrieve);
+router.post('/api/v1/schedules', auth.exposeAccessId,       authorization('schedules-modify'), schedules.create);
+router.put('/api/v1/schedules/:id', auth.exposeAccessId,    authorization('schedules-modify'), schedules.update);
+router.delete('/api/v1/schedules/:id', auth.exposeAccessId, authorization('schedules-modify'), schedules.erase);
 
 // *Setting up the users routes:
 router.get('/api/v1/users',         authorization('users-view'), users.retrieveAll);

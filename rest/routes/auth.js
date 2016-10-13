@@ -5,7 +5,10 @@ const pooler = require('../database/pooler');
 
 
 
-
+/**
+ * Sends back the user's information (It should only be used on 'GET /auth' route)
+ * @author Guilherme Reginaldo Ruella
+ */
 function onAuthenticated(req, res, next){
    // *Getting the key header:
    let key_header = req.get('Access-Key');
@@ -24,8 +27,8 @@ function onAuthenticated(req, res, next){
          } else{
             // *If not:
             // *Sending 404 response:
-            res.status(404)
-               .send('Resource not found')
+            res.status(500)
+               .send('Something went wrong')
                .end();
          }
       })
@@ -39,6 +42,43 @@ function onAuthenticated(req, res, next){
 }
 
 
+
+/**
+ * Retrives the request owner's Id, and stores it inside request's 'Access-Id' header
+ * @author Guilherme Reginaldo Ruella
+ */
+function exposeAccessId(req, res, next){
+   // *Getting the key header:
+   let key_header = req.get('Access-Key');
+
+   // *Querying for the user with the given key header as login:
+   pooler.query('select ?? from ?? where ?? = ? limit 1', ['id', 'user_view', 'login', key_header])
+      .then(result => {
+         // *If there's no error:
+         // *Checking if there is any entry:
+         if(result.rows.length){
+            // *If there is:
+            // *Saving the request owner's id inside 'Access-Id' header:
+            req.headers['Access-Id'] = result.rows[0].id;
+            // *Calling the next middleware:
+            next();
+         } else{
+            // *If not:
+            // *Sending 500 response:
+            res.status(500)
+               .send('Something went wrong')
+               .end();
+         }
+      })
+      .catch(err => {
+         console.log(err);
+         // *If some error occured:
+         // *Sending 500 response:
+         res.status(500)
+            .send('Something went wrong')
+            .end();
+      });
+}
 
 
 
@@ -133,5 +173,6 @@ function login(req, res, next){
 // *Exporting the module:
 module.exports = {
    onAuthenticated: onAuthenticated,
+   exposeAccessId: exposeAccessId,
    login: login
 };
