@@ -2,9 +2,6 @@
 spa.onNavigate('vehicle-update', (page, params) => {
    let vehicle_photo_base64 = '';
 
-   // *TODO remove this when the actual id is being sent to this page:
-   params = {id:1};
-
    // *Checking if the params is diferent undefined or null:
    if(params && (params.id !== null && params.id !== undefined)){
       let id = params.id;
@@ -65,9 +62,7 @@ spa.onNavigate('vehicle-update', (page, params) => {
          $('#vehicle-update-form').on('submit', (e) => {
             e.preventDefault();
             updateVehicle(id, vehicle_photo_base64);
-
          });
-
       }
    } else {
       // *Is not diferent of null ou undefined:

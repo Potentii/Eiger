@@ -26,15 +26,29 @@ spa.onNavigate('vehicle-info', (page, params) => {
                // *Setting the vehicle's renavam and registred date:
                $('#vehicle-info-renavam').text(data.renavam);
                let date = new Date(data.date);
-               $('#vehicle-info-date').text(df.asMysqlDate(date));
+               $('#vehicle-info-date').text(df.asFullDate(date));
             })
             .fail((xhr, textStatus, err) => {
                console.log(textStatus);
             });
       }
+
+      // *When a user to click in update button:
+      $('#vehicle-info-edit-fab').on('click', function(){
+          // *Sending the user's to the vehicle-update page:
+          spa.navigateTo('vehicle-update', {id: id});
+      });
    } else {
       // *Is not diferent of null ou undefined:
       // *Redirecting the user to index page:
       spa.navigateTo('');
    }
+});
+
+
+// *When user left the page:
+spa.onUnload('vehicle-info', (page) => {
+
+   // *Removing the event click:
+   $('#vehicle-info-edit-fab').off('click');
 });
