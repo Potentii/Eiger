@@ -62,7 +62,7 @@ spa.onNavigate('schedule-create', (page, params) => {
                         selected_user = data.id;
 
                         // *Setting the User name:
-                        $('#schedule-create-user-name').attr('data-id', selected_user).text(data.name);
+                        $('#schedule-create-user-name').text(data.name);
                      })
                      .fail((xhr, textStatus, err) => {
                         console.log(textStatus);

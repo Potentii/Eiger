@@ -1,8 +1,6 @@
 
 // *Browsing the schedule-update page:
 spa.onNavigate('schedule-update', (page, params) => {
-   // *TODO remove this when the actual id is being sent to this page:
-   params = {id:1};
 
    // *Checking if the params is diferent undefined ou null:
    if(params && (params.id !== null && params.id !== undefined)){
@@ -34,10 +32,6 @@ spa.onNavigate('schedule-update', (page, params) => {
                let end_date = new Date(data.end_date);
                $('#schedule-update-end-date').val(df.asMysqlDate(end_date));
 
-               // *Setting the schedule's create date:
-               let create_date = new Date(data.date);
-               $('#schedule-update-date').val(df.asShortDate(create_date));
-
 
                // *Getting all MDL textfields:
                let mdl_textfields = document.querySelectorAll('#schedule-update-section .mdl-js-textfield');
@@ -66,7 +60,7 @@ spa.onNavigate('schedule-update', (page, params) => {
 
 
 // *Cleaning listernes from this page:
-spa.onUnload('vehicle-schedule', (page) => {
+spa.onUnload('schedule-update', (page) => {
   // *Cleaning the event submit:
   $('#schedule-update-form').off('submit');
   // *Cleaning inputs when the page is left:
@@ -75,7 +69,6 @@ spa.onUnload('vehicle-schedule', (page) => {
   $('#schedule-update-start-time').val('');
   $('#schedule-update-end-time').val('');
   $('#schedule-update-end-date').val('');
-  $('#schedule-update-date').val('');
 });
 
 /**
@@ -91,7 +84,6 @@ function updateSchedule(id){
   let schedule_start_time = $('#schedule-update-start-time').val();
   let schedule_end_time = $('#schedule-update-end-time').val();
   let schedule_end_date = $('#schedule-update-end-date').val();
-  let schedule_update_date = $('#schedule-update-date').val();
 
   // *Joining date and time:
   let start_date_schedule = schedule_start_date + ' ' + schedule_start_time;
@@ -111,6 +103,7 @@ function updateSchedule(id){
   // *Sending a Update Vehicle to the table vehicle on database:
   request.putSchedule(id, data_update_schedule)
      .done((data, textStatus, xhr) => {
+        console.log('BLA');
         // *Showing the snack with the message:
         snack.show('Schedule updated', snack.TIME_SHORT);
         // *Going to index page:

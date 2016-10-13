@@ -41,10 +41,10 @@ spa.onNavigate('', (page, params) => {
                let horizontal_line_div = $('<div>').addClass('horizontal-line').appendTo(card_li);
                let vertical_line_div = $('<div>').addClass('vertical-line').appendTo(card_li);
 
-               //
+               // *Building the schedule's balls ul:
                let button_ul = $('<ul>').addClass('schedules flex-horizontal-layout').appendTo(card_li);
 
-               //
+               // *Building the schedule's balls and add amount of the schedules number:
                requestSchedules(vehicle.id, button_ul);
             });
 
@@ -60,18 +60,25 @@ spa.onNavigate('', (page, params) => {
             console.log(textStatus);
          });
    }
+
+   // *When a user to click in add button:
+   $('#vehicles-add-fab').on('click', function(){
+      // *Sending the user's to the vehicle-create page:
+      spa.navigateTo('vehicle-create');
+   });
 });
 
 
 
 // *When user left the page:
-spa.onUnload('', (page, params) => {
+spa.onUnload('', (page) => {
 
    // *Wiping and removing the event click from ul:
    $('#vehicles-list').empty().off('click');
 
    // *Removing the event click:
    $('#vehicles-list .schedules').off('click');
+   $('#vehicles-add-fab').off('click');
 });
 
 
