@@ -103,7 +103,6 @@ function updateSchedule(id){
   // *Sending a Update Vehicle to the table vehicle on database:
   request.putSchedule(id, data_update_schedule)
      .done((data, textStatus, xhr) => {
-        console.log('BLA');
         // *Showing the snack with the message:
         snack.show('Schedule updated', snack.TIME_SHORT);
         // *Going to index page:
