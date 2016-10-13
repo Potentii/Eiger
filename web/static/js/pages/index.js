@@ -25,7 +25,7 @@ spa.onNavigate('', (page, params) => {
                let horizontal_layout_div = $('<div>').addClass('info flex-horizontal-layout').appendTo(card_li);
 
                // *Building and setting the vehicle's photo:
-               let image_div = $('<div>').addClass('round-thumbnail size-4').css('background-image', 'url('+ rest_url + '/media/v/p/' + vehicle.photo +')').appendTo(horizontal_layout_div);
+               let image_div = $('<div>').addClass('round-thumbnail size-4').css('background-image', vehicle.photo?'url('+ rest_url + '/media/v/p/' + vehicle.photo +')':'').appendTo(horizontal_layout_div);
 
                // *Building the vehicle's div:
                let vertical_layout_div = $('<div>').addClass('vertical-layout').appendTo(horizontal_layout_div);
