@@ -75,7 +75,7 @@ function createVehicle(vehicle_photo_base64){
    request.postVehicle(object_data)
       .done((data, textStatus, xhr) => {
          // *Showing the snack with the message:
-         snack.show('Vehicle created', snack.TIME_SHORT);
+         snack.open('Vehicle created', snack.TIME_SHORT);
          // *Going to index page:
          spa.navigateTo('');
       })

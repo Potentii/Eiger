@@ -30,7 +30,7 @@ const snack = (function(){
       if(snack.button_text && snack.action){
          // *If they are:
          // *Showing the button:
-         $button.show();
+         $button.css('visibility', 'visible');
          // *Setting the button text:
          $button.text(snack.button_text);
          // *Setting the action:
@@ -43,7 +43,7 @@ const snack = (function(){
       } else{
          // *If they not:
          // *Hidding the button:
-         $button.hide();
+         $button.css('visibility', 'hidden');
       }
 
       // *Showing the snackbar:
@@ -92,7 +92,7 @@ const snack = (function(){
     * @param  {function} action    The button action
     * @author Guilherme Reginaldo Ruella
     */
-   function show(message, time, button_text, action){
+   function open(message, time, button_text, action){
       // *Queueing up the snack:
       queue.add({
          message: message,
@@ -109,7 +109,13 @@ const snack = (function(){
       // *Getting the elements references:
       $snackbar = $('#snackbar');
       $message = $('#snackbar > span');
-      $button = $('#snackbar > button');
+      $button = $('#snackbar > button:nth-of-type(1)');
+
+      // *When user clicks on dismiss button:
+      $('#snackbar > button:nth-of-type(2)').on('click', e => {
+         // *Dismissing this snakcbar:
+         dismiss();
+      });
 
       // *Setting up the fading animation duration:
       $snackbar.css('animation-duration', (fade_animation_time/1000) + 's');
@@ -119,7 +125,7 @@ const snack = (function(){
 
    // *Exporting the module:
    return {
-      show: show,
+      open: open,
       dismiss: dismiss,
       TIME_SHORT: 4000,
       TIME_LONG: 8000

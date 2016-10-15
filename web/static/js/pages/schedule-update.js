@@ -104,7 +104,7 @@ function updateSchedule(id){
   request.putSchedule(id, data_update_schedule)
      .done((data, textStatus, xhr) => {
         // *Showing the snack with the message:
-        snack.show('Schedule updated', snack.TIME_SHORT);
+        snack.open('Schedule updated', snack.TIME_SHORT);
         // *Going to index page:
         spa.navigateTo('');
      })
