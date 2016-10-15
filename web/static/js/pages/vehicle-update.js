@@ -123,7 +123,7 @@ function updateVehicle(id, vehicle_photo_base64){
    request.putVehicle(id, data_update_vehicle)
       .done((data, textStatus, xhr) => {
          // *Showing the snack with the message:
-         snack.show('Vehicle updated', snack.TIME_SHORT);
+         snack.open('Vehicle updated', snack.TIME_SHORT);
          // *Going to index page:
          spa.navigateTo('');
       })

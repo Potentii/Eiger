@@ -19,7 +19,7 @@ function retrieveAll(req, res, next){
          // *If something went wrong:
          // *Sending a 500 error response:
          res.status(500)
-            .send('Something went wrong')
+            .json({err_code: 'ERR_INTERNAL', err_message: 'Something went wrong'})
             .end();
       });
 }
@@ -48,7 +48,7 @@ function retrieve(req, res, next){
             // *If not:
             // *Sending a 404 response:
             res.status(404)
-               .send('Resource not found')
+               .json({err_code: 'ERR_NOT_FOUND', err_message: 'Resource not found'})
                .end();
          }
       })
@@ -56,7 +56,7 @@ function retrieve(req, res, next){
          // *If something went wrong:
          // *Sending a 500 error response:
          res.status(500)
-            .send('Something went wrong')
+            .json({err_code: 'ERR_INTERNAL', err_message: 'Something went wrong'})
             .end();
       });
 }
@@ -90,43 +90,43 @@ function create(req, res, next){
          case 'EIGER_INVALID_DATE':
             // *Sending a 400 error response:
             res.status(400)
-               .send('Invalid date')
+               .json({err_code: 'ERR_INVALID_TIMESPAN', err_message: 'Invalid date'})
                .end();
             break;
          case 'EIGER_NOT_AUTHORIZED':
             // *Sending a 403 error response:
             res.status(403)
-               .send('Not authorized')
+               .json({err_code: 'ERR_NOT_AUTHORIZED', err_message: 'Not authorized'})
                .end();
             break;
          case 'EIGER_VEHICLE_UNAVAILABLE':
             // *Sending a 409 error response:
             res.status(409)
-               .send('Vehicle unavailable')
+               .json({err_code: 'ERR_RES_UNAVAILABLE', err_message: 'Vehicle unavailable'})
                .end();
             break;
          case 'ER_NO_DEFAULT_FOR_FIELD':
             // *Sending a 400 error response:
             res.status(400)
-               .send('Missing required field')
+               .json({err_code: 'ERR_MISSING_FIELD', err_message: 'Missing required field'})
                .end();
             break;
          case 'ER_DUP_ENTRY':
             // *Sending a 400 error response:
             res.status(400)
-               .send('The resource already exists')
+               .json({err_code: 'ERR_DUPLICATE_FIELD', err_message: 'The resource already exists'})
                .end();
             break;
          case 'ER_NO_REFERENCED_ROW_2':
             // *Sending a 404 error response:
             res.status(404)
-               .send('Resource not found')
+               .json({err_code: 'ERR_REF_NOT_FOUND', err_message: 'Reference not found'})
                .end();
             break;
          default:
             // *Sending a 500 error response:
             res.status(500)
-               .send('Something went wrong')
+               .json({err_code: 'ERR_INTERNAL', err_message: 'Something went wrong'})
                .end();
          }
       });
@@ -161,7 +161,7 @@ function update(req, res, next){
             // *If it wasn't:
             // *Sending a 404 response:
             res.status(404)
-               .send('Resource not found')
+               .json({err_code: 'ERR_NOT_FOUND', err_message: 'Resource not found'})
                .end();
          }
       })
@@ -172,37 +172,37 @@ function update(req, res, next){
          case 'EIGER_INVALID_DATE':
             // *Sending a 400 error response:
             res.status(400)
-               .send('Invalid date')
+               .json({err_code: 'ERR_INVALID_TIMESPAN', err_message: 'Invalid date'})
                .end();
             break;
          case 'EIGER_NOT_AUTHORIZED':
             // *Sending a 403 error response:
             res.status(403)
-               .send('Not authorized')
+               .json({err_code: 'ERR_NOT_AUTHORIZED', err_message: 'Not authorized'})
                .end();
             break;
          case 'EIGER_VEHICLE_UNAVAILABLE':
             // *Sending a 409 error response:
             res.status(409)
-               .send('Vehicle unavailable')
+               .json({err_code: 'ERR_RES_UNAVAILABLE', err_message: 'Vehicle unavailable'})
                .end();
             break;
          case 'ER_DUP_ENTRY':
             // *Sending a 400 error response:
             res.status(400)
-               .send('The resource already exists')
+               .json({err_code: 'ERR_DUPLICATE_FIELD', err_message: 'The resource already exists'})
                .end();
             break;
          case 'ER_NO_REFERENCED_ROW_2':
             // *Sending a 404 error response:
             res.status(404)
-               .send('Resource not found')
+               .json({err_code: 'ERR_REF_NOT_FOUND', err_message: 'Reference not found'})
                .end();
             break;
          default:
             // *Sending a 500 error response:
             res.status(500)
-               .send('Something went wrong')
+               .json({err_code: 'ERR_INTERNAL', err_message: 'Something went wrong'})
                .end();
          }
       });
@@ -248,7 +248,7 @@ function erase(req, res, next){
                                  // *If it wasn't:
                                  // *Sending a 404 response:
                                  res.status(404)
-                                    .send('Resource not found')
+                                    .json({err_code: 'ERR_NOT_FOUND', err_message: 'Resource not found'})
                                     .end();
                               }
                            })
@@ -256,28 +256,28 @@ function erase(req, res, next){
                               // *If something went wrong:
                               // *Sending a 500 error response:
                               res.status(500)
-                                 .send('Something went wrong')
+                                 .json({err_code: 'ERR_INTERNAL', err_message: 'Something went wrong'})
                                  .end();
                            });
                      } else{
                         // *If not:
                         // *Sending a 403 error response:
                         res.status(403)
-                           .send('Not authorized')
+                           .json({err_code: 'ERR_NOT_AUTHORIZED', err_message: 'Not authorized'})
                            .end();
                      }
                   } else{
                      // *If it couldn't:
                      // *Sending a 404 error response:
                      res.status(404)
-                        .send('Resource not found')
+                        .json({err_code: 'ERR_NOT_FOUND', err_message: 'Resource not found'})
                         .end();
                   }
                } else{
                   // *If they couldn't:
                   // *Sending a 500 error response:
                   res.status(500)
-                     .send('Something went wrong')
+                     .json({err_code: 'ERR_INTERNAL', err_message: 'Something went wrong'})
                      .end();
                }
             })
@@ -285,7 +285,7 @@ function erase(req, res, next){
                // *If something went wrong:
                // *Sending a 500 error response:
                res.status(500)
-                  .send('Something went wrong')
+                  .json({err_code: 'ERR_INTERNAL', err_message: 'Something went wrong'})
                   .end();
             });
       })
@@ -293,7 +293,7 @@ function erase(req, res, next){
          // *If something went wrong:
          // *Sending a 500 error response:
          res.status(500)
-            .send('Something went wrong')
+            .json({err_code: 'ERR_INTERNAL', err_message: 'Something went wrong'})
             .end();
       });
 }

@@ -28,7 +28,7 @@ function onAuthenticated(req, res, next){
             // *If not:
             // *Sending 404 response:
             res.status(500)
-               .send('Something went wrong')
+               .json({err_code: 'ERR_INTERNAL', err_message: 'Something went wrong'})
                .end();
          }
       })
@@ -36,7 +36,7 @@ function onAuthenticated(req, res, next){
          // *If some error occured:
          // *Sending 500 response:
          res.status(500)
-            .send('Something went wrong')
+            .json({err_code: 'ERR_INTERNAL', err_message: 'Something went wrong'})
             .end();
       });
 }
@@ -66,7 +66,7 @@ function exposeAccessId(req, res, next){
             // *If not:
             // *Sending 500 response:
             res.status(500)
-               .send('Something went wrong')
+               .json({err_code: 'ERR_INTERNAL', err_message: 'Something went wrong'})
                .end();
          }
       })
@@ -75,7 +75,7 @@ function exposeAccessId(req, res, next){
          // *If some error occured:
          // *Sending 500 response:
          res.status(500)
-            .send('Something went wrong')
+            .json({err_code: 'ERR_INTERNAL', err_message: 'Something went wrong'})
             .end();
       });
 }
@@ -131,7 +131,7 @@ function login(req, res, next){
                               // *If it wasn't:
                               // *Sending a 500 error response:
                               res.status(500)
-                                 .send('Something went wrong')
+                                 .json({err_code: 'ERR_INTERNAL', err_message: 'Something went wrong'})
                                  .end();
                            }
                         })
@@ -139,7 +139,7 @@ function login(req, res, next){
                            // *If something went wrong:
                            // *Sending a 500 error response:
                            res.status(500)
-                              .send('Something went wrong')
+                              .json({err_code: 'ERR_INTERNAL', err_message: 'Something went wrong'})
                               .end();
                         });
                   }
@@ -148,14 +148,14 @@ function login(req, res, next){
                   // *If something went wrong:
                   // *Sending a 500 error response:
                   res.status(500)
-                     .send('Something went wrong')
+                     .json({err_code: 'ERR_INTERNAL', err_message: 'Something went wrong'})
                      .end();
                });
          } else{
             // *If not found:
             // *Sending a 401 error response:
             res.status(401)
-               .send('Invalid credentials')
+               .json({err_code: 'ERR_INVALID_CREDENTIALS', err_message: 'Invalid credentials'})
                .end();
          }
       })
@@ -163,7 +163,7 @@ function login(req, res, next){
          // *If something went wrong:
          // *Sending a 500 error response:
          res.status(500)
-            .send('Something went wrong')
+            .json({err_code: 'ERR_INTERNAL', err_message: 'Something went wrong'})
             .end();
       });
 }

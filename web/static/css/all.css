@@ -95,7 +95,7 @@ section > .list{
 /**
  * Snackbar button color correction
  */
-.snackbar > button{
+.snackbar > button:nth-of-type(1){
    color: #9575CD;
 }
 
