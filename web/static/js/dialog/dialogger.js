@@ -11,6 +11,8 @@ const dialogger = (function(){
    let overlay_id = '';
    let $overlay = undefined;
 
+   const fade_animation_time = 200;
+
    const DIALOG_STATUS_NEGATIVE = 1;
    const DIALOG_STATUS_NEUTRAL = 2;
    const DIALOG_STATUS_POSITIVE = 3;
@@ -34,18 +36,41 @@ const dialogger = (function(){
 
       // *Defining the default action for opening:
       let defaultOpen = function(dialog, params){
-         getOverlay().show();
-         dialog.getDOM().show();
+         // *Showing the overlay and setting it as active:
+         getOverlay().show().addClass('active');
+         // *Showing the dialog and setting it as active:
+         dialog.getDOM().show().addClass('active');
       }
 
       // *Defining the default action for dismissing:
       let defaultDismiss = function(dialog, status, params){
-         dialog.getDOM().hide();
-         getOverlay().hide();
+         // *Setting the dialog as inactive:
+         dialog.getDOM().removeClass('active');
+
+         // *When the animation finishes:
+         setTimeout(() => {
+            // *Hiding the dialog:
+            dialog.getDOM().hide();
+         }, fade_animation_time);
+
+         // *Checking if another dialog gets opened:
+         if(!current_dialog){
+            // *If not:
+            // *Setting the overlay as inactive:
+            getOverlay().removeClass('active');
+
+            // *When the animation finishes:
+            setTimeout(() => {
+               // *Hiding the overlay:
+               getOverlay().hide();
+            }, fade_animation_time);
+         }
       }
 
-      // *Hiding the dialog (only works when subscribing after DOM loads):
-      dialog.getDOM().hide();
+      // *Hiding the dialog and setting up the fading animation duration (only works when subscribing after DOM loads):
+      dialog.getDOM()
+         .css('animation-duration', (fade_animation_time/1000) + 's')
+         .hide();
 
       // *Setting up default action to dialogs' open and dismiss events:
       dialogger.onOpen(dialog.getName(), defaultOpen);
@@ -95,6 +120,9 @@ const dialogger = (function(){
       // *Getting the current opened dialog:
       let dialog = current_dialog;
 
+      // *Reseting the current dialog flag:
+      current_dialog = undefined;
+
       // *Checking if a quick dismiss action was set:
       if(dialog.getOnQuickDismiss()){
          // *If it was:
@@ -103,9 +131,6 @@ const dialogger = (function(){
          // *Cleaning the action:
          dialog.setOnQuickDismiss(undefined);
       }
-
-      // *Reseting the current dialog flag:
-      current_dialog = undefined;
 
       // *Calling all the dismissing event listeners:
       dialog.getOnDismiss().resolveAll(f => f(dialog, status, params));
@@ -214,8 +239,9 @@ const dialogger = (function(){
       if(overlay_id) {
          // *Setting the overlay element:
          $overlay = $(`#${overlay_id}`);
-         // *Hiding it:
-         $overlay.hide();
+
+         // *Setting up the fading animation duration and hiding the overlay:
+         $overlay.css('animation-duration', (fade_animation_time/1000) + 's').hide();
 
          // *Setting the overlay click action:
          $overlay.on('click', function(e){
@@ -228,9 +254,12 @@ const dialogger = (function(){
          });
       }
 
-      // *Hiding all the dialogs:
+      // *Setting up all the dialogs:
       for(dialog of dialogs) {
-         dialog.getDOM().hide();
+         // *Setting up the fading animation duration and hiding the dialogs:
+         dialog.getDOM()
+            .css('animation-duration', (fade_animation_time/1000) + 's')
+            .hide();
       }
    });
 

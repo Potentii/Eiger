@@ -10,7 +10,7 @@ const snack = (function(){
    let $button;
 
    let curr_timer;
-   let fade_animation_time = 350;
+   let fade_animation_time = 250;
 
    // *Defining the queueing process:
    let queue = new AutoConsumableQueue((snack) => {

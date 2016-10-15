@@ -76,8 +76,8 @@ create table if not exists `user_permission`(
     `id_permission_fk` BIGINT unsigned not null,
     `date` DATETIME not null default now(),
 
-    foreign key(`id_user_fk`) references `user`(`id`),
-    foreign key(`id_permission_fk`) references `permission`(`id`),
+    foreign key(`id_user_fk`) references `user`(`id`) on delete cascade,
+    foreign key(`id_permission_fk`) references `permission`(`id`) on delete cascade,
 
     primary key(`id`)
 

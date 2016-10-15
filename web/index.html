@@ -56,6 +56,12 @@
 
       <script src="./static/js/file-encoder/file-encoder.js"></script>
 
+      <!-- * Dialogs * -->
+      <script src="./static/js/dialogs/default-notice.js"></script>
+      <script src="./static/js/dialogs/default-consent.js"></script>
+      <script src="./static/js/dialogs/default-retry.js"></script>
+      <script src="./static/js/dialogs/user-picker.js"></script>
+
       <!-- * Pages * -->
       <script src="./static/js/pages/login.js"></script>
       <script src="./static/js/pages/index.js"></script>
@@ -67,9 +73,7 @@
       <script src="./static/js/pages/schedule-update.js"></script>
       <script src="./static/js/pages/vehicle-create.js"></script>
 
-      <!-- * Dialogs * -->
-      <script src="./static/js/dialogs/user-picker.js"></script>
-
+      
       <title>Eiger</title>
    </head>
    <body>
@@ -776,6 +780,68 @@
       Dialogs
       -->
       <div id="dialog-overlay" class="dialogs">
+         <!--
+         Default Notice Dialog
+         -->
+         <section class="dialog card raised" data-dialog="default-notice">
+            <!-- Appbar -->
+            <header class="app-bar flex-horizontal-layout">
+               <span id="default-notice-title"></span>
+            </header>
+
+            <!-- Dialog text -->
+            <span id="default-notice-message" class="default-dialog-text"></span>
+
+            <!-- Button container -->
+            <div class="flat-button-container">
+               <button id="default-notice-ok-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect highlighted">ok</button>
+            </div>
+         </section>
+
+
+
+         <!--
+         Default Consent Dialog
+         -->
+         <section class="dialog card raised" data-dialog="default-consent">
+            <!-- Appbar -->
+            <header class="app-bar flex-horizontal-layout">
+               <span id="default-consent-title"></span>
+            </header>
+
+            <!-- Dialog text -->
+            <span id="default-consent-message" class="default-dialog-text"></span>
+
+            <!-- Button container -->
+            <div class="flat-button-container">
+               <button id="default-consent-no-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect">no</button>
+               <button id="default-consent-yes-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect highlighted">yes</button>
+            </div>
+         </section>
+
+
+
+         <!--
+         Default Retry Dialog
+         -->
+         <section class="dialog card raised" data-dialog="default-retry">
+            <!-- Appbar -->
+            <header class="app-bar flex-horizontal-layout">
+               <span id="default-retry-title"></span>
+            </header>
+
+            <!-- Dialog text -->
+            <span id="default-retry-message" class="default-dialog-text"></span>
+
+            <!-- Button container -->
+            <div class="flat-button-container">
+               <button id="default-retry-cancel-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect">cancel</button>
+               <button id="default-retry-retry-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect highlighted">retry</button>
+            </div>
+         </section>
+
+
+
          <!--
          User picker Dialog
          -->
