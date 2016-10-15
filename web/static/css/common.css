@@ -289,6 +289,9 @@ body{
 .size-4{min-width: 4em; max-width: 4em; width: 4em; min-height: 4em; max-height: 4em; height: 4em;}
 .size-6{min-width: 6em; max-width: 6em; width: 6em; min-height: 6em; max-height: 6em; height: 6em;}
 
+.thumbnailed-info > .round-thumbnail{
+	margin-right: 1em;
+}
 
 .middle{
 	vertical-align: middle;

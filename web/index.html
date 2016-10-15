@@ -72,7 +72,7 @@
       <script src="./static/js/pages/schedule-info.js"></script>
       <script src="./static/js/pages/schedule-update.js"></script>
       <script src="./static/js/pages/vehicle-create.js"></script>
-      
+
       <title>Eiger</title>
    </head>
    <body>
@@ -871,6 +871,38 @@
 
 
 
+         <!--
+         Vehicle picker Dialog
+         -->
+         <section class="dialog card raised" data-dialog="vehicle-picker">
+            <!-- Appbar -->
+            <header class="app-bar flex-horizontal-layout">
+               <i class="material-icons">directions_car</i>
+               <span>Select a vehicle</span>
+            </header>
+
+            <!-- Vehicle picker list -->
+            <ul class="list" id="vehicle-picker-list">
+               <!-- Vehicle picker row example -->
+               <!--
+               <li class="row">
+                  <div class="flex-horizontal-layout thumbnailed-info">
+                     <div class="round-thumbnail size-3" style="background-image: url(http://localhost:3000/media/v/p/01.jpg)"></div>
+                     <div class="vertical-layout">
+                        <span class="primary">[title] - [plate]</span>
+                        <span class="secondary">[year] - [manufacturer] - [type]</span>
+                     </div>
+                  </div>
+               </li>
+               -->
+            </ul>
+
+            <!-- Button container -->
+            <div class="flat-button-container">
+               <button id="vehicle-picker-cancel-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect">cancel</button>
+               <button id="vehicle-picker-ok-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect highlighted">ok</button>
+            </div>
+         </section>
       </div>
 
 
