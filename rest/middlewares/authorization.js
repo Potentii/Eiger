@@ -19,7 +19,7 @@ module.exports = (permission) => {
          // *If it hasn't:
          // *Sending 'unauthorize' response:
          res.status(403)
-            .send('Unaunthorized')
+            .json({err_code: 'ERR_NOT_AUTHORIZED', err_message: 'Unaunthorized'})
             .end();
          return;
       }
@@ -36,7 +36,7 @@ module.exports = (permission) => {
                // *If it hasn't:
                // *Sending a 403 response:
                res.status(403)
-                  .send('Unaunthorized')
+                  .json({err_code: 'ERR_NOT_AUTHORIZED', err_message: 'Unaunthorized'})
                   .end();
             }
          })
@@ -44,7 +44,7 @@ module.exports = (permission) => {
             // *If something went wrong:
             // *Sending a 500 response:
             res.status(500)
-               .send('Something went wrong')
+               .json({err_code: 'ERR_INTERNAL', err_message: 'Something went wrong'})
                .end();
          });
    };

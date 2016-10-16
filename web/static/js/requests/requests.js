@@ -466,6 +466,26 @@ const request = (function(){
 
 
    /**
+    * Revokes the current user access credentials
+    * @return {jqXHR}  The ajax request
+    * @author Guilherme Reginaldo Ruella
+    */
+   function deleteAuth(){
+
+      // *Getting the key and the token:
+      let auth = retrieveAccessCredentials();
+
+      // *Returning the request:
+      return $.ajax({
+         url: rest_url + '/auth',
+         method: 'DELETE',
+         headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
+      });
+   }
+
+
+
+   /**
    * Returns the send message and deletes the user
    * @param  {number} id User id
    * @return {jqXHR}     The ajax request
@@ -554,6 +574,7 @@ const request = (function(){
       putVehicle: putVehicle,
       putSchedule: putSchedule,
 
+      deleteAuth: deleteAuth,
       deleteUser: deleteUser,
       deleteVehicle: deleteVehicle,
       deleteSchedule: deleteSchedule,

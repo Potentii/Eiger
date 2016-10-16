@@ -8,6 +8,7 @@ create view `user_view` as
 			`u`.`cpf`, 
             `u`.`phone`, 
             `u`.`admin`, 
+            `u`.`active`,
             `u`.`date`
 from user u;
 
