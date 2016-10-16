@@ -17,6 +17,34 @@ const dialogger = (function(){
    const DIALOG_STATUS_NEUTRAL = 2;
    const DIALOG_STATUS_POSITIVE = 3;
 
+   // *Defining the dialog queue consumer:
+   const queue = new AutoConsumableQueue(({dialog_name, params, onQuickDismiss}) => {
+      // *Checking if the given dialog exists:
+      if(!dialogExists(dialog_name)){
+         // *If it doesn't:
+         // *Calling the next one:
+         queue.next();
+         return;
+      }
+
+      // *Getting the dialog object:
+      let dialog = findDialog(dialog_name);
+
+      // *Setting the current dialog flag:
+      current_dialog = dialog;
+
+      // *Setting the quick dismiss action:
+      dialog.setOnQuickDismiss(onQuickDismiss);
+
+      // *Showing the overlay element and setting it as active:
+      getOverlay().show().addClass('active');
+      // *Showing the dialog element and setting it as active:
+      dialog.getDOM().show().addClass('active');
+
+      // *Calling all the opening event listeners:
+      dialog.getOnOpen().resolveAll(f => f(dialog, params));
+   });
+
 
 
    /**
@@ -25,7 +53,7 @@ const dialogger = (function(){
     * @author Guilherme Reginaldo Ruella
     */
    function subscribe(dialog){
-      // *If page argument isn't a Dialog, return:
+      // *If dialog argument isn't a Dialog, return:
       if(!(dialog instanceof Dialog)) return;
 
       // *If already exists a dialog with same name, return:
@@ -34,75 +62,28 @@ const dialogger = (function(){
       // *Adding the dialog on the array:
       dialogs.push(dialog);
 
-      // *Defining the default action for opening:
-      let defaultOpen = function(dialog, params){
-         // *Showing the overlay and setting it as active:
-         getOverlay().show().addClass('active');
-         // *Showing the dialog and setting it as active:
-         dialog.getDOM().show().addClass('active');
-      }
-
-      // *Defining the default action for dismissing:
-      let defaultDismiss = function(dialog, status, params){
-         // *Setting the dialog as inactive:
-         dialog.getDOM().removeClass('active');
-
-         // *When the animation finishes:
-         setTimeout(() => {
-            // *Hiding the dialog:
-            dialog.getDOM().hide();
-         }, fade_animation_time);
-
-         // *Checking if another dialog gets opened:
-         if(!current_dialog){
-            // *If not:
-            // *Setting the overlay as inactive:
-            getOverlay().removeClass('active');
-
-            // *When the animation finishes:
-            setTimeout(() => {
-               // *Hiding the overlay:
-               getOverlay().hide();
-            }, fade_animation_time);
-         }
-      }
-
       // *Hiding the dialog and setting up the fading animation duration (only works when subscribing after DOM loads):
       dialog.getDOM()
          .css('animation-duration', (fade_animation_time/1000) + 's')
          .hide();
-
-      // *Setting up default action to dialogs' open and dismiss events:
-      dialogger.onOpen(dialog.getName(), defaultOpen);
-      dialogger.onDismiss(dialog.getName(), defaultDismiss);
    }
 
 
 
    /**
-    * Opens a new dialog
-    * @param  {string} dialog_name        The name of the dialog to be opened
+    * Queues up a new dialog
+    * @param  {string} dialog_name        The name of the dialog to be queued
     * @param  {object} params             The parameters that will be passed to its open listeners
     * @param  {function} onQuickDismiss   A dismiss listeners that will be called once when the user closes this dialog. It's not a permanent listener
     * @author Guilherme Reginaldo Ruella
     */
    function open(dialog_name, params, onQuickDismiss){
-      // *Checking if the given dialog exists, returning if it does not:
-      if(!dialogExists(dialog_name)) return;
-
-      // *Checking if there is some dialog currently opened, dismissing it if there is:
-      if(current_dialog) dismiss(DIALOG_STATUS_NEUTRAL);
-
-      // *Getting the dialog object:
-      let dialog = findDialog(dialog_name);
-
-      dialog.setOnQuickDismiss(onQuickDismiss);
-
-      // *Setting the current dialog:
-      current_dialog = dialog;
-
-      // *Calling all the opening event listeners:
-      dialog.getOnOpen().resolveAll(f => f(dialog, params));
+      // *Queueing up the dialog:
+      queue.add({
+         dialog_name: dialog_name,
+         params: params,
+         onQuickDismiss: onQuickDismiss
+      });
    }
 
 
@@ -120,20 +101,45 @@ const dialogger = (function(){
       // *Getting the current opened dialog:
       let dialog = current_dialog;
 
-      // *Reseting the current dialog flag:
-      current_dialog = undefined;
-
-      // *Checking if a quick dismiss action was set:
+      // *Checking if the dialog has a quick dismiss action:
       if(dialog.getOnQuickDismiss()){
-         // *If it was:
+         // *If it has:
          // *Calling the action:
          dialog.getOnQuickDismiss()(dialog, status, params);
          // *Cleaning the action:
          dialog.setOnQuickDismiss(undefined);
       }
 
-      // *Calling all the dismissing event listeners:
-      dialog.getOnDismiss().resolveAll(f => f(dialog, status, params));
+      // *Setting the dialog element as inactive:
+      dialog.getDOM().removeClass('active');
+
+      // *Checking if another dialog will be opened after this:
+      if(!queue.hasNext()){
+         // *If not:
+         // *Setting the overlay element as inactive:
+         getOverlay().removeClass('active');
+      }
+
+      // *Starting the dismiss animation time:
+      setTimeout(() => {
+         // *Calling all the dismissing event listeners:
+         dialog.getOnDismiss().resolveAll(f => f(dialog, status, params));
+
+         // *Hiding the dialog:
+         dialog.getDOM().hide();
+
+         // *Checking again if another dialog will be opened after this:
+         if(!queue.hasNext()){
+            // *Hiding the overlay:
+            getOverlay().hide();
+         }
+
+         // *Reseting the current dialog flag:
+         current_dialog = undefined;
+
+         // *Calling next dialog on queue:
+         queue.next();
+      }, fade_animation_time);
    }
 
 
@@ -249,7 +255,7 @@ const dialogger = (function(){
             if(this == e.target){
                // *If it is:
                // *Dismissing the current dialog:
-               dialogger.dismiss(DIALOG_STATUS_NEUTRAL);
+               dismiss(DIALOG_STATUS_NEUTRAL);
             }
          });
       }
