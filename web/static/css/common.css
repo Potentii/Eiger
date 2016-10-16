@@ -393,7 +393,7 @@ button.raised:active, a.raised:active, .dragging.raised {
  */
 .form > .row{
 	display: flex;
-	align-items: baseline;
+	align-items: top;
 	justify-content: flex-start;
 
 	max-width: 100%;
@@ -458,15 +458,11 @@ button.raised:active, a.raised:active, .dragging.raised {
 	font-size: 1em;
 	color: var(--bg-color-contrast);
 }
-.labeled-output::before{
-	content: attr(data-label);
-	position: absolute;
-	top: -1.5em;
-	left: 0;
-
+.output-label{
 	font-size: 0.8em;
 	color: var(--bg-color-contrast-faded);
 }
+
 
 
 

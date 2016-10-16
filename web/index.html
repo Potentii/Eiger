@@ -38,6 +38,10 @@
       <script src="./static/js/util/AutoConsumableQueue.js"></script>
 
       <!-- * Modules * -->
+      <script src="./static/js/srm/srm.js"></script>
+
+      <script src="./static/js/intl/intl.js"></script>
+
       <script src="./static/js/date-format/date-format.js"></script>
 
       <script src="./static/js/snack/snack.js"></script>
@@ -115,17 +119,17 @@
                <!-- Username input -->
                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input class="mdl-textfield__input" type="text" id="login-username-in">
-                  <label class="mdl-textfield__label" for="login-login-in">Username</label>
+                  <label class="mdl-textfield__label" for="login-login-in" data-intl="login-username"></label>
                </div>
 
                <!-- Password input -->
                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input class="mdl-textfield__input" type="password" id="login-pass-in">
-                  <label class="mdl-textfield__label" for="login-pass-in">Password</label>
+                  <label class="mdl-textfield__label" for="login-pass-in" data-intl="login-password"></label>
                </div>
 
                <!-- Submit button -->
-               <button type="submit" class="mdl-js-button mdl-js-ripple-effect box card tinted raised">Login</button>
+               <button type="submit" class="mdl-js-button mdl-js-ripple-effect box card tinted raised" data-intl="login-login"></button>
             </form>
          </div>
       </section>
@@ -214,7 +218,7 @@
          <!-- Appbar -->
          <header class="app-bar flex-horizontal-layout tinted">
             <button type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
-            <span>Vehicle</span>
+            <span data-intl="vehicle-info-header"></span>
          </header>
 
          <!-- Sub appbar -->
@@ -224,8 +228,8 @@
             <div class="flex-horizontal-layout">
                <div id="vehicle-info-photo" class="round-thumbnail size-3"></div>
                <div class="vertical-layout">
-                  <span id="vehicle-info-title" class="primary">[title] - [plate]</span>
-                  <span id="vehicle-info-description" class="secondary">[year] - [manufacturer] - [type]</span>
+                  <span id="vehicle-info-title" class="primary"><!--[title] - [plate]--></span>
+                  <span id="vehicle-info-description" class="secondary"><!--[year] - [manufacturer] - [type]--></span>
                </div>
             </div>
 
@@ -239,7 +243,10 @@
             <!-- Renavam output -->
             <div class="row">
                <i class="material-icons">chrome_reader_mode</i>
-               <span id="vehicle-info-renavam" class="labeled-output" data-label="Renavam">[renavam]</span>
+               <div class="vertical-layout">
+                  <label class="output-label" data-intl="vehicle-info-renavam"></label>
+                  <span id="vehicle-info-renavam" class="labeled-output"><!--[renavam]--></span>
+               </div>
             </div>
 
             <div class="horizontal-separator"></div>
@@ -247,7 +254,10 @@
             <!-- Added date output -->
             <div class="row">
                <i class="material-icons">today</i>
-               <span id="vehicle-info-date" class="labeled-output" data-label="Registered&nbsp;in">[date]</span>
+               <div class="vertical-layout">
+                  <label class="output-label" data-intl="vehicle-info-date"></label>
+                  <span id="vehicle-info-date" class="labeled-output"><!--[date]--></span>
+               </div>
             </div>
          </form>
 
@@ -266,7 +276,7 @@
          <!-- Appbar -->
          <header class="app-bar flex-horizontal-layout tinted">
             <button type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
-            <span>Create new vehicle</span>
+            <span data-intl="vehicle-create-header"></span>
          </header>
 
          <!-- Sub appbar -->
@@ -284,7 +294,7 @@
                <!-- Title input -->
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input id="vehicle-create-title" class="mdl-textfield__input" type="text" form="vehicle-create-form" pattern=".*\S+.*" required="true">
-                  <label class="mdl-textfield__label" for="vehicle-create-title">Vehicle title</label>
+                  <label class="mdl-textfield__label" for="vehicle-create-title" data-intl="vehicle-create-title"></label>
                </span>
             </div>
 
@@ -299,7 +309,7 @@
                <i class="material-icons">directions_car</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input id="vehicle-create-manufacturer" class="mdl-textfield__input" type="text" pattern=".*\S+.*" required="true">
-                  <label class="mdl-textfield__label" for="vehicle-create-manufacturer">Manufacturer</label>
+                  <label class="mdl-textfield__label" for="vehicle-create-manufacturer" data-intl="vehicle-create-manufacturer"></label>
                </span>
             </div>
 
@@ -308,7 +318,7 @@
                <i class="material-icons">_</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input id="vehicle-create-type" class="mdl-textfield__input" type="text" pattern=".*\S+.*" required="true">
-                  <label class="mdl-textfield__label" for="vehicle-create-type">Type</label>
+                  <label class="mdl-textfield__label" for="vehicle-create-type" data-intl="vehicle-create-type"></label>
                </span>
             </div>
 
@@ -317,7 +327,7 @@
                <i class="material-icons">_</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input id="vehicle-create-year" class="mdl-textfield__input" type="number" required="true">
-                  <label class="mdl-textfield__label" for="vehicle-create-year">Year</label>
+                  <label class="mdl-textfield__label" for="vehicle-create-year" data-intl="vehicle-create-year"></label>
                </span>
             </div>
 
@@ -328,7 +338,7 @@
                <i class="material-icons">chrome_reader_mode</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input id="vehicle-create-plate" class="mdl-textfield__input" type="text" pattern="\S{7}" title="abc1234" required="true">
-                  <label class="mdl-textfield__label" for="vehicle-create-plate">Licence plate</label>
+                  <label class="mdl-textfield__label" for="vehicle-create-plate" data-intl="vehicle-create-plate"></label>
                </span>
             </div>
 
@@ -337,7 +347,7 @@
                <i class="material-icons">_</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input id="vehicle-create-renavam" class="mdl-textfield__input" type="text" pattern="\S{11}" title="12345678912" required="true">
-                  <label class="mdl-textfield__label" for="vehicle-create-renavam">Renavam</label>
+                  <label class="mdl-textfield__label" for="vehicle-create-renavam" data-intl="vehicle-create-renavam"></label>
                </span>
             </div>
 
@@ -358,7 +368,7 @@
          <!-- Appbar -->
          <header class="app-bar flex-horizontal-layout tinted">
             <button type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
-            <span>Update vehicle</span>
+            <span data-intl="vehicle-update-header"></span>
          </header>
 
          <!-- Sub appbar -->
@@ -376,7 +386,7 @@
                <!-- Title input -->
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input id="vehicle-update-title" class="mdl-textfield__input" type="text" form="vehicle-update-form" pattern=".*\S+.*" required="true">
-                  <label class="mdl-textfield__label" for="vehicle-update-title">Vehicle title</label>
+                  <label class="mdl-textfield__label" for="vehicle-update-title" data-intl="vehicle-update-title"></label>
                </span>
             </div>
 
@@ -391,7 +401,7 @@
                <i class="material-icons">directions_car</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input id="vehicle-update-manufacturer" class="mdl-textfield__input" type="text" pattern=".*\S+.*" required="true">
-                  <label class="mdl-textfield__label" for="vehicle-update-manufacturer">Manufacturer</label>
+                  <label class="mdl-textfield__label" for="vehicle-update-manufacturer" data-intl="vehicle-update-manufacturer"></label>
                </span>
             </div>
 
@@ -400,7 +410,7 @@
                <i class="material-icons">_</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input id="vehicle-update-type" class="mdl-textfield__input" type="text" pattern=".*\S+.*" required="true">
-                  <label class="mdl-textfield__label" for="vehicle-update-type">Type</label>
+                  <label class="mdl-textfield__label" for="vehicle-update-type" data-intl="vehicle-update-type"></label>
                </span>
             </div>
 
@@ -409,7 +419,7 @@
                <i class="material-icons">_</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input id="vehicle-update-year" class="mdl-textfield__input" type="number" required="true">
-                  <label class="mdl-textfield__label" for="vehicle-update-year">Year</label>
+                  <label class="mdl-textfield__label" for="vehicle-update-year" data-intl="vehicle-update-year"></label>
                </span>
             </div>
 
@@ -420,7 +430,7 @@
                <i class="material-icons">chrome_reader_mode</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input id="vehicle-update-plate" class="mdl-textfield__input" type="text" pattern="\S{7}" title="abc1234" required="true">
-                  <label class="mdl-textfield__label" for="vehicle-update-plate">Licence plate</label>
+                  <label class="mdl-textfield__label" for="vehicle-update-plate" data-intl="vehicle-update-plate"></label>
                </span>
             </div>
 
@@ -429,7 +439,7 @@
                <i class="material-icons">_</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input id="vehicle-update-renavam" class="mdl-textfield__input" type="text" pattern="\S{11}" title="12345678912" required="true">
-                  <label class="mdl-textfield__label" for="vehicle-update-renavam">Renavam</label>
+                  <label class="mdl-textfield__label" for="vehicle-update-renavam" data-intl="vehicle-update-renavam"></label>
                </span>
             </div>
 
@@ -450,7 +460,7 @@
          <!-- Appbar -->
          <header class="app-bar flex-horizontal-layout tinted">
             <button type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
-            <span>Schedules</span>
+            <span data-intl="schedules-header"></span>
          </header>
 
          <!-- Sub appbar -->
@@ -460,10 +470,10 @@
             <div class="flex-horizontal-layout">
                <div id="schedules-vehicle-photo" class="round-thumbnail size-3"></div>
                <div class="vertical-layout">
-                  <span id="schedules-vehicle-title" class="primary">[title] - [plate]</span>
-                  <span id="schedules-vehicle-description" class="secondary">[year] - [manufacturer] - [type]</span>
+                  <span id="schedules-vehicle-title" class="primary"><!--[title] - [plate]--></span>
+                  <span id="schedules-vehicle-description" class="secondary"><!--[year] - [manufacturer] - [type]--></span>
                </div>
-               <span id="schedules-vehicle-date" class="tertiary">[date]</span>
+               <span id="schedules-vehicle-date" class="tertiary"><!--[date]--></span>
             </div>
 
          </header>
@@ -503,7 +513,7 @@
          <!-- Appbar -->
          <header class="app-bar flex-horizontal-layout tinted">
             <button type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
-            <span>Schedule</span>
+            <span data-intl="schedule-info-header"></span>
          </header>
 
          <!-- Vehicle sub appbar -->
@@ -513,8 +523,8 @@
             <div class="flex-horizontal-layout">
                <div id="schedule-info-vehicle-photo" class="round-thumbnail size-3"></div>
                <div class="vertical-layout">
-                  <span id="schedule-info-vehicle-title" class="primary">[title] - [plate]</span>
-                  <span id="schedule-info-vehicle-description" class="secondary">[year] - [manufacturer] - [type]</span>
+                  <span id="schedule-info-vehicle-title" class="primary"><!--[title] - [plate]--></span>
+                  <span id="schedule-info-vehicle-description" class="secondary"><!--[year] - [manufacturer] - [type]--></span>
                </div>
             </div>
 
@@ -526,7 +536,7 @@
             <!-- User appbar info -->
             <div class="flex-horizontal-layout">
                <div class="vertical-layout">
-                  <span id="schedule-info-user-name" class="primary">[user-name]</span>
+                  <span id="schedule-info-user-name" class="primary"><!--[user-name]--></span>
                </div>
             </div>
 
@@ -539,18 +549,24 @@
             <!-- Reason output -->
             <div class="row">
                <i class="material-icons">feedback</i>
-               <span id="schedule-info-reason" class="labeled-output" data-label="Reason"></span>
+               <div class="vertical-layout">
+                  <label class="output-label" data-intl="schedule-info-reason"></label>
+                  <span id="schedule-info-reason" class="labeled-output"><!--[reason]--></span>
+               </div>
             </div>
 
             <!-- Duration output -->
             <div class="row">
                <i class="material-icons">schedule</i>
-               <div class="schedule-duration-output labeled-output" data-label="Duration">
-                  <span id="schedule-info-start-date">[start-date]</span>
-                  <span id="schedule-info-start-time" class="secondary">[start-time]</span>
-                  <i class="material-icons secondary">more_vert</i>
-                  <span id="schedule-info-end-time" class="secondary">[end-time]</span>
-                  <span id="schedule-info-end-date">[end-date]</span>
+               <div class="vertical-layout">
+                  <label class="output-label" data-intl="schedule-info-duration"></label>
+                  <div class="schedule-duration-output labeled-output">
+                     <span id="schedule-info-start-date"><!--[start-date]--></span>
+                     <span id="schedule-info-start-time" class="secondary"><!--[start-time]--></span>
+                     <i class="material-icons secondary">more_vert</i>
+                     <span id="schedule-info-end-time" class="secondary"><!--[end-time]--></span>
+                     <span id="schedule-info-end-date"><!--[end-date]--></span>
+                  </div>
                </div>
             </div>
 
@@ -559,7 +575,10 @@
             <!-- Added date output -->
             <div class="row">
                <i class="material-icons">today</i>
-               <span id="schedule-info-date" class="labeled-output" data-label="Booked&nbsp;on">[date]</span>
+               <div class="vertical-layout">
+                  <label class="output-label" data-intl="schedule-info-date"></label>
+                  <span id="schedule-info-date" class="labeled-output"><!--[date]--></span>
+               </div>
             </div>
          </form>
 
@@ -578,7 +597,7 @@
          <!-- Appbar -->
          <header class="app-bar flex-horizontal-layout tinted">
             <button type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
-            <span>Book new schedule</span>
+            <span data-intl="schedule-create-header"></span>
          </header>
 
          <!-- Vehicle sub appbar -->
@@ -586,10 +605,10 @@
 
             <!-- Vehicle appbar info -->
             <div class="flex-horizontal-layout">
-               <div id="schedule-create-vehicle-photo" class="round-thumbnail size-3" style="background-image: url(http://localhost:3000/media/v/p/04.jpg)"></div>
+               <div id="schedule-create-vehicle-photo" class="round-thumbnail size-3"></div>
                <div class="vertical-layout">
-                  <span id="schedule-create-vehicle-title" class="primary">[title] - [plate]</span>
-                  <span id="schedule-create-vehicle-description" class="secondary">[year] - [manufacturer] - [type]</span>
+                  <span id="schedule-create-vehicle-title" class="primary"><!--[title] - [plate]--></span>
+                  <span id="schedule-create-vehicle-description" class="secondary"><!--[year] - [manufacturer] - [type]--></span>
                </div>
             </div>
 
@@ -601,7 +620,7 @@
             <!-- User appbar info -->
             <div class="flex-horizontal-layout">
                <div class="vertical-layout">
-                  <span id="schedule-create-user-name" class="primary">[user-name]</span>
+                  <span id="schedule-create-user-name" class="primary"><!--[user-name]--></span>
                </div>
             </div>
 
@@ -615,7 +634,7 @@
                <i class="material-icons">feedback</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input id="schedule-create-reason" class="mdl-textfield__input" type="text" pattern=".*\S+.*" required="true">
-                  <label class="mdl-textfield__label" for="vehicle-create-reason">Reason</label>
+                  <label class="mdl-textfield__label" for="vehicle-create-reason" data-intl="schedule-create-reason"></label>
                </span>
             </div>
 
@@ -626,7 +645,7 @@
                <i class="material-icons">schedule</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input id="schedule-create-start-date" class="mdl-textfield__input" type="date" pattern=".*\S+.*" required="true" data-date-format="dd.mm.YYYY">
-                  <label class="mdl-textfield__label" for="vehicle-create-start-date">Start date</label>
+                  <label class="mdl-textfield__label" for="vehicle-create-start-date" data-intl="schedule-create-start-date"></label>
                </span>
             </div>
 
@@ -635,7 +654,7 @@
                <i class="material-icons">_</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input id="schedule-create-start-time" class="mdl-textfield__input" type="time" pattern=".*\S+.*" required="true">
-                  <label class="mdl-textfield__label" for="vehicle-create-start-time">Start time</label>
+                  <label class="mdl-textfield__label" for="vehicle-create-start-time" data-intl="schedule-create-start-time"></label>
                </span>
             </div>
 
@@ -650,7 +669,7 @@
                <i class="material-icons">_</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input id="schedule-create-end-date" class="mdl-textfield__input" type="date" pattern=".*\S+.*" required="true">
-                  <label class="mdl-textfield__label" for="vehicle-create-end-date">End date</label>
+                  <label class="mdl-textfield__label" for="vehicle-create-end-date" data-intl="schedule-create-end-date"></label>
                </span>
             </div>
 
@@ -659,7 +678,7 @@
                <i class="material-icons">_</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input id="schedule-create-end-time" class="mdl-textfield__input" type="time" pattern=".*\S+.*" required="true">
-                  <label class="mdl-textfield__label" for="vehicle-create-end-time">End time</label>
+                  <label class="mdl-textfield__label" for="vehicle-create-end-time" data-intl="schedule-create-end-time"></label>
                </span>
             </div>
 
@@ -680,7 +699,7 @@
          <!-- Appbar -->
          <header class="app-bar flex-horizontal-layout tinted">
             <button type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
-            <span>Edit schedule</span>
+            <span data-intl="schedule-update-header"></span>
          </header>
 
          <!-- Vehicle sub appbar -->
@@ -688,10 +707,10 @@
 
             <!-- Vehicle appbar info -->
             <div class="flex-horizontal-layout">
-               <div id="schedule-update-vehicle-photo" class="round-thumbnail size-3" style="background-image: url(http://localhost:3000/media/v/p/02.jpg)"></div>
+               <div id="schedule-update-vehicle-photo" class="round-thumbnail size-3"></div>
                <div class="vertical-layout">
-                  <span id="schedule-update-vehicle-title" class="primary">[title] - [plate]</span>
-                  <span id="schedule-update-vehicle-description" class="secondary">[year] - [manufacturer] - [type]</span>
+                  <span id="schedule-update-vehicle-title" class="primary"><!--[title] - [plate]--></span>
+                  <span id="schedule-update-vehicle-description" class="secondary"><!--[year] - [manufacturer] - [type]--></span>
                </div>
             </div>
 
@@ -703,7 +722,7 @@
             <!-- User appbar info -->
             <div class="flex-horizontal-layout">
                <div class="vertical-layout">
-                  <span id="schedule-update-user-name" class="primary">[user-name]</span>
+                  <span id="schedule-update-user-name" class="primary"><!--[user-name]--></span>
                </div>
             </div>
 
@@ -717,7 +736,7 @@
                <i class="material-icons">feedback</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input id="schedule-update-reason" class="mdl-textfield__input" type="text" pattern=".*\S+.*" required="true">
-                  <label class="mdl-textfield__label" for="vehicle-update-reason">Reason</label>
+                  <label class="mdl-textfield__label" for="vehicle-update-reason" data-intl="schedule-update-reason"></label>
                </span>
             </div>
 
@@ -728,7 +747,7 @@
                <i class="material-icons">schedule</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input id="schedule-update-start-date" class="mdl-textfield__input" type="date" pattern=".*\S+.*" required="true" data-date-format="dd.mm.YYYY">
-                  <label class="mdl-textfield__label" for="vehicle-update-start-date">Start date</label>
+                  <label class="mdl-textfield__label" for="vehicle-update-start-date" data-intl="schedule-update-start-date"></label>
                </span>
             </div>
 
@@ -737,7 +756,7 @@
                <i class="material-icons">_</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input id="schedule-update-start-time" class="mdl-textfield__input" type="time" pattern=".*\S+.*" required="true">
-                  <label class="mdl-textfield__label" for="vehicle-update-start-time">Start time</label>
+                  <label class="mdl-textfield__label" for="vehicle-update-start-time" data-intl="schedule-update-start-time"></label>
                </span>
             </div>
 
@@ -752,7 +771,7 @@
                <i class="material-icons">_</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input id="schedule-update-end-date" class="mdl-textfield__input" type="date" pattern=".*\S+.*" required="true">
-                  <label class="mdl-textfield__label" for="vehicle-update-end-date">End date</label>
+                  <label class="mdl-textfield__label" for="vehicle-update-end-date" data-intl="schedule-update-end-date"></label>
                </span>
             </div>
 
@@ -761,7 +780,7 @@
                <i class="material-icons">_</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input id="schedule-update-end-time" class="mdl-textfield__input" type="time" pattern=".*\S+.*" required="true">
-                  <label class="mdl-textfield__label" for="vehicle-update-end-time">End time</label>
+                  <label class="mdl-textfield__label" for="vehicle-update-end-time" data-intl="schedule-update-end-time"></label>
                </span>
             </div>
 
@@ -793,7 +812,7 @@
 
             <!-- Button container -->
             <div class="flat-button-container">
-               <button id="default-notice-ok-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect highlighted">ok</button>
+               <button id="default-notice-ok-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect highlighted" data-intl="default-notice-ok"></button>
             </div>
          </section>
 
@@ -813,8 +832,8 @@
 
             <!-- Button container -->
             <div class="flat-button-container">
-               <button id="default-consent-no-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect">no</button>
-               <button id="default-consent-yes-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect highlighted">yes</button>
+               <button id="default-consent-no-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect" data-intl="default-consent-no"></button>
+               <button id="default-consent-yes-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect highlighted" data-intl="default-consent-yes"></button>
             </div>
          </section>
 
@@ -834,8 +853,8 @@
 
             <!-- Button container -->
             <div class="flat-button-container">
-               <button id="default-retry-cancel-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect">cancel</button>
-               <button id="default-retry-retry-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect highlighted">retry</button>
+               <button id="default-retry-cancel-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect" data-intl="default-retry-cancel"></button>
+               <button id="default-retry-retry-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect highlighted" data-intl="default-retry-retry"></button>
             </div>
          </section>
 
@@ -848,7 +867,7 @@
             <!-- Appbar -->
             <header class="app-bar flex-horizontal-layout">
                <i class="material-icons">person</i>
-               <span>Select an user</span>
+               <span data-intl="user-picker-header"></span>
             </header>
 
             <!-- User picker list -->
@@ -864,8 +883,8 @@
 
             <!-- Button container -->
             <div class="flat-button-container">
-               <button id="user-picker-cancel-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect">cancel</button>
-               <button id="user-picker-ok-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect highlighted">ok</button>
+               <button id="user-picker-cancel-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect" data-intl="user-picker-cancel"></button>
+               <button id="user-picker-ok-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect highlighted" data-intl="user-picker-ok"></button>
             </div>
          </section>
 
@@ -878,7 +897,7 @@
             <!-- Appbar -->
             <header class="app-bar flex-horizontal-layout">
                <i class="material-icons">directions_car</i>
-               <span>Select a vehicle</span>
+               <span data-intl="vehicle-picker-header"></span>
             </header>
 
             <!-- Vehicle picker list -->
@@ -899,8 +918,8 @@
 
             <!-- Button container -->
             <div class="flat-button-container">
-               <button id="vehicle-picker-cancel-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect">cancel</button>
-               <button id="vehicle-picker-ok-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect highlighted">ok</button>
+               <button id="vehicle-picker-cancel-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect" data-intl="vehicle-picker-cancel"></button>
+               <button id="vehicle-picker-ok-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect highlighted" data-intl="vehicle-picker-ok"></button>
             </div>
          </section>
       </div>
