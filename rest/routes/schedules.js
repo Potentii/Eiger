@@ -105,6 +105,18 @@ function create(req, res, next){
                .json({err_code: 'ERR_RES_UNAVAILABLE', err_message: 'Vehicle unavailable'})
                .end();
             break;
+         case 'EIGER_USER_NOT_ACTIVE':
+            // *Sending a 403 error response:
+            res.status(403)
+               .json({err_code: 'ERR_USER_NOT_ACTIVE', err_message: 'Inactive user'})
+               .end();
+            break;
+         case 'EIGER_VEHICLE_NOT_ACTIVE':
+            // *Sending a 409 error response:
+            res.status(409)
+               .json({err_code: 'ERR_VEHICLE_NOT_ACTIVE', err_message: 'Inactive vehicle'})
+               .end();
+            break;
          case 'ER_NO_DEFAULT_FOR_FIELD':
             // *Sending a 400 error response:
             res.status(400)
@@ -185,6 +197,18 @@ function update(req, res, next){
             // *Sending a 409 error response:
             res.status(409)
                .json({err_code: 'ERR_RES_UNAVAILABLE', err_message: 'Vehicle unavailable'})
+               .end();
+            break;
+         case 'EIGER_USER_NOT_ACTIVE':
+            // *Sending a 403 error response:
+            res.status(403)
+               .json({err_code: 'ERR_USER_NOT_ACTIVE', err_message: 'Inactive user'})
+               .end();
+            break;
+         case 'EIGER_VEHICLE_NOT_ACTIVE':
+            // *Sending a 409 error response:
+            res.status(409)
+               .json({err_code: 'ERR_VEHICLE_NOT_ACTIVE', err_message: 'Inactive vehicle'})
                .end();
             break;
          case 'ER_DUP_ENTRY':
