@@ -16,8 +16,3 @@ spa.subscribe(new Page('schedule-update'));
 
 // *Setting the fallback page:
 spa.setFallbackPage('fallback');
-
-// *When SPA system is ready:
-spa.onReady(() => {
-   console.log('SPA is ready');
-});
