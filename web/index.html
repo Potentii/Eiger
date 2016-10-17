@@ -240,6 +240,26 @@
 
          <!-- Vehicles' info form -->
          <form id="vehicle-info-form" class="form content-before-fab">
+            <!-- Active status output true -->
+            <div class="row">
+               <i class="material-icons">lock_open</i>
+               <div class="vertical-layout">
+                  <label class="output-label" data-intl="vehicle-info-active-true"></label>
+                  <span id="vehicle-info-active-true" class="labeled-output" data-intl="vehicle-info-active-true"></span>
+               </div>
+            </div>
+
+            <!-- Active status output false -->
+            <div class="row">
+               <i class="material-icons">lock_outline</i>
+               <div class="vertical-layout">
+                  <label class="output-label" data-intl="vehicle-info-active-false"></label>
+                  <span id="vehicle-info-active-false" class="labeled-output" data-intl="vehicle-info-active-false"></span>
+               </div>
+            </div>
+
+            <div class="horizontal-separator"></div>
+
             <!-- Renavam output -->
             <div class="row">
                <i class="material-icons">chrome_reader_mode</i>
@@ -333,6 +353,17 @@
 
             <div class="horizontal-separator"></div>
 
+            <!-- Active status input -->
+            <div class="row mdl-input-row">
+               <i class="material-icons">lock</i>
+               <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="vehicle-create-active">
+                  <input id="vehicle-create-active" type="checkbox" class="mdl-checkbox__input" checked>
+                  <span class="mdl-checkbox__label" data-intl="vehicle-create-active"></span>
+               </label>
+            </div>
+
+            <div class="horizontal-separator"></div>
+
             <!-- Licence plate input -->
             <div class="row mdl-input-row">
                <i class="material-icons">chrome_reader_mode</i>
@@ -421,6 +452,17 @@
                   <input id="vehicle-update-year" class="mdl-textfield__input" type="number" required="true">
                   <label class="mdl-textfield__label" for="vehicle-update-year" data-intl="vehicle-update-year"></label>
                </span>
+            </div>
+
+            <div class="horizontal-separator"></div>
+
+            <!-- Active status input -->
+            <div class="row mdl-input-row">
+               <i class="material-icons">lock</i>
+               <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="vehicle-update-active">
+                  <input id="vehicle-update-active" type="checkbox" class="mdl-checkbox__input" checked>
+                  <span class="mdl-checkbox__label" data-intl="vehicle-update-active"></span>
+               </label>
             </div>
 
             <div class="horizontal-separator"></div>
