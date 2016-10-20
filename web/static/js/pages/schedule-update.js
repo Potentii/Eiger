@@ -173,8 +173,8 @@ function updateSchedule(id){
 
       // *Action default of switch:
       default:
-         text.title = 'Error';
-         text.message = 'Internal error';
+         text.title = srm.get('schedule-update-dialog-error-default-title');
+         text.message = srm.get('schedule-update-dialog-error-default-message');
          break;
       }
 
