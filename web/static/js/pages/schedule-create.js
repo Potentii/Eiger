@@ -12,12 +12,14 @@ spa.onNavigate('schedule-create', (page, params) => {
    // *Checking if the user was authenticated:
    if(authenticated == true) {
       // *If true:
-      // *Checking if the params is diferent undefined or null:
+      // *Checking if the previous selected vehicle was set:
       if(params && (params.id !== null && params.id !== undefined)){
-
+         // *If it was:
          // *Setting up the page :
          setup(params.id);
       } else{
+         // *If it wasn't
+         // *Requesting the vehicles:
          request.getVehicles()
             .done(data => {
                // *Checking if there is any vehicle registered:

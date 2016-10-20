@@ -3,8 +3,10 @@
 // *Browsing the vehicle-picker dialog:
 dialogger.onOpen('vehicle-picker', (dialog, params) => {
 
-   // *Checking if the params is diferent undefined or null:
+   // *Checking if the previous selected vehicle was set:
    if(!params || (params.previous_selected_vehicle === null || params.previous_selected_vehicle === undefined)){
+      // *If it wasn't:
+      // *Assigning status neutral to the dialog:
       dialogger.dismiss(dialogger.DIALOG_STATUS_NEUTRAL);
       return;
    }
@@ -57,7 +59,7 @@ dialogger.onOpen('vehicle-picker', (dialog, params) => {
 
          // *When a vehicle click in a item list:
          vehiclePicker_ul.on('click', 'li', function(){
-            
+
             // *Removing all vehicle's li class:
             $('#vehicle-picker-list > .selected').removeClass('selected');
 
@@ -74,11 +76,13 @@ dialogger.onOpen('vehicle-picker', (dialog, params) => {
 
    // *When the vehicle click on a cancel button the dialog:
    $('#vehicle-picker-cancel-button').on('click', e => {
+      // *Assigning status neutral:
       dialogger.dismiss(dialogger.DIALOG_STATUS_NEUTRAL);
    });
 
    // *When the vehicle click on a ok button the dialog:
    $('#vehicle-picker-ok-button').on('click', e => {
+      // *Assigning status positive and passing the vehicle id by parameter:
       dialogger.dismiss(dialogger.DIALOG_STATUS_POSITIVE, {id: selected_vehicle});
    });
 });

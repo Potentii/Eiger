@@ -3,8 +3,10 @@
 // *Browsing the user-picker dialog:
 dialogger.onOpen('user-picker', (dialog, params) => {
 
-   // *Checking if the params is diferent undefined or null:
+      // *Checking if the previous selected user was set:
    if(!params || (params.previous_selected_user === null || params.previous_selected_user === undefined)){
+      // *If it wasn't:
+      // *Assigning status neutral to the dialog:
       dialogger.dismiss(dialogger.DIALOG_STATUS_NEUTRAL);
       return;
    }
@@ -64,11 +66,13 @@ dialogger.onOpen('user-picker', (dialog, params) => {
 
    // *When the user click on a cancel button the dialog:
    $('#user-picker-cancel-button').on('click', e => {
+      // *Assigning status neutral to the dialog:
       dialogger.dismiss(dialogger.DIALOG_STATUS_NEUTRAL);
    });
 
    // *When the user click on a ok button the dialog:
    $('#user-picker-ok-button').on('click', e => {
+      // *Assigning status positive to the dialog and passing the user id by parameter:
       dialogger.dismiss(dialogger.DIALOG_STATUS_POSITIVE, {id: selected_user});
    });
 });
