@@ -8,7 +8,7 @@ spa.onNavigate('schedules', (page, params) => {
    anim.inflate($('#schedules-create-done-fab'));
 
    // *Checking if the params is diferent undefined ou null:
-   if(params && (params.id !== null && params.id !== undefined)){
+   if(params && (params.id !== null && params.id !== undefined) && (params.date !== null && params.date !== undefined)){
       let id = params.id;
       let date = params.date;
 

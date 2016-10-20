@@ -25,7 +25,7 @@ spa.onNavigate('login', (page, params) => {
          .done((data, textStatus, xhr) => {
 
             // *Saving user authentication data:
-            request.saveAuthentication(data);
+            request.saveAccessInfo({id: data.user.id, key: data.user.login, token: data.token});
 
             // *Setting the variable value for true:
             authenticated = true;
@@ -59,7 +59,7 @@ spa.onReady(() => {
 spa.onNavigate('auth', (page, params) => {
 
    // *Getting the key and the token:
-   let auth = request.retrieveAccessCredentials();
+   let auth = request.retrieveAccessInfo();
 
    // *Checking if the token or key is null:
    if(auth.token == null || auth.key == null) {
