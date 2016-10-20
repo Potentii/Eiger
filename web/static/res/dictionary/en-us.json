@@ -62,5 +62,10 @@
 
    ["vehicle-picker-header", "Select a vehicle"],
    ["vehicle-picker-cancel", "cancel"],
-   ["vehicle-picker-ok", "ok"]
+   ["vehicle-picker-ok", "ok"],
+
+   ["schedule-create-dialog-no-vehicles-title", "Couldn't find any vehicle"],
+   ["schedule-create-dialog-no-vehicles-message", "Please register some before trying to book a new schedule"],
+   ["schedule-create-dialog-internal-error-title", "Internal error"],
+   ["schedule-create-dialog-internal-error-message", "Something went wrong"]
 ]

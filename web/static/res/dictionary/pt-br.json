@@ -62,5 +62,10 @@
 
    ["vehicle-picker-header", "Escolha um veículo"],
    ["vehicle-picker-cancel", "cancelar"],
-   ["vehicle-picker-ok", "ok"]
+   ["vehicle-picker-ok", "ok"],
+
+   ["schedule-create-dialog-no-vehicles-title", "Não foi possível encontrar nenhum veículo"],
+   ["schedule-create-dialog-no-vehicles-message", "Por favor, registre algum antes de tentar cadastrar novas reservas"],
+   ["schedule-create-dialog-internal-error-title", "Erro interno"],
+   ["schedule-create-dialog-internal-error-message", "Algo errado aconteceu"]
 ]

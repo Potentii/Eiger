@@ -14,8 +14,25 @@ spa.onNavigate('vehicle-info', (page, params) => {
          request.getVehicle(id)
             .done((data, textStatus, xhr) => {
 
+               // *Checking if the vehicle is active:
+               if(data.active === 1){
+                  // *If true:
+                  // *Showing div vehicle-info-active-true:
+                  // *Hiding div vehicle-info-active-false:
+                  $('#vehicle-info-active-true').parent().parent('.row').show();
+                  $('#vehicle-info-active-false').parent().parent('.row').hide();
+
+                 // *Checking if the vehicle isn't active:
+              } else if (data.active === 0) {
+                 // *If true:
+                 // *Showing div vehicle-info-active-false:
+                 // *Hiding div vehicle-info-active-true:
+                  $('#vehicle-info-active-false').parent().parent('.row').show();
+                  $('#vehicle-info-active-true').parent().parent('.row').hide();
+               }
+
                // *Setting the vehicle's photo:
-               $('#vehicle-info-photo').css('background-image', 'url(' + rest_url + '/media/v/p/'+ data.photo +')');
+               $('#vehicle-info-photo').css('background-image', data.photo?'url(' + rest_url + '/media/v/p/'+ data.photo +')':'');
 
                // *Setting the vehicle's title and plate:
                $('#vehicle-info-title').text(data.title + ' - ' + data.plate);
