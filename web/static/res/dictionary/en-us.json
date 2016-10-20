@@ -6,6 +6,8 @@
    ["vehicle-info-header", "Vehicle"],
    ["vehicle-info-renavam", "Renavam"],
    ["vehicle-info-date", "Registered in"],
+   ["vehicle-info-active-true", "Vehicle is active"],
+   ["vehicle-info-active-false", "Vehicle inactive"],
 
    ["vehicle-create-header", "Create new vehicle"],
    ["vehicle-create-title", "Vehicle title"],
@@ -14,6 +16,7 @@
    ["vehicle-create-year", "Year"],
    ["vehicle-create-plate", "Licence plate"],
    ["vehicle-create-renavam", "Renavam"],
+   ["vehicle-create-active", "Vehicle is active"],
 
    ["vehicle-update-header", "Update vehicle"],
    ["vehicle-update-title", "${vehicle-create-title}"],
@@ -22,6 +25,7 @@
    ["vehicle-update-year", "${vehicle-create-year}"],
    ["vehicle-update-plate", "${vehicle-create-plate}"],
    ["vehicle-update-renavam", "${vehicle-create-renavam}"],
+   ["vehicle-update-active", "${vehicle-create-active}"],
 
    ["schedules-header", "Schedules"],
 

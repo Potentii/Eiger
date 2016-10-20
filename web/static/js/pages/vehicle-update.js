@@ -1,6 +1,9 @@
 // *When the user navigate to the vehicle-update page:
 spa.onNavigate('vehicle-update', (page, params) => {
-   let vehicle_photo_base64 = '';
+   let vehicle_photo_base64 = undefined;
+
+   // *Playing the inflation animation on the FAB:
+   anim.inflate($('#vehicle-update-done-fab'));
 
    // *Checking if the params is diferent undefined or null:
    if(params && (params.id !== null && params.id !== undefined)){

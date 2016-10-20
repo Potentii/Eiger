@@ -4,6 +4,7 @@
       <!-- * Meta * -->
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width"/>
+      <meta name="theme-color" content="#5E35B1">
 
 
       <!-- * CSS * -->
@@ -21,6 +22,8 @@
 
       <!-- * Pages * -->
       <link rel="stylesheet" href="./static/css/all.css">
+      <link rel="stylesheet" href="./static/css/fallback.css">
+      <link rel="stylesheet" href="./static/css/auth.css">
       <link rel="stylesheet" href="./static/css/login.css">
       <link rel="stylesheet" href="./static/css/vehicles.css">
       <link rel="stylesheet" href="./static/css/schedules.css">
@@ -44,7 +47,12 @@
 
       <script src="./static/js/date-format/date-format.js"></script>
 
+      <script src="./static/js/anim/anim.js"></script>
+
       <script src="./static/js/snack/snack.js"></script>
+
+      <script src="./static/js/drawer/drawer.js"></script>
+      <script src="./static/js/drawer/setup.js"></script>
 
       <script src="./static/js/dialog/Dialog.js"></script>
       <script src="./static/js/dialog/dialogger.js"></script>
@@ -67,6 +75,7 @@
       <script src="./static/js/dialogs/user-picker.js"></script>
 
       <!-- * Pages * -->
+      <script src="./static/js/pages/splash.js"></script>
       <script src="./static/js/pages/login.js"></script>
       <script src="./static/js/pages/index.js"></script>
       <script src="./static/js/pages/vehicle-info.js"></script>
@@ -84,10 +93,59 @@
 
 
       <!--
-      Authorization Page
+      Navigation drawer
+      -->
+      <div id="drawer-overlay" class="drawer-overlay">
+         <nav id="drawer" class="drawer raised">
+
+            <!-- * Login info section * -->
+            <div class="raised drawer-login-canvas">
+               <div class="drawer-login-info thumbnailed-info">
+                  <!-- * User photo * -->
+                  <div id="drawer-login-info-photo" class="round-thumbnail raised"></div>
+                  <!-- * User name and login section * -->
+                  <div class="flex-vertical-layout">
+                     <!-- * User name * -->
+                     <span id="drawer-login-info-name" class="x-name"><!-- [user name] --></span>
+                     <!-- * Spacer * -->
+                     <div class="x-space"></div>
+                     <!-- * User login * -->
+                     <span id="drawer-login-info-login" class="x-login"><!-- [user login] --></span>
+                  </div>
+               </div>
+            </div>
+
+            <!-- * Navigation list * -->
+            <div class="drawer-navigation vertical-layout">
+               <button type="button" class="mdl-js-button mdl-js-ripple-effect"><i class="material-icons">people</i><span>Users</span></button>
+               <button type="button" class="mdl-js-button mdl-js-ripple-effect"><i class="material-icons">event</i><span>Schedules</span></button>
+               <button type="button" class="mdl-js-button mdl-js-ripple-effect"><i class="material-icons">directions_car</i><span>Vehicles</span></button>
+
+               <div class="horizontal-separator"></div>
+
+               <button type="button" class="mdl-js-button mdl-js-ripple-effect"><i class="material-icons">settings</i><span>Settings</span></button>
+               <button type="button" class="mdl-js-button mdl-js-ripple-effect"><i class="material-icons">info</i><span>About us</span></button>
+            </div>
+         </nav>
+      </div>
+
+
+
+      <!--
+      Load splash overlay
+      -->
+      <div id="load-overlay"></div>
+
+
+
+      <!--
+      Authentication Page
       -->
       <section id="auth-section" data-page="auth">
-         auth
+         <div class="vertical-layout">
+            <span>Authenticating</span>
+            <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
+         </div>
       </section>
 
 
@@ -96,7 +154,9 @@
       Fallback Page
       -->
       <section id="fallback-section" data-page="fallback">
-         404<br/>Page Not Found
+         <div class="vertical-layout">
+            <span>Page not found</span>
+         </div>
       </section>
 
 
@@ -141,7 +201,7 @@
       -->
       <section id="vehicles-section" data-page="">
          <header class="app-bar flex-horizontal-layout tinted raised">
-            <button type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">menu</button>
+            <button type="button" onclick="drawer.open()" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">menu</button>
             <span>Eiger</span>
             <button type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab right">today</button>
          </header>
@@ -234,12 +294,32 @@
             </div>
 
             <!-- Delete FAB -->
-            <button type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab boundary right">delete</button>
+            <button id="vehicle-info-delete-fab" type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab boundary right">delete</button>
          </header>
 
 
          <!-- Vehicles' info form -->
          <form id="vehicle-info-form" class="form content-before-fab">
+            <!-- Active status output true -->
+            <div class="row">
+               <i class="material-icons">lock_open</i>
+               <div class="vertical-layout">
+                  <label class="output-label" data-intl="vehicle-info-active-true"></label>
+                  <span id="vehicle-info-active-true" class="labeled-output" data-intl="vehicle-info-active-true"></span>
+               </div>
+            </div>
+
+            <!-- Active status output false -->
+            <div class="row">
+               <i class="material-icons">lock_outline</i>
+               <div class="vertical-layout">
+                  <label class="output-label" data-intl="vehicle-info-active-false"></label>
+                  <span id="vehicle-info-active-false" class="labeled-output" data-intl="vehicle-info-active-false"></span>
+               </div>
+            </div>
+
+            <div class="horizontal-separator"></div>
+
             <!-- Renavam output -->
             <div class="row">
                <i class="material-icons">chrome_reader_mode</i>
@@ -333,6 +413,17 @@
 
             <div class="horizontal-separator"></div>
 
+            <!-- Active status input -->
+            <div class="row mdl-input-row">
+               <i class="material-icons">lock</i>
+               <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="vehicle-create-active">
+                  <input id="vehicle-create-active" type="checkbox" class="mdl-checkbox__input" checked>
+                  <span class="mdl-checkbox__label" data-intl="vehicle-create-active"></span>
+               </label>
+            </div>
+
+            <div class="horizontal-separator"></div>
+
             <!-- Licence plate input -->
             <div class="row mdl-input-row">
                <i class="material-icons">chrome_reader_mode</i>
@@ -355,7 +446,7 @@
 
          <!-- Done FAB -->
          <div class="fab-container">
-            <button type="submit" form="vehicle-create-form" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">done</button>
+            <button id="vehicle-create-done-fab" type="submit" form="vehicle-create-form" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">done</button>
          </div>
       </section>
 
@@ -425,6 +516,17 @@
 
             <div class="horizontal-separator"></div>
 
+            <!-- Active status input -->
+            <div class="row mdl-input-row">
+               <i class="material-icons">lock</i>
+               <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="vehicle-update-active">
+                  <input id="vehicle-update-active" type="checkbox" class="mdl-checkbox__input" checked>
+                  <span class="mdl-checkbox__label" data-intl="vehicle-update-active"></span>
+               </label>
+            </div>
+
+            <div class="horizontal-separator"></div>
+
             <!-- Licence plate input -->
             <div class="row mdl-input-row">
                <i class="material-icons">chrome_reader_mode</i>
@@ -447,7 +549,7 @@
 
          <!-- Done FAB -->
          <div class="fab-container">
-            <button type="submit" form="vehicle-update-form" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">done</button>
+            <button id="vehicle-update-done-fab" type="submit" form="vehicle-update-form" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">done</button>
          </div>
       </section>
 
@@ -686,7 +788,7 @@
 
          <!-- Done FAB -->
          <div class="fab-container">
-            <button type="submit" form="schedule-create-form" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">done</button>
+            <button id="schedule-create-done-fab" type="submit" form="schedule-create-form" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">done</button>
          </div>
       </section>
 
@@ -788,7 +890,7 @@
 
          <!-- Done FAB -->
          <div class="fab-container">
-            <button type="submit" form="schedule-update-form" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">done</button>
+            <button id="schedule-update-done-fab" type="submit" form="schedule-update-form" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">done</button>
          </div>
       </section>
 
