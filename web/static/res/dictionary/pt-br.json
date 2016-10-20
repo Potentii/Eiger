@@ -6,6 +6,8 @@
    ["vehicle-info-header", "Veículo"],
    ["vehicle-info-renavam", "Renavam"],
    ["vehicle-info-date", "Cadastrado em"],
+   ["vehicle-info-active-true", "Veículo ativo"],
+   ["vehicle-info-active-false", "Veículo inativo"],
 
    ["vehicle-create-header", "Criar novo veículo"],
    ["vehicle-create-title", "Título do veículo"],
@@ -14,6 +16,7 @@
    ["vehicle-create-year", "Ano"],
    ["vehicle-create-plate", "Placa"],
    ["vehicle-create-renavam", "Renavam"],
+   ["vehicle-create-active", "Veículo ativo"],
 
    ["vehicle-update-header", "Atualizar veículo"],
    ["vehicle-update-title", "${vehicle-create-title}"],
@@ -22,6 +25,7 @@
    ["vehicle-update-year", "${vehicle-create-year}"],
    ["vehicle-update-plate", "${vehicle-create-plate}"],
    ["vehicle-update-renavam", "${vehicle-create-renavam}"],
+   ["vehicle-update-active", "${vehicle-create-active}"],
 
    ["schedules-header", "Reservas"],
 
@@ -58,5 +62,10 @@
 
    ["vehicle-picker-header", "Escolha um veículo"],
    ["vehicle-picker-cancel", "cancelar"],
-   ["vehicle-picker-ok", "ok"]
+   ["vehicle-picker-ok", "ok"],
+
+   ["schedule-create-dialog-no-vehicles-title", "Não foi possível encontrar nenhum veículo"],
+   ["schedule-create-dialog-no-vehicles-message", "Por favor, registre algum antes de tentar cadastrar novas reservas"],
+   ["schedule-create-dialog-internal-error-title", "Erro interno"],
+   ["schedule-create-dialog-internal-error-message", "Algo errado aconteceu"]
 ]

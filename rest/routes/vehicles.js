@@ -151,7 +151,7 @@ function update(req, res, next){
    // *Getting the body of the request:
    let values = req.body;
    // *Getting the Base64 encoded photo:
-   let base64_file = values.photo || undefined;
+   let base64_file = values.photo;
 
 
    // *Inserting the photo inside the media system:
@@ -163,8 +163,16 @@ function update(req, res, next){
          // *Starting the photo removing promise:
          new Promise((resolve, reject) => {
 
-            // *Changing the photo to the created file name:
-            values.photo = file_name;
+            // *Checking if a new file was created:
+            if(file_name){
+               // *If it was:
+               // *Changing the photo to the created file name:
+               values.photo = file_name;
+            } else{
+               // *If it wasn't:
+               // *Removing the photo attribute:
+               delete values.photo;
+            }
 
             // *Querying for the last photo:
             pooler.query('select ?? from ?? where ?? = ?', ['photo', 'vehicle', 'id', id])
@@ -227,8 +235,12 @@ function update(req, res, next){
                });
          })
          .then(() => {
-            // *Removing the last photo:
-            media.removeVehiclePhoto(last_photo_name);
+            // *Checkinf if a new file was created:
+            if(file_name){
+               // *If it was:
+               // *Removing the last photo:
+               media.removeVehiclePhoto(last_photo_name);
+            }
          })
          .catch(() => {
             // *Reverting the file insertion:
