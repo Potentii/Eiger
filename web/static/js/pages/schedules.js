@@ -4,6 +4,9 @@
 // *Browsing the schedules page:
 spa.onNavigate('schedules', (page, params) => {
 
+   // *Playing the inflation animation on the FAB:
+   anim.inflate($('#schedules-create-done-fab'));
+
    // *Checking if the params is diferent undefined ou null:
    if(params && (params.id !== null && params.id !== undefined) && (params.date !== null && params.date !== undefined)){
       let id = params.id;

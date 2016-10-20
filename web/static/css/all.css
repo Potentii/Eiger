@@ -12,6 +12,17 @@ section > .list{
 }
 
 
+
+#load-overlay{
+   position: fixed;
+   width: 100%;
+   height: 100%;
+   background: var(--primary-color);
+   z-index: 16;
+}
+
+
+
 /**
  * Vehicle info on app-bar
  */
@@ -207,4 +218,11 @@ section > .list{
  */
 .tinted .mdl-textfield__label{
    color: var(--primary-color-contrast-faded);
+}
+
+/**
+ * MDL spinner
+ */
+.mdl-spinner__circle{
+   border-color: var(--accent-color);
 }

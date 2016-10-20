@@ -4,6 +4,10 @@
 // *Browsing the vehicle-info page:
 spa.onNavigate('vehicle-info', (page, params) => {
 
+   // *Playing the inflation animation on the FAB:
+   anim.inflate($('#vehicle-info-edit-fab'));
+   anim.inflate($('#vehicle-info-delete-fab'));
+
    // *Checking if the params is diferent undefined ou null:
    if(params && (params.id !== null && params.id !== undefined)){
       let id = params.id;
