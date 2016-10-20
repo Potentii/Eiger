@@ -3,7 +3,7 @@
 // *Browsing the user-picker dialog:
 dialogger.onOpen('user-picker', (dialog, params) => {
 
-   // *:
+   // *Checking if the params is diferent undefined or null:
    if(!params || (params.previous_selected_user === null || params.previous_selected_user === undefined)){
       dialogger.dismiss(dialogger.DIALOG_STATUS_NEUTRAL);
       return;
@@ -17,8 +17,8 @@ dialogger.onOpen('user-picker', (dialog, params) => {
 
    // *Listing the users:
    request.getUsers()
-      .done((data, textStatus, xhr) => {
-         // *:
+      .done(data => {
+         // *Setting data with the user filter active:
          data = data.filter(user => user.active);
 
          // *Iterating and creating the users list:
@@ -58,8 +58,8 @@ dialogger.onOpen('user-picker', (dialog, params) => {
             selected_user = $(this).data('id');
          });
       })
-      .fail((xhr, textStatus, err) => {
-         console.log(textStatus);
+      .fail(xhr => {
+         console.log(xhr.responseJSON);
       });
 
    // *When the user click on a cancel button the dialog:

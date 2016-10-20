@@ -3,7 +3,7 @@
 // *Browsing the vehicle-picker dialog:
 dialogger.onOpen('vehicle-picker', (dialog, params) => {
 
-   // *:
+   // *Checking if the params is diferent undefined or null:
    if(!params || (params.previous_selected_vehicle === null || params.previous_selected_vehicle === undefined)){
       dialogger.dismiss(dialogger.DIALOG_STATUS_NEUTRAL);
       return;
@@ -18,7 +18,7 @@ dialogger.onOpen('vehicle-picker', (dialog, params) => {
    // *Listing the users:
    request.getVehicles()
       .done(data => {
-         // *:
+         // *Setting data with the vehicle filter active:
          data = data.filter(vehicle => vehicle.active);
 
          // *Iterating and creating the users list:
@@ -57,7 +57,7 @@ dialogger.onOpen('vehicle-picker', (dialog, params) => {
 
          // *When a vehicle click in a item list:
          vehiclePicker_ul.on('click', 'li', function(){
-            console.log('Clicou!!!');
+            
             // *Removing all vehicle's li class:
             $('#vehicle-picker-list > .selected').removeClass('selected');
 

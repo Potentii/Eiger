@@ -1,16 +1,20 @@
 
 
-
 // *Browsing the schedule-create page:
 spa.onNavigate('schedule-create', (page, params) => {
+
+   // *Playing the inflation animation on the FAB:
+   anim.inflate($('#schedule-create-done-fab'));
+
    let selected_user;
    let selected_vehicle;
 
    // *Checking if the user was authenticated:
    if(authenticated == true) {
       // *If true:
-      // *Checking if the params is diferent undefined ou null:
+      // *Checking if the params is diferent undefined or null:
       if(params && (params.id !== null && params.id !== undefined)){
+
          // *Setting up the page :
          setup(params.id);
       } else{
@@ -23,7 +27,7 @@ spa.onNavigate('schedule-create', (page, params) => {
                   setup(data[0].id);
                } else{
                   // *If not exists:
-                  // *Showing a dialog-notice:
+                  // *Showing a dialog-notice if not exists vehicle:
                   dialogger.open('default-notice', {
                      title: srm.get('schedule-create-dialog-no-vehicles-title'),
                      message: srm.get('schedule-create-dialog-no-vehicles-message')
@@ -33,6 +37,7 @@ spa.onNavigate('schedule-create', (page, params) => {
                }
             })
             .fail(xhr => {
+               // *Showing a dialog-notice if internal error:
                dialogger.open('default-notice', {
                   title: srm.get('schedule-create-dialog-internal-error-title'),
                   message: srm.get('schedule-create-dialog-internal-error-message')
@@ -42,14 +47,6 @@ spa.onNavigate('schedule-create', (page, params) => {
             });
       }
    }
-
-   // *Playing the inflation animation on the FAB:
-   anim.inflate($('#schedule-create-done-fab'));
-
-   // *Checking if the params is diferent undefined ou null:
-   if(params && (params.id !== null && params.id !== undefined)){
-      let id = params.id;
-      let selected_user;
 
 
 
