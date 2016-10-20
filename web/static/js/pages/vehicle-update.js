@@ -1,6 +1,6 @@
 // *When the user navigate to the vehicle-update page:
 spa.onNavigate('vehicle-update', (page, params) => {
-   let vehicle_photo_base64 = '';
+   let vehicle_photo_base64 = undefined;
 
    // *Checking if the params is diferent undefined or null:
    if(params && (params.id !== null && params.id !== undefined)){
@@ -61,7 +61,17 @@ spa.onNavigate('vehicle-update', (page, params) => {
          // Button to call a function updateVechile and prevent the action default of browser happen
          $('#vehicle-update-form').on('submit', (e) => {
             e.preventDefault();
-            updateVehicle(id, vehicle_photo_base64);
+            // *Open a dialog consent for the user:
+            dialogger.open('default-consent', {title: 'Title', message: 'Are you Sure?'}, (dialog, status, params) => {
+               // *Switch to verify a status of dialog:
+               switch(status){
+               // *When the status is positive:
+               case dialogger.DIALOG_STATUS_POSITIVE:
+               // *Call the function to update a vehicle data:
+                  updateVehicle(id, vehicle_photo_base64);
+                  break;
+               }
+            });
          });
       }
    } else {
@@ -128,6 +138,38 @@ function updateVehicle(id, vehicle_photo_base64){
          spa.navigateTo('');
       })
       .fail((xhr, textStatus, err) => {
-         console.log(textStatus);
+         //console.log(xhr.responseJSON);
+         // *Declare object to receiva a text to dialog:
+         let text = {title: '', message: ''};
+
+         // *Switch to receive error code
+         switch(xhr.responseJSON.err_code){
+         // *Case when error is duplicate entry:
+         case 'ERR_DUPLICATE_FIELD':
+            text.title = srm.get('vehicle-update-dialog-error-duplicate-title');
+            text.message = srm.get('vehicle-update-dialog-error-duplicate-message');
+            break;
+
+         // *Action default of switch:
+         default:
+            text.title = srm.get('vehicle-update-dialog-error-default-title');
+            text.message = srm.get('vehicle-update-dialog-error-default-message');
+            break;
+         }
+
+
+
+         // *Open a dialog consent for the user:
+         dialogger.open('default-consent', text, (dialog, status, params) => {
+            // *Switch to verify a status of dialog:
+            switch(status){
+            // *Case when the dialog positive:
+            case dialogger.DIALOG_STATUS_POSITIVE:
+               // *Call the function to update a vehicle data:
+               updateVehicle(id, vehicle_photo_base64);
+               break;
+            }
+         });
+
       });
 }

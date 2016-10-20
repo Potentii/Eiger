@@ -99,7 +99,7 @@ spa.onNavigate('schedule-create', (page, params) => {
             let object_data = {
                id_vehicle_fk: vehicle_id,
                id_user_fk: user_id,
-               reason: text_reason,
+               reason: text_reason?text_reason:undefined,
                start_date: start_date_time,
                end_date: end_date_time
             };
