@@ -20,6 +20,13 @@ spa.onNavigate('vehicle-create', (page, params) => {
       // *Button to call a function createVehicle and prevent the action default of browser happen:
       $('#vehicle-create-form').on('submit', (e) => {
          e.preventDefault();
+         dialogger.open('default-consent', {title: 'Title', message: 'Are you Sure?'}, (dialog, status, params) => {
+               switch(status){
+               case dialogger.DIALOG_STATUS_POSITIVE:
+                  createVehicle(id, vehicle_photo_base64);
+                  break;
+               }
+            });
          createVehicle(vehicle_photo_base64);
       });
    }
@@ -80,6 +87,26 @@ function createVehicle(vehicle_photo_base64){
          spa.navigateTo('');
       })
       .fail((xhr, textStatus, err) => {
-         console.log(textStatus);
+         console.log(xhr.responseJSON);
+         let text = {title: '', message: ''};
+         switch(xhr.responseJSON.err_code){
+         // *Sending a 400 error response:
+         case 'ERR_DUPLICATE_FIELD':
+            text.title = 'Error';
+            text.message = 'Some unique field may be being repeated';
+            break;
+         default:
+            text.title = 'Error';
+            text.message = 'Internal error';
+            break;
+         }
+
+         dialogger.open('default-consent', text, (dialog, status, params) => {
+            switch(status){
+            case dialogger.DIALOG_STATUS_POSITIVE:
+               postVehicle(object_data);
+               break;
+            }
+         });
       });
 }

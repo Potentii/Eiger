@@ -35,7 +35,6 @@ spa.onNavigate('schedule-create', (page, params) => {
          // *Showing the user in app bar:
          request.getUser(idUser)
             .done((data, textStatus, xhr) => {
-
                // *Setting the User name:
                $('#schedule-create-user-name').text(data.name);
             })
@@ -76,42 +75,10 @@ spa.onNavigate('schedule-create', (page, params) => {
 
          // *When the user submit the form:
          $('#schedule-create-form').submit((e) => {
-
             // *The default action of the event will not be triggered:
             e.preventDefault();
-
-            // *Retrieving the values of the all fields:
-            let text_reason = $('#schedule-create-reason').val();
-            let date_startdate = $('#schedule-create-start-date').val();
-            let time_starttime = $('#schedule-create-start-time').val();
-            let date_enddate = $('#schedule-create-end-date').val();
-            let time_endtime = $('#schedule-create-end-time').val();
-
-            // *Joining date and time:
-            let start_date_time = date_startdate + ' ' + time_starttime;
-            let end_date_time = date_enddate + ' ' + time_endtime;
-
-            // *Setting variables user_id and vehicle_id:
-            let user_id = selected_user;
-            let vehicle_id = id;
-
-            // *Saving all values in a object_data:
-            let object_data = {
-               id_vehicle_fk: vehicle_id,
-               id_user_fk: user_id,
-               reason: text_reason,
-               start_date: start_date_time,
-               end_date: end_date_time
-            };
-
-            request.postSchedule(object_data)
-               .done((data, textStatus, xhr) => {
-                  // *Sending user to index page:
-                  spa.navigateTo('');
-               })
-               .fail((xhr, textStatus, err) => {
-                  console.log(textStatus);
-               });
+            // *
+            postSchedule(selected_user, id);
          });
       }
    } else {
@@ -131,3 +98,59 @@ spa.onUnload('schedule-create', (page)=> {
    // *Removing the event onClick:
    $('#schedule-create-user-app-bar').off('click');
 });
+
+
+
+// * Post a new schedule in database
+function postSchedule(user_id, vehicle_id){
+   // *Retrieving the values of the all fields:
+   let text_reason = $('#schedule-create-reason').val();
+   let date_startdate = $('#schedule-create-start-date').val();
+   let time_starttime = $('#schedule-create-start-time').val();
+   let date_enddate = $('#schedule-create-end-date').val();
+   let time_endtime = $('#schedule-create-end-time').val();
+
+   // *Joining date and time:
+   let start_date_time = date_startdate + ' ' + time_starttime;
+   let end_date_time = date_enddate + ' ' + time_endtime;
+
+   // *Saving all values in a object_data:
+   let object_data = {
+      id_vehicle_fk: vehicle_id,
+      id_user_fk: user_id,
+      reason: text_reason,
+      start_date: start_date_time,
+      end_date: end_date_time
+   };
+
+   request.postSchedule(object_data)
+      .done((data, textStatus, xhr) => {
+         // *Showing the snack with the message:
+         snack.open('Schedule Created', snack.TIME_SHORT);
+         // *Sending user to index page:
+         spa.navigateTo('');
+      })
+      .fail((xhr, textStatus, err) => {
+         console.log(xhr.responseJSON);
+         let text = {title: '', message: ''};
+         switch(xhr.responseJSON.err_code){
+         // *Sending a 400 error response:
+         case 'ERR_RES_UNAVAILABLE':
+            text.title = 'Error';
+            text.message = 'The vehicle isn\'t avaible in the specified period';
+            break;
+         default:
+            text.title = 'Error';
+            text.message = 'Internal error';
+            break;
+         }
+
+         dialogger.open('default-consent', text, (dialog, status, params) => {
+            switch(status){
+            case dialogger.DIALOG_STATUS_POSITIVE:
+               postSchedule(object_data);
+               break;
+            }
+         });
+      });
+}
