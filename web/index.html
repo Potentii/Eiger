@@ -73,6 +73,7 @@
       <script src="./static/js/dialogs/default-consent.js"></script>
       <script src="./static/js/dialogs/default-retry.js"></script>
       <script src="./static/js/dialogs/user-picker.js"></script>
+      <script src="./static/js/dialogs/vehicle-picker.js"></script>
 
       <!-- * Pages * -->
       <script src="./static/js/pages/splash.js"></script>
@@ -703,7 +704,7 @@
          </header>
 
          <!-- Vehicle sub appbar -->
-         <header class="app-bar flex-horizontal-layout tinted raised vehicle-info-app-bar">
+         <header id="schedule-create-vehicle-app-bar" class="app-bar flex-horizontal-layout tinted raised vehicle-info-app-bar">
 
             <!-- Vehicle appbar info -->
             <div class="flex-horizontal-layout">
@@ -735,7 +736,7 @@
             <div class="row mdl-input-row">
                <i class="material-icons">feedback</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input id="schedule-create-reason" class="mdl-textfield__input" type="text" pattern=".*\S+.*" required="true">
+                  <input id="schedule-create-reason" class="mdl-textfield__input" type="text" pattern=".*\S+.*">
                   <label class="mdl-textfield__label" for="vehicle-create-reason" data-intl="schedule-create-reason"></label>
                </span>
             </div>
@@ -837,7 +838,7 @@
             <div class="row mdl-input-row">
                <i class="material-icons">feedback</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input id="schedule-update-reason" class="mdl-textfield__input" type="text" pattern=".*\S+.*" required="true">
+                  <input id="schedule-update-reason" class="mdl-textfield__input" type="text" pattern=".*\S+.*">
                   <label class="mdl-textfield__label" for="vehicle-update-reason" data-intl="schedule-update-reason"></label>
                </span>
             </div>
