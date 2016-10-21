@@ -122,14 +122,14 @@ spa.onNavigate('schedule-create', (page, params) => {
          let start_date_time = date_startdate + ' ' + time_starttime;
          let end_date_time = date_enddate + ' ' + time_endtime;
 
-            // *Saving all values in a object_data:
+         // *Saving all values in a object_data:
          let object_data = {
             id_vehicle_fk: selected_vehicle,
             id_user_fk: selected_user,
             reason: text_reason?text_reason:undefined,
             start_date: start_date_time,
             end_date: end_date_time
-            };
+         };
 
          request.postSchedule(object_data)
             .done((data, textStatus, xhr) => {
