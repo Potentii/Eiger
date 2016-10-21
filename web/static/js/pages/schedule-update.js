@@ -52,7 +52,7 @@ spa.onNavigate('schedule-update', (page, params) => {
             $('#schedule-update-form').on('submit', (e) => {
                e.preventDefault();
                // *Open a dialog consent for the user:
-               srm.get('default-consent', {title: 'Title', message: 'Are you Sure?'}, (dialog, status, params) => {
+               dialogger.open('default-consent', {title: 'schedule-update-dialog-consent-title', message: 'schedule-update-dialog-consent-message'}, (dialog, status, params) => {
                   // *Switch to verify a status of dialog:
                   switch(status){
                   // *When the status is positive:
