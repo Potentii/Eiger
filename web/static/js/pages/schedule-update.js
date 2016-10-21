@@ -51,8 +51,17 @@ spa.onNavigate('schedule-update', (page, params) => {
             //* Listening for button to send a update to REST:
             $('#schedule-update-form').on('submit', (e) => {
                e.preventDefault();
-               updateSchedule(id);
-
+               // *Opening a dialog consent for the user:
+               dialogger.open('default-consent', {title: srm.get('schedule-update-dialog-consent-submit-title'), message: srm.get('schedule-update-dialog-consent-submit-message')}, (dialog, status, params) => {
+                  // *Checking a status of dialog:
+                  switch(status){
+                  // *When the status is positive:
+                  case dialogger.DIALOG_STATUS_POSITIVE:
+                  // *Calling the function to update a vehicle data:
+                     updateSchedule(id);
+                     break;
+                  }
+               });
             });
       }
    }else {
@@ -93,10 +102,10 @@ function updateSchedule(id){
   let start_date_schedule = schedule_start_date + ' ' + schedule_start_time;
   let end_date_schedule = schedule_end_date + ' ' + schedule_end_time;
 
-  // *Create a objetct to receiva values to update a schedule:
+  // *Creating a objetct to receiva values to update a schedule:
   // *TODO Add the vehicle and user's id:
   let data_update_schedule = {
-     reason: schedule_reason,
+     reason: schedule_reason?schedule_reason:undefined,
      start_date: start_date_schedule,
      end_date: end_date_schedule
 
@@ -113,6 +122,60 @@ function updateSchedule(id){
         spa.navigateTo('');
      })
      .fail((xhr, textStatus, err) => {
-        console.log(textStatus);
-     });
+      let text = {title: '', message: ''};
+
+      // *Switch to receiving a error code
+      switch(xhr.responseJSON.err_code){
+
+      // *When the user or the vehicle referenced doesn't exist
+      case 'ERR_REF_NOT_FOUND':
+         text.title = srm.get('schedule-update-dialog-error-ref-title');
+         text.message = srm.get('schedule-update-dialog-error-ref-message');
+         break;
+
+      // *When the vehicle selected is not active:
+      case 'ERR_VEHICLE_NOT_ACTIVE':
+         text.title = srm.get('schedule-update-dialog-error-vehicle-not-active-title');
+         text.message = srm.get('schedule-update-dialog-error-vehicle-not-active-message');
+         break;
+
+      // *When the user is not active:
+      case 'ERR_USER_NOT_ACTIVE':
+         text.title = srm.get('schedule-update-dialog-error-user-not-active-title');
+         text.message = srm.get('schedule-update-dialog-error-user-not-active-message');
+         break;
+
+      // *When the user not authorized:
+      case 'ERR_NOT_AUTHORIZED':
+         text.title = srm.get('schedule-update-dialog-error-not-authorized-title');
+         text.message = srm.get('schedule-update-dialog-error-not-authorized-message');
+         break;
+
+      // *When the vehicle selected is not availabe:
+      case 'ERR_RES_UNAVAILABLE':
+         text.title = srm.get('schedule-update-dialog-error-unavailable-title');
+         text.message = srm.get('schedule-update-dialog-error-unavailable-message');
+         break;
+
+
+      // *When the period is invalid:
+      case 'ERR_INVALID_TIMESPAN':
+         text.title = srm.get('schedule-update-dialog-error-timespan-title');
+         text.message = srm.get('schedule-update-dialog-error-timespan-message');
+         break;
+
+      // *When schedule not found:
+      case 'ERR_NOT_FOUND':
+         text.title = srm.get('schedule-update-dialog-error-notfound-schedule-title');
+         text.message = srm.get('schedule-update-dialog-error-notfound-schedule-message');
+         break;
+      default:
+         text.title = srm.get('schedule-update-dialog-error-default-title');
+         text.message = srm.get('schedule-update-dialog-error-default-message');
+         break;
+      }
+
+      // *Opening a dialog notice for the user:
+      dialogger.open('default-notice', text);
+    });
 }

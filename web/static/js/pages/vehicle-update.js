@@ -61,10 +61,20 @@ spa.onNavigate('vehicle-update', (page, params) => {
          });
 
 
-         // Button to call a function updateVechile and prevent the action default of browser happen
+         // *Button to call a function updateVechile and prevent the action default of browser happen
          $('#vehicle-update-form').on('submit', (e) => {
             e.preventDefault();
-            updateVehicle(id, vehicle_photo_base64);
+            // *Opening a dialog consent for the user:
+            dialogger.open('default-consent', {title: srm.get('vehicle-update-dialog-consent-submit-title'), message: srm.get('vehicle-update-dialog-consent-submit-message')}, (dialog, status, params) => {
+               // *Checking a status of dialog:
+               switch(status){
+               // *When the status is positive:
+               case dialogger.DIALOG_STATUS_POSITIVE:
+               // *Call the function to update a vehicle data:
+                  updateVehicle(id, vehicle_photo_base64);
+                  break;
+               }
+            });
          });
       }
    } else {
@@ -131,6 +141,24 @@ function updateVehicle(id, vehicle_photo_base64){
          spa.navigateTo('');
       })
       .fail((xhr, textStatus, err) => {
-         console.log(textStatus);
+         // *Declaring an object to receiva a text to dialog:
+         let text = {title: '', message: ''};
+
+         // *Getting a error code
+         switch(xhr.responseJSON.err_code){
+         // *Error is duplicate entry:
+         case 'ERR_DUPLICATE_FIELD':
+            text.title = srm.get('vehicle-update-dialog-error-duplicate-title');
+            text.message = srm.get('vehicle-update-dialog-error-duplicate-message');
+            break;
+         default:
+            text.title = srm.get('vehicle-update-dialog-error-default-title');
+            text.message = srm.get('vehicle-update-dialog-error-default-message');
+            break;
+         }
+
+         // *Opening a dialog notice for the user:
+         dialogger.open('default-notice', text);
+
       });
 }
