@@ -11,7 +11,7 @@ app.get(['/', /^\/*?(?!static(?!.))(?!.*\/)/], (req, res, next) => {
 });
 
 // *Setting up the server port:
-app.set('port', process.env.PORT || 80);
+app.set('port', process.env.PORT || 8080);
 
 // *Starting up the server:
 let server = app.listen(app.get('port'), () => {

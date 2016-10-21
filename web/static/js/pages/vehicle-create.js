@@ -85,31 +85,36 @@ function createVehicle(vehicle_photo_base64){
    request.postVehicle(object_data)
       .done((data, textStatus, xhr) => {
          // *Showing the snack with the message:
-         snack.open('Vehicle created', snack.TIME_SHORT);
+         snack.open('Vehicle created', 4000);
          // *Going to index page:
          spa.navigateTo('');
       })
       .fail((xhr, textStatus, err) => {
-         console.log(xhr.responseJSON);
          let text = {title: '', message: ''};
+
+         // *Switch to receive error code
          switch(xhr.responseJSON.err_code){
-         // *Sending a 400 error response:
-         case 'ERR_DUPLICATE_FIELD':
-            text.title = 'Error';
-            text.message = 'Some unique field may be being repeated';
+
+         // *Case there is some required field not filled
+         case 'ERR_MISSING_FIELD':
+            text.title = srm.get('vehicle-create-dialog-error-missingfield-title');
+            text.message = srm.get('vehicle-create-dialog-error-missingfield-message');
             break;
+
+         // *Case when a unique fiel being repeated:
+         case 'ERR_DUPLICATE_FIELD':
+            text.title = srm.get('vehicle-create-dialog-error-duplicate-title');
+            text.message = srm.get('vehicle-create-dialog-error-duplicate-message');
+            break;
+
+         // *Action default of switch:
          default:
-            text.title = 'Error';
-            text.message = 'Internal error';
+            text.title = srm.get('vehicle-create-dialog-error-default-title');
+            text.message = srm.get('vehicle-create-dialog-error-default-message');
             break;
          }
 
-         dialogger.open('default-consent', text, (dialog, status, params) => {
-            switch(status){
-            case dialogger.DIALOG_STATUS_POSITIVE:
-               postVehicle(object_data);
-               break;
-            }
-         });
+         // *Open a dialog consent for the user:
+         dialogger.open('default-consent', text);
       });
 }

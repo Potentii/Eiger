@@ -102,10 +102,21 @@ spa.onUnload('schedule-create', (page)=> {
    $('#schedule-create-user-app-bar').off('click');
 });
 
-
+// *Cleaning listernes from this page:
+spa.onUnload('schedule-create', (page) => {
+   // *Cleaning the event submit:
+   $('#schedule-create-form').off('submit');
+   // *Cleaning inputs when the page is left:
+   $('#schedule-create-reason').val('');
+   $('#schedule-create-start-date').val('');
+   $('#schedule-create-start-time').val('');
+   $('#schedule-create-end-date').val('');
+   $('#schedule-create-end-time').val('');
+});
 
 // * Post a new schedule in database
 function postSchedule(user_id, vehicle_id){
+
    // *Retrieving the values of the all fields:
    let text_reason = $('#schedule-create-reason').val();
    let date_startdate = $('#schedule-create-start-date').val();
@@ -129,31 +140,67 @@ function postSchedule(user_id, vehicle_id){
    request.postSchedule(object_data)
       .done((data, textStatus, xhr) => {
          // *Showing the snack with the message:
-         snack.open('Schedule Created', snack.TIME_SHORT);
+         snack.open('Schedule Created', 4000);
          // *Sending user to index page:
          spa.navigateTo('');
       })
       .fail((xhr, textStatus, err) => {
          console.log(xhr.responseJSON);
          let text = {title: '', message: ''};
+
+         // *Switch to receive error code
          switch(xhr.responseJSON.err_code){
-         // *Sending a 400 error response:
-         case 'ERR_RES_UNAVAILABLE':
-            text.title = 'Error';
-            text.message = 'The vehicle isn\'t avaible in the specified period';
+
+         // *Case when the user or the vehicle referenced doesn't exist
+         case 'ERR_REF_NOT_FOUND':
+            text.title = srm.get('schedule-create-dialog-error-ref-title');
+            text.message = srm.get('schedule-create-dialog-error-ref-message');
             break;
+
+         // *Case there is some required field not filled
+         case 'ERR_MISSING_FIELD':
+            text.title = srm.get('schedule-create-dialog-error-missingfield-title');
+            text.message = srm.get('schedule-create-dialog-error-missingelfield-message');
+            break;
+
+         // *Case the informed schedule period isn't avaible
+         case 'ERR_INVALID_TIMESPAN':
+            text.title = srm.get('schedule-create-dialog-error-timespan-title');
+            text.message = srm.get('schedule-create-dialog-error-timespan-message');
+            break;
+
+         // *Case the vehicle isn't avaible in the specified period
+         case 'ERR_RES_UNAVAILABLE':
+            text.title = srm.get('schedule-create-dialog-error-unavaible-title');
+            text.message = srm.get('schedule-create-dialog-error-unavaible-message');
+            break;
+
+         // *Case the vehicle isn't active
+         case 'ERR_VEHICLE_NOT_ACTIVE':
+            text.title = srm.get('schedule-create-dialog-error-vnotactive-title');
+            text.message = srm.get('schedule-create-dialog-error-notactive-message');
+            break;
+
+         // *Case the user isn't active
+         case 'ERR_USER_NOT_ACTIVE':
+            text.title = srm.get('schedule-create-dialog-error-unotactive-title');
+            text.message = srm.get('schedule-create-dialog-error-unotactive-message');
+            break;
+
+         // *Case the user isn't authorized
+         case 'ERR_NOT_AUTHORIZED':
+            text.title = srm.get('schedule-create-dialog-error-authorized-title');
+            text.message = srm.get('schedule-create-dialog-error-authorized-message');
+            break;
+
+         // *Action default of switch:
          default:
-            text.title = 'Error';
-            text.message = 'Internal error';
+            text.title = srm.get('schedule-create-dialog-error-default-title');
+            text.message = srm.get('schedule-create-dialog-error-default-message');
             break;
          }
 
-         dialogger.open('default-consent', text, (dialog, status, params) => {
-            switch(status){
-            case dialogger.DIALOG_STATUS_POSITIVE:
-               postSchedule(object_data);
-               break;
-            }
-         });
-      });
+         // *Open a dialog consent for the user:
+         dialogger.open('default-notice', text);
+});
 }
