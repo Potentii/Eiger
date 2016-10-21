@@ -118,8 +118,21 @@ spa.onNavigate('schedule-update', (page, params) => {
       //* Listening for button to send a update to REST:
       $('#schedule-update-form').submit((e) => {
          e.preventDefault();
-         // *:
-         scheduleUpdateUtil().updateSchedule(schedule_id, selected_vehicle, selected_user);
+         // *Opening a dialog consent for the user:
+         dialogger.open('default-consent', {
+            title: srm.get('schedule-update-dialog-consent-submit-title'),
+            message: srm.get('schedule-update-dialog-consent-submit-message')
+         },
+         (dialog, status, params) => {
+            // *Checking a status of dialog:
+            switch(status){
+            // *When the status is positive:
+            case dialogger.DIALOG_STATUS_POSITIVE:
+            // *Calling the function to update a vehicle data:
+               scheduleUpdateUtil().updateSchedule(schedule_id, selected_vehicle, selected_user);
+               break;
+            }
+         });
       });
    }
 });
@@ -172,7 +185,7 @@ function scheduleUpdateUtil(){
 
      // *Create a objetct to receiva values to update a schedule:
      let data_update_schedule = {
-        reason: schedule_reason,
+        reason: schedule_reason?schedule_reason:undefined,
         start_date: start_date_schedule,
         end_date: end_date_schedule,
         id_vehicle_fk: selected_vehicle,
@@ -184,14 +197,68 @@ function scheduleUpdateUtil(){
      // *Sending a Update Vehicle to the table vehicle on database:
      request.putSchedule(schedule_id, data_update_schedule)
         .done(data => {
-           // *Showing the snack with the message:
-           snack.open('Schedule updated', snack.TIME_SHORT);
-           // *Going to index page:
-           spa.navigateTo('');
+          // *Showing the snack with the message:
+          snack.open('Schedule updated', snack.TIME_SHORT);
+          // *Going to index page:
+          spa.navigateTo('');
         })
         .fail(xhr => {
-           console.log(xhr.responseJSON);
-        });
+         let text = {title: '', message: ''};
+
+         // *Switch to receiving a error code
+         switch(xhr.responseJSON.err_code){
+
+         // *When the user or the vehicle referenced doesn't exist
+         case 'ERR_REF_NOT_FOUND':
+            text.title = srm.get('schedule-update-dialog-error-ref-title');
+            text.message = srm.get('schedule-update-dialog-error-ref-message');
+            break;
+
+         // *When the vehicle selected is not active:
+         case 'ERR_VEHICLE_NOT_ACTIVE':
+            text.title = srm.get('schedule-update-dialog-error-vehicle-not-active-title');
+            text.message = srm.get('schedule-update-dialog-error-vehicle-not-active-message');
+            break;
+
+         // *When the user is not active:
+         case 'ERR_USER_NOT_ACTIVE':
+            text.title = srm.get('schedule-update-dialog-error-user-not-active-title');
+            text.message = srm.get('schedule-update-dialog-error-user-not-active-message');
+            break;
+
+         // *When the user not authorized:
+         case 'ERR_NOT_AUTHORIZED':
+            text.title = srm.get('schedule-update-dialog-error-not-authorized-title');
+            text.message = srm.get('schedule-update-dialog-error-not-authorized-message');
+            break;
+
+         // *When the vehicle selected is not availabe:
+         case 'ERR_RES_UNAVAILABLE':
+            text.title = srm.get('schedule-update-dialog-error-unavailable-title');
+            text.message = srm.get('schedule-update-dialog-error-unavailable-message');
+            break;
+
+
+         // *When the period is invalid:
+         case 'ERR_INVALID_TIMESPAN':
+            text.title = srm.get('schedule-update-dialog-error-timespan-title');
+            text.message = srm.get('schedule-update-dialog-error-timespan-message');
+            break;
+
+         // *When schedule not found:
+         case 'ERR_NOT_FOUND':
+            text.title = srm.get('schedule-update-dialog-error-notfound-schedule-title');
+            text.message = srm.get('schedule-update-dialog-error-notfound-schedule-message');
+            break;
+         default:
+            text.title = srm.get('schedule-update-dialog-error-default-title');
+            text.message = srm.get('schedule-update-dialog-error-default-message');
+            break;
+         }
+
+         // *Opening a dialog notice for the user:
+         dialogger.open('default-notice', text);
+      });
    }
 
 
