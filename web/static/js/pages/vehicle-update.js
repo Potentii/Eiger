@@ -65,7 +65,7 @@ spa.onNavigate('vehicle-update', (page, params) => {
          $('#vehicle-update-form').on('submit', (e) => {
             e.preventDefault();
             // *Open a dialog consent for the user:
-            dialogger.open('default-consent', {title: 'Title', message: 'Are you Sure?'}, (dialog, status, params) => {
+               srm.get('default-consent', {title: 'Title', message: 'Are you Sure?'}, (dialog, status, params) => {
                // *Switch to verify a status of dialog:
                switch(status){
                // *When the status is positive:
@@ -163,7 +163,7 @@ function updateVehicle(id, vehicle_photo_base64){
 
 
          // *Open a dialog consent for the user:
-         dialogger.open('default-consent', text, (dialog, status, params) => {
+         srm.get('default-consent', text, (dialog, status, params) => {
             // *Switch to verify a status of dialog:
             switch(status){
             // *Case when the dialog positive:

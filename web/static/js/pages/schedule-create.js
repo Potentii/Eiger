@@ -124,8 +124,8 @@ spa.onNavigate('schedule-create', (page, params) => {
 
             // *Saving all values in a object_data:
             let object_data = {
-               id_vehicle_fk: vehicle_id,
-               id_user_fk: user_id,
+               id_vehicle_fk: selected_vehicle,
+               id_user_fk: selected_user,
                reason: text_reason?text_reason:undefined,
                start_date: start_date_time,
                end_date: end_date_time

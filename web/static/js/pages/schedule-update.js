@@ -52,7 +52,7 @@ spa.onNavigate('schedule-update', (page, params) => {
             $('#schedule-update-form').on('submit', (e) => {
                e.preventDefault();
                // *Open a dialog consent for the user:
-               dialogger.open('default-consent', {title: 'Title', message: 'Are you Sure?'}, (dialog, status, params) => {
+               srm.get('default-consent', {title: 'Title', message: 'Are you Sure?'}, (dialog, status, params) => {
                   // *Switch to verify a status of dialog:
                   switch(status){
                   // *When the status is positive:
@@ -177,17 +177,5 @@ function updateSchedule(id){
          text.message = srm.get('schedule-update-dialog-error-default-message');
          break;
       }
-
-      // *Open a dialog consent for the user:
-      dialogger.open('default-consent', text, (dialog, status, params) => {
-         // *Switch to verify a status of dialog:
-         switch(status){
-         // *Case when the dialog positive:
-         case dialogger.DIALOG_STATUS_POSITIVE:
-            // *Call the function to update a vehicle data:
-            updateVehicle(id, vehicle_photo_base64);
-            break;
-         }
-      });
     });
 }
