@@ -28,16 +28,20 @@ create table if not exists `vehicle`(
 
 
 create table if not exists `user`(
-	`id` 		BIGINT unsigned not null auto_increment unique,
-    `name` 		TEXT not null,
-	`login` 	VARCHAR(20) not null unique,
-    `pass`		VARCHAR(20) not null,
-    `email`		TEXT not null,
-    `cpf`		TEXT not null,
-    `phone`		TEXT not null,
-    `admin`		BOOLEAN not null,
-    `active` 	BOOLEAN not null,
-    `date` 		DATETIME not null default now(),
+	`id` 					BIGINT unsigned not null auto_increment unique,
+    `name` 					TEXT not null,
+	`login` 				VARCHAR(20) not null unique,
+    `pass`					VARCHAR(20) not null,
+    `email`					TEXT not null,
+    `cpf`					BIGINT unsigned not null,
+    `phone`					TEXT not null,
+    `driver_license` 		BIGINT unsigned not null unique,
+    `driver_license_exp` 	DATE not null,
+    `department`			TEXT not null,
+    `photo`					TEXT,
+    `admin`					BOOLEAN not null,
+    `active` 				BOOLEAN not null,
+    `date` 					DATETIME not null default now(),
 
 	primary key(`id`)
 );

@@ -3,9 +3,6 @@
 // *Browsing the schedule-create page:
 spa.onNavigate('schedule-create', (page, params) => {
 
-   // *Playing the inflation animation on the FAB:
-   anim.inflate($('#schedule-create-done-fab'));
-
    let selected_user;
    let selected_vehicle;
 
@@ -126,7 +123,7 @@ spa.onNavigate('schedule-create', (page, params) => {
          let object_data = {
             id_vehicle_fk: selected_vehicle,
             id_user_fk: selected_user,
-            reason: text_reason?text_reason:undefined,
+            reason: text_reason,
             start_date: start_date_time,
             end_date: end_date_time
          };

@@ -1,14 +1,14 @@
 
 -- Creating user_view
-create view `user_view` as
+create view `user_insensitive_view` as
 	select 	`u`.`id`, 
 			`u`.`name`, 
             `u`.`login`, 
-            `u`.`email`,
-			`u`.`cpf`, 
-            `u`.`phone`, 
+            `u`.`email`, 
+            `u`.`department`, 
+            `u`.`photo`, 
             `u`.`admin`, 
-            `u`.`active`,
+            `u`.`active`, 
             `u`.`date`
 from user u;
 

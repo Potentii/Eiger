@@ -39,9 +39,11 @@ router.delete('/api/v1/schedules/:id', auth.exposeAccessId, schedules.erase);
 // *Setting up the users routes:
 router.get('/api/v1/users', users.retrieveAll);
 router.get('/api/v1/users/:id', users.retrieve);
-router.post('/api/v1/users',        authorization('users-modify'), users.create);
-router.put('/api/v1/users/:id',     authorization('users-modify'), users.update);
-router.delete('/api/v1/users/:id',  authorization('users-modify'), users.erase);
+router.get('/api/v1/users/sensitive',     authorization('manage-users') users.retrieveAll);
+router.get('/api/v1/users/sentitive/:id', authorization('manage-users') users.retrieve);
+router.post('/api/v1/users',              authorization('manage-users'), users.create);
+router.put('/api/v1/users/:id',           authorization('manage-users'), users.update);
+router.delete('/api/v1/users/:id',        authorization('manage-users'), users.erase);
 
 // *Setting up the users-schedules routes:
 router.get('/api/v1/users/:id/schedules', users_schedules.retrieveAll);
@@ -53,9 +55,9 @@ router.get('/api/v1/users/:id/reservations/:date', users_reservations.retrieveAl
 // *Setting up the vehicles routes:
 router.get('/api/v1/vehicles', vehicles.retrieveAll);
 router.get('/api/v1/vehicles/:id', vehicles.retrieve);
-router.post('/api/v1/vehicles',        authorization('vehicles-modify'), vehicles.create);
-router.put('/api/v1/vehicles/:id',     authorization('vehicles-modify'), vehicles.update);
-router.delete('/api/v1/vehicles/:id',  authorization('vehicles-modify'), vehicles.erase);
+router.post('/api/v1/vehicles',        authorization('manage-vehicles'), vehicles.create);
+router.put('/api/v1/vehicles/:id',     authorization('manage-vehicles'), vehicles.update);
+router.delete('/api/v1/vehicles/:id',  authorization('manage-vehicles'), vehicles.erase);
 
 // *Setting up the vehicles-schedules routes:
 router.get('/api/v1/vehicles/:id/schedules', vehicles_schedules.retrieveAll);

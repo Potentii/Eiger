@@ -3,9 +3,6 @@
 // *Browsing the schedule-update page:
 spa.onNavigate('schedule-update', (page, params) => {
 
-   // *Playing the inflation animation on the FAB:
-   anim.inflate($('#schedule-update-done-fab'));
-
    // *Checking if the params is diferent undefined ou null:
    if(params && (params.id !== null && params.id !== undefined)){
       let id = params.id;
@@ -105,7 +102,7 @@ function updateSchedule(id){
   // *Creating a objetct to receiva values to update a schedule:
   // *TODO Add the vehicle and user's id:
   let data_update_schedule = {
-     reason: schedule_reason?schedule_reason:undefined,
+     reason: schedule_reason,
      start_date: start_date_schedule,
      end_date: end_date_schedule
 

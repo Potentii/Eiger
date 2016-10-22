@@ -634,6 +634,67 @@ button.raised:active, a.raised:active, .dragging.raised {
 
 
 
+/* ========== * ========== * ========== * ==========
+ * Sensitive output
+ * ========== * ========== * ========== * ==========
+ */
+.sensitive-output{
+	text-align: left;
+}
+.sensitive-output:hover > *{
+	cursor: pointer;
+}
+
+.sensitive-output > .labeled-output{
+	display: inline-block;
+	visibility: hidden;
+	opacity: 0;
+	transform: translateY(1em);
+
+	transition: opacity, visibility, transform, 0.2s ease;
+}
+.sensitive-output:focus > .labeled-output{
+	opacity: 1;
+	visibility: visible;
+	transform: translateY(0);
+}
+
+.sensitive-output > .material-icons{
+	position: absolute;
+	opacity: 1;
+	visibility: visible;
+	color: var(--bg-color-contrast-icon);
+	transform: translateY(0);
+
+	transition: opacity, visibility, transform, 0.2s ease;
+}
+.sensitive-output:focus > .material-icons{
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(1em);
+}
+
+
+
+/* ========== * ========== * ========== * ==========
+ * Checkbox group
+ * ========== * ========== * ========== * ==========
+ */
+.checkbox-group > input[type="checkbox"]:nth-of-type(n+3), .checkbox-group > .mdl-checkbox:nth-of-type(n+3){
+	margin-top: 2em;
+}
+
+
+
+/* ========== * ========== * ========== * ==========
+ * Boolean output group
+ * ========== * ========== * ========== * ==========
+ */
+.boolean-output-group > div:nth-of-type(n+2){
+	margin-top: 2em;
+}
+
+
 
 /* ========== * ========== * ========== * ==========
  * List default text

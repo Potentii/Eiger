@@ -71,9 +71,9 @@ insert into `schedule` (`id_vehicle_fk`, `id_user_fk`, `start_date`, `end_date`,
 
 -- *Inserting the system's permissions:
 insert into `permission` (`title`)
-	values ('users-modify');
+	values ('manage-users');
 insert into `permission` (`title`)
-	values ('vehicles-modify');
+	values ('manage-vehicles');
 
 
 -- *Setting the permissions level for each user:
