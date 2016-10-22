@@ -178,15 +178,14 @@ function scheduleCreateUtil(){
          .done(data => {
             // *Showing the snack with the message:
             snack.open(srm.get('schedule-create-successful-snack'), snack.TIME_SHORT);
-            // *Sending user to index page:
-            spa.navigateTo('');
+            // *Sending the user to the booking page with the schedule info:
+            spa.navigateTo('schedules', {id: selected_vehicle, date: date_startdate});
          })
          .fail(xhr => {
             let text = {title: '', message: ''};
 
             // *Checking the error code:
             switch(xhr.responseJSON.err_code){
-
             // *Case when the user or the vehicle referenced doesn't exist:
             case 'ERR_REF_NOT_FOUND':
                text.title = srm.get('schedule-create-dialog-error-ref-title');
