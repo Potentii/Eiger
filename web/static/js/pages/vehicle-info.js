@@ -16,7 +16,7 @@ spa.onNavigate('vehicle-info', (page, params) => {
          // *If true:
          // *Listing the vehicle:
          request.getVehicle(id)
-            .done((data, textStatus, xhr) => {
+            .done(data => {
 
                // *Checking if the vehicle is active:
                if(data.active === 1){
@@ -49,8 +49,8 @@ spa.onNavigate('vehicle-info', (page, params) => {
                let date = new Date(data.date);
                $('#vehicle-info-date').text(df.asFullDate(date));
             })
-            .fail((xhr, textStatus, err) => {
-               console.log(textStatus);
+            .fail(xhr => {
+               console.log(xhr.responseJSON);
             });
       }
 

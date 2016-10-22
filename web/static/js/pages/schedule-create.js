@@ -111,34 +111,7 @@ spa.onNavigate('schedule-create', (page, params) => {
          // *The default action of the event will not be triggered:
          e.preventDefault();
 
-         // *Retrieving the values of the all fields:
-         let text_reason = $('#schedule-create-reason').val();
-         let date_startdate = $('#schedule-create-start-date').val();
-         let time_starttime = $('#schedule-create-start-time').val();
-         let date_enddate = $('#schedule-create-end-date').val();
-         let time_endtime = $('#schedule-create-end-time').val();
-
-         // *Joining date and time:
-         let start_date_time = date_startdate + ' ' + time_starttime;
-         let end_date_time = date_enddate + ' ' + time_endtime;
-
-         // *Saving all values in a object_data:
-         let object_data = {
-            id_vehicle_fk: selected_vehicle,
-            id_user_fk: selected_user,
-            reason: text_reason?text_reason:undefined,
-            start_date: start_date_time,
-            end_date: end_date_time
-         };
-
-         request.postSchedule(object_data)
-            .done((data, textStatus, xhr) => {
-               // *Sending user to index page:
-               spa.navigateTo('');
-            })
-            .fail((xhr, textStatus, err) => {
-               console.log(xhr.responseJSON);
-            });
+         scheduleCreateUtil().postSchedule(selected_user, selected_vehicle);
       });
    }
 });
@@ -149,6 +122,13 @@ spa.onNavigate('schedule-create', (page, params) => {
 spa.onUnload('schedule-create', (page) => {
    // *Removing the submit listeners from the form:
    $('#schedule-create-form').off('submit');
+
+   // *Cleaning inputs when the page is left:
+   $('#schedule-create-reason').val('');
+   $('#schedule-create-start-date').val('');
+   $('#schedule-create-start-time').val('');
+   $('#schedule-create-end-date').val('');
+   $('#schedule-create-end-time').val('');
 
    // *Removing the event onClick:
    $('#schedule-create-user-app-bar').off('click');
@@ -162,6 +142,103 @@ spa.onUnload('schedule-create', (page) => {
  * @author Ralf Pablo Braga Soares
  */
 function scheduleCreateUtil(){
+
+
+
+   /**
+   * Sends the schedule create request to REST
+   * @param  {number} selected_vehicle    Id of vehicle
+   * @param  {number} selected_user       Id of user
+   * @author Dennis Sakaki Fujiki
+   */
+   function postSchedule(selected_user, selected_vehicle){
+
+      // *Retrieving the values of the all fields:
+      let text_reason = $('#schedule-create-reason').val();
+      let date_startdate = $('#schedule-create-start-date').val();
+      let time_starttime = $('#schedule-create-start-time').val();
+      let date_enddate = $('#schedule-create-end-date').val();
+      let time_endtime = $('#schedule-create-end-time').val();
+
+      // *Joining date and time:
+      let start_date_time = date_startdate + ' ' + time_starttime;
+      let end_date_time = date_enddate + ' ' + time_endtime;
+
+      // *Saving all values in a object_data:
+      let object_data = {
+         id_vehicle_fk: selected_vehicle,
+         id_user_fk: selected_user,
+         reason: text_reason,
+         start_date: start_date_time,
+         end_date: end_date_time
+      };
+
+      // *Sending a request to book this schedule:
+      request.postSchedule(object_data)
+         .done(data => {
+            // *Showing the snack with the message:
+            snack.open(srm.get('schedule-create-successful-snack'), snack.TIME_SHORT);
+            // *Sending user to index page:
+            spa.navigateTo('');
+         })
+         .fail(xhr => {
+            let text = {title: '', message: ''};
+
+            // *Checking the error code:
+            switch(xhr.responseJSON.err_code){
+
+            // *Case when the user or the vehicle referenced doesn't exist:
+            case 'ERR_REF_NOT_FOUND':
+               text.title = srm.get('schedule-create-dialog-error-ref-title');
+               text.message = srm.get('schedule-create-dialog-error-ref-message');
+               break;
+
+            // *Case there is some required field not filled:
+            case 'ERR_MISSING_FIELD':
+               text.title = srm.get('schedule-create-dialog-error-missing-field-title');
+               text.message = srm.get('schedule-create-dialog-error-missing-field-message');
+               break;
+
+            // *Case the informed schedule period isn't avaible:
+            case 'ERR_INVALID_TIMESPAN':
+               text.title = srm.get('schedule-create-dialog-error-timespan-title');
+               text.message = srm.get('schedule-create-dialog-error-timespan-message');
+               break;
+
+            // *Case the vehicle isn't avaible in the specified period:
+            case 'ERR_RES_UNAVAILABLE':
+               text.title = srm.get('schedule-create-dialog-error-unavailable-title');
+               text.message = srm.get('schedule-create-dialog-error-unavailable-message');
+               break;
+
+            // *Case the vehicle isn't active:
+            case 'ERR_VEHICLE_NOT_ACTIVE':
+               text.title = srm.get('schedule-create-dialog-error-vehicle-not-active-title');
+               text.message = srm.get('schedule-create-dialog-error-vehicle-not-active-message');
+               break;
+
+            // *Case the user isn't active:
+            case 'ERR_USER_NOT_ACTIVE':
+               text.title = srm.get('schedule-create-dialog-error-user-not-active-title');
+               text.message = srm.get('schedule-create-dialog-error-user-not-active-message');
+               break;
+
+            // *Case the user isn't authorized:
+            case 'ERR_NOT_AUTHORIZED':
+               text.title = srm.get('schedule-create-dialog-error-not-authorized-title');
+               text.message = srm.get('schedule-create-dialog-error-not-authorized-message');
+               break;
+
+            default:
+               text.title = srm.get('schedule-create-dialog-error-default-title');
+               text.message = srm.get('schedule-create-dialog-error-default-message');
+               break;
+            }
+
+            // *Open a dialog notice for the user:
+            dialogger.open('default-notice', text);
+         });
+   }
 
 
 
@@ -213,6 +290,7 @@ function scheduleCreateUtil(){
 
    // *Exporting this module:
    return {
+      postSchedule: postSchedule,
       updateVehicleInfo: updateVehicleInfo,
       updateUserInfo: updateUserInfo
    };

@@ -12,7 +12,7 @@ spa.onNavigate('', (page, params) => {
       // *If true:
       // *Listing the vehicles:
       request.getVehicles()
-         .done((data, textStatus, xhr) => {
+         .done(data => {
 
             // *Building the vehicle's ul:
             let card_ul = $('#vehicles-list');
@@ -69,8 +69,8 @@ spa.onNavigate('', (page, params) => {
                spa.navigateTo('vehicle-info', {id: id});
             });
          })
-         .fail((xhr, textStatus, err) => {
-            console.log(textStatus);
+         .fail(xhr => {
+            console.log(xhr.responseJSON);
          });
    }
 
@@ -117,7 +117,7 @@ function requestSchedules(id, button_ul) {
 
       // *Retrieving the quantity of reservations on a date:
       request.getVehiclesReservationsOnDate(id, df.asMysqlDate(date))
-         .done((data, textStatus, xhr) => {
+         .done(data => {
             // *Printing the quantity of reservations:
             button_schedule.text(data.length);
          });

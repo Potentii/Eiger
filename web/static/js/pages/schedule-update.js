@@ -167,7 +167,9 @@ function scheduleUpdateUtil(){
 
    /**
    * Sends the schedule update request to REST
-   * @param  {number} schedule_id   Id of schedule
+   * @param  {number} schedule_id         Id of schedule
+   * @param  {number} selected_vehicle    Id of vehicle
+   * @param  {number} selected_user       Id of user
    * @author Willian Conti Rezende
    */
    function updateSchedule(schedule_id, selected_vehicle, selected_user){
@@ -198,17 +200,17 @@ function scheduleUpdateUtil(){
      request.putSchedule(schedule_id, data_update_schedule)
         .done(data => {
           // *Showing the snack with the message:
-          snack.open('Schedule updated', snack.TIME_SHORT);
+          snack.open(srm.get('schedule-update-successful-snack'), snack.TIME_SHORT);
           // *Going to index page:
           spa.navigateTo('');
         })
         .fail(xhr => {
          let text = {title: '', message: ''};
 
-         // *Switch to receiving a error code
+         // *Checking the error code:
          switch(xhr.responseJSON.err_code){
 
-         // *When the user or the vehicle referenced doesn't exist
+         // *When the user or the vehicle referenced doesn't exist:
          case 'ERR_REF_NOT_FOUND':
             text.title = srm.get('schedule-update-dialog-error-ref-title');
             text.message = srm.get('schedule-update-dialog-error-ref-message');
@@ -250,6 +252,7 @@ function scheduleUpdateUtil(){
             text.title = srm.get('schedule-update-dialog-error-notfound-schedule-title');
             text.message = srm.get('schedule-update-dialog-error-notfound-schedule-message');
             break;
+
          default:
             text.title = srm.get('schedule-update-dialog-error-default-title');
             text.message = srm.get('schedule-update-dialog-error-default-message');
