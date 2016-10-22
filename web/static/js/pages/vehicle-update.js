@@ -1,3 +1,5 @@
+
+
 // *When the user navigate to the vehicle-update page:
 spa.onNavigate('vehicle-update', (page, params) => {
    let vehicle_photo_base64 = undefined;
@@ -13,7 +15,7 @@ spa.onNavigate('vehicle-update', (page, params) => {
          // *If true:
          // *Show the page to update vehicle:
          request.getVehicle(id)
-            .done((data, textStatus, xhr) => {
+            .done(data => {
                // *Setting the vehicle's photo:
                $('#vehicle-update-pic').parent().css('background-image', data.photo?'url(' + rest_url + '/media/v/p/'+ data.photo +')':'');
 
@@ -45,9 +47,11 @@ spa.onNavigate('vehicle-update', (page, params) => {
                }
 
             })
-            .fail((xhr, textStatus, err) => {
-               console.log(textStatus);
+            .fail(xhr => {
+               console.log(xhr.responseJSON);
             });
+
+
 
          // *Listening to receiva a photo in base64:
          $('#vehicle-update-pic').on('change', (e) => {
@@ -61,10 +65,22 @@ spa.onNavigate('vehicle-update', (page, params) => {
          });
 
 
-         // Button to call a function updateVechile and prevent the action default of browser happen
-         $('#vehicle-update-form').on('submit', (e) => {
+
+         // *Button to call a function updateVechile and prevent the action default of browser happen
+         $('#vehicle-update-form').submit((e) => {
             e.preventDefault();
-            updateVehicle(id, vehicle_photo_base64);
+            // *Opening a dialog consent for the user:
+            dialogger.open('default-consent', {title: srm.get('vehicle-update-dialog-consent-submit-title'), message: srm.get('vehicle-update-dialog-consent-submit-message')}, (dialog, status, params) => {
+               // *Checking a status of dialog:
+               switch(status){
+               // *When the status is positive:
+               case dialogger.DIALOG_STATUS_POSITIVE:
+
+                  // *Calling the function to update vehicle data:
+                  updateVehicle(id, vehicle_photo_base64);
+                  break;
+               }
+            });
          });
       }
    } else {
@@ -75,12 +91,15 @@ spa.onNavigate('vehicle-update', (page, params) => {
 });
 
 
+
  // *Cleaning listernes from this page:
 spa.onUnload('vehicle-update', (page) => {
    // *Cleaning the event submit:
    $('#vehicle-update-form').off('submit');
+
    // *Cleaning the event change:
    $('#vehicle-update-pic').off('change');
+
    // *Cleaning inputs when the page is left:
    $('#vehicle-update-pic').val('');
    $('#vehicle-update-title').val('');
@@ -91,6 +110,8 @@ spa.onUnload('vehicle-update', (page) => {
    $('#vehicle-update-renavam').val('');
    $('#vehicle-update-pic').parent().css('background-image', '');
 });
+
+
 
 /**
  * Sends the vehicle update request to REST
@@ -118,19 +139,37 @@ function updateVehicle(id, vehicle_photo_base64){
       plate: vehicle_plate,
       renavam: vehicle_revavam,
       photo: vehicle_photo_base64
-   }
+   };
 
 
 
    // *Sending a Update Vehicle to the table vehicle on database:
    request.putVehicle(id, data_update_vehicle)
-      .done((data, textStatus, xhr) => {
+      .done(data => {
          // *Showing the snack with the message:
-         snack.open('Vehicle updated', snack.TIME_SHORT);
+         snack.open(srm.get('vehicle-update-successful-snack'), snack.TIME_SHORT);
          // *Going to index page:
          spa.navigateTo('');
       })
-      .fail((xhr, textStatus, err) => {
-         console.log(textStatus);
+      .fail(xhr => {
+         // *Declaring an object to receiva a text to dialog:
+         let text = {title: '', message: ''};
+
+         // *Getting a error code
+         switch(xhr.responseJSON.err_code){
+         // *Error is duplicate entry:
+         case 'ERR_DUPLICATE_FIELD':
+            text.title = srm.get('vehicle-update-dialog-error-duplicate-title');
+            text.message = srm.get('vehicle-update-dialog-error-duplicate-message');
+            break;
+
+         default:
+            text.title = srm.get('vehicle-update-dialog-error-default-title');
+            text.message = srm.get('vehicle-update-dialog-error-default-message');
+            break;
+         }
+
+         // *Opening a dialog notice for the user:
+         dialogger.open('default-notice', text);
       });
 }
