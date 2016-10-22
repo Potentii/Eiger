@@ -201,8 +201,8 @@ function scheduleUpdateUtil(){
         .done(data => {
           // *Showing the snack with the message:
           snack.open(srm.get('schedule-update-successful-snack'), snack.TIME_SHORT);
-          // *Going to index page:
-          spa.navigateTo('');
+          // *Sending the user to the schedule info page:
+          spa.navigateTo('schedule-info', {id: schedule_id});
         })
         .fail(xhr => {
          let text = {title: '', message: ''};
