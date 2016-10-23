@@ -111,6 +111,8 @@
    ["user-update-permission-vehicles", "${user-create-permission-vehicles}"],
    ["user-update-permission-vehicles-detail", "${user-create-permission-vehicles-detail}"],
 
+
+
    ["default-notice-ok", "ok"],
 
    ["default-consent-no", "não"],
@@ -126,9 +128,82 @@
    ["vehicle-picker-header", "Escolha um veículo"],
    ["vehicle-picker-cancel", "cancelar"],
    ["vehicle-picker-ok", "ok"],
+   
 
-   ["schedule-create-dialog-no-vehicles-title", "Não foi possível encontrar nenhum veículo"],
-   ["schedule-create-dialog-no-vehicles-message", "Por favor, registre algum antes de tentar cadastrar novas reservas"],
-   ["schedule-create-dialog-internal-error-title", "Erro interno"],
-   ["schedule-create-dialog-internal-error-message", "Algo errado aconteceu"]
+
+   ["dialog-default-save-changes", "Salvar alterações?"],
+   ["vehicle-create-successful-snack", "Veículo salvo"],
+
+   ["vehicle-update-dialog-consent-submit-title", "${dialog-default-save-changes}"],
+   ["vehicle-update-dialog-consent-submit-message", ""],
+   ["vehicle-update-successful-snack", "Veículo atualizado"],
+
+   ["schedule-create-successful-snack", "Reserva agendada"],
+
+   ["schedule-update-dialog-consent-submit-title", "${dialog-default-save-changes}"],
+   ["schedule-update-dialog-consent-submit-message", ""],
+   ["schedule-update-successful-snack", "Reserva atualizada"],
+
+
+
+   ["error-default-internal", "Erro interno"],
+   ["error-default-something-went-wrong", "Algo deu errado"],
+
+   ["dialog-error-default-send-request-title", "Sua ação não pode ser concluída"],
+   ["dialog-error-default-send-request-message", "${error-default-something-went-wrong}"],
+
+   ["dialog-error-default-missing-field-message", "Alguma informação está faltando"],
+   ["dialog-error-default-duplicate-message", "Alguma informação única está sendo repetida"],
+   ["dialog-error-default-ref-message", "Um recurso referenciado não existe mais"],
+
+   ["vehicle-create-dialog-error-missing-field-title", "${dialog-error-default-send-request-title}"],
+   ["vehicle-create-dialog-error-missing-field-message", "${dialog-error-default-missing-field-message}"],
+   ["vehicle-create-dialog-error-duplicate-title", "${dialog-error-default-send-request-title}"],
+   ["vehicle-create-dialog-error-duplicate-message", "${dialog-error-default-duplicate-message}"],
+   ["vehicle-create-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
+   ["vehicle-create-dialog-error-default-message", "${dialog-error-default-send-request-message}"],
+
+   ["vehicle-update-dialog-error-duplicate-title", "${dialog-error-default-send-request-title}"],
+   ["vehicle-update-dialog-error-duplicate-message", "${dialog-error-default-duplicate-message}"],
+   ["vehicle-update-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
+   ["vehicle-update-dialog-error-default-message", "${dialog-error-default-send-request-message}"],
+
+   ["schedule-create-dialog-no-vehicles-title", "Não foi encontrado nenhum veículo"],
+   ["schedule-create-dialog-no-vehicles-message", "Por favor, registre alguns para agendar"],
+   ["schedule-create-dialog-internal-error-title", "${error-default-internal}"],
+   ["schedule-create-dialog-internal-error-message", "${error-default-something-went-wrong}"],
+
+   ["schedule-create-dialog-error-ref-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-create-dialog-error-ref-message", "${dialog-error-default-ref-message}"],
+   ["schedule-create-dialog-error-missing-field-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-create-dialog-error-missing-field-message", "${dialog-error-default-missing-field-message}"],
+   ["schedule-create-dialog-error-timespan-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-create-dialog-error-timespan-message", "A data informada ocorre no passado, ou não forma um período válido"],
+   ["schedule-create-dialog-error-unavailable-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-create-dialog-error-unavailable-message", "Este veículo não vai estar disponível no período desejado"],
+   ["schedule-create-dialog-error-vehicle-not-active-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-create-dialog-error-vehicle-not-active-message", "O veículo não está ativo, por isso não pode ser agendado"],
+   ["schedule-create-dialog-error-user-not-active-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-create-dialog-error-user-not-active-message", "O usuário não está ativo, por isso não pode ser agendado"],
+   ["schedule-create-dialog-error-not-authorized-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-create-dialog-error-not-authorized-message", "Você não está autorizado a reservar para outro usuário"],
+   ["schedule-create-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-create-dialog-error-default-message", "${dialog-error-default-send-request-message}"],
+
+   ["schedule-update-dialog-error-ref-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-update-dialog-error-ref-message", "${dialog-error-default-ref-message}"],
+   ["schedule-update-dialog-error-vehicle-not-active-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-update-dialog-error-vehicle-not-active-message", "${schedule-create-dialog-error-vehicle-not-active-message}"],
+   ["schedule-update-dialog-error-user-not-active-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-update-dialog-error-user-not-active-message", "${schedule-create-dialog-error-user-not-active-message}"],
+   ["schedule-update-dialog-error-not-authorized-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-update-dialog-error-not-authorized-message", "${schedule-create-dialog-error-not-authorized-message}"],
+   ["schedule-update-dialog-error-unavailable-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-update-dialog-error-unavailable-message", "${schedule-create-dialog-error-unavailable-message}"],
+   ["schedule-update-dialog-error-timespan-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-update-dialog-error-timespan-message", "${schedule-create-dialog-error-timespan-message}"],
+   ["schedule-update-dialog-error-notfound-schedule-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-update-dialog-error-notfound-schedule-message", "${dialog-error-default-send-request-message}"],
+   ["schedule-update-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-update-dialog-error-default-message", "${dialog-error-default-send-request-message}"]
 ]
