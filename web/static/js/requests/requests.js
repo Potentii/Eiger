@@ -187,6 +187,47 @@ const request = (function(){
 
 
    /**
+   * Returns all the users (Including all their sensitive data)
+   * @return {jqXHR}  The ajax request
+   * @author Guilherme Reginaldo Ruella
+   */
+   function getUsersSensitive(){
+
+      // *Getting the key and the token:
+      let auth = retrieveAccessInfo();
+
+      // *Requesting users:
+      return $.ajax({
+         url: rest_url + '/api/v1/users/sensitive/',
+         method: 'GET',
+         headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
+      });
+   }
+
+
+
+   /**
+    * Returns a user, given its id (Including all its sensitive data)
+    * @param  {number} id The user id
+    * @return {jqXHR}     The ajax request
+    * @author Guilherme Reginaldo Ruella
+    */
+   function getUserSensitive(id){
+
+      // *Getting the key and the token:
+      let auth = retrieveAccessInfo();
+
+      // *Requesting user:
+      return $.ajax({
+         url: rest_url + '/api/v1/users/sensitive/' + id,
+         method: 'GET',
+         headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
+      });
+   }
+
+
+
+   /**
    * Returns the object of all schedules the vehicle
    * @param  {number} id Vehicle id
    * @return {jqXHR}     The ajax request

@@ -8,7 +8,7 @@ const pooler = require('../database/pooler');
  */
 function retrieveAll(req, res, next){
    // *Querying the database for all resources:
-   pooler.query('select * from ??', ['user_view'])
+   pooler.query('select * from ??', ['user_insensitive_view'])
       .then(result => {
          // *Sending the resources as response:
          res.status(200)
@@ -35,7 +35,68 @@ function retrieve(req, res, next){
    let id = req.params.id;
 
    // *Querying the database for the resource:
-   pooler.query('select * from ?? where ?? = ?', ['user_view', 'id', id])
+   pooler.query('select * from ?? where ?? = ?', ['user_insensitive_view', 'id', id])
+      .then(result => {
+         // *Checking if there is something on result:
+         if(result.rows.length){
+            // *If there is:
+            // *Sending the first resource as response:
+            res.status(200)
+               .json(result.rows[0])
+               .end();
+         } else{
+            // *If not:
+            // *Sending a 404 response:
+            res.status(404)
+               .json({err_code: 'ERR_NOT_FOUND', err_message: 'Resource not found'})
+               .end();
+         }
+      })
+      .catch(err => {
+         // *If something went wrong:
+         // *Sending a 500 error response:
+         res.status(500)
+            .json({err_code: 'ERR_INTERNAL', err_message: 'Something went wrong'})
+            .end();
+      });
+}
+
+
+
+/**
+ * Retrieves all resources (including all sensitive data)
+ * @author Guilherme Reginaldo Ruella
+ */
+function retrieveAllSensitive(req, res, next){
+   // *Querying the database for all resources:
+   pooler.query('select * from ??', ['user'])
+      .then(result => {
+         // *Sending the resources as response:
+         res.status(200)
+            .json(result.rows)
+            .end();
+      })
+      .catch(err => {
+         // *If something went wrong:
+         // *Sending a 500 error response:
+         res.status(500)
+            .json({err_code: 'ERR_INTERNAL', err_message: 'Something went wrong'})
+            .end();
+      });
+}
+
+
+
+/**
+ * Retrieves a single resource, given its id (including all sensitive data)
+ * @author Guilherme Reginaldo Ruella
+ */
+function retrieveSensitive(req, res, next){
+   // *Getting the id from request params:
+   let id = req.params.id;
+
+   // *Querying the database for the resource:
+   pooler.query('select * from ?? where ?? = ?', ['user', 'id', id])
       .then(result => {
          // *Checking if there is something on result:
          if(result.rows.length){
@@ -205,6 +266,8 @@ function erase(req, res, next){
 module.exports = {
    retrieveAll: retrieveAll,
    retrieve: retrieve,
+   retrieveAllSensitive: retrieveAllSensitive,
+   retrieveSensitive: retrieveSensitive,
    create: create,
    update: update,
    erase: erase

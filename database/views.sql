@@ -1,25 +1,15 @@
 
--- Creating user_view
+-- Creating user_insensitive_view
 create view `user_insensitive_view` as
-	select 	`u`.`id`, 
-			`u`.`name`, 
-            `u`.`login`, 
-            `u`.`email`, 
-            `u`.`department`, 
-            `u`.`photo`, 
-            `u`.`admin`, 
-            `u`.`active`, 
+	select 	`u`.`id`,
+			`u`.`name`,
+            `u`.`login`,
+            `u`.`email`,
+            `u`.`department`,
+            `u`.`photo`,
+            `u`.`permission_schedules`,
+            `u`.`permission_users`,
+            `u`.`permission_vehicles`,
+            `u`.`active`,
             `u`.`date`
 from user u;
-
-
--- Creating user_permission_view
-create view `user_permission_view` as
-	select 	`user`.`id` as 'user_id', 
-			`user`.`login` as 'user_login', 
-            `permission`.`title` as 'permission_title'
-	from `user` 
-    inner join `user_permission` 
-		on `user_permission`.`id_user_fk` = `user`.`id` 
-    inner join `permission` 
-		on `user_permission`.`id_permission_fk` = `permission`.`id`;
