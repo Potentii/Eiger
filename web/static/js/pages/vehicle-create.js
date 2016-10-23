@@ -1,3 +1,5 @@
+
+
 // *When the user navigate to the vehicle-create page:
 spa.onNavigate('vehicle-create', (page, params) => {
    let vehicle_photo_base64 = '';
@@ -17,13 +19,18 @@ spa.onNavigate('vehicle-create', (page, params) => {
       });
 
 
+
       // *Button to call a function createVehicle and prevent the action default of browser happen:
       $('#vehicle-create-form').on('submit', (e) => {
          e.preventDefault();
+
+         // *Calling the function to create a new vehicle:
          createVehicle(vehicle_photo_base64);
       });
    }
 });
+
+
 
 // *Cleaning listernes from this page:
 spa.onUnload('vehicle-create', (page) => {
@@ -41,6 +48,8 @@ spa.onUnload('vehicle-create', (page) => {
    $('#vehicle-create-renavam').val('');
    $('#vehicle-create-pic').parent().css('background-image', '');
 });
+
+
 
 /**
  * Sends a vehicle creation request to REST
@@ -67,19 +76,44 @@ function createVehicle(vehicle_photo_base64){
       plate: vehicle_plate,
       renavam: vehicle_revavam,
       photo: vehicle_photo_base64
-   }
+   };
 
 
 
    // *Sending a create Vehicle to the table vehicle on database:
    request.postVehicle(object_data)
-      .done((data, textStatus, xhr) => {
+      .done(data => {
          // *Showing the snack with the message:
-         snack.open('Vehicle created', snack.TIME_SHORT);
+         snack.open(srm.get('vehicle-create-successful-snack'), snack.TIME_SHORT);
          // *Going to index page:
          spa.navigateTo('');
       })
-      .fail((xhr, textStatus, err) => {
-         console.log(textStatus);
+      .fail(xhr => {
+         let text = {title: '', message: ''};
+
+         // *Switch to receive error code
+         switch(xhr.responseJSON.err_code){
+
+         // *Case there is some required field not filled
+         case 'ERR_MISSING_FIELD':
+            text.title = srm.get('vehicle-create-dialog-error-missingfield-title');
+            text.message = srm.get('vehicle-create-dialog-error-missingfield-message');
+            break;
+
+         // *Case when a unique fiel being repeated:
+         case 'ERR_DUPLICATE_FIELD':
+            text.title = srm.get('vehicle-create-dialog-error-duplicate-title');
+            text.message = srm.get('vehicle-create-dialog-error-duplicate-message');
+            break;
+
+         // *Action default of switch:
+         default:
+            text.title = srm.get('vehicle-create-dialog-error-default-title');
+            text.message = srm.get('vehicle-create-dialog-error-default-message');
+            break;
+         }
+
+         // *Open a dialog notice for the user:
+         dialogger.open('default-notice', text);
       });
 }

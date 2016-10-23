@@ -14,7 +14,7 @@ spa.onNavigate('schedules', (page, params) => {
          // *If true:
          // *Showing the vehicle in app bar:
          request.getVehicle(id, date)
-            .done((data, textStatus, xhr) => {
+            .done(data => {
 
                // *Setting the vehicle's photo:
                $('#schedules-vehicle-photo').css('background-image', 'url(' + rest_url + '/media/v/p/' + data.photo + ')');
@@ -29,13 +29,13 @@ spa.onNavigate('schedules', (page, params) => {
                $('#schedules-vehicle-date').text(df.asFullDate(new Date(date + ' 00:00:00')));
 
             })
-            .fail((xhr, textStatus, err) => {
-               console.log(textStatus);
+            .fail(xhr => {
+               console.log(xhr.responseJSON);
             });
 
          // *Listing the reserves of that vehicle:
          request.getVehiclesReservationsOnDate(id, date)
-            .done((data, textStatus, xhr) => {
+            .done(data => {
 
                // *Building the schedule's ul:
                let schedules_ul = $('#schedules-list');
@@ -90,8 +90,8 @@ spa.onNavigate('schedules', (page, params) => {
                });
 
             })
-            .fail((xhr, textStatus, err) => {
-            console.log(textStatus);
+            .fail(xhr => {
+            console.log(xhr.responseJSON);
             });
       }
 
