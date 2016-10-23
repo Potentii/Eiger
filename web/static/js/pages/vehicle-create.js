@@ -4,9 +4,6 @@
 spa.onNavigate('vehicle-create', (page, params) => {
    let vehicle_photo_base64 = '';
 
-   // *Playing the inflation animation on the FAB:
-   anim.inflate($('#vehicle-create-done-fab'));
-
    // *Checking if the user was authenticated:
    if(authenticated == true) {
       // *If true:
@@ -99,8 +96,8 @@ function createVehicle(vehicle_photo_base64){
 
          // *Case there is some required field not filled
          case 'ERR_MISSING_FIELD':
-            text.title = srm.get('vehicle-create-dialog-error-missingfield-title');
-            text.message = srm.get('vehicle-create-dialog-error-missingfield-message');
+            text.title = srm.get('vehicle-create-dialog-error-missing-field-title');
+            text.message = srm.get('vehicle-create-dialog-error-missing-field-message');
             break;
 
          // *Case when a unique fiel being repeated:

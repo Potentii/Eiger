@@ -4,9 +4,6 @@
 // *Browsing the index page:
 spa.onNavigate('', (page, params) => {
 
-   // *Playing the inflation animation on the FAB:
-   anim.inflate($('#vehicles-add-fab'));
-
    // *Checking if the user was authenticated:
    if(authenticated == true) {
       // *If true:

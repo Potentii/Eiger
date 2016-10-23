@@ -3,9 +3,6 @@
 // *Browsing the schedule-update page:
 spa.onNavigate('schedule-update', (page, params) => {
 
-   // *Playing the inflation animation on the FAB:
-   anim.inflate($('#schedule-update-done-fab'));
-
    // *Checking if the user was authenticated:
    if(authenticated == true) {
       // *If true:
@@ -311,7 +308,6 @@ function scheduleUpdateUtil(){
             console.log(xhr.responseJSON);
          });
    }
-
 
    // *Exporting this module:
    return {
