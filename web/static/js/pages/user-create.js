@@ -7,7 +7,7 @@ spa.onNavigate('user-create', (page, params) => {
    // *Checking if the user was authenticated:
    if(authenticated == true) {
       // *If true:
-      // *Listening to receiva a photo in base64:
+      // *Listening to receive a photo in base64:
       $('#user-create-pic').on('change', (e) => {
          let user_pic_file = document.querySelector('#user-create-pic').files[0];
          file_encoder.asBase64(user_pic_file, res => {
@@ -38,7 +38,6 @@ spa.onUnload('user-create', (page) => {
    // *Cleaning the event change:
    $('#user-create-pic').off('change');
    // *Cleaning inputs when the page is left:
-   $('#user-create-pic').val('');
    $('#user-create-pic').val('');
    $('#user-create-name').val('');
    $('#user-create-login').val('');
@@ -95,7 +94,7 @@ function postUser(user_photo_base64){
       .done(data => {
          // *Showing the snack with the message:
          snack.open(srm.get('user-create-successful-snack'), snack.TIME_SHORT);
-         // *Sending the user to the booking page with the user info:
+         // *Sending the user to the user listing:
          spa.navigateTo('users');
       })
       .fail(xhr => {
