@@ -113,3 +113,19 @@
       height: 3em;
    }
 }
+
+
+/**
+ * Inactive vehicles
+ */
+#vehicles-list > .inactive{
+	opacity: 0.6;
+	box-shadow: none;
+	background: none;
+}
+#vehicles-list > .inactive > .vertical-line, #vehicles-list > .inactive > .horizontal-line{
+	visibility: hidden;
+}
+#vehicles-list > .inactive .schedules{
+	opacity: 0.5;
+}

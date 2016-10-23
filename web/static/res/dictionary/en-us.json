@@ -113,6 +113,14 @@
 
 
 
+   ["empty-list-text-vehicles", "No vehicles found"],
+   ["empty-list-text-schedules", "No schedules on this day"],
+   ["empty-list-text-users", "No users found"],
+   ["empty-list-text-user-picker", "${empty-list-text-users}"],
+   ["empty-list-text-vehicle-picker", "${empty-list-text-vehicles}"],
+
+
+
    ["default-notice-ok", "ok"],
 
    ["default-consent-no", "no"],

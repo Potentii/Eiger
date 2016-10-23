@@ -113,6 +113,14 @@
 
 
 
+   ["empty-list-text-vehicles", "Nenhum veículo encontrado"],
+   ["empty-list-text-schedules", "Nenhuma reserva neste dia"],
+   ["empty-list-text-users", "Nenhum usuário encontrado"],
+   ["empty-list-text-user-picker", "${empty-list-text-users}"],
+   ["empty-list-text-vehicle-picker", "${empty-list-text-vehicles}"],
+
+
+
    ["default-notice-ok", "ok"],
 
    ["default-consent-no", "não"],
@@ -128,7 +136,7 @@
    ["vehicle-picker-header", "Escolha um veículo"],
    ["vehicle-picker-cancel", "cancelar"],
    ["vehicle-picker-ok", "ok"],
-   
+
 
 
    ["dialog-default-save-changes", "Salvar alterações?"],

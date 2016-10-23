@@ -64,30 +64,6 @@ function retrieve(req, res, next){
 
 
 /**
- * Retrieves all resources (including all sensitive data)
- * @author Guilherme Reginaldo Ruella
- */
-function retrieveAllSensitive(req, res, next){
-   // *Querying the database for all resources:
-   pooler.query('select * from ??', ['user'])
-      .then(result => {
-         // *Sending the resources as response:
-         res.status(200)
-            .json(result.rows)
-            .end();
-      })
-      .catch(err => {
-         // *If something went wrong:
-         // *Sending a 500 error response:
-         res.status(500)
-            .json({err_code: 'ERR_INTERNAL', err_message: 'Something went wrong'})
-            .end();
-      });
-}
-
-
-
-/**
  * Retrieves a single resource, given its id (including all sensitive data)
  * @author Guilherme Reginaldo Ruella
  */
@@ -400,7 +376,6 @@ function erase(req, res, next){
 module.exports = {
    retrieveAll: retrieveAll,
    retrieve: retrieve,
-   retrieveAllSensitive: retrieveAllSensitive,
    retrieveSensitive: retrieveSensitive,
    create: create,
    update: update,

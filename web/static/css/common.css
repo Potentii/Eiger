@@ -723,13 +723,13 @@ li .secondary{
 .list{
 	/*padding: 1em 0;*/
 }
-.list > li, .grid > li{
+.list > li, .grid > li, .list > .empty-list-text{
 	position: relative;
 	display: block;
 	opacity: 1;
    transition: opacity, background, 0.3s ease;
 }
-.list > li{
+.list > li, .list > .empty-list-text{
 	padding: 1.2em 1em;
 }
 .grid > li{
@@ -768,6 +768,26 @@ li .secondary{
 	height: 100%;
 	background: rgba(0, 0, 0, 0.5);
 	z-index: 1;
+}
+
+.list.empty > .empty-list-text{
+	display: block;
+}
+.list:not(.empty) > .empty-list-text{
+	display: none;
+}
+.list.empty > .empty-list-text{
+	text-align: center;
+	color: var(--bg-color-contrast);
+	font-size: 1.1em;
+}
+@media (orientation: landscape){
+	.list.empty > .empty-list-text{
+		width: 50%;
+		min-width: 30em;
+		margin-right: auto;
+		margin-left: auto;
+	}
 }
 
 .list-fab{

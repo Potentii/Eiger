@@ -39,8 +39,7 @@ router.delete('/api/v1/schedules/:id', auth.exposeAccessId, schedules.erase);
 // *Setting up the users routes:
 router.get('/api/v1/users', users.retrieveAll);
 router.get('/api/v1/users/:id', users.retrieve);
-router.get('/api/v1/users/sensitive',     authorization('permission_users'), users.retrieveAllSensitive);
-router.get('/api/v1/users/sentitive/:id', authorization('permission_users'), users.retrieveSensitive);
+router.get('/api/v1/users/:id/sensitive', authorization('permission_users'), users.retrieveSensitive);
 router.post('/api/v1/users',              authorization('permission_users'), users.create);
 router.put('/api/v1/users/:id',           authorization('permission_users'), users.update);
 router.delete('/api/v1/users/:id',        authorization('permission_users'), users.erase);

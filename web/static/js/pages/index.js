@@ -14,12 +14,18 @@ spa.onNavigate('', (page, params) => {
             // *Building the vehicle's ul:
             let card_ul = $('#vehicles-list');
 
+            // *Checking if the list is empty, adding the empty class if it is:
+            if(!data.length) card_ul.addClass('empty');
+
             // *Iterating and creating the vehicles list:
             data.forEach((vehicle, index) => {
 
                // *Building the vehicle's li:
                let card_li = $('<li>');
                card_li.attr('data-id', vehicle.id).addClass('card box raised').appendTo(card_ul);
+
+               // *Checking if the vehicle is inactive, adding the inactive class if it is:
+               if(!vehicle.active) card_li.addClass('inactive');
 
                // *Building the vehicle's div:
                let horizontal_layout_div = $('<div>').addClass('info flex-horizontal-layout').appendTo(card_li);
@@ -83,8 +89,13 @@ spa.onNavigate('', (page, params) => {
 // *When user left the page:
 spa.onUnload('', (page) => {
 
-   // *Wiping and removing the event click from ul:
-   $('#vehicles-list').empty().off('click');
+   // *Removing the list's empty class and the click listener:
+   $('#vehicles-list')
+      .removeClass('empty')
+      .off('click');
+
+   // *Removing all list items:
+   $('#vehicles-list > li').remove();
 
    // *Removing the event click:
    $('#vehicles-list .schedules').off('click');
