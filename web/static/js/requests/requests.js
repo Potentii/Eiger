@@ -605,6 +605,8 @@ const request = (function(){
       getUsersReservationsOnDate: getUsersReservationsOnDate,
       getUser: getUser,
       getUsers: getUsers,
+      getUserSensitive: getUserSensitive,
+      getUsersSensitive: getUsersSensitive,
 
       postAuth: postAuth,
       postSchedule: postSchedule,
