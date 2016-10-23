@@ -47,6 +47,15 @@ spa.onUnload('vehicle-create', (page) => {
    $('#vehicle-create-plate').val('');
    $('#vehicle-create-renavam').val('');
    $('#vehicle-create-pic').parent().css('background-image', '');
+   $('vehicle-create-active').prop('checked', true);
+
+   // *Getting all MDL checkboxes:
+   let mdl_checkboxes = document.querySelectorAll('#user-update-section .mdl-js-checkbox');
+   // *Updating the states of each MDL checkbox:
+   for(mdl_checkbox of mdl_checkboxes){
+      // *Updating the status:
+      mdl_checkbox.MaterialCheckbox.updateClasses_();
+   }
 });
 
 
@@ -66,6 +75,7 @@ function createVehicle(vehicle_photo_base64){
    let vehicle_year = $('#vehicle-create-year').val();
    let vehicle_plate = $('#vehicle-create-plate').val();
    let vehicle_revavam = $('#vehicle-create-renavam').val();
+   let vehicle_active = $('#vehicle-create-active').is(':checked');
 
    // *Create a objetct to receiva values to create a vehicle:
    let object_data = {
@@ -75,7 +85,8 @@ function createVehicle(vehicle_photo_base64){
       year: vehicle_year,
       plate: vehicle_plate,
       renavam: vehicle_revavam,
-      photo: vehicle_photo_base64
+      photo: vehicle_photo_base64,
+      active: vehicle_active
    };
 
 

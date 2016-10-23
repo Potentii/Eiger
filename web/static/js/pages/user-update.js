@@ -2,7 +2,6 @@
 spa.onNavigate('user-update', (page, params) => {
    let user_photo_base64 = undefined;
 
-   params = {id:1};
    // *Checking if the params is diferent undefined or null:
    if(params && (params.id !== null && params.id !== undefined)){
       let id = params.id;
@@ -71,7 +70,7 @@ spa.onNavigate('user-update', (page, params) => {
                for(mdl_checkbox of mdl_checkboxes){
                   // *Updating the status:
                   mdl_checkbox.MaterialCheckbox.updateClasses_();
-   }
+               }
             })
             .fail(xhr => {
                console.log(xhr.responseJSON);
