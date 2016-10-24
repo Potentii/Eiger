@@ -13,6 +13,9 @@ spa.onNavigate('schedule-update', (page, params) => {
          let selected_vehicle;
          let selected_user;
 
+         // *Removing the invalid state on the fields:
+         mdl_util.clearTextFieldsValidity('#schedule-update-section');
+
          // *Listing the preview schedule info:
          request.getSchedule(schedule_id)
             .done(data => {

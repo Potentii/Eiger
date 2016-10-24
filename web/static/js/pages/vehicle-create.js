@@ -7,6 +7,10 @@ spa.onNavigate('vehicle-create', (page, params) => {
    // *Checking if the user was authenticated:
    if(authenticated == true) {
       // *If true:
+
+      // *Removing the invalid state on the fields:
+      mdl_util.clearTextFieldsValidity('#vehicle-create-section');
+
       // *Listening to receiva a photo in base64:
       $('#vehicle-create-pic').on('change', (e) => {
          let vehicle_pic_file = document.querySelector('#vehicle-create-pic').files[0];

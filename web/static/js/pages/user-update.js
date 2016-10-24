@@ -8,6 +8,10 @@ spa.onNavigate('user-update', (page, params) => {
       // *Checking if the user was authenticated:
       if(authenticated == true) {
          // *If true:
+
+         // *Removing the invalid state on the fields:
+         mdl_util.clearTextFieldsValidity('#user-update-section');
+
          // *Show the page to update user:
          request.getUserSensitive(id)
             .done(data => {

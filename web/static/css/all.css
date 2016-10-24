@@ -141,6 +141,10 @@ section > .list{
 }
 
 
+.mdl-checkbox *:hover{
+   cursor: pointer;
+}
+
 
 /**
  * MDL color correction
