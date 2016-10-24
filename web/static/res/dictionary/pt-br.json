@@ -152,6 +152,12 @@
    ["schedule-update-dialog-consent-submit-message", ""],
    ["schedule-update-successful-snack", "Reserva atualizada"],
 
+   ["user-create-successful-snack", "Usuário adicionado"],
+
+   ["user-update-dialog-consent-submit-title", "${dialog-default-save-changes}"],
+   ["user-update-dialog-consent-submit-message", ""],
+   ["user-update-successful-snack", "Usuário atualizado"],
+
 
 
    ["error-default-internal", "Erro interno"],
@@ -163,6 +169,7 @@
    ["dialog-error-default-missing-field-message", "Alguma informação está faltando"],
    ["dialog-error-default-duplicate-message", "Alguma informação única está sendo repetida"],
    ["dialog-error-default-ref-message", "Um recurso referenciado não existe mais"],
+   ["dialog-error-default-not-found-message", "O recurso não pode ser encontrado"],
 
    ["vehicle-create-dialog-error-missing-field-title", "${dialog-error-default-send-request-title}"],
    ["vehicle-create-dialog-error-missing-field-message", "${dialog-error-default-missing-field-message}"],
@@ -213,5 +220,19 @@
    ["schedule-update-dialog-error-notfound-schedule-title", "${dialog-error-default-send-request-title}"],
    ["schedule-update-dialog-error-notfound-schedule-message", "${dialog-error-default-send-request-message}"],
    ["schedule-update-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
-   ["schedule-update-dialog-error-default-message", "${dialog-error-default-send-request-message}"]
+   ["schedule-update-dialog-error-default-message", "${dialog-error-default-send-request-message}"],
+
+   ["user-create-dialog-error-missing-field-title", "${dialog-error-default-send-request-title}"],
+   ["user-create-dialog-error-missing-field-message", "${dialog-error-default-missing-field-message}"],
+   ["user-create-dialog-error-duplicate-title", "${dialog-error-default-send-request-title}"],
+   ["user-create-dialog-error-duplicate-message", "${dialog-error-default-duplicate-message}"],
+   ["user-create-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
+   ["user-create-dialog-error-default-message", "${dialog-error-default-send-request-message}"],
+
+   ["user-update-dialog-error-not-found-title", "${dialog-error-default-send-request-title}"],
+   ["user-update-dialog-error-not-found-message", "${dialog-error-default-not-found-message}"],
+   ["user-update-dialog-error-duplicate-title", "${dialog-error-default-send-request-title}"],
+   ["user-update-dialog-error-duplicate-message", "${dialog-error-default-duplicate-message}"],
+   ["user-update-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
+   ["user-update-dialog-error-default-message", "${dialog-error-default-send-request-message}"]
 ]
