@@ -44,28 +44,28 @@ spa.onNavigate('schedules', (page, params) => {
                if(!data.length) schedules_ul.addClass('empty');
 
                // *Iterating and creating the schedules list:
-               data.forEach(function(element, index){
+               data.forEach(function(reservations){
 
                   // *Building the schedule's li:
-                  let schedules_li = $('<li>').attr('data-id', element.schedule.id).addClass('card box raised').appendTo(schedules_ul);
+                  let schedules_li = $('<li>').attr('data-id', reservations.schedule.id).addClass('card box raised').appendTo(schedules_ul);
 
                   // *Building the schedule's div:
                   let vertical_layout_div = $('<div>').addClass('user vertical-layout').appendTo(schedules_li);
 
                   // *Building and setting the name and reason of the user:
-                  let schedules_user = $('<span>').addClass('primary').text(element.user.name).appendTo(vertical_layout_div);
-                  let schedules_reason = $('<span>').addClass('secondary').text(element.schedule.reason).appendTo(vertical_layout_div);
+                  let schedules_user = $('<span>').addClass('primary').text(reservations.user.name).appendTo(vertical_layout_div);
+                  let schedules_reason = $('<span>').addClass('secondary').text(reservations.schedule.reason).appendTo(vertical_layout_div);
 
                   // *Building the schedule's duration div:
                   let schedules_duration_div = $('<div>').addClass('schedule-duration-output').appendTo(schedules_li);
 
                   // *Building and setting the schedule start date:
-                  let start_date = new Date(element.schedule.start_date);
+                  let start_date = new Date(reservations.schedule.start_date);
                   let schedules_start_date = $('<span>').text(df.asShortDate(start_date));
                   schedules_start_date.appendTo(schedules_duration_div);
 
                   // *Building and setting the schedule start time:
-                  let start_time = new Date(element.schedule.start_date);
+                  let start_time = new Date(reservations.schedule.start_date);
                   let schedules_start_time = $('<span>').addClass('secondary').text(df.asShorterTime(start_time));
                   schedules_start_time.appendTo(schedules_duration_div);
 
@@ -74,12 +74,12 @@ spa.onNavigate('schedules', (page, params) => {
                   $(icon).appendTo(schedules_duration_div);
 
                   // *Building and setting the schedule end time:
-                  let end_time = new Date(element.schedule.end_date);
+                  let end_time = new Date(reservations.schedule.end_date);
                   let schedules_end_time = $('<span>').addClass('secondary').text(df.asShorterTime(end_time));
                   schedules_end_time.appendTo(schedules_duration_div);
 
                   // *Building and setting the schedule end date:
-                  let end_date = new Date(element.schedule.end_date);
+                  let end_date = new Date(reservations.schedule.end_date);
                   let schedules_end_date = $('<span>').text(df.asShortDate(end_date));
                   schedules_end_date.appendTo(schedules_duration_div);
                });
@@ -101,7 +101,7 @@ spa.onNavigate('schedules', (page, params) => {
       // *When a user to click in add button:
       $('#schedules-create-done-fab').on('click', function(){
          let id = params.id;
-         let date = params.date;
+
          // *Sending the id of the vehicle by parameter:
          spa.navigateTo('schedule-create', {id: id});
       });
