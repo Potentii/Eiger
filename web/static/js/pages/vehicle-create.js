@@ -7,6 +7,10 @@ spa.onNavigate('vehicle-create', (page, params) => {
    // *Checking if the user was authenticated:
    if(authenticated == true) {
       // *If true:
+
+      // *Removing the invalid state on the fields:
+      mdl_util.clearTextFieldsValidity('#vehicle-create-section');
+
       // *Listening to receiva a photo in base64:
       $('#vehicle-create-pic').on('change', (e) => {
          let vehicle_pic_file = document.querySelector('#vehicle-create-pic').files[0];
@@ -49,13 +53,11 @@ spa.onUnload('vehicle-create', (page) => {
    $('#vehicle-create-pic').parent().css('background-image', '');
    $('#vehicle-create-active').prop('checked', true);
 
-   // *Getting all MDL checkboxes:
-   let mdl_checkboxes = document.querySelectorAll('#vehicle-create-section .mdl-js-checkbox');
-   // *Updating the states of each MDL checkbox:
-   for(mdl_checkbox of mdl_checkboxes){
-      // *Updating the status:
-      mdl_checkbox.MaterialCheckbox.updateClasses_();
-   }
+   // *Updating MDL Textfields:
+   mdl_util.updateTextFields('#vehicle-create-section');
+
+   // *Updating MDL Textfields:
+   mdl_util.updateCheckBoxes('#vehicle-create-section');
 });
 
 

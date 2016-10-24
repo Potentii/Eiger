@@ -9,6 +9,10 @@ spa.onNavigate('schedule-create', (page, params) => {
    // *Checking if the user was authenticated:
    if(authenticated == true) {
       // *If true:
+
+      // *Removing the invalid state on the fields:
+      mdl_util.clearTextFieldsValidity('#schedule-create-section');
+
       // *Checking if the previous selected vehicle was set:
       if(params && (params.id !== null && params.id !== undefined)){
          // *If it was:

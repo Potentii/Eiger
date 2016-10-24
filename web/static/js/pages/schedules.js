@@ -40,6 +40,9 @@ spa.onNavigate('schedules', (page, params) => {
                // *Building the schedule's ul:
                let schedules_ul = $('#schedules-list');
 
+               // *Checking if the list is empty, adding the empty class if it is:
+               if(!data.length) schedules_ul.addClass('empty');
+
                // *Iterating and creating the schedules list:
                data.forEach(function(element, index){
 
@@ -114,8 +117,13 @@ spa.onNavigate('schedules', (page, params) => {
 // *Defining ul like empty after unload the page:
 spa.onUnload('schedules', (page) => {
 
-   // *Wiping and removing the event click from ul:
-   $('#schedules-list').empty().off('click');
+   // *Removing the list's empty class and the click listener:
+   $('#schedules-list')
+      .removeClass('empty')
+      .off('click');
+
+   // *Removing all list items:
+   $('#schedules-list > li').remove();
 
    // *Removing the event click from button:
    $('#schedules-create-done-fab').off('click');

@@ -23,6 +23,9 @@ dialogger.onOpen('vehicle-picker', (dialog, params) => {
          // *Setting data with the vehicle filter active:
          data = data.filter(vehicle => vehicle.active);
 
+         // *Checking if the list is empty, adding the empty class if it is:
+         if(!data.length) vehiclePicker_ul.addClass('empty');
+
          // *Iterating and creating the users list:
          data.forEach(vehicle => {
 
@@ -92,8 +95,13 @@ dialogger.onOpen('vehicle-picker', (dialog, params) => {
 // *When user left the dialog:
 dialogger.onDismiss('vehicle-picker', (dialog, status, params) => {
 
-   // *Wiping the vehicles list:
-   $('#vehicle-picker-list').off('click').empty();
+   // *Removing the list's empty class and the click listener:
+   $('#vehicle-picker-list')
+      .removeClass('empty')
+      .off('click');
+
+   // *Removing all list items:
+   $('#vehicle-picker-list > li').remove();
 
    // *Removing the event click:
    $('#vehicle-picker-cancel-button').off('click');

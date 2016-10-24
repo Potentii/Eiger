@@ -23,6 +23,9 @@ dialogger.onOpen('user-picker', (dialog, params) => {
          // *Setting data with the user filter active:
          data = data.filter(user => user.active);
 
+         // *Checking if the list is empty, adding the empty class if it is:
+         if(!data.length) userPicker_ul.addClass('empty');
+
          // *Iterating and creating the users list:
          data.forEach(user => {
 
@@ -82,8 +85,13 @@ dialogger.onOpen('user-picker', (dialog, params) => {
 // *When user left the dialog:
 dialogger.onDismiss('user-picker', (dialog, status, params) => {
 
-   // *Wiping the users list:
-   $('#user-picker-list').off('click').empty();
+   // *Removing the list's empty class and the click listener:
+   $('#user-picker-list')
+      .removeClass('empty')
+      .off('click');
+
+   // *Removing all list items:
+   $('#user-picker-list > li').remove();
 
    // *Removing the event click:
    $('#user-picker-cancel-button').off('click');

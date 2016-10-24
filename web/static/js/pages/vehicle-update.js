@@ -10,6 +10,10 @@ spa.onNavigate('vehicle-update', (page, params) => {
       // *Checking if the user was authenticated:
       if(authenticated == true) {
          // *If true:
+
+         // *Removing the invalid state on the fields:
+         mdl_util.clearTextFieldsValidity('#vehicle-update-section');
+
          // *Show the page to update vehicle:
          request.getVehicle(id)
             .done(data => {
@@ -37,23 +41,11 @@ spa.onNavigate('vehicle-update', (page, params) => {
                // *Setting the vehicle's is active or not:
                $('#vehicle-update-active').prop('checked', data.active?true:false);
 
+               // *Updating MDL Textfields:
+               mdl_util.updateTextFields('#vehicle-update-section');
 
-               // *Getting all MDL textfields:
-               let mdl_textfields = document.querySelectorAll('#vehicle-update-section .mdl-js-textfield');
-               // *Updating the states of each MDL textfield:
-               for(mdl_textfield of mdl_textfields){
-                  // *Updating the status:
-                  mdl_textfield.MaterialTextfield.updateClasses_();
-               }
-
-               // *Getting all MDL checkboxes:
-               let mdl_checkboxes = document.querySelectorAll('#vehicle-update-section .mdl-js-checkbox');
-               // *Updating the states of each MDL checkbox:
-               for(mdl_checkbox of mdl_checkboxes){
-                  // *Updating the status:
-                  mdl_checkbox.MaterialCheckbox.updateClasses_();
-               }
-
+               // *Updating MDL Textfields:
+               mdl_util.updateCheckBoxes('#vehicle-update-section');
             })
             .fail(xhr => {
                console.log(xhr.responseJSON);
@@ -119,13 +111,11 @@ spa.onUnload('vehicle-update', (page) => {
    $('#vehicle-update-pic').parent().css('background-image', '');
    $('#vehicle-update-active').prop('checked', true);
 
-   // *Getting all MDL checkboxes:
-   let mdl_checkboxes = document.querySelectorAll('#vehicle-update-section .mdl-js-checkbox');
-   // *Updating the states of each MDL checkbox:
-   for(mdl_checkbox of mdl_checkboxes){
-      // *Updating the status:
-      mdl_checkbox.MaterialCheckbox.updateClasses_();
-   }
+   // *Updating MDL Textfields:
+   mdl_util.updateTextFields('#vehicle-update-section');
+
+   // *Updating MDL Textfields:
+   mdl_util.updateCheckBoxes('#vehicle-update-section');
 });
 
 

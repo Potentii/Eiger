@@ -7,6 +7,10 @@ spa.onNavigate('user-create', (page, params) => {
    // *Checking if the user was authenticated:
    if(authenticated == true) {
       // *If true:
+
+      // *Removing the invalid state on the fields:
+      mdl_util.clearTextFieldsValidity('#user-create-section');
+
       // *Listening to receive a photo in base64:
       $('#user-create-pic').on('change', (e) => {
          let user_pic_file = document.querySelector('#user-create-pic').files[0];
@@ -53,13 +57,12 @@ spa.onUnload('user-create', (page) => {
    $('#user-create-permission-schedules').prop('checked', false);
    $('#user-create-permission-users').prop('checked', false);
    $('#user-create-permission-vehicles').prop('checked', false);
-   // *Getting all MDL checkboxes:
-   let mdl_checkboxes = document.querySelectorAll('#user-create-section .mdl-js-checkbox');
-   // *Updating the states of each MDL checkbox:
-   for(mdl_checkbox of mdl_checkboxes){
-      // *Updating the status:
-      mdl_checkbox.MaterialCheckbox.updateClasses_();
-   }
+
+   // *Updating MDL Textfields:
+   mdl_util.updateTextFields('#user-create-section');
+
+   // *Updating MDL Textfields:
+   mdl_util.updateCheckBoxes('#user-create-section');
 });
 
 

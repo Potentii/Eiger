@@ -13,6 +13,9 @@ spa.onNavigate('schedule-update', (page, params) => {
          let selected_vehicle;
          let selected_user;
 
+         // *Removing the invalid state on the fields:
+         mdl_util.clearTextFieldsValidity('#schedule-update-section');
+
          // *Listing the preview schedule info:
          request.getSchedule(schedule_id)
             .done(data => {
@@ -32,24 +35,18 @@ spa.onNavigate('schedule-update', (page, params) => {
 
                // *Setting the schedule start time:
                let start_time = new Date(data.start_date);
-               $('#schedule-update-start-time').val(df.asShortTime(start_time));
+               $('#schedule-update-start-time').val(df.asShorterTime(start_time));
 
                // *Setting the schedule end time:
                let end_time = new Date(data.end_date);
-               $('#schedule-update-end-time').val(df.asShortTime(end_time));
+               $('#schedule-update-end-time').val(df.asShorterTime(end_time));
 
                // *Setting the schedule end date:
                let end_date = new Date(data.end_date);
                $('#schedule-update-end-date').val(df.asMysqlDate(end_date));
 
-
-               // *Getting all MDL textfields:
-               let mdl_textfields = document.querySelectorAll('#schedule-update-section .mdl-js-textfield');
-               // *Updating the states of each MDL textfield:
-               for(mdl_textfield of mdl_textfields){
-                  // *Updating the status:
-                  mdl_textfield.MaterialTextfield.updateClasses_();
-               }
+               // *Updating MDL Textfields:
+               mdl_util.updateTextFields('#schedule-update-section');
             })
             .fail(xhr => {
                console.log(xhr.responseJSON);
@@ -184,7 +181,7 @@ function scheduleUpdateUtil(){
 
      // *Create a objetct to receiva values to update a schedule:
      let data_update_schedule = {
-        reason: schedule_reason?schedule_reason:undefined,
+        reason: schedule_reason,
         start_date: start_date_schedule,
         end_date: end_date_schedule,
         id_vehicle_fk: selected_vehicle,

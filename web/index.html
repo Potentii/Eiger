@@ -68,6 +68,8 @@
 
       <script src="./static/js/file-encoder/file-encoder.js"></script>
 
+      <script src="./static/js/mdl/mdl-util.js"></script>
+
       <!-- * Dialogs * -->
       <script src="./static/js/dialogs/default-notice.js"></script>
       <script src="./static/js/dialogs/default-consent.js"></script>
@@ -81,6 +83,7 @@
       <script src="./static/js/pages/index.js"></script>
       <script src="./static/js/pages/vehicle-info.js"></script>
       <script src="./static/js/pages/vehicle-update.js"></script>
+      <script src="./static/js/pages/schedule-date-validation.js"></script>
       <script src="./static/js/pages/schedule-create.js"></script>
       <script src="./static/js/pages/schedules.js"></script>
       <script src="./static/js/pages/schedule-info.js"></script>
@@ -120,14 +123,14 @@
 
             <!-- * Navigation list * -->
             <div class="drawer-navigation vertical-layout">
-               <button type="button" class="mdl-js-button mdl-js-ripple-effect"><i class="material-icons">people</i><span>Users</span></button>
-               <button type="button" class="mdl-js-button mdl-js-ripple-effect"><i class="material-icons">event</i><span>Schedules</span></button>
-               <button type="button" class="mdl-js-button mdl-js-ripple-effect"><i class="material-icons">directions_car</i><span>Vehicles</span></button>
+               <button type="button" class="mdl-js-button mdl-js-ripple-effect" onclick="spa.navigateTo('users')"><i class="material-icons">people</i><span>Users</span></button>
+               <button type="button" class="mdl-js-button mdl-js-ripple-effect" onclick="spa.navigateTo('reservations')"><i class="material-icons">event</i><span>Schedules</span></button>
+               <button type="button" class="mdl-js-button mdl-js-ripple-effect" onclick="spa.navigateTo('')"><i class="material-icons">directions_car</i><span>Vehicles</span></button>
 
                <div class="horizontal-separator"></div>
 
-               <button type="button" class="mdl-js-button mdl-js-ripple-effect"><i class="material-icons">settings</i><span>Settings</span></button>
-               <button type="button" class="mdl-js-button mdl-js-ripple-effect"><i class="material-icons">info</i><span>About us</span></button>
+               <button type="button" class="mdl-js-button mdl-js-ripple-effect" onclick="spa.navigateTo('settings')"><i class="material-icons">settings</i><span>Settings</span></button>
+               <button type="button" class="mdl-js-button mdl-js-ripple-effect" onclick="spa.navigateTo('about-us')"><i class="material-icons">info</i><span>About us</span></button>
             </div>
          </nav>
       </div>
@@ -211,6 +214,7 @@
 
          <!-- Vehicles' cards list -->
          <ul id="vehicles-list" class="list content-before-fab">
+            <span class="empty-list-text box card raised" data-intl="empty-list-text-vehicles"></span>
             <!-- Example of a vehicle card -->
             <!--
             <li data-id="1" class="card box raised">
@@ -585,6 +589,7 @@
 
          <!-- Vehicle's schedules list -->
          <ul id="schedules-list" class="list content-before-fab">
+            <span class="empty-list-text box card raised" data-intl="empty-list-text-schedules"></span>
             <!-- Example of an item -->
             <!--
             <li class="card box raised">
@@ -911,6 +916,7 @@
 
          <!-- Vehicle's schedules list -->
          <ul id="users-list" class="list content-before-fab">
+            <span class="empty-list-text box card raised" data-intl="empty-list-text-users"></span>
             <!-- Example of an item -->
             <!--
             <li class="row card box raised">
@@ -1501,6 +1507,7 @@
 
             <!-- User picker list -->
             <ul class="list" id="user-picker-list">
+               <span class="empty-list-text box card raised" data-intl="empty-list-text-user-picker"></span>
                <!-- User picker row example -->
                <!--
                <li class="row vertical-layout">
@@ -1531,6 +1538,7 @@
 
             <!-- Vehicle picker list -->
             <ul class="list" id="vehicle-picker-list">
+               <span class="empty-list-text box card raised" data-intl="empty-list-text-vehicle-picker"></span>
                <!-- Vehicle picker row example -->
                <!--
                <li class="row">
