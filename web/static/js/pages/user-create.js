@@ -45,6 +45,7 @@ spa.onUnload('user-create', (page) => {
    $('#user-create-email').val('');
    $('#user-create-phone').val('');
    $('#user-create-department').val('');
+   $('#user-create-pic').parent().css('background-image', '');
    $('#user-create-cpf').val('');
    $('#user-create-driver-license').val('');
    $('#user-create-driver-license-exp').val('');

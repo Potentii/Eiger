@@ -34,6 +34,9 @@ spa.onNavigate('vehicle-update', (page, params) => {
                // *Setting the vehicle's update plate:
                $('#vehicle-update-renavam').val(data.renavam);
 
+               // *Setting the vehicle's is active or not:
+               $('#vehicle-update-active').prop('checked', data.active?true:false);
+
 
                // *Getting all MDL textfields:
                let mdl_textfields = document.querySelectorAll('#vehicle-update-section .mdl-js-textfield');
@@ -41,6 +44,14 @@ spa.onNavigate('vehicle-update', (page, params) => {
                for(mdl_textfield of mdl_textfields){
                   // *Updating the status:
                   mdl_textfield.MaterialTextfield.updateClasses_();
+               }
+
+               // *Getting all MDL checkboxes:
+               let mdl_checkboxes = document.querySelectorAll('#vehicle-update-section .mdl-js-checkbox');
+               // *Updating the states of each MDL checkbox:
+               for(mdl_checkbox of mdl_checkboxes){
+                  // *Updating the status:
+                  mdl_checkbox.MaterialCheckbox.updateClasses_();
                }
 
             })
@@ -89,7 +100,7 @@ spa.onNavigate('vehicle-update', (page, params) => {
 
 
 
- // *Cleaning listernes from this page:
+// *Cleaning listernes from this page:
 spa.onUnload('vehicle-update', (page) => {
    // *Cleaning the event submit:
    $('#vehicle-update-form').off('submit');
@@ -106,6 +117,15 @@ spa.onUnload('vehicle-update', (page) => {
    $('#vehicle-update-plate').val('');
    $('#vehicle-update-renavam').val('');
    $('#vehicle-update-pic').parent().css('background-image', '');
+   $('#vehicle-update-active').prop('checked', true);
+
+   // *Getting all MDL checkboxes:
+   let mdl_checkboxes = document.querySelectorAll('#vehicle-update-section .mdl-js-checkbox');
+   // *Updating the states of each MDL checkbox:
+   for(mdl_checkbox of mdl_checkboxes){
+      // *Updating the status:
+      mdl_checkbox.MaterialCheckbox.updateClasses_();
+   }
 });
 
 
@@ -126,6 +146,7 @@ function updateVehicle(id, vehicle_photo_base64){
    let vehicle_year = $('#vehicle-update-year').val();
    let vehicle_plate = $('#vehicle-update-plate').val();
    let vehicle_revavam = $('#vehicle-update-renavam').val();
+   let vehicle_active = $('#vehicle-update-active').is(':checked');
 
    // *Create a objetct to receiva values to update a vehicle:
    let data_update_vehicle = {
@@ -135,7 +156,8 @@ function updateVehicle(id, vehicle_photo_base64){
       year: vehicle_year,
       plate: vehicle_plate,
       renavam: vehicle_revavam,
-      photo: vehicle_photo_base64
+      photo: vehicle_photo_base64,
+      active: vehicle_active
    };
 
 
