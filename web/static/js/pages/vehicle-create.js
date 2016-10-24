@@ -47,10 +47,10 @@ spa.onUnload('vehicle-create', (page) => {
    $('#vehicle-create-plate').val('');
    $('#vehicle-create-renavam').val('');
    $('#vehicle-create-pic').parent().css('background-image', '');
-   $('vehicle-create-active').prop('checked', true);
+   $('#vehicle-create-active').prop('checked', true);
 
    // *Getting all MDL checkboxes:
-   let mdl_checkboxes = document.querySelectorAll('#user-update-section .mdl-js-checkbox');
+   let mdl_checkboxes = document.querySelectorAll('#vehicle-create-section .mdl-js-checkbox');
    // *Updating the states of each MDL checkbox:
    for(mdl_checkbox of mdl_checkboxes){
       // *Updating the status:

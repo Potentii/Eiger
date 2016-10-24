@@ -35,7 +35,7 @@ spa.onNavigate('vehicle-update', (page, params) => {
                $('#vehicle-update-renavam').val(data.renavam);
 
                // *Setting the vehicle's is active or not:
-               $('vehicle-update-active').prop('checked', data.active?true:false);
+               $('#vehicle-update-active').prop('checked', data.active?true:false);
 
 
                // *Getting all MDL textfields:
@@ -47,7 +47,7 @@ spa.onNavigate('vehicle-update', (page, params) => {
                }
 
                // *Getting all MDL checkboxes:
-               let mdl_checkboxes = document.querySelectorAll('#user-update-section .mdl-js-checkbox');
+               let mdl_checkboxes = document.querySelectorAll('#vehicle-update-section .mdl-js-checkbox');
                // *Updating the states of each MDL checkbox:
                for(mdl_checkbox of mdl_checkboxes){
                   // *Updating the status:
@@ -100,7 +100,7 @@ spa.onNavigate('vehicle-update', (page, params) => {
 
 
 
- // *Cleaning listernes from this page:
+// *Cleaning listernes from this page:
 spa.onUnload('vehicle-update', (page) => {
    // *Cleaning the event submit:
    $('#vehicle-update-form').off('submit');
@@ -120,7 +120,7 @@ spa.onUnload('vehicle-update', (page) => {
    $('#vehicle-update-active').prop('checked', true);
 
    // *Getting all MDL checkboxes:
-   let mdl_checkboxes = document.querySelectorAll('#user-update-section .mdl-js-checkbox');
+   let mdl_checkboxes = document.querySelectorAll('#vehicle-update-section .mdl-js-checkbox');
    // *Updating the states of each MDL checkbox:
    for(mdl_checkbox of mdl_checkboxes){
       // *Updating the status:
