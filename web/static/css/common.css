@@ -929,11 +929,11 @@ li .secondary{
 }
 
 .dialogs:not(.active){
-	animation: fade-off;
+	animation: dialogOverlayFadeOff;
 	animation-timing-function: ease;
 }
 .dialogs.active{
-	animation: fade-in;
+	animation: dialogOverlayFadeIn;
 	animation-timing-function: ease;
 	animation-fill-mode: forwards;
 }
@@ -960,6 +960,15 @@ li .secondary{
 		opacity: 0;
 		transform: translateY(5em);
 	}
+}
+
+@keyframes dialogOverlayFadeIn{
+	0% {opacity: 0;}
+	100% {opacity: 1;}
+}
+@keyframes dialogOverlayFadeOff{
+	0% {opacity: 1;}
+	100% {opacity: 0;}
 }
 
 
