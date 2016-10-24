@@ -34,8 +34,14 @@ spa.onNavigate('vehicle-update', (page, params) => {
                // *Setting the vehicle's update plate:
                $('#vehicle-update-renavam').val(data.renavam);
 
+               // *Setting the vehicle's is active or not:
+               $('#vehicle-update-active').prop('checked', data.active?true:false);
+
                // *Updating MDL Textfields:
                mdl_util.updateTextFields('#vehicle-update-section');
+
+               // *Updating MDL Textfields:
+               mdl_util.updateCheckBoxes('#vehicle-update-section');
             })
             .fail(xhr => {
                console.log(xhr.responseJSON);
@@ -82,7 +88,7 @@ spa.onNavigate('vehicle-update', (page, params) => {
 
 
 
- // *Cleaning listernes from this page:
+// *Cleaning listernes from this page:
 spa.onUnload('vehicle-update', (page) => {
    // *Cleaning the event submit:
    $('#vehicle-update-form').off('submit');
@@ -99,6 +105,13 @@ spa.onUnload('vehicle-update', (page) => {
    $('#vehicle-update-plate').val('');
    $('#vehicle-update-renavam').val('');
    $('#vehicle-update-pic').parent().css('background-image', '');
+   $('#vehicle-update-active').prop('checked', true);
+
+   // *Updating MDL Textfields:
+   mdl_util.updateTextFields('#vehicle-update-section');
+
+   // *Updating MDL Textfields:
+   mdl_util.updateCheckBoxes('#vehicle-update-section');
 });
 
 
@@ -119,6 +132,7 @@ function updateVehicle(id, vehicle_photo_base64){
    let vehicle_year = $('#vehicle-update-year').val();
    let vehicle_plate = $('#vehicle-update-plate').val();
    let vehicle_revavam = $('#vehicle-update-renavam').val();
+   let vehicle_active = $('#vehicle-update-active').is(':checked');
 
    // *Create a objetct to receiva values to update a vehicle:
    let data_update_vehicle = {
@@ -128,7 +142,8 @@ function updateVehicle(id, vehicle_photo_base64){
       year: vehicle_year,
       plate: vehicle_plate,
       renavam: vehicle_revavam,
-      photo: vehicle_photo_base64
+      photo: vehicle_photo_base64,
+      active: vehicle_active
    };
 
 
