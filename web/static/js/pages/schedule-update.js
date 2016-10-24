@@ -42,14 +42,8 @@ spa.onNavigate('schedule-update', (page, params) => {
                let end_date = new Date(data.end_date);
                $('#schedule-update-end-date').val(df.asMysqlDate(end_date));
 
-
-               // *Getting all MDL textfields:
-               let mdl_textfields = document.querySelectorAll('#schedule-update-section .mdl-js-textfield');
-               // *Updating the states of each MDL textfield:
-               for(mdl_textfield of mdl_textfields){
-                  // *Updating the status:
-                  mdl_textfield.MaterialTextfield.updateClasses_();
-               }
+               // *Updating MDL Textfields:
+               mdl_util.updateTextFields('#schedule-update-section');
             })
             .fail(xhr => {
                console.log(xhr.responseJSON);

@@ -34,15 +34,8 @@ spa.onNavigate('vehicle-update', (page, params) => {
                // *Setting the vehicle's update plate:
                $('#vehicle-update-renavam').val(data.renavam);
 
-
-               // *Getting all MDL textfields:
-               let mdl_textfields = document.querySelectorAll('#vehicle-update-section .mdl-js-textfield');
-               // *Updating the states of each MDL textfield:
-               for(mdl_textfield of mdl_textfields){
-                  // *Updating the status:
-                  mdl_textfield.MaterialTextfield.updateClasses_();
-               }
-
+               // *Updating MDL Textfields:
+               mdl_util.updateTextFields('#vehicle-update-section');
             })
             .fail(xhr => {
                console.log(xhr.responseJSON);

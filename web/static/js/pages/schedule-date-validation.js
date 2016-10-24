@@ -121,13 +121,8 @@ spa.onReady(() => {
 
       // *When the end time changes:
       $end_time.on('change', function(){
-         // *Getting all MDL textfields:
-         let mdl_textfields = document.querySelectorAll('#' + section_id + ' .mdl-js-textfield');
-         // *Updating the states of each MDL textfield:
-         for(mdl_textfield of mdl_textfields){
-            // *Updating the status:
-            mdl_textfield.MaterialTextfield.updateClasses_();
-         }
+         // *Updating MDL Textfields:
+         mdl_util.updateTextFields('#' + section_id);
       });
    }
 });
