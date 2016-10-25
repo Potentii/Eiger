@@ -33,7 +33,13 @@
    ["schedule-info-header", "Schedule"],
    ["schedule-info-reason", "Reason"],
    ["schedule-info-duration", "Duration"],
+   ["schedule-info-confirmed", "Status"],
+   ["schedule-info-confirmed-false", "Planned"],
+   ["schedule-info-confirmed-false-detail", "This scheduling was booked, but not confirmed yet"],
+   ["schedule-info-confirmed-true", "Confirmed"],
+   ["schedule-info-confirmed-true-detail", "This scheduling has been confirmed already"],
    ["schedule-info-date", "Booked on"],
+   ["schedule-info-owner", "Booked by"],
 
    ["schedule-create-header", "Book new schedule"],
    ["schedule-create-reason", "Reason"],
@@ -48,6 +54,11 @@
    ["schedule-update-start-time", "${schedule-create-start-time}"],
    ["schedule-update-end-date", "${schedule-create-end-date}"],
    ["schedule-update-end-time", "${schedule-create-end-time}"],
+   ["schedule-update-confirmed", "${schedule-info-confirmed}"],
+   ["schedule-update-confirmed-false", "${schedule-info-confirmed-false}"],
+   ["schedule-update-confirmed-false-detail", "${schedule-info-confirmed-false-detail}"],
+   ["schedule-update-confirmed-true", "${schedule-info-confirmed-true}"],
+   ["schedule-update-confirmed-true-detail", "${schedule-info-confirmed-true-detail}"],
 
    ["users-header", "Users"],
 

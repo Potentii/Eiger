@@ -71,6 +71,34 @@ section > .list{
 
 
 /**
+ * Clickable app bar
+ */
+.clickable-app-bar::after{
+   content: '';
+   position: absolute;
+   opacity: 0;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+
+   cursor: pointer;
+   background: rgba(255, 255, 255, 0.08);
+   transition: opacity 0.2s ease;
+}
+.clickable-app-bar:hover::after{
+   opacity: 1;
+}
+.clickable-app-bar *:hover{
+   cursor: pointer;
+}
+.clickable-app-bar .mdl-ripple{
+   background: #fff;
+}
+
+
+
+/**
  * Schedule duration output
  */
 .schedule-duration-output{
@@ -113,6 +141,18 @@ section > .list{
 
 
 /**
+ * Active info containers
+ */
+.active-true-container .material-icons, .active-true-container .labeled-output{
+   color: #009688 !important;
+}
+.active-false-container .material-icons, .active-false-container .labeled-output{
+   color: #C62828 !important;
+}
+
+
+
+/**
  * MDL input
  */
 .app-bar .mdl-textfield{
@@ -141,7 +181,7 @@ section > .list{
 }
 
 
-.mdl-checkbox *:hover{
+.mdl-checkbox *:hover, .mdl-radio *:hover{
    cursor: pointer;
 }
 
@@ -149,6 +189,35 @@ section > .list{
 /**
  * MDL color correction
  */
+
+
+/**
+ * MDL Radio
+ */
+/**
+ * Radio outline (checked)
+ */
+.mdl-radio.is-checked .mdl-radio__outer-circle{
+   border-color: var(--accent-color-dark);
+}
+/**
+ * Radio outline (unchecked)
+ */
+.mdl-radio__outer-circle{
+   border-color: var(--bg-color-contrast-icon);
+}
+/**
+ * Radio fill
+ */
+.mdl-radio__inner-circle{
+   background-color: var(--accent-color-light);
+}
+/**
+ * Radio ripple
+ */
+.mdl-radio__ripple-container .mdl-ripple{
+   background: var(--accent-color);
+}
 
 
 /**
