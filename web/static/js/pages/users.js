@@ -53,7 +53,7 @@ spa.onNavigate('users', (page, params) => {
 
       // *When a user to click in add button:
       $('#users-create-done-fab').on('click', function(){
-         // *Sending the id of the vehicle by parameter:
+         // *Sending the user to creation page:
          spa.navigateTo('user-create');
       });
    }

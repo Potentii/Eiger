@@ -94,16 +94,17 @@ spa.onNavigate('schedules', (page, params) => {
 
             })
             .fail(xhr => {
-            console.log(xhr.responseJSON);
+               console.log(xhr.responseJSON);
             });
       }
 
       // *When a user to click in add button:
       $('#schedules-create-done-fab').on('click', function(){
          let id = params.id;
+         let date = params.date;
 
          // *Sending the id of the vehicle by parameter:
-         spa.navigateTo('schedule-create', {id: id});
+         spa.navigateTo('schedule-create', {id: id, date: date});
       });
    } else {
       // *Is not diferent of null ou undefined:
