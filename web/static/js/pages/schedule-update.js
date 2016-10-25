@@ -147,6 +147,12 @@ spa.onUnload('schedule-update', (page) => {
   // *Removing the event onClick:
   $('#schedule-update-vehicle-app-bar').off('click');
   $('#schedule-update-user-app-bar').off('click');
+
+  // *Updating MDL Textfields:
+  mdl_util.updateTextFields('#schedule-create-section');
+
+  // *Updating MDL Textfields:
+  mdl_util.updateCheckBoxes('#user-create-section');
 });
 
 
