@@ -28,6 +28,16 @@ spa.onNavigate('schedules', (page, params) => {
                // *Setting the vehicle schedule date:
                $('#schedules-vehicle-date').text(df.asFullDate(new Date(date + ' 00:00:00')));
 
+               // *Checking if the vehicle is active:
+               if(data.active){
+                  // *If it is:
+                  // *Showing the 'Add schedules' FAB:
+                  $('#schedules-create-done-fab').show();
+               } else{
+                  // *If it isn't:
+                  // *Hiding the 'Add schedules' FAB:
+                  $('#schedules-create-done-fab').hide();
+               }
             })
             .fail(xhr => {
                console.log(xhr.responseJSON);
@@ -94,7 +104,7 @@ spa.onNavigate('schedules', (page, params) => {
 
             })
             .fail(xhr => {
-            console.log(xhr.responseJSON);
+               console.log(xhr.responseJSON);
             });
       }
 
@@ -103,7 +113,7 @@ spa.onNavigate('schedules', (page, params) => {
          let id = params.id;
          let date = params.date;
          // *Sending the id of the vehicle by parameter:
-         spa.navigateTo('schedule-create', {id: id});
+         spa.navigateTo('schedule-create', {id: id, date: date});
       });
    } else {
       // *Is not diferent of null ou undefined:
@@ -127,4 +137,7 @@ spa.onUnload('schedules', (page) => {
 
    // *Removing the event click from button:
    $('#schedules-create-done-fab').off('click');
+
+   // *Hiding the 'Add schedules' FAB:
+   $('#schedules-create-done-fab').show();
 });

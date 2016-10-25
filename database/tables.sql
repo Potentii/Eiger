@@ -12,7 +12,7 @@ drop table if exists `auth`;
 create table if not exists `vehicle`(
 	`id` 			BIGINT unsigned not null auto_increment unique,
 	`title` 		TEXT not null,
-	`plate` 		VARCHAR(7) not null unique,
+	`plate` 		VARCHAR(7) not null,
 	`year` 			INTEGER not null,
 	`type`			TEXT not null,
 	`renavam` 		VARCHAR(11) not null unique,
@@ -31,9 +31,9 @@ create table if not exists `user`(
 	`login` 				VARCHAR(20) not null unique,
     `pass`					VARCHAR(20) not null,
     `email`					TEXT not null,
-    `cpf`					BIGINT unsigned not null,
+    `cpf`					VARCHAR(11) not null,
     `phone`					TEXT not null,
-    `driver_license` 		BIGINT unsigned not null unique,
+    `driver_license` 		VARCHAR(11) not null unique,
     `driver_license_exp` 	DATE not null,
     `department`			TEXT not null,
     `photo`					TEXT,
@@ -54,6 +54,7 @@ create table if not exists `schedule`(
     `start_date` 		DATETIME not null,
     `end_date` 			DATETIME not null,
     `reason` 			TEXT,
+    `confirmed`			BOOLEAN not null default 0,
     `id_user_owner_fk` 	BIGINT unsigned not null,
     `date` 				DATETIME default now(),
 

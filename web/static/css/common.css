@@ -117,11 +117,11 @@ body{
 	z-index: 8;
 }
 .app-bar > *{
-	padding: 1.5em;
+	padding: 1.25em;
 	vertical-align: middle;
 }
 .app-bar:nth-child(1n+2) > *{
-	padding: 0 1.5em 1em 1.5em;
+	padding: 0.5em 1.5em 0.5em 1.5em;
 	font-size: 0.9em;
 }
 .app-bar.flex-horizontal-layout{
@@ -133,15 +133,15 @@ body{
 .app-bar .fab{
 	display: inline-block;
 
-	min-height: 2.6em;
-	min-width: 2.6em;
-	max-height: 2.6em;
-	max-width: 2.6em;
+	min-height: 2.4em;
+	min-width: 2.4em;
+	max-height: 2.4em;
+	max-width: 2.4em;
 
 	padding: 0;
 	margin: 0.5em;
 
-	font-size: 1.2em;
+	font-size: 1.1em;
 	background: none !important;
 	box-shadow: none;
 }
@@ -562,7 +562,7 @@ button.raised:active, a.raised:active, .dragging.raised {
  */
 .form > .row{
 	display: flex;
-	align-items: top;
+	align-items: flex-start;
 	justify-content: flex-start;
 
 	max-width: 100%;
@@ -579,6 +579,9 @@ button.raised:active, a.raised:active, .dragging.raised {
 .form > .row > .material-icons{
 	padding-right: 1.5em;
 	color: var(--bg-color-contrast-icon);
+}
+.form > .row:not(.mdl-input-row) > .material-icons{
+	margin-top: 0.1em;
 }
 
 
@@ -672,6 +675,19 @@ button.raised:active, a.raised:active, .dragging.raised {
 	opacity: 0;
 	visibility: hidden;
 	transform: translateY(1em);
+}
+
+
+
+/* ========== * ========== * ========== * ==========
+ * Radio button group
+ * ========== * ========== * ========== * ==========
+ */
+.radio-group > *{
+	display: block;
+}
+.radio-group > input[type="radio"]:nth-of-type(n+3), .radio-group > .mdl-radio:nth-of-type(n+3){
+	margin-top: 2em;
 }
 
 

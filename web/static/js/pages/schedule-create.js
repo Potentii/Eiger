@@ -10,8 +10,25 @@ spa.onNavigate('schedule-create', (page, params) => {
    if(authenticated == true) {
       // *If true:
 
+
+
       // *Removing the invalid state on the fields:
       mdl_util.clearTextFieldsValidity('#schedule-create-section');
+
+      // *Setting up the initial date suggestion:
+      let initial_start_datetime = (params && params.date) ? addHours(new Date(params.date + ' ' + df.asShorterTime(new Date())), 1) : addHours(new Date(), 1);
+      let initial_end_datetime = addHours(initial_start_datetime, 4);
+
+      // *Setting the initial period values:
+      $('#schedule-create-start-date').val(df.asMysqlDate(initial_start_datetime));
+      $('#schedule-create-start-time').val(df.asShorterTime(initial_start_datetime));
+      $('#schedule-create-end-date').val(df.asMysqlDate(initial_end_datetime));
+      $('#schedule-create-end-time').val(df.asShorterTime(initial_end_datetime));
+
+      // *Updating MDL Textfields:
+      mdl_util.updateTextFields('#schedule-create-section');
+
+
 
       // *Checking if the previous selected vehicle was set:
       if(params && (params.id !== null && params.id !== undefined)){
@@ -134,6 +151,9 @@ spa.onUnload('schedule-create', (page) => {
    // *Removing the event onClick:
    $('#schedule-create-user-app-bar').off('click');
    $('#schedule-create-vehicle-app-bar').off('click');
+
+   // *Updating MDL Textfields:
+   mdl_util.updateTextFields('#schedule-create-section');
 });
 
 

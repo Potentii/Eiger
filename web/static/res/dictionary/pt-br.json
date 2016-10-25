@@ -33,7 +33,13 @@
    ["schedule-info-header", "Reserva"],
    ["schedule-info-reason", "Motivo"],
    ["schedule-info-duration", "Duração"],
+   ["schedule-info-confirmed", "Status"],
+   ["schedule-info-confirmed-false", "Planejada"],
+   ["schedule-info-confirmed-false-detail", "Esta reserva está agendada, mas não foi confirmada ainda"],
+   ["schedule-info-confirmed-true", "Confirmada"],
+   ["schedule-info-confirmed-true-detail", "Esta reserva já está confirmada"],
    ["schedule-info-date", "Reservado em"],
+   ["schedule-info-owner", "Reservado por"],
 
    ["schedule-create-header", "Cadastrar nova reserva"],
    ["schedule-create-reason", "Motivo"],
@@ -48,6 +54,11 @@
    ["schedule-update-start-time", "${schedule-create-start-time}"],
    ["schedule-update-end-date", "${schedule-create-end-date}"],
    ["schedule-update-end-time", "${schedule-create-end-time}"],
+   ["schedule-update-confirmed", "${schedule-info-confirmed}"],
+   ["schedule-update-confirmed-false", "${schedule-info-confirmed-false}"],
+   ["schedule-update-confirmed-false-detail", "${schedule-info-confirmed-false-detail}"],
+   ["schedule-update-confirmed-true", "${schedule-info-confirmed-true}"],
+   ["schedule-update-confirmed-true-detail", "${schedule-info-confirmed-true-detail}"],
 
    ["users-header", "Usuários"],
 

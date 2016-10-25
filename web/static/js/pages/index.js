@@ -160,3 +160,17 @@ function getNextDays(days_quantity, from_date){
    }
    return vet;
 }
+
+
+
+/**
+ * Adds hours given a timestamp
+ * @param {Date} date     The date object
+ * @param {number} hours  The ammount of hours to add
+ * @author Guilherme Reginaldo Ruella
+ * @return {Date}  The new date with the added hours
+ */
+function addHours(date, hours){
+   date = new Date(date);
+   return new Date(date.setHours(date.getHours() + hours));
+}
