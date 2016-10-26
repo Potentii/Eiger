@@ -176,6 +176,8 @@ function scheduleUpdateUtil(){
 
      // *Getting data of inputs:
      let schedule_reason = $('#schedule-update-reason').val();
+     let radio = $('input:radio[name=schedule-update-confirmed]');
+     let schedule_confirmed = radio.filter('#schedule-update-confirmed-true').is(':checked');
      let schedule_start_date = $('#schedule-update-start-date').val();
      let schedule_start_time = $('#schedule-update-start-time').val();
      let schedule_end_time = $('#schedule-update-end-time').val();
@@ -188,6 +190,7 @@ function scheduleUpdateUtil(){
      // *Create a objetct to receiva values to update a schedule:
      let data_update_schedule = {
         reason: schedule_reason,
+        confirmed: schedule_confirmed,
         start_date: start_date_schedule,
         end_date: end_date_schedule,
         id_vehicle_fk: selected_vehicle,
@@ -304,8 +307,14 @@ function scheduleUpdateUtil(){
       request.getUser(selected_user)
          .done(data => {
 
+            // *Setting the user's photo:
+            $('#schedule-update-user-photo').css('background-image', data.photo?'url(' + rest_url + '/media/u/p/' + data.photo + ')':'');
+
             // *Setting the User name:
             $('#schedule-update-user-name').text(data.name);
+
+            // *Setting the user's login:
+            $('#schedule-update-user-login').text(data.login);
          })
          .fail(xhr => {
             console.log(xhr.responseJSON);

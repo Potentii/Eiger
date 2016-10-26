@@ -10,8 +10,6 @@ spa.onNavigate('schedule-create', (page, params) => {
    if(authenticated == true) {
       // *If true:
 
-
-
       // *Removing the invalid state on the fields:
       mdl_util.clearTextFieldsValidity('#schedule-create-section');
 
@@ -27,8 +25,6 @@ spa.onNavigate('schedule-create', (page, params) => {
 
       // *Updating MDL Textfields:
       mdl_util.updateTextFields('#schedule-create-section');
-
-
 
       // *Checking if the previous selected vehicle was set:
       if(params && (params.id !== null && params.id !== undefined)){
@@ -300,8 +296,14 @@ function scheduleCreateUtil(){
       request.getUser(user_id)
          .done(data => {
 
+            // *Setting the user's photo:
+            $('#schedule-create-user-photo').css('background-image', data.photo?'url(' + rest_url + '/media/u/p/' + data.photo + ')':'');
+
             // *Setting the User name:
             $('#schedule-create-user-name').text(data.name);
+
+            // *Setting the user's login:
+            $('#schedule-create-user-login').text(data.login);
          })
          .fail(xhr => {
             console.log(xhr.responseJSON);

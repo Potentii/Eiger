@@ -17,7 +17,7 @@ spa.onNavigate('schedules', (page, params) => {
             .done(data => {
 
                // *Setting the vehicle's photo:
-               $('#schedules-vehicle-photo').css('background-image', 'url(' + rest_url + '/media/v/p/' + data.photo + ')');
+               $('#schedules-vehicle-photo').css('background-image', data.photo?'url(' + rest_url + '/media/v/p/' + data.photo + ')':'');
 
                // *Setting the vehicle's title and plate:
                $('#schedules-vehicle-title').text(data.title + " - " + data.plate);
