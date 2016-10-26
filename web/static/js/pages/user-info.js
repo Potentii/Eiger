@@ -87,6 +87,11 @@ spa.onNavigate('user-info', (page, params) => {
                $('#user-info-date').text(df.asFullDate(create_date));
             })
             .fail(xhr => {
+               // *Checking if the request's status is 401, sending the user to the login page if it is:
+               if(xhr.status === 401){
+                  spa.navigateTo('login');
+                  return;
+               }
                console.log(xhr.responseJSON);
             });
       }
@@ -107,7 +112,7 @@ spa.onNavigate('user-info', (page, params) => {
 
 // *When the user left the page:
 spa.onUnload('user-info', (page) => {
-   
+
    // *Removing the event click:
    $('#user-info-edit-fab').off('click');
 });

@@ -1,6 +1,5 @@
 
 
-
 // *Browsing the schedule-info page:
 spa.onNavigate('schedule-info', (page, params) => {
 
@@ -70,6 +69,11 @@ spa.onNavigate('schedule-info', (page, params) => {
 
                   })
                   .fail(xhr => {
+                     // *Checking if the request's status is 401, sending the user to the login page if it is:
+                     if(xhr.status === 401){
+                        spa.navigateTo('login');
+                        return;
+                     }
                      console.log(xhr.responseJSON);
                   });
 
@@ -87,6 +91,11 @@ spa.onNavigate('schedule-info', (page, params) => {
                      $('#schedule-info-user-login').text(data.login);
                   })
                   .fail(xhr => {
+                     // *Checking if the request's status is 401, sending the user to the login page if it is:
+                     if(xhr.status === 401){
+                        spa.navigateTo('login');
+                        return;
+                     }
                      console.log(xhr.responseJSON);
                   });
 
@@ -98,6 +107,11 @@ spa.onNavigate('schedule-info', (page, params) => {
                      $('#schedule-info-owner-photo').css('background-image', data.photo?'url(' + rest_url + '/media/u/p/' + data.photo + ')':'');
                   })
                   .fail(xhr => {
+                     // *Checking if the request's status is 401, sending the user to the login page if it is:
+                     if(xhr.status === 401){
+                        spa.navigateTo('login');
+                        return;
+                     }
                      console.log(xhr.responseJSON);
                   });
             });

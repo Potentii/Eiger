@@ -49,6 +49,11 @@ spa.onNavigate('schedule-update', (page, params) => {
                mdl_util.updateTextFields('#schedule-update-section');
             })
             .fail(xhr => {
+               // *Checking if the request's status is 401, sending the user to the login page if it is:
+               if(xhr.status === 401){
+                  spa.navigateTo('login');
+                  return;
+               }
                console.log(xhr.responseJSON);
             });
       }else {
@@ -176,8 +181,7 @@ function scheduleUpdateUtil(){
 
      // *Getting data of inputs:
      let schedule_reason = $('#schedule-update-reason').val();
-     let radio = $('input:radio[name=schedule-update-confirmed]');
-     let schedule_confirmed = radio.filter('#schedule-update-confirmed-true').is(':checked');
+     let confirmed = $("input:radio[name ='schedule-update-confirmed']:checked").val() === 'confirmed'?true:false;
      let schedule_start_date = $('#schedule-update-start-date').val();
      let schedule_start_time = $('#schedule-update-start-time').val();
      let schedule_end_time = $('#schedule-update-end-time').val();
@@ -190,7 +194,7 @@ function scheduleUpdateUtil(){
      // *Create a objetct to receiva values to update a schedule:
      let data_update_schedule = {
         reason: schedule_reason,
-        confirmed: schedule_confirmed,
+        confirmed: confirmed,
         start_date: start_date_schedule,
         end_date: end_date_schedule,
         id_vehicle_fk: selected_vehicle,
@@ -208,63 +212,68 @@ function scheduleUpdateUtil(){
           spa.navigateTo('schedule-info', {id: schedule_id});
         })
         .fail(xhr => {
-         let text = {title: '', message: ''};
+            // *Checking if the request's status is 401, sending the user to the login page if it is:
+            if(xhr.status === 401){
+               spa.navigateTo('login');
+               return;
+            }
+            let text = {title: '', message: ''};
 
-         // *Checking the error code:
-         switch(xhr.responseJSON.err_code){
+            // *Checking the error code:
+            switch(xhr.responseJSON.err_code){
 
-         // *When the user or the vehicle referenced doesn't exist:
-         case 'ERR_REF_NOT_FOUND':
-            text.title = srm.get('schedule-update-dialog-error-ref-title');
-            text.message = srm.get('schedule-update-dialog-error-ref-message');
-            break;
+            // *When the user or the vehicle referenced doesn't exist:
+            case 'ERR_REF_NOT_FOUND':
+               text.title = srm.get('schedule-update-dialog-error-ref-title');
+               text.message = srm.get('schedule-update-dialog-error-ref-message');
+               break;
 
-         // *When the vehicle selected is not active:
-         case 'ERR_VEHICLE_NOT_ACTIVE':
-            text.title = srm.get('schedule-update-dialog-error-vehicle-not-active-title');
-            text.message = srm.get('schedule-update-dialog-error-vehicle-not-active-message');
-            break;
+            // *When the vehicle selected is not active:
+            case 'ERR_VEHICLE_NOT_ACTIVE':
+               text.title = srm.get('schedule-update-dialog-error-vehicle-not-active-title');
+               text.message = srm.get('schedule-update-dialog-error-vehicle-not-active-message');
+               break;
 
-         // *When the user is not active:
-         case 'ERR_USER_NOT_ACTIVE':
-            text.title = srm.get('schedule-update-dialog-error-user-not-active-title');
-            text.message = srm.get('schedule-update-dialog-error-user-not-active-message');
-            break;
+            // *When the user is not active:
+            case 'ERR_USER_NOT_ACTIVE':
+               text.title = srm.get('schedule-update-dialog-error-user-not-active-title');
+               text.message = srm.get('schedule-update-dialog-error-user-not-active-message');
+               break;
 
-         // *When the user not authorized:
-         case 'ERR_NOT_AUTHORIZED':
-            text.title = srm.get('schedule-update-dialog-error-not-authorized-title');
-            text.message = srm.get('schedule-update-dialog-error-not-authorized-message');
-            break;
+            // *When the user not authorized:
+            case 'ERR_NOT_AUTHORIZED':
+               text.title = srm.get('schedule-update-dialog-error-not-authorized-title');
+               text.message = srm.get('schedule-update-dialog-error-not-authorized-message');
+               break;
 
-         // *When the vehicle selected is not availabe:
-         case 'ERR_RES_UNAVAILABLE':
-            text.title = srm.get('schedule-update-dialog-error-unavailable-title');
-            text.message = srm.get('schedule-update-dialog-error-unavailable-message');
-            break;
+            // *When the vehicle selected is not availabe:
+            case 'ERR_RES_UNAVAILABLE':
+               text.title = srm.get('schedule-update-dialog-error-unavailable-title');
+               text.message = srm.get('schedule-update-dialog-error-unavailable-message');
+               break;
 
 
-         // *When the period is invalid:
-         case 'ERR_INVALID_TIMESPAN':
-            text.title = srm.get('schedule-update-dialog-error-timespan-title');
-            text.message = srm.get('schedule-update-dialog-error-timespan-message');
-            break;
+            // *When the period is invalid:
+            case 'ERR_INVALID_TIMESPAN':
+               text.title = srm.get('schedule-update-dialog-error-timespan-title');
+               text.message = srm.get('schedule-update-dialog-error-timespan-message');
+               break;
 
-         // *When schedule not found:
-         case 'ERR_NOT_FOUND':
-            text.title = srm.get('schedule-update-dialog-error-notfound-schedule-title');
-            text.message = srm.get('schedule-update-dialog-error-notfound-schedule-message');
-            break;
+            // *When schedule not found:
+            case 'ERR_NOT_FOUND':
+               text.title = srm.get('schedule-update-dialog-error-notfound-schedule-title');
+               text.message = srm.get('schedule-update-dialog-error-notfound-schedule-message');
+               break;
 
-         default:
-            text.title = srm.get('schedule-update-dialog-error-default-title');
-            text.message = srm.get('schedule-update-dialog-error-default-message');
-            break;
-         }
+            default:
+               text.title = srm.get('schedule-update-dialog-error-default-title');
+               text.message = srm.get('schedule-update-dialog-error-default-message');
+               break;
+            }
 
-         // *Opening a dialog notice for the user:
-         dialogger.open('default-notice', text);
-      });
+            // *Opening a dialog notice for the user:
+            dialogger.open('default-notice', text);
+         });
    }
 
 
@@ -290,6 +299,11 @@ function scheduleUpdateUtil(){
             $('#schedule-update-vehicle-description').text(data.type + " - " + data.year + " - " + data.manufacturer);
          })
          .fail(xhr => {
+            // *Checking if the request's status is 401, sending the user to the login page if it is:
+            if(xhr.status === 401){
+               spa.navigateTo('login');
+               return;
+            }
             console.log(xhr.responseJSON);
          });
    }
@@ -317,6 +331,11 @@ function scheduleUpdateUtil(){
             $('#schedule-update-user-login').text(data.login);
          })
          .fail(xhr => {
+            // *Checking if the request's status is 401, sending the user to the login page if it is:
+            if(xhr.status === 401){
+               spa.navigateTo('login');
+               return;
+            }
             console.log(xhr.responseJSON);
          });
    }

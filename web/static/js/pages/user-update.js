@@ -1,3 +1,5 @@
+
+
 // *When the user navigate to the user-update page:
 spa.onNavigate('user-update', (page, params) => {
    let user_photo_base64 = undefined;
@@ -66,6 +68,11 @@ spa.onNavigate('user-update', (page, params) => {
                mdl_util.updateCheckBoxes('#user-update-section');
             })
             .fail(xhr => {
+               // *Checking if the request's status is 401, sending the user to the login page if it is:
+               if(xhr.status === 401){
+                  spa.navigateTo('login');
+                  return;
+               }
                console.log(xhr.responseJSON);
             });
 
@@ -183,6 +190,11 @@ function updateUser(user_id, user_photo_base64){
          spa.navigateTo('users');
       })
       .fail(xhr => {
+         // *Checking if the request's status is 401, sending the user to the login page if it is:
+         if(xhr.status === 401){
+            spa.navigateTo('login');
+            return;
+         }
          // *Declaring an object to receiva a text to dialog:
          let text = {title: '', message: ''};
 

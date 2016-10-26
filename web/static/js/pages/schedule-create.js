@@ -53,6 +53,11 @@ spa.onNavigate('schedule-create', (page, params) => {
                }
             })
             .fail(xhr => {
+               // *Checking if the request's status is 401, sending the user to the login page if it is:
+               if(xhr.status === 401){
+                  spa.navigateTo('login');
+                  return;
+               }
                // *Showing a dialog-notice if internal error:
                dialogger.open('default-notice', {
                   title: srm.get('schedule-create-dialog-internal-error-title'),
@@ -199,6 +204,11 @@ function scheduleCreateUtil(){
             spa.navigateTo('schedules', {id: selected_vehicle, date: date_startdate});
          })
          .fail(xhr => {
+            // *Checking if the request's status is 401, sending the user to the login page if it is:
+            if(xhr.status === 401){
+               spa.navigateTo('login');
+               return;
+            }
             let text = {title: '', message: ''};
 
             // *Checking the error code:
@@ -279,6 +289,11 @@ function scheduleCreateUtil(){
             $('#schedule-create-vehicle-description').text(data.type + " - " + data.year + " - " + data.manufacturer);
          })
          .fail(xhr => {
+            // *Checking if the request's status is 401, sending the user to the login page if it is:
+            if(xhr.status === 401){
+               spa.navigateTo('login');
+               return;
+            }
             console.log(xhr.responseJSON);
          });
    }
@@ -306,6 +321,11 @@ function scheduleCreateUtil(){
             $('#schedule-create-user-login').text(data.login);
          })
          .fail(xhr => {
+            // *Checking if the request's status is 401, sending the user to the login page if it is:
+            if(xhr.status === 401){
+               spa.navigateTo('login');
+               return;
+            }
             console.log(xhr.responseJSON);
          });
    }

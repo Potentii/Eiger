@@ -48,6 +48,11 @@ spa.onNavigate('vehicle-update', (page, params) => {
                mdl_util.updateCheckBoxes('#vehicle-update-section');
             })
             .fail(xhr => {
+               // *Checking if the request's status is 401, sending the user to the login page if it is:
+               if(xhr.status === 401){
+                  spa.navigateTo('login');
+                  return;
+               }
                console.log(xhr.responseJSON);
             });
 
@@ -161,6 +166,11 @@ function updateVehicle(id, vehicle_photo_base64){
          spa.navigateTo('');
       })
       .fail(xhr => {
+         // *Checking if the request's status is 401, sending the user to the login page if it is:
+         if(xhr.status === 401){
+            spa.navigateTo('login');
+            return;
+         }
          // *Declaring an object to receiva a text to dialog:
          let text = {title: '', message: ''};
 

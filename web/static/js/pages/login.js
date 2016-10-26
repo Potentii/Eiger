@@ -34,6 +34,11 @@ spa.onNavigate('login', (page, params) => {
             spa.navigateTo('');
          })
          .fail(xhr => {
+            // *Checking if the request's status is 401, sending the user to the login page if it is:
+            if(xhr.status === 401){
+               spa.navigateTo('login');
+               return;
+            }
             console.log(xhr.responseJSON);
          });
    });
@@ -84,7 +89,6 @@ spa.onNavigate('auth', (page, params) => {
             spa.navigateTo(params.previous_page_name);
          })
          .fail(xhr => {
-
             // *Redirecting the user to login page:
             spa.navigateTo('login');
          });
