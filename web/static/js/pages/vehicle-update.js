@@ -98,7 +98,7 @@ spa.onNavigate('vehicle-update', (page, params) => {
 
 
 // *Cleaning listernes from this page:
-spa.onUnload('vehicle-update', (page) => {
+spa.onLeft('vehicle-update', (page) => {
    // *Cleaning the event submit:
    $('#vehicle-update-form').off('submit');
 
@@ -162,8 +162,8 @@ function updateVehicle(id, vehicle_photo_base64){
       .done(data => {
          // *Showing the snack with the message:
          snack.open(srm.get('vehicle-update-successful-snack'), snack.TIME_SHORT);
-         // *Going to index page:
-         spa.navigateTo('');
+         // *Going back to vehicle-info:
+         spa.goBack();
       })
       .fail(xhr => {
          // *Checking if the request's status is 401, sending the user to the login page if it is:

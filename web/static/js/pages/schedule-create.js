@@ -132,13 +132,30 @@ spa.onNavigate('schedule-create', (page, params) => {
 
          scheduleCreateUtil().postSchedule(selected_user, selected_vehicle);
       });
+
+      // *Checking if the params was all set correctly, which means that the user navigated through the schedules page:
+      if(params && (params.id !== null && params.id !== undefined) && (params.date)){
+         // *If they did:
+         // *Setting the up button action:
+         $('#schedule-create-up-button').on('click', e => {
+            // *Navigating to schedules page with the same parameters:
+            spa.navigateTo('schedules', {id: params.id, date: params.date});
+         });
+      } else{
+         // *If they didn't:
+         // *Setting the up button action:
+         $('#schedule-create-up-button').on('click', e => {
+            // *Navigating back to index page:
+            spa.navigateTo('');
+         });
+      }
    }
 });
 
 
 
 // *When the user left the page:
-spa.onUnload('schedule-create', (page) => {
+spa.onLeft('schedule-create', (page) => {
    // *Removing the submit listeners from the form:
    $('#schedule-create-form').off('submit');
 
@@ -150,6 +167,7 @@ spa.onUnload('schedule-create', (page) => {
    $('#schedule-create-end-time').val('');
 
    // *Removing the event onClick:
+   $('#schedule-create-up-button').off('click');
    $('#schedule-create-user-app-bar').off('click');
    $('#schedule-create-vehicle-app-bar').off('click');
 

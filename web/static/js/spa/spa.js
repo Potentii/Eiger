@@ -52,11 +52,11 @@ const spa = (function(){
 
       // *Setting up default action to pages' load and unload events:
       spa.onNavigate(page.getName(), defaultLoad);
-      spa.onUnload(page.getName(), defaultUnload);
+      spa.onLeft(page.getName(), defaultUnload);
 
       // *Adding all the custom callbacks:
       spa.onNavigate(page.getName(), load_action);
-      spa.onUnload(page.getName(), unload_action);
+      spa.onLeft(page.getName(), unload_action);
    }
 
 
@@ -88,6 +88,17 @@ const spa = (function(){
 
 
    /**
+    * Navigates back on browser's history
+    * @author Guilherme Reginaldo Ruella
+    */
+   function goBack(){
+      // *Navigating back:
+      window.history.back();
+   }
+
+
+
+   /**
     * Runs all navigation callbacks of the current page, and all unload callbacks for the previous page
     * @author Guilherme Reginaldo Ruella
     */
@@ -107,7 +118,7 @@ const spa = (function(){
       if(page_name === current_page_name) return;
 
       // *Unloading the previous page:
-      if(previous_page) previous_page.getOnUnload().resolveAll(f => f(previous_page));
+      if(previous_page) previous_page.getOnLeft().resolveAll(f => f(previous_page));
 
       // *Changing the current page flag:
       current_page_name = page_name;
@@ -148,13 +159,13 @@ const spa = (function(){
     * @param  {(function|function[])} action    The action to be done
     * @author Guilherme Reginaldo Ruella
     */
-   function onUnload(page_name, action){
+   function onLeft(page_name, action){
       // *Finding the page object:
       let page = findPage(page_name);
       if(!page) return;
 
       // *Adding the action to the page's event handler:
-      page.getOnUnload().addListener(action);
+      page.getOnLeft().addListener(action);
    }
 
 
@@ -298,8 +309,9 @@ const spa = (function(){
    return {
       subscribe: subscribe,
       navigateTo: navigateTo,
+      goBack: goBack,
       onNavigate: onNavigate,
-      onUnload: onUnload,
+      onLeft: onLeft,
       onReady: onReady,
       setFallbackPage: setFallbackPage,
       getPages: getPages,

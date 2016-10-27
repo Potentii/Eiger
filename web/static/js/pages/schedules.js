@@ -135,7 +135,7 @@ spa.onNavigate('schedules', (page, params) => {
 
 
 // *Defining ul like empty after unload the page:
-spa.onUnload('schedules', (page) => {
+spa.onLeft('schedules', (page) => {
 
    // *Removing the list's empty class and the click listener:
    $('#schedules-list')

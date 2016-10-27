@@ -66,7 +66,7 @@ spa.onNavigate('users', (page, params) => {
 
 
 // *When the user left the page:
-spa.onUnload('users', (page) => {
+spa.onLeft('users', (page) => {
 
    // *Removing the list's empty class and the click listener:
    $('#users-list')

@@ -103,8 +103,12 @@ spa.onNavigate('schedule-info', (page, params) => {
                request.getUser(data.id_user_owner_fk)
                   .done(data => {
 
-                     // *Setting the user's photo:
+                     // *Setting the owners's photo:
                      $('#schedule-info-owner-photo').css('background-image', data.photo?'url(' + rest_url + '/media/u/p/' + data.photo + ')':'');
+                     // *Setting the owners's name:
+                     $('#schedule-info-owner-name').text(data.name);
+                     // *Setting the owners's login:
+                     $('#schedule-info-owner-login').text(data.login);
                   })
                   .fail(xhr => {
                      // *Checking if the request's status is 401, sending the user to the login page if it is:
@@ -131,7 +135,7 @@ spa.onNavigate('schedule-info', (page, params) => {
 
 
 // *When user left the page:
-spa.onUnload('schedule-info', (page) => {
+spa.onLeft('schedule-info', (page) => {
 
    // *Removing the event click:
    $('#schedule-info-edit-fab').off('click');

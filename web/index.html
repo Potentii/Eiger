@@ -286,7 +286,7 @@
       <section id="vehicle-info-section" data-page="vehicle-info">
          <!-- Appbar -->
          <header class="app-bar flex-horizontal-layout tinted">
-            <button type="button" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
+            <button type="button" onclick="spa.goBack()" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
             <span data-intl="vehicle-info-header"></span>
          </header>
 
@@ -364,7 +364,7 @@
       <section id="vehicle-create-section" data-page="vehicle-create">
          <!-- Appbar -->
          <header class="app-bar flex-horizontal-layout tinted">
-            <button type="button" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
+            <button type="button" onclick="spa.navigateTo('')" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
             <span data-intl="vehicle-create-header"></span>
          </header>
 
@@ -467,7 +467,7 @@
       <section id="vehicle-update-section" data-page="vehicle-update">
          <!-- Appbar -->
          <header class="app-bar flex-horizontal-layout tinted">
-            <button type="button" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
+            <button type="button" onclick="spa.goBack()" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
             <span data-intl="vehicle-update-header"></span>
          </header>
 
@@ -570,7 +570,7 @@
       <section id="schedules-section" data-page="schedules">
          <!-- Appbar -->
          <header class="app-bar flex-horizontal-layout tinted">
-            <button type="button" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
+            <button type="button" onclick="spa.navigateTo('')" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
             <span data-intl="schedules-header"></span>
          </header>
 
@@ -624,7 +624,7 @@
       <section id="schedule-info-section" data-page="schedule-info">
          <!-- Appbar -->
          <header class="app-bar flex-horizontal-layout tinted">
-            <button type="button" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
+            <button type="button" onclick="spa.goBack()" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
             <span data-intl="schedule-info-header"></span>
          </header>
 
@@ -741,7 +741,7 @@
       <section id="schedule-create-section" data-page="schedule-create">
          <!-- Appbar -->
          <header class="app-bar flex-horizontal-layout tinted">
-            <button type="button" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
+            <button id="schedule-create-up-button" type="button" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
             <span data-intl="schedule-create-header"></span>
          </header>
 
@@ -845,7 +845,7 @@
       <section id="schedule-update-section" data-page="schedule-update">
          <!-- Appbar -->
          <header class="app-bar flex-horizontal-layout tinted">
-            <button type="button" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
+            <button type="button" onclick="spa.goBack()" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
             <span data-intl="schedule-update-header"></span>
          </header>
 
@@ -971,7 +971,7 @@
       <section id="users-section" data-page="users">
          <!-- Appbar -->
          <header class="app-bar flex-horizontal-layout tinted">
-            <button type="button" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
+            <button type="button" onclick="spa.navigateTo('')" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
             <span data-intl="users-header"></span>
          </header>
 
@@ -1006,7 +1006,7 @@
       <section id="user-info-section" data-page="user-info">
          <!-- Appbar -->
          <header class="app-bar flex-horizontal-layout tinted">
-            <button type="button" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
+            <button type="button" onclick="spa.goBack()" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
             <span data-intl="user-info-header"></span>
          </header>
 
@@ -1182,7 +1182,7 @@
       <section id="user-create-section" data-page="user-create">
          <!-- Appbar -->
          <header class="app-bar flex-horizontal-layout tinted">
-            <button type="button" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
+            <button type="button" onclick="spa.navigateTo('users')" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
             <span data-intl="user-create-header"></span>
          </header>
 
@@ -1232,7 +1232,7 @@
             <div class="row mdl-input-row">
                <i class="material-icons">_</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input id="user-create-email" class="mdl-textfield__input" type="email" pattern="\w+@\w+\.\w+\.{0,1}\w*" required="true">
+                  <input id="user-create-email" class="mdl-textfield__input" type="email" required="true">
                   <label class="mdl-textfield__label" for="user-create-email" data-intl="user-create-email"></label>
                </span>
             </div>
@@ -1339,7 +1339,7 @@
       <section id="user-update-section" data-page="user-update">
          <!-- Appbar -->
          <header class="app-bar flex-horizontal-layout tinted">
-            <button type="button" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
+            <button type="button" onclick="spa.goBack()" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
             <span data-intl="user-update-header"></span>
          </header>
 
@@ -1389,7 +1389,7 @@
             <div class="row mdl-input-row">
                <i class="material-icons">_</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input id="user-update-email" class="mdl-textfield__input" type="email" pattern="\w+@\w+\.\w+\.{0,1}\w*" required="true">
+                  <input id="user-update-email" class="mdl-textfield__input" type="email" required="true">
                   <label class="mdl-textfield__label" for="user-update-email" data-intl="user-update-email"></label>
                </span>
             </div>

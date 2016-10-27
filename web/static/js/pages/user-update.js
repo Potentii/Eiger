@@ -120,7 +120,7 @@ spa.onNavigate('user-update', (page, params) => {
 
 
 // *When the user left this page:
-spa.onUnload('user-update', (page) => {
+spa.onLeft('user-update', (page) => {
    // *Cleaning the event submit:
    $('#user-update-form').off('submit');
 
@@ -186,8 +186,8 @@ function updateUser(user_id, user_photo_base64){
       .done(data => {
          // *Showing the snack with the message:
          snack.open(srm.get('user-update-successful-snack'), snack.TIME_SHORT);
-         // *Going to index page:
-         spa.navigateTo('users');
+         // *Going back to user-info:
+         spa.goBack();
       })
       .fail(xhr => {
          // *Checking if the request's status is 401, sending the user to the login page if it is:

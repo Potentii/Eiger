@@ -37,7 +37,7 @@ spa.onNavigate('vehicle-create', (page, params) => {
 
 
 // *Cleaning listernes from this page:
-spa.onUnload('vehicle-create', (page) => {
+spa.onLeft('vehicle-create', (page) => {
    // *Cleaning the event submit:
    $('#vehicle-create-form').off('submit');
    // *Cleaning the event change:

@@ -91,7 +91,7 @@ spa.onNavigate('', (page, params) => {
 
 
 // *When user left the page:
-spa.onUnload('', (page) => {
+spa.onLeft('', (page) => {
 
    // *Removing the list's empty class and the click listener:
    $('#vehicles-list')

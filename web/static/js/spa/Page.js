@@ -7,7 +7,7 @@ class Page{
       this._name = name;
 
       this._onNavigate = new HandledEvent();
-      this._onOnUnload = new HandledEvent();
+      this._onOnLeft = new HandledEvent();
    }
 
 
@@ -37,8 +37,8 @@ class Page{
       return this._onNavigate;
    }
 
-   // *OnUnload:
-   getOnUnload(){
-      return this._onOnUnload;
+   // *OnLeft:
+   getOnLeft(){
+      return this._onOnLeft;
    }
 }
