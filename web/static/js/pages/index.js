@@ -52,11 +52,11 @@ spa.onNavigate('', (page, params) => {
                // *Building the schedule's balls and add amount of the schedules number:
                requestSchedules(vehicle.id, button_ul);
 
-               // *Hiding the vehicle photo:
+               // *Hiding the vehicle's photo:
                image_div.css('visibility', 'hidden');
                // *Setting an offset timer:
                setTimeout(() => {
-                  // *Showing up the vehicle photo:
+                  // *Showing up the vehicle's photo:
                   image_div.css('visibility', 'visible');
                   // *Playing the inflate animation:
                   anim.inflate(image_div);

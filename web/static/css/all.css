@@ -62,6 +62,15 @@ section > .list{
 
 
 /**
+ * Hovering on list items:
+ */
+.list > li:hover, .list > li *:hover{
+   cursor: pointer;
+}
+
+
+
+/**
  * User app-bar
  */
 .user-info-app-bar > div{
