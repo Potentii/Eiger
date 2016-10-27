@@ -1,5 +1,7 @@
+-- *Using utf8 as the default connection charset:
+set names 'utf8';
 drop schema if exists `eiger_schema`;
-create schema if not exists `eiger_schema`;
+create schema if not exists `eiger_schema` default character set utf8 default collate utf8_general_ci;
 use `eiger_schema`;
 
 drop table if exists `vehicle`;
