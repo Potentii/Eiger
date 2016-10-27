@@ -32,9 +32,18 @@ dialogger.onOpen('user-picker', (dialog, params) => {
             // *Building the user's li:
             let userPicker_li = $('<li>').attr('data-id', user.id).addClass('row vertical-layout').appendTo(userPicker_ul);
 
+            // *Building the user's div:
+            let horizontal_layout_div = $('<div>').addClass('flex-horizontal-layout thumbnailed-info').appendTo(userPicker_li);
+
+            // *Building and setting the user's photo:
+            let image_div = $('<div>').addClass('round-thumbnail size-3').css('background-image', user.photo?'url('+ rest_url + '/media/u/p/' + user.photo +')':'').appendTo(horizontal_layout_div);
+
+            // *Building the user's div:
+            let vertical_layout_div = $('<div>').addClass('vertical-layout').appendTo(horizontal_layout_div);
+
             // *Building and setting the user's name and description:
-            $('<span>').addClass('primary').text(user.name).appendTo(userPicker_li);
-            $('<span>').addClass('secondary').text(user.login).appendTo(userPicker_li);
+            $('<span>').addClass('primary').text(user.name).appendTo(vertical_layout_div);
+            $('<span>').addClass('secondary').text(user.login).appendTo(vertical_layout_div);
 
             // *Checking if the user selected is exactly equals user.id:
             if(user.id === selected_user){
@@ -64,6 +73,11 @@ dialogger.onOpen('user-picker', (dialog, params) => {
          });
       })
       .fail(xhr => {
+         // *Checking if the request's status is 401, sending the user to the login page if it is:
+         if(xhr.status === 401){
+            spa.navigateTo('login');
+            return;
+         }
          console.log(xhr.responseJSON);
       });
 

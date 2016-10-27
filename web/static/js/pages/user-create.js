@@ -102,6 +102,11 @@ function postUser(user_photo_base64){
          spa.navigateTo('users');
       })
       .fail(xhr => {
+         // *Checking if the request's status is 401, sending the user to the login page if it is:
+         if(xhr.status === 401){
+            spa.navigateTo('login');
+            return;
+         }
          let text = {title: '', message: ''};
 
          // *Checking the error code:

@@ -1,6 +1,5 @@
 
 
-
 // *Browsing the schedules page:
 spa.onNavigate('schedules', (page, params) => {
 
@@ -17,7 +16,7 @@ spa.onNavigate('schedules', (page, params) => {
             .done(data => {
 
                // *Setting the vehicle's photo:
-               $('#schedules-vehicle-photo').css('background-image', 'url(' + rest_url + '/media/v/p/' + data.photo + ')');
+               $('#schedules-vehicle-photo').css('background-image', data.photo?'url(' + rest_url + '/media/v/p/' + data.photo + ')':'');
 
                // *Setting the vehicle's title and plate:
                $('#schedules-vehicle-title').text(data.title + " - " + data.plate);
@@ -40,6 +39,11 @@ spa.onNavigate('schedules', (page, params) => {
                }
             })
             .fail(xhr => {
+               // *Checking if the request's status is 401, sending the user to the login page if it is:
+               if(xhr.status === 401){
+                  spa.navigateTo('login');
+                  return;
+               }
                console.log(xhr.responseJSON);
             });
 
@@ -104,6 +108,11 @@ spa.onNavigate('schedules', (page, params) => {
 
             })
             .fail(xhr => {
+               // *Checking if the request's status is 401, sending the user to the login page if it is:
+               if(xhr.status === 401){
+                  spa.navigateTo('login');
+                  return;
+               }
                console.log(xhr.responseJSON);
             });
       }

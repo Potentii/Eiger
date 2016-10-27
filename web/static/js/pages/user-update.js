@@ -1,10 +1,12 @@
+
+
 // *When the user navigate to the user-update page:
 spa.onNavigate('user-update', (page, params) => {
    let user_photo_base64 = undefined;
 
    // *Checking if the params is diferent undefined or null:
    if(params && (params.id !== null && params.id !== undefined)){
-      let id = params.id;
+      let user_id = params.id;
       // *Checking if the user was authenticated:
       if(authenticated == true) {
          // *If true:
@@ -13,7 +15,7 @@ spa.onNavigate('user-update', (page, params) => {
          mdl_util.clearTextFieldsValidity('#user-update-section');
 
          // *Show the page to update user:
-         request.getUserSensitive(id)
+         request.getUserSensitive(user_id)
             .done(data => {
                // *Setting the users's photo:
                $('#user-update-pic').parent().css('background-image', data.photo?'url(' + rest_url + '/media/u/p/'+ data.photo +')':'');
@@ -46,7 +48,8 @@ spa.onNavigate('user-update', (page, params) => {
                $('#user-update-driver-license').val(data.driver_license);
 
                // *Setting the user's driver license expired date:
-               $('#user-update-driver-license-exp').val(df.asFullDate(new Date(data.driver_license_exp)));
+               let license_exp = new Date(data.driver_license_exp);
+               $('#user-update-driver-license-exp').val(df.asMysqlDate(license_exp));
 
                // *Setting the user's permission for schedules:
                $('#user-update-permission-schedules').prop('checked', data.permission_schedules?true:false);
@@ -65,6 +68,11 @@ spa.onNavigate('user-update', (page, params) => {
                mdl_util.updateCheckBoxes('#user-update-section');
             })
             .fail(xhr => {
+               // *Checking if the request's status is 401, sending the user to the login page if it is:
+               if(xhr.status === 401){
+                  spa.navigateTo('login');
+                  return;
+               }
                console.log(xhr.responseJSON);
             });
 
@@ -96,7 +104,7 @@ spa.onNavigate('user-update', (page, params) => {
                case dialogger.DIALOG_STATUS_POSITIVE:
 
                   // *Calling the function to update user data:
-                  updateUser(id, user_photo_base64);
+                  updateUser(user_id, user_photo_base64);
                   break;
                }
             });
@@ -148,11 +156,11 @@ spa.onUnload('user-update', (page) => {
 
 /**
  * Send a request to REST to update this user
- * @param  {number} id                 The user's id
+ * @param  {number} user_id            The user's id
  * @param  {string} user_photo_base64  The base64 encoded image
  * @author Willian Conti Rezende
  */
-function updateUser(id, user_photo_base64){
+function updateUser(user_id, user_photo_base64){
 
    // *Create a object to receiva values to update a user:
    let data_update_user = {
@@ -174,7 +182,7 @@ function updateUser(id, user_photo_base64){
 
 
    // *Sending the put request:
-   request.putUser(id, data_update_user)
+   request.putUser(user_id, data_update_user)
       .done(data => {
          // *Showing the snack with the message:
          snack.open(srm.get('user-update-successful-snack'), snack.TIME_SHORT);
@@ -182,6 +190,11 @@ function updateUser(id, user_photo_base64){
          spa.navigateTo('users');
       })
       .fail(xhr => {
+         // *Checking if the request's status is 401, sending the user to the login page if it is:
+         if(xhr.status === 401){
+            spa.navigateTo('login');
+            return;
+         }
          // *Declaring an object to receiva a text to dialog:
          let text = {title: '', message: ''};
 
