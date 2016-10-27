@@ -104,7 +104,7 @@ spa.onNavigate('auth', (page, params) => {
 
 
 // *Removing the event after unload the page:
-spa.onUnload('login', (page) => {
+spa.onLeft('login', (page) => {
 
    // *Removing the event submit:
    $('#login-form').off('submit');

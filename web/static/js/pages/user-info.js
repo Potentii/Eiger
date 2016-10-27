@@ -111,7 +111,7 @@ spa.onNavigate('user-info', (page, params) => {
 
 
 // *When the user left the page:
-spa.onUnload('user-info', (page) => {
+spa.onLeft('user-info', (page) => {
 
    // *Removing the event click:
    $('#user-info-edit-fab').off('click');

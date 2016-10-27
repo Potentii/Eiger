@@ -17,7 +17,7 @@ spa.onNavigate('users', (page, params) => {
             if(!data.length) user_ul.addClass('empty');
 
             // *Iterating and creating the users list:
-            data.forEach(function (user){
+            data.forEach((user, index) => {
 
                // *Building the user's li:
                let user_li = $('<li>').attr('data-id', user.id).addClass('row card box raised').appendTo(user_ul);
@@ -37,6 +37,16 @@ spa.onNavigate('users', (page, params) => {
                // *Setting the username and login:
                $('<span>').addClass('primary').text(user.name).appendTo(vertical_layout_div);
                $('<span>').addClass('secondary').text(user.login).appendTo(vertical_layout_div);
+
+               // *Hiding the user's photo:
+               img_div.css('visibility', 'hidden');
+               // *Setting an offset timer:
+               setTimeout(() => {
+                  // *Showing up the user's photo:
+                  img_div.css('visibility', 'visible');
+                  // *Playing the inflate animation:
+                  anim.inflate(img_div);
+               }, index * 125);
             });
 
             // *Clicking on an user:
@@ -66,7 +76,7 @@ spa.onNavigate('users', (page, params) => {
 
 
 // *When the user left the page:
-spa.onUnload('users', (page) => {
+spa.onLeft('users', (page) => {
 
    // *Removing the list's empty class and the click listener:
    $('#users-list')

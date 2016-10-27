@@ -68,7 +68,7 @@ spa.onNavigate('vehicle-info', (page, params) => {
 
 
 // *When user left the page:
-spa.onUnload('vehicle-info', (page) => {
+spa.onLeft('vehicle-info', (page) => {
 
    // *Removing the event click:
    $('#vehicle-info-edit-fab').off('click');

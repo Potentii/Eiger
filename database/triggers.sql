@@ -1,3 +1,5 @@
+-- *Using utf8 as the default connection charset:
+set names 'utf8';
 -- *Using the 'eiger_schema':
 use `eiger_schema`;
 
@@ -7,7 +9,7 @@ use `eiger_schema`;
  * Validates the schedule with the business logic before booking it
  */
 drop trigger if exists `book_schedule`;
-delimiter $$
+delimiter $$ 
 create trigger `book_schedule` before insert on `schedule` for each row
 begin
 
@@ -66,8 +68,8 @@ begin
         -- *Throwing an error:
 		signal SQLSTATE '45000' set message_text = 'EIGER_INVALID_DATE';
 	end if;
-end
-$$ delimiter ;
+end$$
+delimiter ;
 
 
 
@@ -75,7 +77,7 @@ $$ delimiter ;
  * Validates the new schedule informations with the business logic
  */
 drop trigger if exists `modify_schedule`;
-delimiter $$
+delimiter $$ 
 create trigger `modify_schedule` before update on `schedule` for each row
 begin
 
@@ -136,5 +138,23 @@ begin
         -- *Throwing an error:
 		signal SQLSTATE '45000' set message_text = 'EIGER_INVALID_DATE';
 	end if;
-end
-$$ delimiter ;
+end$$
+delimiter ;
+
+
+
+/**
+ * Removes all user's tokens if they become inactive after an update
+ */
+drop trigger if exists `inactive_user_logoff`;
+delimiter $$ 
+create trigger `inactive_user_logoff` after update on `user` for each row
+begin
+	-- *Checking if the active status has changed and if it's false now:
+    if old.`active` != new.`active` and new.`active` = 0 then
+		-- *If it is:
+        -- *Removing all access tokens from this user, so they cannot log into the system:
+		delete from `auth` where `key` = old.`login`;
+    end if;
+end$$
+delimiter ;

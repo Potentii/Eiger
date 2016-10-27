@@ -63,7 +63,7 @@ spa.onNavigate('schedule-update', (page, params) => {
                }
                console.log(xhr.responseJSON);
             });
-      }else {
+      } else{
          // *Is not diferent of null ou undefined:
          // *Redirecting the user to index page:
          spa.navigateTo('');
@@ -134,7 +134,7 @@ spa.onNavigate('schedule-update', (page, params) => {
             switch(status){
             // *When the status is positive:
             case dialogger.DIALOG_STATUS_POSITIVE:
-            // *Calling the function to update a vehicle data:
+               // *Calling the function to update a vehicle data:
                scheduleUpdateUtil().updateSchedule(schedule_id, selected_vehicle, selected_user);
                break;
             }
@@ -145,27 +145,27 @@ spa.onNavigate('schedule-update', (page, params) => {
 
 
 // *Cleaning listernes from this page:
-spa.onUnload('schedule-update', (page) => {
-  // *Cleaning the event submit:
-  $('#schedule-update-form').off('submit');
+spa.onLeft('schedule-update', (page) => {
+   // *Cleaning the event submit:
+   $('#schedule-update-form').off('submit');
 
-  // *Cleaning inputs when the page is left:
-  $('#schedule-update-reason').val('');
-  $('input:radio[name="schedule-update-confirmed"][value="planned"]').prop('checked', true);
-  $('#schedule-update-start-date').val('');
-  $('#schedule-update-start-time').val('');
-  $('#schedule-update-end-time').val('');
-  $('#schedule-update-end-date').val('');
+   // *Cleaning inputs when the page is left:
+   $('#schedule-update-reason').val('');
+   $('input:radio[name="schedule-update-confirmed"][value="planned"]').prop('checked', true);
+   $('#schedule-update-start-date').val('');
+   $('#schedule-update-start-time').val('');
+   $('#schedule-update-end-time').val('');
+   $('#schedule-update-end-date').val('');
 
-  // *Removing the event onClick:
-  $('#schedule-update-vehicle-app-bar').off('click');
-  $('#schedule-update-user-app-bar').off('click');
+   // *Removing the event onClick:
+   $('#schedule-update-vehicle-app-bar').off('click');
+   $('#schedule-update-user-app-bar').off('click');
 
-  // *Updating MDL Textfields:
-  mdl_util.updateTextFields('#schedule-update-section');
+   // *Updating MDL Textfields:
+   mdl_util.updateTextFields('#schedule-update-section');
 
-  // *Updating MDL Radios:
-  mdl_util.updateRadios('#schedule-update-section');
+   // *Updating MDL Radios:
+   mdl_util.updateRadios('#schedule-update-section');
 });
 
 
@@ -187,39 +187,39 @@ function scheduleUpdateUtil(){
    */
    function updateSchedule(schedule_id, selected_vehicle, selected_user){
 
-     // *Getting data of inputs:
-     let schedule_reason = $('#schedule-update-reason').val();
-     let confirmed = $("input:radio[name='schedule-update-confirmed']:checked").val() === 'confirmed'?true:false;
-     let schedule_start_date = $('#schedule-update-start-date').val();
-     let schedule_start_time = $('#schedule-update-start-time').val();
-     let schedule_end_time = $('#schedule-update-end-time').val();
-     let schedule_end_date = $('#schedule-update-end-date').val();
+      // *Getting data of inputs:
+      let schedule_reason = $('#schedule-update-reason').val();
+      let confirmed = $("input:radio[name='schedule-update-confirmed']:checked").val() === 'confirmed'?true:false;
+      let schedule_start_date = $('#schedule-update-start-date').val();
+      let schedule_start_time = $('#schedule-update-start-time').val();
+      let schedule_end_time = $('#schedule-update-end-time').val();
+      let schedule_end_date = $('#schedule-update-end-date').val();
 
-     // *Joining date and time:
-     let start_date_schedule = schedule_start_date + ' ' + schedule_start_time;
-     let end_date_schedule = schedule_end_date + ' ' + schedule_end_time;
+      // *Joining date and time:
+      let start_date_schedule = schedule_start_date + ' ' + schedule_start_time;
+      let end_date_schedule = schedule_end_date + ' ' + schedule_end_time;
 
-     // *Create a objetct to receiva values to update a schedule:
-     let data_update_schedule = {
-        reason: schedule_reason,
-        confirmed: confirmed,
-        start_date: start_date_schedule,
-        end_date: end_date_schedule,
-        id_vehicle_fk: selected_vehicle,
-        id_user_fk: selected_user
-     }
+      // *Create a objetct to receiva values to update a schedule:
+      let data_update_schedule = {
+         reason: schedule_reason,
+         confirmed: confirmed,
+         start_date: start_date_schedule,
+         end_date: end_date_schedule,
+         id_vehicle_fk: selected_vehicle,
+         id_user_fk: selected_user
+      }
 
 
 
-     // *Sending a Update Vehicle to the table vehicle on database:
-     request.putSchedule(schedule_id, data_update_schedule)
-        .done(data => {
-          // *Showing the snack with the message:
-          snack.open(srm.get('schedule-update-successful-snack'), snack.TIME_SHORT);
-          // *Sending the user to the schedule info page:
-          spa.navigateTo('schedule-info', {id: schedule_id});
-        })
-        .fail(xhr => {
+      // *Sending a Update Vehicle to the table vehicle on database:
+      request.putSchedule(schedule_id, data_update_schedule)
+         .done(data => {
+            // *Showing the snack with the message:
+            snack.open(srm.get('schedule-update-successful-snack'), snack.TIME_SHORT);
+            // *Going back to schedule-info:
+            spa.goBack();
+         })
+         .fail(xhr => {
             // *Checking if the request's status is 401, sending the user to the login page if it is:
             if(xhr.status === 401){
                spa.navigateTo('login');

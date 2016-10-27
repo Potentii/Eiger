@@ -1,0 +1,8 @@
+/**
+ * Inactive users
+ */
+#users-list > .inactive{
+	opacity: 0.6;
+	box-shadow: none;
+	background: none;
+}

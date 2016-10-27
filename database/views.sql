@@ -1,3 +1,7 @@
+-- *Using utf8 as the default connection charset:
+set names 'utf8';
+-- *Using the 'eiger_schema':
+use `eiger_schema`;
 
 -- Creating user_insensitive_view
 create view `user_insensitive_view` as

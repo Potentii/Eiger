@@ -36,7 +36,7 @@ spa.onNavigate('user-create', (page, params) => {
 
 
 // *When the user left the page:
-spa.onUnload('user-create', (page) => {
+spa.onLeft('user-create', (page) => {
    // *Cleaning the event submit:
    $('#user-create-form').off('submit');
    // *Cleaning the event change:
