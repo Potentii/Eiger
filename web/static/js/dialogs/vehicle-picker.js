@@ -14,10 +14,10 @@ dialogger.onOpen('vehicle-picker', (dialog, params) => {
    // *Setting the id of the user selected previous:
    let selected_vehicle = params.previous_selected_vehicle;
 
-   // *Building the user's ul:
+   // *Building the vehicle's ul:
    let vehiclePicker_ul = $('#vehicle-picker-list');
 
-   // *Listing the users:
+   // *Listing the vehicles:
    request.getVehicles()
       .done(data => {
          // *Setting data with the vehicle filter active:
@@ -26,10 +26,10 @@ dialogger.onOpen('vehicle-picker', (dialog, params) => {
          // *Checking if the list is empty, adding the empty class if it is:
          if(!data.length) vehiclePicker_ul.addClass('empty');
 
-         // *Iterating and creating the users list:
+         // *Iterating and creating the vehicles list:
          data.forEach(vehicle => {
 
-            // *Building the user's li:
+            // *Building the vehicle's li:
             let vehiclePicker_li = $('<li>').attr('data-id', vehicle.id).addClass('row').appendTo(vehiclePicker_ul);
 
             // *Building the vehicle's div:
@@ -74,6 +74,11 @@ dialogger.onOpen('vehicle-picker', (dialog, params) => {
          });
       })
       .fail(xhr => {
+         // *Checking if the request's status is 401, sending the user to the login page if it is:
+         if(xhr.status === 401){
+            spa.navigateTo('login');
+            return;
+         }
          console.log(xhr.responseJSON);
       });
 

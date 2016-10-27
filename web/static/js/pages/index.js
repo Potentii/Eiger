@@ -1,6 +1,5 @@
 
 
-
 // *Browsing the index page:
 spa.onNavigate('', (page, params) => {
 
@@ -73,6 +72,11 @@ spa.onNavigate('', (page, params) => {
             });
          })
          .fail(xhr => {
+            // *Checking if the request's status is 401, sending the user to the login page if it is:
+            if(xhr.status === 401){
+               spa.navigateTo('login');
+               return;
+            }
             console.log(xhr.responseJSON);
          });
    }

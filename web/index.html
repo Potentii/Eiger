@@ -90,6 +90,7 @@
       <script src="./static/js/pages/schedule-update.js"></script>
       <script src="./static/js/pages/vehicle-create.js"></script>
       <script src="./static/js/pages/users.js"></script>
+      <script src="./static/js/pages/user-info.js"></script>
       <script src="./static/js/pages/user-update.js"></script>
       <script src="./static/js/pages/user-create.js"></script>
 
@@ -897,13 +898,13 @@
                   <label class="output-label" data-intl="schedule-update-confirmed"></label>
 
                   <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="schedule-update-confirmed-false">
-                     <input id="schedule-update-confirmed-false" name="schedule-update-confirmed" type="radio" class="mdl-radio__button" checked>
+                     <input id="schedule-update-confirmed-false" name="schedule-update-confirmed" type="radio" value="planned" class="mdl-radio__button" checked>
                      <span class="mdl-radio__label" data-intl="schedule-update-confirmed-false"></span>
                   </label>
                   <label class="output-label detail-label" data-intl="schedule-update-confirmed-false-detail"></label>
 
                   <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="schedule-update-confirmed-true">
-                     <input id="schedule-update-confirmed-true" name="schedule-update-confirmed" type="radio" class="mdl-radio__button">
+                     <input id="schedule-update-confirmed-true" name="schedule-update-confirmed" type="radio" value="confirmed" class="mdl-radio__button">
                      <span class="mdl-radio__label" data-intl="schedule-update-confirmed-true"></span>
                   </label>
                   <label class="output-label detail-label" data-intl="schedule-update-confirmed-true-detail"></label>
@@ -1570,9 +1571,14 @@
                <span class="empty-list-text box card raised" data-intl="empty-list-text-user-picker"></span>
                <!-- User picker row example -->
                <!--
-               <li class="row vertical-layout">
-                  <span class="primary">[user-name]</span>
-                  <span class="secondary">[description]</span>
+               <li class="row">
+                  <div class="flex-horizontal-layout thumbnailed-info">
+                     <div class="round-thumbnail size-3" style="background-image: url(http://localhost:3000/media/u/p/01.jpg)"></div>
+                     <div class="vertical-layout">
+                        <span class="primary">[user-name]</span>
+                        <span class="secondary">[description]</span>
+                     </div>
+                  </div>
                </li>
                -->
             </ul>

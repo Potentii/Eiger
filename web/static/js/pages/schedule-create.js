@@ -10,8 +10,6 @@ spa.onNavigate('schedule-create', (page, params) => {
    if(authenticated == true) {
       // *If true:
 
-
-
       // *Removing the invalid state on the fields:
       mdl_util.clearTextFieldsValidity('#schedule-create-section');
 
@@ -27,8 +25,6 @@ spa.onNavigate('schedule-create', (page, params) => {
 
       // *Updating MDL Textfields:
       mdl_util.updateTextFields('#schedule-create-section');
-
-
 
       // *Checking if the previous selected vehicle was set:
       if(params && (params.id !== null && params.id !== undefined)){
@@ -57,6 +53,11 @@ spa.onNavigate('schedule-create', (page, params) => {
                }
             })
             .fail(xhr => {
+               // *Checking if the request's status is 401, sending the user to the login page if it is:
+               if(xhr.status === 401){
+                  spa.navigateTo('login');
+                  return;
+               }
                // *Showing a dialog-notice if internal error:
                dialogger.open('default-notice', {
                   title: srm.get('schedule-create-dialog-internal-error-title'),
@@ -203,6 +204,11 @@ function scheduleCreateUtil(){
             spa.navigateTo('schedules', {id: selected_vehicle, date: date_startdate});
          })
          .fail(xhr => {
+            // *Checking if the request's status is 401, sending the user to the login page if it is:
+            if(xhr.status === 401){
+               spa.navigateTo('login');
+               return;
+            }
             let text = {title: '', message: ''};
 
             // *Checking the error code:
@@ -283,6 +289,11 @@ function scheduleCreateUtil(){
             $('#schedule-create-vehicle-description').text(data.type + " - " + data.year + " - " + data.manufacturer);
          })
          .fail(xhr => {
+            // *Checking if the request's status is 401, sending the user to the login page if it is:
+            if(xhr.status === 401){
+               spa.navigateTo('login');
+               return;
+            }
             console.log(xhr.responseJSON);
          });
    }
@@ -300,10 +311,21 @@ function scheduleCreateUtil(){
       request.getUser(user_id)
          .done(data => {
 
+            // *Setting the user's photo:
+            $('#schedule-create-user-photo').css('background-image', data.photo?'url(' + rest_url + '/media/u/p/' + data.photo + ')':'');
+
             // *Setting the User name:
             $('#schedule-create-user-name').text(data.name);
+
+            // *Setting the user's login:
+            $('#schedule-create-user-login').text(data.login);
          })
          .fail(xhr => {
+            // *Checking if the request's status is 401, sending the user to the login page if it is:
+            if(xhr.status === 401){
+               spa.navigateTo('login');
+               return;
+            }
             console.log(xhr.responseJSON);
          });
    }

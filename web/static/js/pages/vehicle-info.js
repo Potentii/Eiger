@@ -1,6 +1,5 @@
 
 
-
 // *Browsing the vehicle-info page:
 spa.onNavigate('vehicle-info', (page, params) => {
 
@@ -46,6 +45,11 @@ spa.onNavigate('vehicle-info', (page, params) => {
                $('#vehicle-info-date').text(df.asFullDate(date));
             })
             .fail(xhr => {
+               // *Checking if the request's status is 401, sending the user to the login page if it is:
+               if(xhr.status === 401){
+                  spa.navigateTo('login');
+                  return;
+               }
                console.log(xhr.responseJSON);
             });
       }
