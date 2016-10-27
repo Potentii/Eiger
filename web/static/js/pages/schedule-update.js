@@ -29,6 +29,10 @@ spa.onNavigate('schedule-update', (page, params) => {
                // *Setting the schedule reason:
                $('#schedule-update-reason').val(data.reason);
 
+               // *Setting the schedule status:
+               $('input:radio[name="schedule-update-confirmed"][value="planned"]').prop('checked', !data.confirmed);
+               $('input:radio[name="schedule-update-confirmed"][value="confirmed"]').prop('checked', data.confirmed);
+
                // *Setting the schedule start date:
                let start_date = new Date(data.start_date);
                $('#schedule-update-start-date').val(df.asMysqlDate(start_date));
@@ -47,6 +51,9 @@ spa.onNavigate('schedule-update', (page, params) => {
 
                // *Updating MDL Textfields:
                mdl_util.updateTextFields('#schedule-update-section');
+
+               // *Updating MDL Radios:
+               mdl_util.updateRadios('#schedule-update-section');
             })
             .fail(xhr => {
                // *Checking if the request's status is 401, sending the user to the login page if it is:
@@ -144,6 +151,7 @@ spa.onUnload('schedule-update', (page) => {
 
   // *Cleaning inputs when the page is left:
   $('#schedule-update-reason').val('');
+  $('input:radio[name="schedule-update-confirmed"][value="planned"]').prop('checked', true);
   $('#schedule-update-start-date').val('');
   $('#schedule-update-start-time').val('');
   $('#schedule-update-end-time').val('');
@@ -154,10 +162,10 @@ spa.onUnload('schedule-update', (page) => {
   $('#schedule-update-user-app-bar').off('click');
 
   // *Updating MDL Textfields:
-  mdl_util.updateTextFields('#schedule-create-section');
+  mdl_util.updateTextFields('#schedule-update-section');
 
-  // *Updating MDL Textfields:
-  mdl_util.updateCheckBoxes('#user-create-section');
+  // *Updating MDL Radios:
+  mdl_util.updateRadios('#schedule-update-section');
 });
 
 
@@ -181,7 +189,7 @@ function scheduleUpdateUtil(){
 
      // *Getting data of inputs:
      let schedule_reason = $('#schedule-update-reason').val();
-     let confirmed = $("input:radio[name ='schedule-update-confirmed']:checked").val() === 'confirmed'?true:false;
+     let confirmed = $("input:radio[name='schedule-update-confirmed']:checked").val() === 'confirmed'?true:false;
      let schedule_start_date = $('#schedule-update-start-date').val();
      let schedule_start_time = $('#schedule-update-start-time').val();
      let schedule_end_time = $('#schedule-update-end-time').val();

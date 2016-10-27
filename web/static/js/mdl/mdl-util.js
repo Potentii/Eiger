@@ -50,10 +50,28 @@ const mdl_util = (function(){
 
 
 
+   /**
+   * Updates the visual state of MDL Radios inside the given container
+   * @param  {string} container_id The container HTML id
+   * @author Guilherme Reginaldo Ruella
+   */
+   function updateRadios(container_id){
+      // *Getting all MDL elements inside the given container:
+      let mdl_elements = document.querySelectorAll(container_id + ' .mdl-js-radio');
+      // *Updating the states of each MDL element:
+      for(mdl_element of mdl_elements){
+         // *Updating the status:
+         mdl_element.MaterialRadio.updateClasses_();
+      }
+   }
+
+
+
    // *Exporting the module:
    return {
       clearTextFieldsValidity: clearTextFieldsValidity,
       updateTextFields: updateTextFields,
-      updateCheckBoxes: updateCheckBoxes
+      updateCheckBoxes: updateCheckBoxes,
+      updateRadios: updateRadios
    };
 })();

@@ -44,7 +44,7 @@ spa.onNavigate('vehicle-update', (page, params) => {
                // *Updating MDL Textfields:
                mdl_util.updateTextFields('#vehicle-update-section');
 
-               // *Updating MDL Textfields:
+               // *Updating MDL Checkboxes:
                mdl_util.updateCheckBoxes('#vehicle-update-section');
             })
             .fail(xhr => {
@@ -119,7 +119,7 @@ spa.onUnload('vehicle-update', (page) => {
    // *Updating MDL Textfields:
    mdl_util.updateTextFields('#vehicle-update-section');
 
-   // *Updating MDL Textfields:
+   // *Updating MDL Checkboxes:
    mdl_util.updateCheckBoxes('#vehicle-update-section');
 });
 
