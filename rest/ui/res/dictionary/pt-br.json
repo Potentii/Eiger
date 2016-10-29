@@ -1,0 +1,18 @@
+[
+   ["drawer-nav-email", "Configurações de e-mail"],
+   ["drawer-nav-settings", "Configurações"],
+   ["drawer-nav-about-us", "Sobre nós"],
+
+   ["log-header", "Registros"],
+   ["empty-list-text-log", "Nenhuma requisição registrada ainda"],
+
+   ["email-settings-header", "Configurações de e-mail"],
+   ["email-settings-smtp-server", "Servidor SMTP"],
+   ["email-settings-smtp-port", "Porta SMTP"],
+   ["email-settings-user", "Usuário"],
+   ["email-settings-password", "Senha"],
+   ["email-settings-confirmation-send", "Enviar e-mails de confirmação de reservas"],
+   ["email-settings-confirmation-email", "Conta de e-mail para confirmação de reservas"],
+   ["email-settings-confirmation-subject", "Assunto para confirmação de reservas"],
+   ["email-settings-confirmation-body-name", "Corpo para confirmação de reservas"]
+]

@@ -21,8 +21,8 @@ function createWindow(){
    // *Setting up the window frame:
    win = new BrowserWindow({
       title: 'Eiger',
-      width: 420,
-      height: 600
+      width: 520,
+      height: 650
    });
 
 
@@ -48,6 +48,7 @@ app.on('ready', () => {
    REST.startServices()
       .then(() => createWindow())
       .catch(err => {
+         console.log(err);
          REST.stopServices()
             .then(() => app.quit())
             .catch(err => {throw err;});
