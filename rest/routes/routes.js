@@ -16,6 +16,7 @@ const users_schedules = require('./users-schedules');
 const users_reservations = require('./users-reservations');
 const vehicles = require('./vehicles');
 const vehicles_schedules = require('./vehicles-schedules');
+const vehicles_advanced = require('./vehicles-advanced');
 const vehicles_reservations = require('./vehicles-reservations');
 
 // *Setting up the api routes:
@@ -60,6 +61,8 @@ router.delete('/api/v1/vehicles/:id',  authorization('permission_vehicles'), veh
 
 // *Setting up the vehicles-schedules routes:
 router.get('/api/v1/vehicles/:id/schedules', vehicles_schedules.retrieveAll);
+// *Setting up the advanced vehicle routes:
+router.get('/api/v1/vehicles/:id/availability', vehicles_advanced.retrieveAvailability);
 
 // *Setting up the vehicles-reservations routes:
 router.get('/api/v1/vehicles/:id/reservations', vehicles_reservations.retrieveAll);

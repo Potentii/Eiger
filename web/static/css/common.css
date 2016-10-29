@@ -361,8 +361,8 @@ body{
 
 @media (orientation: landscape) and (min-width: 500px){
 	.drawer{
-		width: 26em;
-		transform: translateX(-26em);
+		width: 21em;
+		transform: translateX(-21em);
 	}
 }
 @media (orientation: landscape) and (max-height: 500px){
@@ -595,7 +595,7 @@ button.raised:active, a.raised:active, .dragging.raised {
    overflow: hidden;
 }
 /**
- * Hidden file input
+ * Hidden image input
  */
 .round-thumbnail-image-input > input[type="file"]{
 	visibility: hidden;
@@ -618,6 +618,30 @@ button.raised:active, a.raised:active, .dragging.raised {
    opacity: 0.9;
    font-size: 2em;
    cursor: pointer;
+}
+
+
+
+/* ========== * ========== * ========== * ==========
+ * File input
+ * ========== * ========== * ========== * ==========
+ */
+.file-input > input[type="file"]{
+	visibility: hidden;
+   width: 0;
+   height: 0;
+}
+.file-input .fab{
+	background-color: rgba(0, 0, 0, 0) !important;
+	color: var(--bg-color-contrast-faded) !important;
+	font-size: 1.9em;
+	box-shadow: none;
+	padding: 0.3em;
+	transition: color 0.3s ease;
+}
+.file-input .fab:hover{
+	color: var(--bg-color-contrast-icon) !important;
+	transition: color 0.3s ease;
 }
 
 

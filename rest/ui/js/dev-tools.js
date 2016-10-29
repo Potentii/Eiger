@@ -13,8 +13,8 @@ $(() => {
       } else if(e.which === 116){
          // *If it is:
          // *Reloading the page:
-         location.reload();
+         //location.reload();
       }
    });
-   
+
 });

@@ -12,6 +12,32 @@ const request = (function(){
 
 
    /**
+    * Retrieves the parameter object as a query string
+    * @param {object} params  The parameters
+    * @return {string}        The query string representation of the parameters
+    * @author Guilherme Reginaldo Ruella
+    */
+   function getQueryString(params){
+      // *Checking if the parameters was set:
+      if(params){
+         // *If it is:
+         // *Transforming it on a query string:
+         params = $.param(params);
+         // *Adding the ? before:
+         params = params?'?'+params:params;
+      } else{
+         // *If it's not:
+         // *Setting it as an empty string:
+         params = '';
+      }
+
+      // *Returning the query string:
+      return params;
+   }
+
+
+
+   /**
    * Recovers the authentication keys in cache
    * @return {object} JSON The token and the user key
    * @author Ralf Pablo Braga Soares
@@ -200,6 +226,29 @@ const request = (function(){
       // *Requesting user:
       return $.ajax({
          url: rest_url + '/api/v1/users/' + id + '/sensitive',
+         method: 'GET',
+         headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
+      });
+   }
+
+
+
+   /**
+    * Retrieves the vehicle availability on the given dates
+    * @param  {number} id     The vehicle's id
+    * @param  {object} params An object that must contain an array of dates
+    * @return {jqXHR}         The ajax request
+    * @author Guilherme Reginaldo Ruella
+    */
+   function getVehiclesAvailability(id, params){
+      // *Transforming the params object into a query string:
+      params = getQueryString(params);
+
+      // *Getting the key and the token:
+      let auth = retrieveAccessInfo();
+
+      return $.ajax({
+         url: rest_url + '/api/v1/vehicles/' + id + '/availability' + params,
          method: 'GET',
          headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
       });
@@ -577,6 +626,7 @@ const request = (function(){
       getVehicles: getVehicles,
       getSchedule: getSchedule,
       getSchedules: getSchedules,
+      getVehiclesAvailability: getVehiclesAvailability,
       getVehiclesSchedules: getVehiclesSchedules,
       getUsersSchedules: getUsersSchedules,
       getVehiclesReservations: getVehiclesReservations,
