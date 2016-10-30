@@ -56,6 +56,7 @@
       <!-- * Pages * -->
       <script src="../../web/static/js/pages/splash.js"></script>
       <script src="./js/pages/log.js"></script>
+      <script src="./js/pages/email-settings.js"></script>
 
       <title>Eiger REST API</title>
    </head>
@@ -200,7 +201,7 @@
             <div class="row mdl-input-row">
                <i class="material-icons">_</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input id="email-settings-confirmation-email" class="mdl-textfield__input" type="email" required="true" disabled="true">
+                  <input id="email-settings-confirmation-email" class="mdl-textfield__input" type="email" required="true">
                   <label class="mdl-textfield__label" for="email-settings-confirmation-email" data-intl="email-settings-confirmation-email"></label>
                </span>
             </div>
@@ -209,7 +210,7 @@
             <div class="row mdl-input-row">
                <i class="material-icons">_</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input id="email-settings-confirmation-subject" class="mdl-textfield__input" type="text" disabled="true">
+                  <input id="email-settings-confirmation-subject" class="mdl-textfield__input" type="text">
                   <label class="mdl-textfield__label" for="email-settings-confirmation-subject" data-intl="email-settings-confirmation-subject"></label>
                </span>
             </div>
@@ -220,7 +221,7 @@
                <span class="file-input vertical-layout">
                   <label class="output-label" data-intl="email-settings-confirmation-body-name"></label>
 
-                  <input id="email-settings-confirmation-body" type="file" accept="text/html" disabled="true">
+                  <input id="email-settings-confirmation-body" type="file" accept="text/html">
 
                   <div class="horizontal-layout">
                      <button type="button" class="middle material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect fab" onclick="$('#email-settings-confirmation-body').click()">note_add</button>
