@@ -765,7 +765,6 @@ li .secondary{
 }
 .list > li, .grid > li, .list > .empty-list-text{
 	position: relative;
-	display: block;
 	opacity: 1;
    transition: opacity, background, 0.3s ease;
 }

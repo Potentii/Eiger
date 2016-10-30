@@ -143,7 +143,7 @@ const request = (function(){
 
       // *Requesting all schedules:
       return $.ajax({
-         url: rest_url + '/api/v1/schedules/',
+         url: rest_url + '/api/v1/schedules',
          method: 'GET',
          headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
       });
@@ -163,7 +163,7 @@ const request = (function(){
 
       // *Requesting all vehicles:
       return $.ajax({
-         url: rest_url + '/api/v1/vehicles/',
+         url: rest_url + '/api/v1/vehicles',
          method: 'GET',
          headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
       });
@@ -183,7 +183,7 @@ const request = (function(){
 
       // *Requesting users:
       return $.ajax({
-         url: rest_url + '/api/v1/users/',
+         url: rest_url + '/api/v1/users',
          method: 'GET',
          headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
       });
@@ -268,7 +268,7 @@ const request = (function(){
       let auth = retrieveAccessInfo();
 
       return $.ajax({
-         url: rest_url + '/api/v1/vehicles/' + id + '/schedules/',
+         url: rest_url + '/api/v1/vehicles/' + id + '/schedules',
          method: 'GET',
          headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
       });
@@ -288,7 +288,7 @@ const request = (function(){
       let auth = retrieveAccessInfo();
 
       return $.ajax({
-         url: rest_url + '/api/v1/users/' + id + '/schedules/',
+         url: rest_url + '/api/v1/users/' + id + '/schedules',
          method: 'GET',
          headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
       });
@@ -308,7 +308,7 @@ const request = (function(){
       let auth = retrieveAccessInfo();
 
       return $.ajax({
-         url: rest_url + '/api/v1/vehicles/' + id + '/reservations/',
+         url: rest_url + '/api/v1/vehicles/' + id + '/reservations',
          method: 'GET',
          headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
       });
@@ -349,7 +349,7 @@ const request = (function(){
       let auth = retrieveAccessInfo();
 
       return $.ajax({
-         url: rest_url + '/api/v1/users/' + id + '/reservations/',
+         url: rest_url + '/api/v1/users/' + id + '/reservations',
          method: 'GET',
          headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
       });
@@ -377,7 +377,31 @@ const request = (function(){
    }
 
 
+
+   /**
+   * Retrieves all reservations
+   * @param  {object} params The filter object
+   * @return {jqXHR}     The ajax request
+   * @author Guilherme Reginaldo Ruella
+   */
+   function getReservations(params, {order_by, order_type}){
+      // *Transforming the params object into a query string:
+      params = getQueryString(params);
+
+      // *Getting the key and the token:
+      let auth = retrieveAccessInfo();
+
+      return $.ajax({
+         url: rest_url + '/api/v1/reservations' + params,
+         method: 'GET',
+         headers: {'Access-Token': auth.token, 'Access-Key': auth.key, 'Sort-Field': order_by, 'Sort-Type': order_type}
+      });
+   }
+
+
+
 // *------------------------ POSTS -------------------------------:
+
 
 
    /**
@@ -633,6 +657,7 @@ const request = (function(){
       getVehiclesReservationsOnDate: getVehiclesReservationsOnDate,
       getUsersReservations: getUsersReservations,
       getUsersReservationsOnDate: getUsersReservationsOnDate,
+      getReservations: getReservations,
       getUser: getUser,
       getUsers: getUsers,
       getUserSensitive: getUserSensitive,
