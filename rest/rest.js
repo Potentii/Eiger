@@ -28,7 +28,7 @@ function start(){
       // *Methods allowed:
       res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
       // *Headers allowed:
-      res.header('Access-Control-Allow-Headers', 'Content-Type,Accept,Access-Token,Access-Key');
+      res.header('Access-Control-Allow-Headers', 'Content-Type,Accept,Access-Token,Access-Key,Sort-Field,Sort-Type');
       // *Sending to the next middleware:
       next();
    });

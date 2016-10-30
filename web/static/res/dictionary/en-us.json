@@ -1,4 +1,12 @@
 [
+   ["drawer-nav-users", "Users"],
+   ["drawer-nav-reservations", "Find reservations"],
+   ["drawer-nav-settings", "Settings"],
+   ["drawer-nav-about-us", "About us"],
+
+   ["auth-text", "Authenticating"],
+   ["fallback-text", "Page not found"],
+
    ["login-username", "Username"],
    ["login-password", "Password"],
    ["login-login", "Login"],
@@ -122,6 +130,10 @@
    ["user-update-permission-vehicles", "${user-create-permission-vehicles}"],
    ["user-update-permission-vehicles-detail", "${user-create-permission-vehicles-detail}"],
 
+   ["reservations-header", "Find reservations"],
+   ["none-selected-text-reservations-vehicle", "No vehicle selected"],
+   ["none-selected-text-reservations-user", "No user selected"],
+
 
 
    ["empty-list-text-vehicles", "No vehicles found"],
@@ -147,6 +159,16 @@
    ["vehicle-picker-header", "Select a vehicle"],
    ["vehicle-picker-cancel", "cancel"],
    ["vehicle-picker-ok", "ok"],
+
+   ["reservations-filters-header", "Filters"],
+   ["reservations-filters-schedule-id", "Schedule code"],
+   ["reservations-filters-confirmed", "${schedule-info-confirmed}"],
+   ["reservations-filters-confirmed-false", "${schedule-info-confirmed-false}"],
+   ["reservations-filters-confirmed-true", "${schedule-info-confirmed-true}"],
+   ["reservations-filters-from-date", "From"],
+   ["reservations-filters-to-date", "To"],
+   ["reservations-filters-cancel", "cancel"],
+   ["reservations-filters-apply", "apply"],
 
 
 
