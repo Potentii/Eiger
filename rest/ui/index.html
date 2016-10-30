@@ -7,13 +7,13 @@
 
       <!-- * CSS * -->
       <link rel="stylesheet" href="../../web/static/css/lib/material.min.css">
-      <link rel="stylesheet" href="../../web/static/css/material-icons.css">
 
       <link rel="stylesheet" href="../../web/static/css/color.css">
       <link rel="stylesheet" href="../../web/static/css/font.css">
       <link rel="stylesheet" href="../../web/static/css/common.css">
 
       <link rel="stylesheet" href="../../web/static/css/all.css">
+      <link rel="stylesheet" href="../../web/static/css/fallback.css">
       <link rel="stylesheet" href="./css/log.css">
 
       <!-- * JS * -->
@@ -22,8 +22,40 @@
          window.$ = window.jQuery = require('../../web/static/js/lib/jquery.min.js');
       </script>
 
+      <!-- * Util * -->
+      <script src="../../web/static/js/util/Iterator.js"></script>
+      <script src="../../web/static/js/util/HandledEvent.js"></script>
+      <script src="../../web/static/js/util/AutoConsumableQueue.js"></script>
+
+      <!-- * Modules * -->
+      <script src="../../web/static/js/srm/srm.js"></script>
+
+      <script src="./js/intl/intl.js"></script>
+
+      <script src="../../web/static/js/date-format/date-format.js"></script>
+
+      <script src="../../web/static/js/anim/anim.js"></script>
+
+      <script src="../../web/static/js/snack/snack.js"></script>
+
+      <script src="../../web/static/js/drawer/drawer.js"></script>
+      <script src="../../web/static/js/drawer/setup.js"></script>
+
+      <script src="../../web/static/js/dialog/Dialog.js"></script>
+      <script src="../../web/static/js/dialog/dialogger.js"></script>
+
+      <script src="../../web/static/js/spa/Page.js"></script>
+      <script src="../../web/static/js/spa/spa.js"></script>
+
+      <script src="./js/pages/subscriptions.js"></script>
+
+      <script src="../../web/static/js/mdl/mdl-util.js"></script>
+
       <script src="./js/dev-tools.js"></script>
-      <script src="./js/logger.js"></script>
+
+      <!-- * Pages * -->
+      <script src="../../web/static/js/pages/splash.js"></script>
+      <script src="./js/pages/log.js"></script>
 
       <title>Eiger REST API</title>
    </head>
@@ -32,27 +64,176 @@
 
 
       <!--
+      Navigation drawer
+      -->
+      <div id="drawer-overlay" class="drawer-overlay">
+         <nav id="drawer" class="drawer raised">
+            <!-- * Navigation list * -->
+            <div class="drawer-navigation vertical-layout">
+               <button type="button" class="mdl-js-button mdl-js-ripple-effect" onclick="spa.navigateTo('email-settings')"><i class="material-icons">email</i><span data-intl="drawer-nav-email"></span></button>
+
+               <div class="horizontal-separator"></div>
+
+               <button type="button" class="mdl-js-button mdl-js-ripple-effect" onclick="spa.navigateTo('settings')"><i class="material-icons">settings</i><span data-intl="drawer-nav-settings"></span></button>
+               <button type="button" class="mdl-js-button mdl-js-ripple-effect" onclick="spa.navigateTo('about-us')"><i class="material-icons">info</i><span data-intl="drawer-nav-about-us"></span></button>
+            </div>
+         </nav>
+      </div>
+
+
+
+      <!--
+      Load splash overlay
+      -->
+      <div id="load-overlay"></div>
+
+
+
+      <!--
+      Fallback Page
+      -->
+      <section id="fallback-section" data-page="fallback">
+         <div class="vertical-layout">
+            <span>Page not found</span>
+         </div>
+      </section>
+
+
+
+      <!--
       Logs Page
       -->
       <section id="log-section" data-page="log">
          <header class="app-bar flex-horizontal-layout tinted raised">
-            <span>Logs</span>
+            <button type="button" onclick="drawer.open()" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">menu</button>
+            <span data-intl="log-header"></span>
          </header>
 
          <!-- Logs list -->
-         <ul id="log-list" class="list">
+         <ul id="log-list" class="list content-before-fab">
+            <span class="empty-list-text box card raised" data-intl="empty-list-text-log"></span>
             <!-- Example of a log entry -->
             <!--
             <li class="row">
-               <span class="status" data-status="400">[status]</span>
+               <span class="status">[status]</span>
                <div class="vertical-line"></div>
-               <div class="vertical-layout">
+               <div class="flex-vertical-layout">
                   <span class="primary">[method]</span>
                   <span class="secondary">[route]</span>
                </div>
             </li>
             -->
          </ul>
+
+         <!-- Clear FAB -->
+         <div class="fab-container">
+            <button id="log-clear-fab" type="button" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">clear_all</button>
+         </div>
+      </section>
+
+
+
+      <!--
+      Email settings Page
+      -->
+      <section id="email-settings-section" data-page="email-settings">
+         <!-- Appbar -->
+         <header class="app-bar flex-horizontal-layout tinted">
+            <button type="button" onclick="spa.goBack()" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
+            <span data-intl="email-settings-header"></span>
+         </header>
+
+
+         <!-- Vehicle update form -->
+         <form id="email-settings-form" class="form content-before-fab" autocomplete="off">
+
+            <!-- SMTP server input -->
+            <div class="row mdl-input-row">
+               <i class="material-icons">dns</i>
+               <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input id="email-settings-smtp-server" class="mdl-textfield__input" type="text" pattern=".*\S+.*" required="true">
+                  <label class="mdl-textfield__label" for="email-settings-smtp-server" data-intl="email-settings-smtp-server"></label>
+               </span>
+            </div>
+
+            <!-- SMTP port input -->
+            <div class="row mdl-input-row">
+               <i class="material-icons">_</i>
+               <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input id="email-settings-smtp-port" class="mdl-textfield__input" type="text" pattern="\d+" required="true">
+                  <label class="mdl-textfield__label" for="email-settings-smtp-port" data-intl="email-settings-smtp-port"></label>
+               </span>
+            </div>
+
+            <div class="horizontal-separator"></div>
+
+            <!-- User input -->
+            <div class="row mdl-input-row">
+               <i class="material-icons">account_circle</i>
+               <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input id="email-settings-user" class="mdl-textfield__input" type="text" pattern=".*\S+.*" required="true">
+                  <label class="mdl-textfield__label" for="email-settings-user" data-intl="email-settings-user"></label>
+               </span>
+            </div>
+
+            <!-- Password input -->
+            <div class="row mdl-input-row">
+               <i class="material-icons">_</i>
+               <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input id="email-settings-password" class="mdl-textfield__input" type="password">
+                  <label class="mdl-textfield__label" for="email-settings-password" data-intl="email-settings-password"></label>
+               </span>
+            </div>
+
+            <div class="horizontal-separator"></div>
+
+            <!-- Confirmation send input -->
+            <div class="row mdl-input-row">
+               <i class="material-icons">email</i>
+               <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="email-settings-confirmation-send">
+                  <input id="email-settings-confirmation-send" type="checkbox" class="mdl-checkbox__input">
+                  <span class="mdl-checkbox__label" data-intl="email-settings-confirmation-send"></span>
+               </label>
+            </div>
+
+            <!-- Confirmation E-mail input -->
+            <div class="row mdl-input-row">
+               <i class="material-icons">_</i>
+               <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input id="email-settings-confirmation-email" class="mdl-textfield__input" type="email" required="true" disabled="true">
+                  <label class="mdl-textfield__label" for="email-settings-confirmation-email" data-intl="email-settings-confirmation-email"></label>
+               </span>
+            </div>
+
+            <!-- Confirmation subject input -->
+            <div class="row mdl-input-row">
+               <i class="material-icons">_</i>
+               <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input id="email-settings-confirmation-subject" class="mdl-textfield__input" type="text" disabled="true">
+                  <label class="mdl-textfield__label" for="email-settings-confirmation-subject" data-intl="email-settings-confirmation-subject"></label>
+               </span>
+            </div>
+
+            <!-- Confirmation body input -->
+            <div class="row">
+               <i class="material-icons">_</i>
+               <span class="file-input vertical-layout">
+                  <label class="output-label" data-intl="email-settings-confirmation-body-name"></label>
+
+                  <input id="email-settings-confirmation-body" type="file" accept="text/html" disabled="true">
+
+                  <div class="horizontal-layout">
+                     <button type="button" class="middle material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect fab" onclick="$('#email-settings-confirmation-body').click()">note_add</button>
+                     <span id="email-settings-confirmation-body-name" class="middle labeled-output"></span>
+                  </div>
+               </span>
+            </div>
+         </form>
+
+         <!-- Done FAB -->
+         <div class="fab-container">
+            <button id="email-settings-done-fab" type="submit" form="email-settings-form" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">done</button>
+         </div>
       </section>
    </body>
 </html>

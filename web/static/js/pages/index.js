@@ -148,20 +148,21 @@ function requestSchedules(id, button_ul) {
 
 
 /**
- * Retrieves an array of days, begining on the given date
- * @param  {number} days_quantity Number of days
- * @param  {Date} from_date       The start date
- * @author Guilherme Reginaldo Ruella
- */
+* Retrieves an array of days, begining on the given date
+* @param  {number} days_quantity Number of days
+* @param  {Date} from_date       The start date
+* @author Guilherme Reginaldo Ruella
+*/
 function getNextDays(days_quantity, from_date){
-   var vet = [];
+   let vet = [];
 
    for(var i=0; i<days_quantity; i++) {
-      var current_date = from_date || new Date();
-      var next_date_ms = current_date.setDate(current_date.getDate() + i);
-      var next_date = new Date(next_date_ms);
+      let current_date = from_date ? new Date(from_date) : new Date();
+      let next_date_ms = current_date.setDate(current_date.getDate() + i);
+      let next_date = new Date(next_date_ms);
       vet.push(next_date);
    }
+
    return vet;
 }
 

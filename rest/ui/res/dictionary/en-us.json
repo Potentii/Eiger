@@ -1,0 +1,18 @@
+[
+   ["drawer-nav-email", "E-mail settings"],
+   ["drawer-nav-settings", "Settings"],
+   ["drawer-nav-about-us", "About us"],
+
+   ["log-header", "Logs"],
+   ["empty-list-text-log", "No requests logged yet"],
+
+   ["email-settings-header", "E-mail settings"],
+   ["email-settings-smtp-server", "SMTP server"],
+   ["email-settings-smtp-port", "SMTP port"],
+   ["email-settings-user", "User"],
+   ["email-settings-password", "Password"],
+   ["email-settings-confirmation-send", "Send schedule confirmation e-mails"],
+   ["email-settings-confirmation-email", "Schedule Confirmation E-mail account"],
+   ["email-settings-confirmation-subject", "Schedule Confirmation subject"],
+   ["email-settings-confirmation-body-name", "Schedule Confirmation body"]
+]

@@ -11,6 +11,7 @@
    padding-bottom: 0.4em;
 
    font-size: 1.3em;
+   overflow: hidden;
 
    animation: logRowFadeIn 0.5s ease;
    animation-fill-mode: forwards;
@@ -40,6 +41,7 @@
 
    border-radius: 50%;
    background: var(--accent-color);
+   flex-shrink: 0;
 
    animation: logLabelfadeOut 0.2s ease 8s;
    animation-fill-mode: forwards;
@@ -63,17 +65,21 @@
    font-size: 100%;
    width: 2.2em;
    overflow: hidden;
+   flex-shrink: 0;
 }
 
 #log-list .row .vertical-line{
    margin: 0 0.5em;
 }
-
+#log-list .row .flex-vertical-layout{
+   height: 100%;
+}
 #log-list .row .primary{
    font-size: 75%;
 }
 #log-list .row .secondary{
-   font-size: 65%;
+   font-size: 60%;
+   line-height: 1.2em;
 }
 
 
