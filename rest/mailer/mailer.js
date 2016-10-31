@@ -37,22 +37,28 @@ function sendMail(from_address, to_addresses, subject, content, content_params){
          return;
       }
 
-      // *Mapping the content with its parameters:
-      content = parseMailContent(content, content_params);
+      try{
+         // *Mapping the content with its parameters:
+         content = parseMailContent(content, content_params);
 
-      // *Setting up the e-mail:
-      let mail_options = {
-         from: from_address,
-         to: Array.isArray(to_addresses) ? to_addresses.join(', ') : to_addresses,
-         subject: subject,
-         text: '',
-         html: content
-      };
+         // *Setting up the e-mail:
+         let mail_options = {
+            from: from_address,
+            to: Array.isArray(to_addresses) ? to_addresses.join(', ') : to_addresses,
+            subject: subject,
+            text: '',
+            html: content
+         };
 
-      // *Sending the e-mail:
-      transporter.sendMail(mail_options)
-         .then(() => resolve())
-         .catch(err => reject(err));
+         // *Sending the e-mail:
+         transporter.sendMail(mail_options)
+            .then(() => resolve())
+            .catch(err => reject(err));
+      } catch(err){
+         // *If something went wrong:
+         // *Rejecting the promise:
+         reject(err);
+      }
    });
 }
 
@@ -74,6 +80,8 @@ function sendScheduleConfirmationMail(to_addresses, content_params){
       settings.loadSettings(settings.EMAIL_SETTINGS_FILE)
          .then(email_settings => {
             // *If the file could be read:
+            // *Parsing its content:
+            email_settings = JSON.parse(email_settings);
             try{
                // *Sending the e-mail:
                sendMail(email_settings.confirmation_account, to_addresses, email_settings.confirmation_subject, email_settings.confirmation_body, content_params)
@@ -102,14 +110,14 @@ function setupService(){
    // *Returning the promise:
    return new Promise((resolve, reject) => {
       // *Adding a updating listener when the e-mail settings get changed:
-      settings.onSettingsChanged(settings.EMAIL_SETTINGS_FILE, new_settings => applySettings(new_settings));
+      settings.onSettingsChanged(settings.EMAIL_SETTINGS_FILE, new_settings => applySettings(JSON.parse(new_settings)));
 
       // *Loading the e-mail settings:
       settings.loadSettings(settings.EMAIL_SETTINGS_FILE)
          .then(email_settings => {
             // *If the file could be loaded:
             // *Applying the e-mail settings:
-            applySettings(email_settings)
+            applySettings(JSON.parse(email_settings))
                .then(() => resolve())
                .catch(err => {
                   // *If the settings wasn't valid:
