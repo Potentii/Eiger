@@ -1,4 +1,12 @@
 [
+   ["drawer-nav-users", "Usuários"],
+   ["drawer-nav-reservations", "Procurar reservas"],
+   ["drawer-nav-settings", "Configurações"],
+   ["drawer-nav-about-us", "Sobre nós"],
+
+   ["auth-text", "Autenticando"],
+   ["fallback-text", "Página não encontrada"],
+
    ["login-username", "Usuário"],
    ["login-password", "Senha"],
    ["login-login", "Entrar"],
@@ -122,6 +130,10 @@
    ["user-update-permission-vehicles", "${user-create-permission-vehicles}"],
    ["user-update-permission-vehicles-detail", "${user-create-permission-vehicles-detail}"],
 
+   ["reservations-header", "Procurar reservas"],
+   ["none-selected-text-reservations-vehicle", "Nenhum veículo selecionado"],
+   ["none-selected-text-reservations-user", "Nenhum usuário selecionado"],
+
 
 
    ["empty-list-text-vehicles", "Nenhum veículo encontrado"],
@@ -147,6 +159,16 @@
    ["vehicle-picker-header", "Escolha um veículo"],
    ["vehicle-picker-cancel", "cancelar"],
    ["vehicle-picker-ok", "ok"],
+
+   ["reservations-filters-header", "Filtros"],
+   ["reservations-filters-schedule-id", "Código da reserva"],
+   ["reservations-filters-confirmed", "${schedule-info-confirmed}"],
+   ["reservations-filters-confirmed-false", "${schedule-info-confirmed-false}"],
+   ["reservations-filters-confirmed-true", "${schedule-info-confirmed-true}"],
+   ["reservations-filters-from-date", "De"],
+   ["reservations-filters-to-date", "Até"],
+   ["reservations-filters-cancel", "cancelar"],
+   ["reservations-filters-apply", "aplicar"],
 
 
 

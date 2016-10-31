@@ -105,6 +105,20 @@ section > .list{
    background: #fff;
 }
 
+/**
+ * None selected text
+ */
+.clickable-app-bar.none-selected > div > div{
+   visibility: hidden;
+}
+.clickable-app-bar .none-selected-text{
+   position: absolute;
+   visibility: hidden;
+}
+.clickable-app-bar.none-selected .none-selected-text{
+   visibility: visible;
+}
+
 
 
 /**
@@ -114,7 +128,29 @@ section > .list{
    display: flex;
    flex-direction: column;
    align-items: center;
+   justify-content: center;
    line-height: 1.2em;
+}
+li .schedule-duration-output{
+   width: 20%;
+   min-width: 12em;
+   flex-grow: 0;
+   flex-shrink: 0;
+}
+li .schedule-duration-output::before{
+   content: '';
+   position: absolute;
+   width: 1px;
+   height: 100%;
+   top: 0;
+   left: 0;
+   background: rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 500px), (orientation: portrait) {
+   li .schedule-duration-output{
+      max-width: 8em;
+      min-width: 8em;
+   }
 }
 /**
  * Three dots icon

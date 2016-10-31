@@ -28,6 +28,7 @@
       <link rel="stylesheet" href="./static/css/vehicles.css">
       <link rel="stylesheet" href="./static/css/schedules.css">
       <link rel="stylesheet" href="./static/css/schedule-info.css">
+      <link rel="stylesheet" href="./static/css/reservations.css">
       <link rel="stylesheet" href="./static/css/users.css">
 
 
@@ -81,19 +82,23 @@
       <!-- * Pages * -->
       <script src="./static/js/pages/splash.js"></script>
       <script src="./static/js/pages/login.js"></script>
+
       <script src="./static/js/pages/index.js"></script>
       <script src="./static/js/pages/vehicle-info.js"></script>
+      <script src="./static/js/pages/vehicle-create.js"></script>
       <script src="./static/js/pages/vehicle-update.js"></script>
+
       <script src="./static/js/pages/schedule-date-validation.js"></script>
-      <script src="./static/js/pages/schedule-create.js"></script>
       <script src="./static/js/pages/schedules.js"></script>
       <script src="./static/js/pages/schedule-info.js"></script>
+      <script src="./static/js/pages/schedule-create.js"></script>
       <script src="./static/js/pages/schedule-update.js"></script>
-      <script src="./static/js/pages/vehicle-create.js"></script>
+      <script src="./static/js/pages/reservations.js"></script>
+
       <script src="./static/js/pages/users.js"></script>
       <script src="./static/js/pages/user-info.js"></script>
-      <script src="./static/js/pages/user-update.js"></script>
       <script src="./static/js/pages/user-create.js"></script>
+      <script src="./static/js/pages/user-update.js"></script>
 
       <title>Eiger</title>
    </head>
@@ -126,15 +131,16 @@
 
             <!-- * Navigation list * -->
             <div class="drawer-navigation vertical-layout">
-               <button type="button" class="mdl-js-button mdl-js-ripple-effect" onclick="spa.navigateTo('users')"><i class="material-icons">people</i><span>Users</span></button>
-               <button type="button" class="mdl-js-button mdl-js-ripple-effect" onclick="spa.navigateTo('reservations')"><i class="material-icons">event</i><span>Schedules</span></button>
-               <button type="button" class="mdl-js-button mdl-js-ripple-effect" onclick="spa.navigateTo('')"><i class="material-icons">directions_car</i><span>Vehicles</span></button>
+               <button type="button" class="mdl-js-button mdl-js-ripple-effect" onclick="spa.navigateTo('users')"><i class="material-icons">people</i><span data-intl="drawer-nav-users"></span></button>
+               <button type="button" class="mdl-js-button mdl-js-ripple-effect" onclick="spa.navigateTo('reservations')"><i class="material-icons">event</i><span data-intl="drawer-nav-reservations"></span></button>
 
                <div class="horizontal-separator"></div>
 
                <button type="button" class="mdl-js-button mdl-js-ripple-effect" onclick="spa.navigateTo('settings')"><i class="material-icons">settings</i><span>Settings</span></button>
                <button type="button" class="mdl-js-button mdl-js-ripple-effect" onclick="spa.navigateTo('about-us')"><i class="material-icons">info</i><span>About us</span></button>
                <button type="button" class="mdl-js-button mdl-js-ripple-effect" onclick="logoff()"><i class="material-icons">info</i><span>Logoff</span></button>
+               <button type="button" class="mdl-js-button mdl-js-ripple-effect" onclick="spa.navigateTo('settings')"><i class="material-icons">settings</i><span data-intl="drawer-nav-settings"></span></button>
+               <button type="button" class="mdl-js-button mdl-js-ripple-effect" onclick="spa.navigateTo('about-us')"><i class="material-icons">info</i><span data-intl="drawer-nav-about-us"></span></button>
             </div>
          </nav>
       </div>
@@ -153,7 +159,7 @@
       -->
       <section id="auth-section" data-page="auth">
          <div class="vertical-layout">
-            <span>Authenticating</span>
+            <span data-intl="auth-text"></span>
             <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
          </div>
       </section>
@@ -165,7 +171,7 @@
       -->
       <section id="fallback-section" data-page="fallback">
          <div class="vertical-layout">
-            <span>Page not found</span>
+            <span data-intl="fallback-text"></span>
          </div>
       </section>
 
@@ -826,7 +832,7 @@
             <div class="row mdl-input-row">
                <i class="material-icons">_</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input id="schedule-create-end-date" class="mdl-textfield__input" type="date" pattern=".*\S+.*" required="true">
+                  <input id="schedule-create-end-date" class="mdl-textfield__input" type="date" pattern=".*\S+.*" required="true" data-date-format="dd.mm.YYYY">
                   <label class="mdl-textfield__label" for="schedule-create-end-date" data-intl="schedule-create-end-date"></label>
                </span>
             </div>
@@ -952,7 +958,7 @@
             <div class="row mdl-input-row">
                <i class="material-icons">_</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input id="schedule-update-end-date" class="mdl-textfield__input" type="date" pattern=".*\S+.*" required="true">
+                  <input id="schedule-update-end-date" class="mdl-textfield__input" type="date" pattern=".*\S+.*" required="true" data-date-format="dd.mm.YYYY">
                   <label class="mdl-textfield__label" for="schedule-update-end-date" data-intl="schedule-update-end-date"></label>
                </span>
             </div>
@@ -977,7 +983,7 @@
             <span data-intl="users-header"></span>
          </header>
 
-         <!-- Vehicle's schedules list -->
+         <!-- Users list -->
          <ul id="users-list" class="list content-before-fab">
             <span class="empty-list-text box card raised" data-intl="empty-list-text-users"></span>
             <!-- Example of an item -->
@@ -1493,6 +1499,92 @@
 
 
       <!--
+      Reservations Page
+      -->
+      <section id="reservations-section" data-page="reservations">
+         <!-- Appbar -->
+         <header class="app-bar flex-horizontal-layout tinted">
+            <button type="button" onclick="spa.navigateTo('')" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
+            <span data-intl="reservations-header"></span>
+            <button id="reservations-filter-fab" type="button" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab right">filter_list</button>
+         </header>
+
+         <!-- Vehicle sub appbar -->
+         <header id="reservations-vehicle-app-bar" class="app-bar clickable-app-bar none-selected mdl-js-button mdl-js-ripple-effect tinted vehicle-info-app-bar">
+
+            <!-- Vehicle appbar info -->
+            <div class="flex-horizontal-layout">
+               <span class="none-selected-text" data-intl="none-selected-text-reservations-vehicle"></span>
+               <div id="reservations-vehicle-photo" class="inflate round-thumbnail size-3"></div>
+               <div class="vertical-layout">
+                  <span id="reservations-vehicle-title" class="primary"><!--[title] - [plate]--></span>
+                  <span id="reservations-vehicle-description" class="secondary"><!--[year] - [manufacturer] - [type]--></span>
+               </div>
+            </div>
+
+         </header>
+
+         <!-- User sub appbar -->
+         <header id="reservations-user-app-bar" class="app-bar clickable-app-bar none-selected mdl-js-button mdl-js-ripple-effect tinted raised vehicle-info-app-bar">
+
+            <!-- User appbar info -->
+            <div class="flex-horizontal-layout thumbnailed-info">
+               <span class="none-selected-text" data-intl="none-selected-text-reservations-user"></span>
+               <div id="reservations-user-photo" class="inflate round-thumbnail size-3"></div>
+               <div class="vertical-layout">
+                  <span id="reservations-user-name" class="primary"><!--[user-name]--></span>
+                  <span id="reservations-user-login" class="secondary"><!--[login]--></span>
+               </div>
+            </div>
+
+         </header>
+
+         <!-- Reservations' cards list -->
+         <ul id="reservations-list" class="list content-before-fab">
+            <span class="empty-list-text box card raised" data-intl="empty-list-text-reservations"></span>
+            <!-- Example of a reservation card -->
+            <!--
+            <li class="row card box raised flex-horizontal-layout">
+               <div class="vertical-layout">
+                  <div class="flex-horizontal-layout thumbnailed-info">
+                     <div class="round-thumbnail size-3" style="background-image: url(http://localhost:3000/media/v/p/01.jpg)"></div>
+                     <div class="vertical-layout">
+                        <span class="primary">[vehicle title]</span>
+                        <span class="secondary">[vehicle description]</span>
+                     </div>
+                  </div>
+
+                  <div class="flex-horizontal-layout thumbnailed-info">
+                     <div class="round-thumbnail size-3" style="background-image: url(http://localhost:3000/media/u/p/01.jpg)"></div>
+                     <div class="vertical-layout">
+                        <span class="primary">[user-name]</span>
+                        <span class="secondary">[login]</span>
+                     </div>
+                  </div>
+
+                  <span class="secondary">[reason]</span>
+               </div>
+
+               <div class="schedule-duration-output">
+                  <span>[start-date]</span>
+                  <span class="secondary">[start-time]</span>
+                  <i class="material-icons secondary">more_vert</i>
+                  <span class="secondary">[end-time]</span>
+                  <span>[end-date]</span>
+               </div>
+            </li>
+            -->
+         </ul>
+
+         <!-- Add FAB -->
+         <div class="fab-container">
+            <button id="reservations-add-fab" type="button" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">add</button>
+         </div>
+      </section>
+
+
+
+      <!--
       Dialogs
       -->
       <div id="dialog-overlay" class="dialogs">
@@ -1625,6 +1717,83 @@
             <div class="flat-button-container">
                <button id="vehicle-picker-cancel-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect" data-intl="vehicle-picker-cancel"></button>
                <button id="vehicle-picker-ok-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect highlighted" data-intl="vehicle-picker-ok"></button>
+            </div>
+         </section>
+
+
+
+         <!--
+         Reservations filters Dialog
+         -->
+         <section class="dialog card raised" data-dialog="reservations-filters">
+            <!-- Appbar -->
+            <header class="app-bar flex-horizontal-layout">
+               <i class="material-icons">filter_list</i>
+               <span data-intl="reservations-filters-header"></span>
+            </header>
+
+            <!-- Reservations-filters form -->
+            <form id="reservations-filters-form" class="form content-before-fab" autocomplete="off">
+
+               <!-- Schedule's id input -->
+               <div class="row mdl-input-row">
+                  <i class="material-icons">event</i>
+                  <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                     <input id="reservations-filters-schedule-id" class="mdl-textfield__input" type="text">
+                     <label class="mdl-textfield__label" for="reservations-filters-schedule-id" data-intl="reservations-filters-schedule-id"></label>
+                  </span>
+               </div>
+
+               <!-- Schedule's status input -->
+               <div class="row">
+                  <i class="material-icons">_</i>
+                  <div class="radio-group">
+                     <label class="output-label" data-intl="reservations-filters-confirmed"></label>
+
+                     <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="reservations-filters-confirmed-false">
+                        <input id="reservations-filters-confirmed-false" name="reservations-filters-confirmed" type="radio" value="planned" class="mdl-radio__button" checked>
+                        <span class="mdl-radio__label" data-intl="reservations-filters-confirmed-false"></span>
+                     </label>
+
+                     <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="reservations-filters-confirmed-true">
+                        <input id="reservations-filters-confirmed-true" name="reservations-filters-confirmed" type="radio" value="confirmed" class="mdl-radio__button">
+                        <span class="mdl-radio__label" data-intl="reservations-filters-confirmed-true"></span>
+                     </label>
+                  </div>
+               </div>
+
+               <div class="horizontal-separator"></div>
+
+               <!-- From date input -->
+               <div class="row mdl-input-row">
+                  <i class="material-icons">date_range</i>
+                  <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                     <input id="reservations-filters-from-date" class="mdl-textfield__input" type="date" data-date-format="dd.mm.YYYY">
+                     <label class="mdl-textfield__label" for="reservations-filters-from-date" data-intl="reservations-filters-from-date"></label>
+                  </span>
+               </div>
+
+               <!-- Time separator -->
+               <div class="row">
+                  <i class="material-icons secondary">_</i>
+                  <i class="material-icons">more_vert</i>
+               </div>
+
+               <!-- To date input -->
+               <div class="row mdl-input-row">
+                  <i class="material-icons">_</i>
+                  <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                     <input id="reservations-filters-to-date" class="mdl-textfield__input" type="date" data-date-format="dd.mm.YYYY">
+                     <label class="mdl-textfield__label" for="reservations-filters-to-date" data-intl="reservations-filters-to-date"></label>
+                  </span>
+               </div>
+
+            </form>
+
+            <!-- Button container -->
+            <div class="flat-button-container">
+               <button id="reservations-filters-cancel-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect" data-intl="reservations-filters-cancel"></button>
+               <button id="reservations-filters-apply-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect highlighted" data-intl="reservations-filters-apply"></button>
             </div>
          </section>
       </div>

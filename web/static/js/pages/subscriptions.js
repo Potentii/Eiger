@@ -13,6 +13,7 @@ spa.subscribe(new Page('schedules'));
 spa.subscribe(new Page('schedule-info'));
 spa.subscribe(new Page('schedule-create'));
 spa.subscribe(new Page('schedule-update'));
+spa.subscribe(new Page('reservations'));
 
 spa.subscribe(new Page('users'));
 spa.subscribe(new Page('user-info'));

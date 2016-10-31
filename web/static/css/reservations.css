@@ -1,0 +1,12 @@
+/**
+ * Reason
+ */
+#reservations-list > li > div:nth-of-type(1) > div:nth-child(n+2), #reservations-list > li > div:nth-of-type(1) > .secondary{
+   margin-top: 1em;
+}
+/**
+ * Schedule duration
+ */
+#reservations-list li .schedule-duration-output{
+   font-size: 0.9em;
+}

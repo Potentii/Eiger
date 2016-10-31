@@ -6,9 +6,6 @@
    flex-direction: row;
    align-items: flex-start;
 }
-#schedules-list *:hover{
-   cursor: pointer;
-}
 
 
 /**
@@ -24,8 +21,5 @@
  * Schedule duration
  */
 #schedules-list li .schedule-duration-output{
-   flex-grow: 0;
-   width: 20%;
-   min-width: 5em;
    font-size: 0.9em;
 }
