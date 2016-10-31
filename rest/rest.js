@@ -62,12 +62,15 @@ function start(){
    let server = app.listen(app.get('port'), () => {
       // *Logging the service instance information:
       let address = server.address();
-      console.log(` > REST service is running`);
-      console.log(`   | Address`);
-      console.log(`   | http://${address.address==='::'?'localhost':address.address}:${address.port}/`);
-      console.log(`   |`);
-      console.log(`   | Media`);
-      console.log(`   | ${require('./media/media').media_path}`);
+      console.log(`> REST service is running`);
+      console.log(`  | Address`);
+      console.log(`  | http://${address.address==='::'?'localhost':address.address}:${address.port}/`);
+      console.log(`  |`);
+      console.log(`  | Media`);
+      console.log(`  | ${require('./media/media').media_path}`);
+      console.log(`  |`);
+      console.log(`  | Settings`);
+      console.log(`  | ${require('./settings/settings').SETTINGS_PATH}`);
    });
 }
 
@@ -78,13 +81,29 @@ function start(){
  * @author Guilherme Reginaldo Ruella
  */
 function startServices(){
+   const mailer = require('./mailer/mailer');
+   const settings = require('./settings/settings');
+
    // *Returning the promise:
    return new Promise((resolve, reject) => {
       try{
          // *Setup the REST service:
          start();
-         // *If everything went well, resolving the promise:
-         resolve();
+
+         // *Starting settings service:
+         settings.setupService()
+            .then(() => {
+               // *If everything went well:
+               // *Starting mailer service:
+               mailer.setupService()
+                  .then(() => {
+                     // *If everything went well:
+                     // *Resolving the promise:
+                     resolve();
+                  })
+                  .catch(err => reject(err));
+            })
+            .catch(err => reject(err));
       } catch(err){
          // *If some error occured:
          // *Rejecting the promise:
@@ -119,8 +138,8 @@ function stopServices(){
          .then(() => resolve())
          .catch(err => reject(err));
    }).then(() => {
-      console.log(`   |`);
-      console.log(`   | REST service finished`);
+      console.log(`  |`);
+      console.log(`  | REST service finished`);
    });
 }
 

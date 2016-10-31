@@ -17,7 +17,7 @@ app.set('port', process.env.PORT || 80);
 let server = app.listen(app.get('port'), () => {
    // *Logging the service instance information:
    let address = server.address();
-   console.log(` > Webserver is running`);
-   console.log(`   | Address`);
-   console.log(`   | http://${address.address==='::'?'localhost':address.address}${address.port==80?'':':' + address.port}/`);
+   console.log(`> Webserver is running`);
+   console.log(`  | Address`);
+   console.log(`  | http://${address.address==='::'?'localhost':address.address}${address.port==80?'':':' + address.port}/`);
 });
