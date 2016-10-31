@@ -121,10 +121,8 @@ function setupService(){
                .then(() => resolve())
                .catch(err => {
                   // *If the settings wasn't valid:
-                  // *Creating a blank file:
-                  createBlankSettingsFile()
-                     .then(() => resolve())
-                     .catch(err => reject(err));
+                  // *Rejecting the promise:
+                  reject();
                });
          })
          .catch(err => {

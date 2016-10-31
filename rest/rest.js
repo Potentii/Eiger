@@ -94,16 +94,36 @@ function startServices(){
          settings.setupService()
             .then(() => {
                // *If everything went well:
+               // *Loggin the success:
+               console.log(`  |`);
+               console.log(`  | Settings system loaded`);
                // *Starting mailer service:
                mailer.setupService()
                   .then(() => {
                      // *If everything went well:
+                     // *Logging the success:
+                     console.log(`  |`);
+                     console.log(`  | Mailer system loaded`);
                      // *Resolving the promise:
                      resolve();
                   })
-                  .catch(err => reject(err));
+                  .catch(err => {
+                     // *If the mailer system could not be loaded:
+                     // *Logging the error:
+                     console.log(`  |`);
+                     console.log(`  | Mailer system could not be loaded`);
+                     // *Resolving the promise anyway:
+                     resolve();
+                  });
             })
-            .catch(err => reject(err));
+            .catch(err => {
+               // *If the settings system could not be loaded:
+               // *Logging the error:
+               console.log(`  |`);
+               console.log(`  | Settings system could not be loaded`);
+               // *Rejecting the promise:
+               reject(err);
+            });
       } catch(err){
          // *If some error occured:
          // *Rejecting the promise:
