@@ -39,7 +39,31 @@ spa.onNavigate('login', (page, params) => {
                spa.navigateTo('login');
                return;
             }
-            console.log(xhr.responseJSON);
+            let text = {title: '', message: ''};
+
+            // *Checking the error code:
+            switch(xhr.responseJSON.err_code){
+
+            // *Case the credentials aren't valid:
+            case 'ERR_INVALID_CREDENTIALS':
+               text.title = srm.get('login-dialog-error-invalid-credentials-title');
+               text.message = srm.get('login-dialog-error-invalid-credentials-message');
+               break;
+
+            // *Case the user isn't active:
+            case 'ERR_USER_NOT_ACTIVE':
+                text.title = srm.get('login-dialog-error-inactive-title');
+                text.message = srm.get('login-dialog-error-inactive-message');
+                break;
+
+            default:
+                text.title = srm.get('login-dialog-error-default-title');
+                text.message = srm.get('login-dialog-error-default-message');
+                break;
+            }
+
+            // *Opening a dialog notice for the user:
+            dialogger.open('default-notice', text);
          });
    });
 });
