@@ -62,12 +62,15 @@ function start(){
    let server = app.listen(app.get('port'), () => {
       // *Logging the service instance information:
       let address = server.address();
-      console.log(` > REST service is running`);
-      console.log(`   | Address`);
-      console.log(`   | http://${address.address==='::'?'localhost':address.address}:${address.port}/`);
-      console.log(`   |`);
-      console.log(`   | Media`);
-      console.log(`   | ${require('./media/media').media_path}`);
+      console.log(`> REST service is running`);
+      console.log(`  | Address`);
+      console.log(`  | http://${address.address==='::'?'localhost':address.address}:${address.port}/`);
+      console.log(`  |`);
+      console.log(`  | Media`);
+      console.log(`  | ${require('./media/media').media_path}`);
+      console.log(`  |`);
+      console.log(`  | Settings`);
+      console.log(`  | ${require('./settings/settings').SETTINGS_PATH}`);
    });
 }
 
@@ -78,13 +81,49 @@ function start(){
  * @author Guilherme Reginaldo Ruella
  */
 function startServices(){
+   const mailer = require('./mailer/mailer');
+   const settings = require('./settings/settings');
+
    // *Returning the promise:
    return new Promise((resolve, reject) => {
       try{
          // *Setup the REST service:
          start();
-         // *If everything went well, resolving the promise:
-         resolve();
+
+         // *Starting settings service:
+         settings.setupService()
+            .then(() => {
+               // *If everything went well:
+               // *Loggin the success:
+               console.log(`  |`);
+               console.log(`  | Settings system loaded`);
+               // *Starting mailer service:
+               mailer.setupService()
+                  .then(() => {
+                     // *If everything went well:
+                     // *Logging the success:
+                     console.log(`  |`);
+                     console.log(`  | Mailer system loaded`);
+                     // *Resolving the promise:
+                     resolve();
+                  })
+                  .catch(err => {
+                     // *If the mailer system could not be loaded:
+                     // *Logging the error:
+                     console.log(`  |`);
+                     console.log(`  | Mailer system could not be loaded`);
+                     // *Resolving the promise anyway:
+                     resolve();
+                  });
+            })
+            .catch(err => {
+               // *If the settings system could not be loaded:
+               // *Logging the error:
+               console.log(`  |`);
+               console.log(`  | Settings system could not be loaded`);
+               // *Rejecting the promise:
+               reject(err);
+            });
       } catch(err){
          // *If some error occured:
          // *Rejecting the promise:
@@ -119,8 +158,8 @@ function stopServices(){
          .then(() => resolve())
          .catch(err => reject(err));
    }).then(() => {
-      console.log(`   |`);
-      console.log(`   | REST service finished`);
+      console.log(`  |`);
+      console.log(`  | REST service finished`);
    });
 }
 

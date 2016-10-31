@@ -62,11 +62,11 @@ const df = (function(){
 
 
    /**
-   * Formats a date as DD/MM/YYYY string
-   * @param  {Date} date  The date to format
-   * @return {string}     The formatted date
-   * @author Guilherme Reginaldo Ruella
-   */
+    * Formats a date as DD/MM/YYYY string
+    * @param  {Date} date  The date to format
+    * @return {string}     The formatted date
+    * @author Guilherme Reginaldo Ruella
+    */
    function asFullDate(date){
       // *Getting the date:
       let Y = date.getFullYear();

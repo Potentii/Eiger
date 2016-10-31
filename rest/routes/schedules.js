@@ -160,76 +160,117 @@ function update(req, res, next){
    // *Adding the owner reference into the insert parameters:
    values.id_user_owner_fk = owner_id;
 
-   // *Updating the resource in the database:
-   pooler.query('update ?? set ? where ?? = ?', ['schedule', values, 'id', id])
-      .then(result => {
-         // *Checking if the resource was updated:
-         if(result.rows.affectedRows){
-            // *If it was:
-            // *Responding with 200 status:
-            res.status(200)
-               .end();
-         } else{
-            // *If it wasn't:
-            // *Sending a 404 response:
-            res.status(404)
-               .json({err_code: 'ERR_NOT_FOUND', err_message: 'Resource not found'})
-               .end();
-         }
-      })
-      .catch(err => {
-         // *If something went wrong:
-         // *Checking the error code:
-         switch(err.code){
-         case 'EIGER_INVALID_DATE':
-            // *Sending a 400 error response:
-            res.status(400)
-               .json({err_code: 'ERR_INVALID_TIMESPAN', err_message: 'Invalid date'})
-               .end();
-            break;
-         case 'EIGER_NOT_AUTHORIZED':
-            // *Sending a 403 error response:
-            res.status(403)
-               .json({err_code: 'ERR_NOT_AUTHORIZED', err_message: 'Not authorized'})
-               .end();
-            break;
-         case 'EIGER_VEHICLE_UNAVAILABLE':
-            // *Sending a 409 error response:
-            res.status(409)
-               .json({err_code: 'ERR_RES_UNAVAILABLE', err_message: 'Vehicle unavailable'})
-               .end();
-            break;
-         case 'EIGER_USER_NOT_ACTIVE':
-            // *Sending a 403 error response:
-            res.status(403)
-               .json({err_code: 'ERR_USER_NOT_ACTIVE', err_message: 'Inactive user'})
-               .end();
-            break;
-         case 'EIGER_VEHICLE_NOT_ACTIVE':
-            // *Sending a 409 error response:
-            res.status(409)
-               .json({err_code: 'ERR_VEHICLE_NOT_ACTIVE', err_message: 'Inactive vehicle'})
-               .end();
-            break;
-         case 'ER_DUP_ENTRY':
-            // *Sending a 400 error response:
-            res.status(400)
-               .json({err_code: 'ERR_DUPLICATE_FIELD', err_message: 'The resource already exists'})
-               .end();
-            break;
-         case 'ER_NO_REFERENCED_ROW_2':
-            // *Sending a 404 error response:
-            res.status(404)
-               .json({err_code: 'ERR_REF_NOT_FOUND', err_message: 'Reference not found'})
-               .end();
-            break;
-         default:
-            // *Sending a 500 error response:
-            res.status(500)
-               .json({err_code: 'ERR_INTERNAL', err_message: 'Something went wrong'})
-               .end();
-         }
-      });
+
+   // *Querying for the previous confirmation status of this scheduling:
+   new Promise((resolve, reject) => {
+      // *Checking if the user is trying to confirm this schedule:
+      if(!values.confirmed){
+         // *If not:
+         // *Resolving the promise:
+         resolve();
+      } else{
+         // *Querying for the previous confirmation status of this scheduling:
+         pooler.query('select ?? from ?? where ?? = ?', ['confirmed', 'schedule', 'id', id])
+            .then(result => {
+               // *Checking if something was returned:
+               if(result.rows.length){
+                  // *If it was:
+                  // *Resolving the promise eith the previous confirmation status:
+                  resolve(result.rows[0].confirmed);
+               } else{
+                  // *If not:
+                  // *Resolving the promise:
+                  resolve();
+               }
+            })
+            .catch(err => reject(err));
+      }
+   })
+   .then(confirmed => {
+      // *Updating the resource in the database:
+      pooler.query('update ?? set ? where ?? = ?', ['schedule', values, 'id', id])
+         .then(result => {
+            // *Checking if the resource was updated:
+            if(result.rows.affectedRows){
+               // *If it was:
+               // *Checking if it needs to send a confirmation e-mail:
+               if(values.confirmed && !confirmed){
+                  // *If it does:
+                  // *Sending the e-mail:
+                  sendConfirmationEmail(id)
+                     .catch(err => console.log(err));
+               }
+               // *Responding with 200 status:
+               res.status(200)
+                  .end();
+            } else{
+               // *If it wasn't:
+               // *Sending a 404 response:
+               res.status(404)
+                  .json({err_code: 'ERR_NOT_FOUND', err_message: 'Resource not found'})
+                  .end();
+            }
+         })
+         .catch(err => {
+            // *If something went wrong:
+            // *Checking the error code:
+            switch(err.code){
+            case 'EIGER_INVALID_DATE':
+               // *Sending a 400 error response:
+               res.status(400)
+                  .json({err_code: 'ERR_INVALID_TIMESPAN', err_message: 'Invalid date'})
+                  .end();
+               break;
+            case 'EIGER_NOT_AUTHORIZED':
+               // *Sending a 403 error response:
+               res.status(403)
+                  .json({err_code: 'ERR_NOT_AUTHORIZED', err_message: 'Not authorized'})
+                  .end();
+               break;
+            case 'EIGER_VEHICLE_UNAVAILABLE':
+               // *Sending a 409 error response:
+               res.status(409)
+                  .json({err_code: 'ERR_RES_UNAVAILABLE', err_message: 'Vehicle unavailable'})
+                  .end();
+               break;
+            case 'EIGER_USER_NOT_ACTIVE':
+               // *Sending a 403 error response:
+               res.status(403)
+                  .json({err_code: 'ERR_USER_NOT_ACTIVE', err_message: 'Inactive user'})
+                  .end();
+               break;
+            case 'EIGER_VEHICLE_NOT_ACTIVE':
+               // *Sending a 409 error response:
+               res.status(409)
+                  .json({err_code: 'ERR_VEHICLE_NOT_ACTIVE', err_message: 'Inactive vehicle'})
+                  .end();
+               break;
+            case 'ER_DUP_ENTRY':
+               // *Sending a 400 error response:
+               res.status(400)
+                  .json({err_code: 'ERR_DUPLICATE_FIELD', err_message: 'The resource already exists'})
+                  .end();
+               break;
+            case 'ER_NO_REFERENCED_ROW_2':
+               // *Sending a 404 error response:
+               res.status(404)
+                  .json({err_code: 'ERR_REF_NOT_FOUND', err_message: 'Reference not found'})
+                  .end();
+               break;
+            default:
+               // *Sending a 500 error response:
+               res.status(500)
+                  .json({err_code: 'ERR_INTERNAL', err_message: 'Something went wrong'})
+                  .end();
+            }
+         });
+   })
+   .catch(err => {
+      // *Sending a 500 error response:
+      res.status(500)
+         .json({err_code: 'ERR_INTERNAL', err_message: 'Something went wrong'})
+         .end();
+   });
 }
 
 
@@ -320,6 +361,48 @@ function erase(req, res, next){
             .json({err_code: 'ERR_INTERNAL', err_message: 'Something went wrong'})
             .end();
       });
+}
+
+
+
+/**
+ * Sends a scheduling confirmation e-mail
+ * @param  {number} schedule_id The schedule's id
+ * @return {Promise}            The e-mail sending promise
+ * @author Guilherme Reginaldo Ruella
+ */
+function sendConfirmationEmail(schedule_id){
+   // *Returning the promise:
+   return new Promise((resolve, reject) => {
+      // *Querying for all the needed information:
+      pooler.query({sql: 'select ??.*, ??.*, ??.* from ?? inner join ?? on ??.?? = ?? inner join ?? on ??.?? = ?? where ??.?? = ?', nestTables: true},
+         ['schedule', 'user', 'vehicle', 'schedule', 'user', 'user', 'id', 'id_user_fk', 'vehicle', 'vehicle', 'id', 'id_vehicle_fk', 'schedule', 'id', schedule_id])
+         .then(result => {
+            try{
+               // *Requesting the dates module:
+               const dates = require('../dates/dates');
+               // *Getting the user and schedule information out of the query result:
+               let user = result.rows[0].user;
+               let schedule = result.rows[0].schedule;
+
+               // *Sending the confirmation e-mail:
+               require('../mailer/mailer').sendScheduleConfirmationMail(user.email, {
+                     user_name: user.name,
+                     start_date: dates.asFullDate(new Date(schedule.start_date)),
+                     start_time: dates.asShorterTime(new Date(schedule.start_date)),
+                     end_date: dates.asFullDate(new Date(schedule.end_date)),
+                     end_time: dates.asShorterTime(new Date(schedule.end_date))
+                  })
+                  .then(() => resolve())
+                  .catch(err => reject(err));
+            } catch(err){
+               // *If something goes wrong:
+               // *Rejecting the promise:
+               reject(err);
+            }
+         })
+         .catch(err => reject(err));
+   });
 }
 
 
