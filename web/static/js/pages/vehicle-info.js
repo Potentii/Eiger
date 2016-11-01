@@ -55,10 +55,26 @@ spa.onNavigate('vehicle-info', (page, params) => {
       }
 
       // *When a user to click in update button:
-      $('#vehicle-info-edit-fab').on('click', function(){
+      $('#vehicle-info-edit-fab').on('click', e => {
           // *Sending the user's to the vehicle-update page:
           spa.navigateTo('vehicle-update', {id: id});
       });
+
+      // *When a user clicks on delete button:
+      $('#vehicle-info-delete-fab').on('click', e => {
+         // *Asking if the user wants to delete:
+         dialogger.open('default-consent', {title: srm.get('vehicle-info-dialog-consent-delete-title'), message: srm.get('vehicle-info-dialog-consent-delete-message')}, (dialog, status, params) => {
+            // *Checking the button clicked:
+            switch(status){
+            case dialogger.DIALOG_STATUS_POSITIVE:
+               // *If the user clicked at 'ok':
+               // *Deleting the vehicle:
+               deleteVehicle(id);
+               break;
+            }
+         });
+      });
+
    } else {
       // *Is not diferent of null ou undefined:
       // *Redirecting the user to index page:
@@ -67,9 +83,58 @@ spa.onNavigate('vehicle-info', (page, params) => {
 });
 
 
+
 // *When user left the page:
 spa.onLeft('vehicle-info', (page) => {
-
    // *Removing the event click:
    $('#vehicle-info-edit-fab').off('click');
+   $('#vehicle-info-delete-fab').off('click');
 });
+
+
+
+/**
+ * Deletes a vehicle, and handles the response
+ * @param  {number} id The vehicle's id to delete
+ * @author Guilherme Reginaldo Ruella
+ */
+function deleteVehicle(id){
+   request.deleteVehicle(id)
+      .done(data => {
+         // *Showing a success snackbar:
+         snack.open(srm.get('vehicle-info-delete-successful-snack'), snack.TIME_SHORT);
+         // *Going back to vehicles list:
+         spa.goBack();
+      })
+      .fail(xhr => {
+         // *Checking if the request's status is 401, sending the user to the login page if it is:
+         if(xhr.status === 401){
+            spa.navigateTo('login');
+            return;
+         }
+         // *Declaring the dialog text object:
+         let text = {title: '', message: ''};
+
+         // *Checking the error code:
+         switch(xhr.responseJSON.err_code){
+         case 'ERR_NOT_FOUND':
+            // *If the resource could not be found:
+            text.title = srm.get('vehicle-info-dialog-error-not-found-title');
+            text.message = srm.get('vehicle-info-dialog-error-not-found-message');
+            break;
+         case 'ERR_REF_LEFT':
+            // *If the resource has references left:
+            text.title = srm.get('vehicle-info-dialog-error-ref-left-title');
+            text.message = srm.get('vehicle-info-dialog-error-ref-left-message');
+            break;
+         default:
+            // *If none of above:
+            text.title = srm.get('vehicle-info-dialog-error-default-title');
+            text.message = srm.get('vehicle-info-dialog-error-default-message');
+            break;
+         }
+
+         // *Opening the notice dialog:
+         dialogger.open('default-notice', text);
+      });
+}
