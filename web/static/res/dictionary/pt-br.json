@@ -3,6 +3,7 @@
    ["drawer-nav-reservations", "Procurar reservas"],
    ["drawer-nav-settings", "Configurações"],
    ["drawer-nav-about-us", "Sobre nós"],
+   ["drawer-nav-logoff", "Sair"],
 
    ["auth-text", "Autenticando"],
    ["fallback-text", "Página não encontrada"],

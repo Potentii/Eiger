@@ -3,6 +3,7 @@
    ["drawer-nav-reservations", "Find reservations"],
    ["drawer-nav-settings", "Settings"],
    ["drawer-nav-about-us", "About us"],
+   ["drawer-nav-logoff", "Logoff"],
 
    ["auth-text", "Authenticating"],
    ["fallback-text", "Page not found"],
