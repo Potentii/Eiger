@@ -97,10 +97,26 @@ spa.onNavigate('user-info', (page, params) => {
       }
 
       // *When a user to click in update button:
-      $('#user-info-edit-fab').on('click', function(){
-          // *Sending the user's to the user-update page:
-          spa.navigateTo('user-update', {id: user_id});
+      $('#user-info-edit-fab').on('click', e => {
+         // *Sending the user's to the user-update page:
+         spa.navigateTo('user-update', {id: user_id});
       });
+
+      // *When a user clicks on delete button:
+      $('#user-info-delete-fab').on('click', e => {
+         // *Asking if the user wants to delete:
+         dialogger.open('default-consent', {title: srm.get('user-info-dialog-consent-delete-title'), message: srm.get('user-info-dialog-consent-delete-message')}, (dialog, status, params) => {
+            // *Checking the button clicked:
+            switch(status){
+            case dialogger.DIALOG_STATUS_POSITIVE:
+               // *If the user clicked at 'ok':
+               // *Deleting the user:
+               deleteUser(user_id);
+               break;
+            }
+         });
+      });
+
    } else {
       // *Is not diferent of null ou undefined:
       // *Redirecting the user to users page:
@@ -112,7 +128,55 @@ spa.onNavigate('user-info', (page, params) => {
 
 // *When the user left the page:
 spa.onLeft('user-info', (page) => {
-
    // *Removing the event click:
    $('#user-info-edit-fab').off('click');
+   $('#user-info-delete-fab').off('click');
 });
+
+
+
+/**
+ * Deletes a user, and handles the response
+ * @param  {number} id The user's id to delete
+ * @author Guilherme Reginaldo Ruella
+ */
+function deleteUser(id){
+   request.deleteUser(id)
+      .done(data => {
+         // *Showing a success snackbar:
+         snack.open(srm.get('user-info-delete-successful-snack'), snack.TIME_SHORT);
+         // *Going back to users list:
+         spa.goBack();
+      })
+      .fail(xhr => {
+         // *Checking if the request's status is 401, sending the user to the login page if it is:
+         if(xhr.status === 401){
+            spa.navigateTo('login');
+            return;
+         }
+         // *Declaring the dialog text object:
+         let text = {title: '', message: ''};
+
+         // *Checking the error code:
+         switch(xhr.responseJSON.err_code){
+         case 'ERR_NOT_FOUND':
+            // *If the resource could not be found:
+            text.title = srm.get('user-info-dialog-error-not-found-title');
+            text.message = srm.get('user-info-dialog-error-not-found-message');
+            break;
+         case 'ERR_REF_LEFT':
+            // *If the resource has references left:
+            text.title = srm.get('user-info-dialog-error-ref-left-title');
+            text.message = srm.get('user-info-dialog-error-ref-left-message');
+            break;
+         default:
+            // *If none of above:
+            text.title = srm.get('user-info-dialog-error-default-title');
+            text.message = srm.get('user-info-dialog-error-default-message');
+            break;
+         }
+
+         // *Opening the notice dialog:
+         dialogger.open('default-notice', text);
+      });
+}

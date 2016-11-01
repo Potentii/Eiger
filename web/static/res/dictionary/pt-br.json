@@ -173,6 +173,8 @@
 
 
    ["dialog-default-save-changes", "Salvar alterações?"],
+   ["dialog-default-sure", "Você tem certeza?"],
+
    ["vehicle-create-successful-snack", "Veículo salvo"],
 
    ["vehicle-update-dialog-consent-submit-title", "${dialog-default-save-changes}"],
@@ -191,6 +193,18 @@
    ["user-update-dialog-consent-submit-message", ""],
    ["user-update-successful-snack", "Usuário atualizado"],
 
+   ["vehicle-info-dialog-consent-delete-title", "Remover este veículo"],
+   ["vehicle-info-dialog-consent-delete-message", "${dialog-default-sure}"],
+   ["vehicle-info-delete-successful-snack", "Veículo removido"],
+
+   ["schedule-info-dialog-consent-delete-title", "Remover esta reserva"],
+   ["schedule-info-dialog-consent-delete-message", "${dialog-default-sure}"],
+   ["schedule-info-delete-successful-snack", "Reserva removida"],
+
+   ["user-info-dialog-consent-delete-title", "Remover este usuário"],
+   ["user-info-dialog-consent-delete-message", "${dialog-default-sure}"],
+   ["user-info-delete-successful-snack", "Usuário removido"],
+
 
 
    ["error-default-internal", "Erro interno"],
@@ -204,6 +218,13 @@
    ["dialog-error-default-ref-message", "Um recurso referenciado não existe mais"],
    ["dialog-error-default-not-found-message", "O recurso não pode ser encontrado"],
 
+   ["vehicle-info-dialog-error-not-found-title", "${dialog-error-default-send-request-title}"],
+   ["vehicle-info-dialog-error-not-found-message", "${dialog-error-default-not-found-message}"],
+   ["vehicle-info-dialog-error-ref-left-title", "${dialog-error-default-send-request-title}"],
+   ["vehicle-info-dialog-error-ref-left-message", "Este veículo está sendo referenciado por alguma reserva, por isso não pode ser removido"],
+   ["vehicle-info-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
+   ["vehicle-info-dialog-error-default-message", "${dialog-error-default-send-request-message}"],
+
    ["vehicle-create-dialog-error-missing-field-title", "${dialog-error-default-send-request-title}"],
    ["vehicle-create-dialog-error-missing-field-message", "${dialog-error-default-missing-field-message}"],
    ["vehicle-create-dialog-error-duplicate-title", "${dialog-error-default-send-request-title}"],
@@ -215,6 +236,13 @@
    ["vehicle-update-dialog-error-duplicate-message", "${dialog-error-default-duplicate-message}"],
    ["vehicle-update-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
    ["vehicle-update-dialog-error-default-message", "${dialog-error-default-send-request-message}"],
+
+   ["schedule-info-dialog-error-not-found-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-info-dialog-error-not-found-message", "${dialog-error-default-not-found-message}"],
+   ["schedule-info-dialog-error-not-authorized-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-info-dialog-error-not-authorized-message", "Você não está autorizado a remover esta reserva"],
+   ["schedule-info-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-info-dialog-error-default-message", "${dialog-error-default-send-request-message}"],
 
    ["schedule-create-dialog-no-vehicles-title", "Não foi encontrado nenhum veículo"],
    ["schedule-create-dialog-no-vehicles-message", "Por favor, registre alguns para agendar"],
@@ -254,6 +282,13 @@
    ["schedule-update-dialog-error-notfound-schedule-message", "${dialog-error-default-send-request-message}"],
    ["schedule-update-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
    ["schedule-update-dialog-error-default-message", "${dialog-error-default-send-request-message}"],
+
+   ["user-info-dialog-error-not-found-title", "${dialog-error-default-send-request-title}"],
+   ["user-info-dialog-error-not-found-message", "${dialog-error-default-not-found-message}"],
+   ["user-info-dialog-error-ref-left-title", "${dialog-error-default-send-request-title}"],
+   ["user-info-dialog-error-ref-left-message", "Este usuário está sendo referenciado em alguma reserva, por isso não pode ser removido"],
+   ["user-info-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
+   ["user-info-dialog-error-default-message", "${dialog-error-default-send-request-message}"],
 
    ["user-create-dialog-error-missing-field-title", "${dialog-error-default-send-request-title}"],
    ["user-create-dialog-error-missing-field-message", "${dialog-error-default-missing-field-message}"],
