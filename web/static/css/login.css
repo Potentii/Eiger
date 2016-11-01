@@ -32,6 +32,10 @@
    width: 100%;
 }
 
+#login-error-output{
+   color: #D32F2F;
+}
+
 
 /**
  * When portrait, assumes an vertical layout
