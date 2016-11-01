@@ -320,10 +320,11 @@ const request = (function(){
     * Returns the object the vehicle reservation for this date
     * @param  {number} id Vehicle id
     * @param  {date} date Schedule date
+    * @param  {object} sorting The sorting object
     * @return {jqXHR}     The ajax request
     * @author Ralf Pablo Braga Soares
     */
-   function getVehiclesReservationsOnDate(id, date){
+   function getVehiclesReservationsOnDate(id, date, sorting = {}){
 
       // *Getting the key and the token:
       let auth = retrieveAccessInfo();
@@ -331,7 +332,7 @@ const request = (function(){
       return $.ajax({
          url: rest_url + '/api/v1/vehicles/' + id + '/reservations/' + date,
          method: 'GET',
-         headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
+         headers: {'Access-Token': auth.token, 'Access-Key': auth.key, 'Sort-Field': sorting.order_by, 'Sort-Type': sorting.order_type}
       });
    }
 

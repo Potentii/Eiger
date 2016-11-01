@@ -222,6 +222,9 @@ li .schedule-duration-output::before{
 .active-true-container .material-icons, .active-true-container .labeled-output{
    color: #009688 !important;
 }
+.active-neutral-container .material-icons, .active-neutral-container .labeled-output{
+   color: #0288D1 !important;
+}
 .active-false-container .material-icons, .active-false-container .labeled-output{
    color: #C62828 !important;
 }
