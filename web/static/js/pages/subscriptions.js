@@ -20,5 +20,7 @@ spa.subscribe(new Page('user-info'));
 spa.subscribe(new Page('user-create'));
 spa.subscribe(new Page('user-update'));
 
+spa.subscribe(new Page('settings'));
+
 // *Setting the fallback page:
 spa.setFallbackPage('fallback');
