@@ -135,11 +135,15 @@
    ["none-selected-text-reservations-vehicle", "No vehicle selected"],
    ["none-selected-text-reservations-user", "No user selected"],
 
+   ["settings-header", "Settings"],
+   ["settings-language", "Language"],
+
 
 
    ["empty-list-text-vehicles", "No vehicles found"],
    ["empty-list-text-schedules", "No schedules on this day"],
    ["empty-list-text-users", "No users found"],
+   ["empty-list-text-default-select", "No items available"],
    ["empty-list-text-user-picker", "${empty-list-text-users}"],
    ["empty-list-text-vehicle-picker", "${empty-list-text-vehicles}"],
 
@@ -153,6 +157,10 @@
    ["default-retry-cancel", "cancel"],
    ["default-retry-retry", "retry"],
 
+   ["default-select-header", "Select an item"],
+   ["default-select-cancel", "cancel"],
+   ["default-select-ok", "ok"],
+
    ["user-picker-header", "Select an user"],
    ["user-picker-cancel", "cancel"],
    ["user-picker-ok", "ok"],
@@ -160,6 +168,9 @@
    ["vehicle-picker-header", "Select a vehicle"],
    ["vehicle-picker-cancel", "cancel"],
    ["vehicle-picker-ok", "ok"],
+
+   ["default-select-translate-header", "Choose a language"],
+   ["empty-list-text-default-select-translate", "No languages available"],
 
    ["reservations-filters-header", "Filters"],
    ["reservations-filters-schedule-id", "Schedule code"],
@@ -205,6 +216,8 @@
    ["user-info-dialog-consent-delete-title", "Remove this user"],
    ["user-info-dialog-consent-delete-message", "${dialog-default-sure}"],
    ["user-info-delete-successful-snack", "User removed"],
+
+   ["settings-saved-language", "Language changed"],
 
 
 

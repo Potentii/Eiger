@@ -2,7 +2,7 @@
 
 /**
  * Provides some simple but useful animations
- * @namespace {Anim}
+ * @author Guilherme Reginaldo Ruella
  */
 const anim = (function(){
 

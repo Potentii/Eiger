@@ -8,10 +8,3 @@ srm.onDictionaryChange(() => {
          label.text(srm.get(label.data('intl')));
       });
 });
-
-
-// *When the page loads:
-$(() => {
-   // *Loading the default dictionary:
-   srm.loadDictionary('../../static/res/dictionary/en-us.json');
-});

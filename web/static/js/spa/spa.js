@@ -2,7 +2,7 @@
 
 /**
  * Module that manages and handles all the pages
- * @namespace SPA
+ * @author Guilherme Reginaldo Ruella
  */
 const spa = (function(){
    var spa_loaded = false;
