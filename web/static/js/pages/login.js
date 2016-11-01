@@ -24,6 +24,7 @@ spa.onNavigate('login', (page, params) => {
       request.postAuth(object_data)
          .done(data => {
 
+            $('#login-error-output').text();
             // *Saving user authentication data:
             request.saveAccessInfo({id: data.user.id, key: data.user.login, token: data.token});
 
@@ -46,24 +47,24 @@ spa.onNavigate('login', (page, params) => {
 
             // *Case the credentials aren't valid:
             case 'ERR_INVALID_CREDENTIALS':
-               text.title = srm.get('login-dialog-error-invalid-credentials-title');
-               text.message = srm.get('login-dialog-error-invalid-credentials-message');
+               text.title = srm.get('Invalid Credentials');
+               text.message = srm.get('Wrong login or pass');
                break;
 
             // *Case the user isn't active:
             case 'ERR_USER_NOT_ACTIVE':
-                text.title = srm.get('login-dialog-error-inactive-title');
-                text.message = srm.get('login-dialog-error-inactive-message');
+                text.title = srm.get('User not active');
+                text.message = srm.get('The current user is not active');
                 break;
 
             default:
-                text.title = srm.get('login-dialog-error-default-title');
-                text.message = srm.get('login-dialog-error-default-message');
+                text.title = srm.get('Error');
+                text.message = srm.get('Error');
                 break;
             }
 
             // *Opening a dialog notice for the user:
-            dialogger.open('default-notice', text);
+            $('#login-error-output').text(text);
          });
    });
 });
