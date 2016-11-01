@@ -139,6 +139,7 @@
 
                <button type="button" class="mdl-js-button mdl-js-ripple-effect" onclick="spa.navigateTo('settings')"><i class="material-icons">settings</i><span data-intl="drawer-nav-settings"></span></button>
                <button type="button" class="mdl-js-button mdl-js-ripple-effect" onclick="spa.navigateTo('about-us')"><i class="material-icons">info</i><span data-intl="drawer-nav-about-us"></span></button>
+               <button type="button" class="mdl-js-button mdl-js-ripple-effect" onclick="logoff()"><i class="material-icons">first_page</i><span data-intl="drawer-nav-logoff"></span></button>
             </div>
          </nav>
       </div>
@@ -201,6 +202,9 @@
                   <input class="mdl-textfield__input" type="password" id="login-pass-in">
                   <label class="mdl-textfield__label" for="login-pass-in" data-intl="login-password"></label>
                </div>
+
+               <!-- Error output -->
+               <span id="login-error-output"><!--[error-message]--></span>
 
                <!-- Submit button -->
                <button type="submit" class="mdl-js-button mdl-js-ripple-effect box card tinted raised" data-intl="login-login"></button>
@@ -668,7 +672,7 @@
          <form id="schedule-info-form" class="form content-before-fab">
 
             <!-- Confirmed status output false -->
-            <div class="row active-false-container">
+            <div class="row active-neutral-container">
                <i class="material-icons">assignment_late</i>
                <div class="vertical-layout">
                   <label class="output-label" data-intl="schedule-info-confirmed"></label>
@@ -1507,35 +1511,44 @@
             <button id="reservations-filter-fab" type="button" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab right">filter_list</button>
          </header>
 
-         <!-- Vehicle sub appbar -->
-         <header id="reservations-vehicle-app-bar" class="app-bar clickable-app-bar none-selected mdl-js-button mdl-js-ripple-effect tinted vehicle-info-app-bar">
+         <div class="flex-horizontal-layout clear-able-app-bar">
 
-            <!-- Vehicle appbar info -->
-            <div class="flex-horizontal-layout">
-               <span class="none-selected-text" data-intl="none-selected-text-reservations-vehicle"></span>
-               <div id="reservations-vehicle-photo" class="inflate round-thumbnail size-3"></div>
-               <div class="vertical-layout">
-                  <span id="reservations-vehicle-title" class="primary"><!--[title] - [plate]--></span>
-                  <span id="reservations-vehicle-description" class="secondary"><!--[year] - [manufacturer] - [type]--></span>
+            <!-- Vehicle sub appbar -->
+            <header id="reservations-vehicle-app-bar" class="none-selected app-bar clickable-app-bar mdl-js-button mdl-js-ripple-effect tinted vehicle-info-app-bar">
+
+               <!-- Vehicle appbar info -->
+               <div class="flex-horizontal-layout">
+                  <span class="none-selected-text" data-intl="none-selected-text-reservations-vehicle"></span>
+                  <div id="reservations-vehicle-photo" class="inflate round-thumbnail size-3"></div>
+                  <div class="vertical-layout">
+                     <span id="reservations-vehicle-title" class="primary"><!--[title] - [plate]--></span>
+                     <span id="reservations-vehicle-description" class="secondary"><!--[year] - [manufacturer] - [type]--></span>
+                  </div>
                </div>
-            </div>
 
-         </header>
+            </header>
+            <button id="reservations-vehicle-clear" type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab">clear</button>
+         </div>
 
-         <!-- User sub appbar -->
-         <header id="reservations-user-app-bar" class="app-bar clickable-app-bar none-selected mdl-js-button mdl-js-ripple-effect tinted raised vehicle-info-app-bar">
 
-            <!-- User appbar info -->
-            <div class="flex-horizontal-layout thumbnailed-info">
-               <span class="none-selected-text" data-intl="none-selected-text-reservations-user"></span>
-               <div id="reservations-user-photo" class="inflate round-thumbnail size-3"></div>
-               <div class="vertical-layout">
-                  <span id="reservations-user-name" class="primary"><!--[user-name]--></span>
-                  <span id="reservations-user-login" class="secondary"><!--[login]--></span>
+         <div class="flex-horizontal-layout clear-able-app-bar">
+
+            <!-- User sub appbar -->
+            <header id="reservations-user-app-bar" class="none-selected app-bar clickable-app-bar mdl-js-button mdl-js-ripple-effect tinted raised vehicle-info-app-bar">
+
+               <!-- User appbar info -->
+               <div class="flex-horizontal-layout thumbnailed-info">
+                  <span class="none-selected-text" data-intl="none-selected-text-reservations-user"></span>
+                  <div id="reservations-user-photo" class="inflate round-thumbnail size-3"></div>
+                  <div class="vertical-layout">
+                     <span id="reservations-user-name" class="primary"><!--[user-name]--></span>
+                     <span id="reservations-user-login" class="secondary"><!--[login]--></span>
+                  </div>
                </div>
-            </div>
 
-         </header>
+            </header>
+            <button id="reservations-user-clear" type="button" class="material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab">clear</button>
+         </div>
 
          <!-- Reservations' cards list -->
          <ul id="reservations-list" class="list content-before-fab">
