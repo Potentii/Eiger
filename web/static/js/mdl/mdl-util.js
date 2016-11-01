@@ -1,5 +1,6 @@
 /**
  * MDL utilities module
+ * @author Guilherme Reginaldo Ruella
  */
 const mdl_util = (function(){
 

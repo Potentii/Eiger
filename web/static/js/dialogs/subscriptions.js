@@ -5,6 +5,7 @@ dialogger.setOverlay('dialog-overlay');
 dialogger.subscribe(new Dialog('default-notice'));
 dialogger.subscribe(new Dialog('default-consent'));
 dialogger.subscribe(new Dialog('default-retry'));
+dialogger.subscribe(new Dialog('default-select'));
 
 // *Subscribing the dialogs:
 dialogger.subscribe(new Dialog('user-picker'));

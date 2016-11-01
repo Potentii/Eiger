@@ -2,7 +2,7 @@
 
 /**
  * Module that transforms dates into strings formats
- * @namespace DF
+ * @author Guilherme Reginaldo Ruella
  */
 const df = (function(){
 

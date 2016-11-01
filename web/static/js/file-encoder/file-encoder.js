@@ -2,7 +2,7 @@
 
 /**
  * Module that encode files
- * @namespace FileEncoder
+ * @author Guilherme Reginaldo Ruella
  */
 const file_encoder = (function(){
 
