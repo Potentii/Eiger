@@ -69,6 +69,24 @@ const request = (function(){
    }
 
 
+
+   /**
+   * Remove the authentication keys in cache
+   * @author Ralf Pablo Braga Soares
+   */
+   function removeAccessInfo() {
+
+      // *Removing the token access key to the token code in cache:
+      localStorage.removeItem('token');
+
+      // *Removing the id access key to the id code in cache:
+      localStorage.removeItem('id');
+
+      // *Removing key access key to the key code in cache:
+      localStorage.removeItem('key');
+   }
+
+
 // *------------------------ GETS -------------------------------:
 
 
@@ -679,6 +697,7 @@ const request = (function(){
       deleteSchedule: deleteSchedule,
 
       retrieveAccessInfo: retrieveAccessInfo,
-      saveAccessInfo: saveAccessInfo
+      saveAccessInfo: saveAccessInfo,
+      removeAccessInfo: removeAccessInfo
    };
 })();
