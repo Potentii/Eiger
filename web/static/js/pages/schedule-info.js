@@ -31,6 +31,9 @@ spa.onNavigate('schedule-info', (page, params) => {
                   $('#schedule-info-confirmed-true').parent().parent('.row').hide();
                }
 
+               // *Setting the schedule code:
+               $('#schedule-info-code').text(data.id);
+
                // *Setting the schedule reason:
                $('#schedule-info-reason').text(data.reason);
 

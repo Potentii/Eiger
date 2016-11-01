@@ -12,6 +12,8 @@
    ["login-password", "Senha"],
    ["login-login", "Entrar"],
 
+   ["vehicles-header", "Veículos"],
+
    ["vehicle-info-header", "Veículo"],
    ["vehicle-info-active", "Status ativo"],
    ["vehicle-info-active-true", "Veículo está ativo"],
@@ -40,6 +42,7 @@
    ["schedules-header", "Reservas"],
 
    ["schedule-info-header", "Reserva"],
+   ["schedule-info-code", "Código"],
    ["schedule-info-reason", "Motivo"],
    ["schedule-info-duration", "Duração"],
    ["schedule-info-confirmed", "Status"],
@@ -143,6 +146,7 @@
    ["empty-list-text-vehicles", "Nenhum veículo encontrado"],
    ["empty-list-text-schedules", "Nenhuma reserva neste dia"],
    ["empty-list-text-users", "Nenhum usuário encontrado"],
+   ["empty-list-text-reservations", "Nenhuma reserva encontrada"],
    ["empty-list-text-default-select", "Nenhum item disponível"],
    ["empty-list-text-user-picker", "${empty-list-text-users}"],
    ["empty-list-text-vehicle-picker", "${empty-list-text-vehicles}"],
