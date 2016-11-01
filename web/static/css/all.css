@@ -108,6 +108,9 @@ section > .list{
 /**
  * None selected text
  */
+.clickable-app-bar > div > div{
+   visibility: visible;
+}
 .clickable-app-bar.none-selected > div > div{
    visibility: hidden;
 }
@@ -117,6 +120,34 @@ section > .list{
 }
 .clickable-app-bar.none-selected .none-selected-text{
    visibility: visible;
+   background-color: var(--primary-color);
+}
+
+/**
+ * Clear able app bar
+ */
+.clear-able-app-bar .clickable-app-bar + button{
+   visibility: visible;
+}
+.clear-able-app-bar .clickable-app-bar.none-selected + button{
+   visibility: hidden;
+}
+
+.clear-able-app-bar > .clickable-app-bar{
+   padding-left: 4em;
+}
+.clear-able-app-bar .clickable-app-bar > div{
+   padding: 0.4em;
+}
+.clear-able-app-bar > button{
+   position: absolute;
+   top: 50%;
+   transform: translateY(-50%);
+   padding: 1em;
+   font-size: 1.1em;
+   margin-left: 0.5em;
+   box-shadow: none;
+   z-index: 10;
 }
 
 

@@ -379,12 +379,13 @@ const request = (function(){
 
 
    /**
-   * Retrieves all reservations
-   * @param  {object} params The filter object
-   * @return {jqXHR}     The ajax request
-   * @author Guilherme Reginaldo Ruella
-   */
-   function getReservations(params, {order_by, order_type}){
+    * Retrieves all reservations
+    * @param  {object} params The filter object
+    * @param  {object} sorting The sorting object
+    * @return {jqXHR}     The ajax request
+    * @author Guilherme Reginaldo Ruella
+    */
+   function getReservations(params, sorting = {}){
       // *Transforming the params object into a query string:
       params = getQueryString(params);
 
@@ -394,7 +395,7 @@ const request = (function(){
       return $.ajax({
          url: rest_url + '/api/v1/reservations' + params,
          method: 'GET',
-         headers: {'Access-Token': auth.token, 'Access-Key': auth.key, 'Sort-Field': order_by, 'Sort-Type': order_type}
+         headers: {'Access-Token': auth.token, 'Access-Key': auth.key, 'Sort-Field': sorting.order_by, 'Sort-Type': sorting.order_type}
       });
    }
 
