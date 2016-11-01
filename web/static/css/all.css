@@ -126,6 +126,10 @@ section > .list{
 /**
  * Clear able app bar
  */
+.clear-able-app-bar {
+   flex-grow: 0;
+   flex-shrink: 0;
+}
 .clear-able-app-bar .clickable-app-bar + button{
    visibility: visible;
 }

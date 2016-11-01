@@ -5,7 +5,7 @@ const rest_url = 'http://localhost:3000';
 
 /**
  * Module that makes requests to the rest server
- * @namespace REQUEST
+ * @author Ralf Pablo Braga Soares
  */
 const request = (function(){
 
