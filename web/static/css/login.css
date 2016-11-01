@@ -12,11 +12,13 @@
  * TODO Replace this with an image
  */
 #login-logo{
-   height: 9em;
-   width: 9em;
    flex-grow: 0;
    flex-shrink: 0;
-   background: var(--primary-color-dark);
+   /*background: var(--primary-color-dark);*/
+   background: url('/static/res/image/eiger-logo.png');
+   background-position: center;
+   background-size: contain;
+   background-repeat: no-repeat;
 }
 
 
@@ -47,7 +49,12 @@
    } #login-container > .vertical-line{
       display: none;
    }
-   #login-logo, #login-form{
+   #login-logo{
+      margin: 4em 0;
+      height: 8em;
+      width: 8em;
+   }
+   #login-form{
       margin: 4em 0;
    }
 }
@@ -59,13 +66,26 @@
 @media (orientation: landscape){
    #login-container{
       top: 10vh;
-      width: 80%;
+      width: 100%;
       height: 80vh;
       flex-direction: row;
    } #login-container > .horizontal-line{
       display: none;
    }
-   #login-logo, #login-form{
+   #login-logo{
+      margin: 0 2.5em;
+      height: 5em;
+      width: 5em;
+   }
+   #login-form{
       margin: 0 4em;
+   }
+}
+
+@media (min-width: 700px){
+   #login-logo{
+      margin: 0 4em;
+      height: 8em;
+      width: 8em;
    }
 }
