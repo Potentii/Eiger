@@ -35,29 +35,23 @@ spa.onNavigate('login', (page, params) => {
             spa.navigateTo('');
          })
          .fail(xhr => {
-            // *Checking error:
-            let text = {message: ''};
 
             // *Checking the error code:
             switch(xhr.responseJSON.err_code){
             // *Case the credentials aren't valid:
             case 'ERR_INVALID_CREDENTIALS':
-               text.message = 'Wrong login or password';
+               $('#login-error-output').text("Wrong login or password");
                break;
 
             // *Case the user isn't active:
             case 'ERR_USER_NOT_ACTIVE':
-                text.message = ('The current user is not active');
+                $('#login-error-output').text('The current user is not active');
                 break;
 
             default:
-                text.message = ('Error');
+                $('#login-error-output').text('Error');
                 break;
             }
-
-            // *Opening a dialog notice for the user:
-            let text_string = JSON.stringify(text.message);
-            $('#login-error-output').text(text_string);
          });
    });
 });
@@ -111,7 +105,6 @@ spa.onNavigate('auth', (page, params) => {
             spa.navigateTo('login');
          });
       } else{
-        $('#login-error-output').text(text);
          // *If it's not:
          // *Backing the history two pages:
          history.back();
