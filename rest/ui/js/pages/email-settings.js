@@ -3,17 +3,15 @@
 // *When the user navigates to this page:
 spa.onNavigate('email-settings', (page, params) => {
 
-   // *Getting module settins:
-   let load_setting = modules.get('settings');
+   // *Getting module settings:
+   let settings_module = modules.get('settings');
 
-   // *Getting name file:
-   let file_name = load_setting.EMAIL_SETTINGS_FILE;
-
-   load_setting.loadSettings(file_name)
+   // *Loading a file dates:
+   settings_module.loadSettings(settings_module.EMAIL_SETTINGS_FILE)
       .then(content => {
 
          //* Converting string to a object:
-         let file = jQuery.parseJSON(content);
+         let file = JSON.parse(content);
 
          // *Setting email settings smtp server:
          $('#email-settings-smtp-server').val(file.smtp_server);
@@ -34,7 +32,7 @@ spa.onNavigate('email-settings', (page, params) => {
          $('#email-settings-confirmation-subject').val(file.confirmation_subject);
 
          // *Setting email settings body confrmation:
-         $('#email-settings-confirmation-body').text(file.confirmation_body);
+         $('#email-settings-confirmation-body-name').text(file.confirmation_body);
 
          // *Updating MDL Textfields:
          mdl_util.updateTextFields('#email-settings-section');
@@ -57,9 +55,8 @@ spa.onNavigate('email-settings', (page, params) => {
    })
    // *Listening when the user choose a file:
    $('#email-settings-confirmation-body').on('change', (e) => {
-      let nameFile = e.target.files[0].name;
-      console.log(nameFile);
-      $('#email-settings-confirmation-body-name').text(nameFile);
+      let getFile = e.target.files[0].name;
+      $('#email-settings-confirmation-body-name').text(getFile);
    })
 
 });
@@ -89,11 +86,13 @@ let file_name_save = save_settings.EMAIL_SETTINGS_FILE;
 
    // *Saving a file:
    save_settings.saveSettings(file_name_save, content_inputs)
-   .then(() => {
-      // *Going to logs page:
-      spa.navigateTo('log');
-   })
-   .catch(err =>{
+      .then(() => {
+         console.log('File Save Success!');
+         // *Going to logs page:
+         spa.navigateTo('log');
+      })
+      .catch(err =>{
+         console.log('Error Saving File');
 
    })
 
@@ -112,7 +111,7 @@ spa.onLeft('email-settings', (page) => {
    $('#email-settings-confirmation-email').val('');
    $('#email-settings-confirmation-subject').val('');
    $('#email-settings-confirmation-body').val('');
-   $('#email-settings-confirmation-body').val('');
+   $('#email-settings-confirmation-body-name').val('');
 
 
 
