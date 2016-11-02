@@ -4,7 +4,7 @@
 spa.onNavigate('email-settings', (page, params) => {
 
    // *Getting module settings:
-   let settings_module = modules.get('settings');
+   const settings_module = modules.get('settings');
 
    // *Loading a file dates:
    settings_module.loadSettings(settings_module.EMAIL_SETTINGS_FILE)
@@ -23,10 +23,10 @@ spa.onNavigate('email-settings', (page, params) => {
          $('#email-settings-user').val(file.user);
 
          // *Setting email settings password:
-         $('#email-settings-password').val(file.password);
+         $('#email-settings-password').val(file.pass);
 
          // *Setting email settings email:
-         $('#email-settings-confirmation-email').val(file.confirmation_email_account);
+         $('#email-settings-confirmation-email').val(file.confirmation_account);
 
          // *Setting email settings subject:
          $('#email-settings-confirmation-subject').val(file.confirmation_subject);
@@ -59,33 +59,42 @@ spa.onNavigate('email-settings', (page, params) => {
       $('#email-settings-confirmation-body-name').text(getFile);
    })
 
-});
+
+   $('#email-settings-confirmation-body').on('change', (e) => {
+   let reader = new FileReader();
+   let file ='';
+
+   reader.onload = function (e) {
+                file = e.target.result;
+                console.log(file);
+            };
+         })
+})
+
+
 
 /**
  * Save a file with date of email settings
  * @author Willian Conti Rezende
  */
-function saveFile(){
+function saveFile(file){
 
-// *Getting module settins:
-let save_settings = modules.get('settings');
-
-// *Getting name file:
-let file_name_save = save_settings.EMAIL_SETTINGS_FILE;
+   // *Getting module settings:
+   const settings_module = modules.get('settings');
 
    // *Getting content of inpus in string format:
    let content_inputs = JSON.stringify({
-   smtp_server: $('#email-settings-smtp-server').val(),
-   smtp_port: $('#email-settings-smtp-port').val(),
-   user: $('#email-settings-user').val(),
-   password: $('#email-settings-password').val(),
-   confirmation_email_account: $('#email-settings-confirmation-email').val(),
-   confirmation_subject: $('#email-settings-confirmation-subject').val(),
-   confirmation_body: $('#email-settings-confirmation-body').val()
+      smtp_server: $('#email-settings-smtp-server').val(),
+      smtp_port: $('#email-settings-smtp-port').val(),
+      user: $('#email-settings-user').val(),
+      pass: $('#email-settings-password').val(),
+      confirmation_account: $('#email-settings-confirmation-email').val(),
+      confirmation_subject: $('#email-settings-confirmation-subject').val(),
+      confirmation_body:
    });
 
    // *Saving a file:
-   save_settings.saveSettings(file_name_save, content_inputs)
+   settings_module.saveSettings(settings_module.EMAIL_SETTINGS_FILE, content_inputs)
       .then(() => {
          console.log('File Save Success!');
          // *Going to logs page:
@@ -94,8 +103,7 @@ let file_name_save = save_settings.EMAIL_SETTINGS_FILE;
       .catch(err =>{
          console.log('Error Saving File');
 
-   })
-
+   });
 }
 
 
@@ -112,7 +120,4 @@ spa.onLeft('email-settings', (page) => {
    $('#email-settings-confirmation-subject').val('');
    $('#email-settings-confirmation-body').val('');
    $('#email-settings-confirmation-body-name').val('');
-
-
-
 });
