@@ -1,10 +1,11 @@
 // *When the page gets loaded:
 $(() => {
-  let info = request.retrieveAccessInfo().id;
+  let info = request.retrieveAccessInfo();
+  let info_id = info.id;
   // *When the user click in their Login/Name/Photo send's to their personal user information page:
   $('#drawer-login-info').on('click', function(){
-      spa.navigateTo('user-info', {id: info});
-});
+      spa.navigateTo('user-info', {id: info_id});
+    });
   // *When the user click one of the navigation buttons:
   $('#drawer > .drawer-navigation > button').on('click', e => {
       // *Dismissing the navigation drawer:
@@ -14,8 +15,9 @@ $(() => {
 
 // *When the user opens the drawer:
 drawer.onOpen(function(){
-  let user_info = request.retrieveAccessInfo().id;
-  request.getUser(user_info)
+  let user_info = request.retrieveAccessInfo();
+  let user_id = user_info.id;
+  request.getUser(user_id)
     .done(data => {
 
       // *Setting the user's photo:
@@ -33,7 +35,10 @@ drawer.onOpen(function(){
      });
 });
 
-// *When the user clicks on logoff button:
+/**
+ * Remove cache and auth and go to login page
+ * @author Dennis Sakaki Fujiki
+ */
 function logoff(){
    request.removeAccessInfo();
    request.deleteAuth();

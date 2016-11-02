@@ -35,36 +35,29 @@ spa.onNavigate('login', (page, params) => {
             spa.navigateTo('');
          })
          .fail(xhr => {
-            // *Checking if the request's status is 401, sending the user to the login page if it is:
-            if(xhr.status === 401){
-               spa.navigateTo('login');
-               return;
-            }
-            let text = {title: '', message: ''};
+            // *Checking error:
+            let text = {message: ''};
 
             // *Checking the error code:
             switch(xhr.responseJSON.err_code){
-
             // *Case the credentials aren't valid:
             case 'ERR_INVALID_CREDENTIALS':
-               text.title = srm.get('Invalid Credentials');
-               text.message = srm.get('Wrong login or pass');
+               text.message = 'Wrong login or password';
                break;
 
             // *Case the user isn't active:
             case 'ERR_USER_NOT_ACTIVE':
-                text.title = srm.get('User not active');
-                text.message = srm.get('The current user is not active');
+                text.message = ('The current user is not active');
                 break;
 
             default:
-                text.title = srm.get('Error');
-                text.message = srm.get('Error');
+                text.message = ('Error');
                 break;
             }
 
             // *Opening a dialog notice for the user:
-            $('#login-error-output').text(text);
+            let text_string = JSON.stringify(text.message);
+            $('#login-error-output').text(text_string);
          });
    });
 });
@@ -118,6 +111,7 @@ spa.onNavigate('auth', (page, params) => {
             spa.navigateTo('login');
          });
       } else{
+        $('#login-error-output').text(text);
          // *If it's not:
          // *Backing the history two pages:
          history.back();
