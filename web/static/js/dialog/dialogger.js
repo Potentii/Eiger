@@ -2,7 +2,7 @@
 
 /**
  * Provides access to dialog system
- * @namespace Dialogger
+ * @author Guilherme Reginaldo Ruella
  */
 const dialogger = (function(){
    let dialogs = [];

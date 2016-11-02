@@ -5,7 +5,7 @@ const rest_url = 'http://localhost:3000';
 
 /**
  * Module that makes requests to the rest server
- * @namespace REQUEST
+ * @author Ralf Pablo Braga Soares
  */
 const request = (function(){
 
@@ -320,10 +320,11 @@ const request = (function(){
     * Returns the object the vehicle reservation for this date
     * @param  {number} id Vehicle id
     * @param  {date} date Schedule date
+    * @param  {object} sorting The sorting object
     * @return {jqXHR}     The ajax request
     * @author Ralf Pablo Braga Soares
     */
-   function getVehiclesReservationsOnDate(id, date){
+   function getVehiclesReservationsOnDate(id, date, sorting = {}){
 
       // *Getting the key and the token:
       let auth = retrieveAccessInfo();
@@ -331,7 +332,7 @@ const request = (function(){
       return $.ajax({
          url: rest_url + '/api/v1/vehicles/' + id + '/reservations/' + date,
          method: 'GET',
-         headers: {'Access-Token': auth.token, 'Access-Key': auth.key}
+         headers: {'Access-Token': auth.token, 'Access-Key': auth.key, 'Sort-Field': sorting.order_by, 'Sort-Type': sorting.order_type}
       });
    }
 
@@ -379,12 +380,13 @@ const request = (function(){
 
 
    /**
-   * Retrieves all reservations
-   * @param  {object} params The filter object
-   * @return {jqXHR}     The ajax request
-   * @author Guilherme Reginaldo Ruella
-   */
-   function getReservations(params, {order_by, order_type}){
+    * Retrieves all reservations
+    * @param  {object} params The filter object
+    * @param  {object} sorting The sorting object
+    * @return {jqXHR}     The ajax request
+    * @author Guilherme Reginaldo Ruella
+    */
+   function getReservations(params, sorting = {}){
       // *Transforming the params object into a query string:
       params = getQueryString(params);
 
@@ -394,7 +396,7 @@ const request = (function(){
       return $.ajax({
          url: rest_url + '/api/v1/reservations' + params,
          method: 'GET',
-         headers: {'Access-Token': auth.token, 'Access-Key': auth.key, 'Sort-Field': order_by, 'Sort-Type': order_type}
+         headers: {'Access-Token': auth.token, 'Access-Key': auth.key, 'Sort-Field': sorting.order_by, 'Sort-Type': sorting.order_type}
       });
    }
 

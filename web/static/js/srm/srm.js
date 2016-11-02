@@ -2,7 +2,7 @@
 
 /**
  * Exposes the String Resource Management module
- * @namespace SRM
+ * @author Guilherme Reginaldo Ruella
  */
 const srm = (function(){
    let dictionary = new Map([]);
@@ -86,11 +86,24 @@ const srm = (function(){
 
 
 
+   /**
+    * Removes new listener for the 'on dictionary change' event
+    * @param  {function|function[]} action The listener
+    * @author Guilherme Reginaldo Ruella
+    */
+   function removeOnDictionaryChange(action){
+      // *Removing the listener from the handler:
+      dictionary_change_event.removeListener(action);
+   }
+
+
+
    // *Exporting the module:
    return {
       loadDictionary: loadDictionary,
       setDictionary: setDictionary,
       get: get,
-      onDictionaryChange: onDictionaryChange
+      onDictionaryChange: onDictionaryChange,
+      removeOnDictionaryChange: removeOnDictionaryChange
    };
 })();

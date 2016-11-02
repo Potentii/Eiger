@@ -2,7 +2,7 @@
 
 /**
  * Controls the navigation drawer
- * @namespace Drawer
+ * @author Guilherme Reginaldo Ruella
  */
 const drawer = (function(){
    const drawer_id = 'drawer';

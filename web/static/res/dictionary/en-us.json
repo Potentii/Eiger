@@ -3,6 +3,7 @@
    ["drawer-nav-reservations", "Find reservations"],
    ["drawer-nav-settings", "Settings"],
    ["drawer-nav-about-us", "About us"],
+   ["drawer-nav-logoff", "Logoff"],
 
    ["auth-text", "Authenticating"],
    ["fallback-text", "Page not found"],
@@ -10,6 +11,8 @@
    ["login-username", "Username"],
    ["login-password", "Password"],
    ["login-login", "Login"],
+
+   ["vehicles-header", "Vehicles"],
 
    ["vehicle-info-header", "Vehicle"],
    ["vehicle-info-active", "Active status"],
@@ -39,6 +42,7 @@
    ["schedules-header", "Schedules"],
 
    ["schedule-info-header", "Schedule"],
+   ["schedule-info-code", "Code"],
    ["schedule-info-reason", "Reason"],
    ["schedule-info-duration", "Duration"],
    ["schedule-info-confirmed", "Status"],
@@ -134,11 +138,16 @@
    ["none-selected-text-reservations-vehicle", "No vehicle selected"],
    ["none-selected-text-reservations-user", "No user selected"],
 
+   ["settings-header", "Settings"],
+   ["settings-language", "Language"],
+
 
 
    ["empty-list-text-vehicles", "No vehicles found"],
    ["empty-list-text-schedules", "No schedules on this day"],
    ["empty-list-text-users", "No users found"],
+   ["empty-list-text-reservations", "No reservations found"],
+   ["empty-list-text-default-select", "No items available"],
    ["empty-list-text-user-picker", "${empty-list-text-users}"],
    ["empty-list-text-vehicle-picker", "${empty-list-text-vehicles}"],
 
@@ -152,6 +161,10 @@
    ["default-retry-cancel", "cancel"],
    ["default-retry-retry", "retry"],
 
+   ["default-select-header", "Select an item"],
+   ["default-select-cancel", "cancel"],
+   ["default-select-ok", "ok"],
+
    ["user-picker-header", "Select an user"],
    ["user-picker-cancel", "cancel"],
    ["user-picker-ok", "ok"],
@@ -159,6 +172,9 @@
    ["vehicle-picker-header", "Select a vehicle"],
    ["vehicle-picker-cancel", "cancel"],
    ["vehicle-picker-ok", "ok"],
+
+   ["default-select-translate-header", "Choose a language"],
+   ["empty-list-text-default-select-translate", "No languages available"],
 
    ["reservations-filters-header", "Filters"],
    ["reservations-filters-schedule-id", "Schedule code"],
@@ -173,6 +189,8 @@
 
 
    ["dialog-default-save-changes", "Save changes?"],
+   ["dialog-default-sure", "Are you sure?"],
+
    ["vehicle-create-successful-snack", "Vehicle saved"],
 
    ["vehicle-update-dialog-consent-submit-title", "${dialog-default-save-changes}"],
@@ -191,6 +209,20 @@
    ["user-update-dialog-consent-submit-message", ""],
    ["user-update-successful-snack", "User updated"],
 
+   ["vehicle-info-dialog-consent-delete-title", "Remove this vehicle"],
+   ["vehicle-info-dialog-consent-delete-message", "${dialog-default-sure}"],
+   ["vehicle-info-delete-successful-snack", "Vehicle removed"],
+
+   ["schedule-info-dialog-consent-delete-title", "Remove this schedule"],
+   ["schedule-info-dialog-consent-delete-message", "${dialog-default-sure}"],
+   ["schedule-info-delete-successful-snack", "Schedule removed"],
+
+   ["user-info-dialog-consent-delete-title", "Remove this user"],
+   ["user-info-dialog-consent-delete-message", "${dialog-default-sure}"],
+   ["user-info-delete-successful-snack", "User removed"],
+
+   ["settings-saved-language", "Language changed"],
+
 
 
    ["error-default-internal", "Internal error"],
@@ -204,6 +236,13 @@
    ["dialog-error-default-ref-message", "A referenced resource doesn't exists anymore"],
    ["dialog-error-default-not-found-message", "Couldn't found the resource"],
 
+   ["vehicle-info-dialog-error-not-found-title", "${dialog-error-default-send-request-title}"],
+   ["vehicle-info-dialog-error-not-found-message", "${dialog-error-default-not-found-message}"],
+   ["vehicle-info-dialog-error-ref-left-title", "${dialog-error-default-send-request-title}"],
+   ["vehicle-info-dialog-error-ref-left-message", "This vehicle is being referenced by some schedule, so it cannot be removed"],
+   ["vehicle-info-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
+   ["vehicle-info-dialog-error-default-message", "${dialog-error-default-send-request-message}"],
+
    ["vehicle-create-dialog-error-missing-field-title", "${dialog-error-default-send-request-title}"],
    ["vehicle-create-dialog-error-missing-field-message", "${dialog-error-default-missing-field-message}"],
    ["vehicle-create-dialog-error-duplicate-title", "${dialog-error-default-send-request-title}"],
@@ -215,6 +254,13 @@
    ["vehicle-update-dialog-error-duplicate-message", "${dialog-error-default-duplicate-message}"],
    ["vehicle-update-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
    ["vehicle-update-dialog-error-default-message", "${dialog-error-default-send-request-message}"],
+
+   ["schedule-info-dialog-error-not-found-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-info-dialog-error-not-found-message", "${dialog-error-default-not-found-message}"],
+   ["schedule-info-dialog-error-not-authorized-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-info-dialog-error-not-authorized-message", "You're not authorized to remove this schedule"],
+   ["schedule-info-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-info-dialog-error-default-message", "${dialog-error-default-send-request-message}"],
 
    ["schedule-create-dialog-no-vehicles-title", "Couldn't find any vehicle"],
    ["schedule-create-dialog-no-vehicles-message", "Please register some to book schedules"],
@@ -254,6 +300,13 @@
    ["schedule-update-dialog-error-notfound-schedule-message", "${dialog-error-default-send-request-message}"],
    ["schedule-update-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
    ["schedule-update-dialog-error-default-message", "${dialog-error-default-send-request-message}"],
+
+   ["user-info-dialog-error-not-found-title", "${dialog-error-default-send-request-title}"],
+   ["user-info-dialog-error-not-found-message", "${dialog-error-default-not-found-message}"],
+   ["user-info-dialog-error-ref-left-title", "${dialog-error-default-send-request-title}"],
+   ["user-info-dialog-error-ref-left-message", "This user is being referenced by some schedule, so it cannot be removed"],
+   ["user-info-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
+   ["user-info-dialog-error-default-message", "${dialog-error-default-send-request-message}"],
 
    ["user-create-dialog-error-missing-field-title", "${dialog-error-default-send-request-title}"],
    ["user-create-dialog-error-missing-field-message", "${dialog-error-default-missing-field-message}"],

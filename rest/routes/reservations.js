@@ -8,10 +8,12 @@ const pooler = require('../database/pooler');
  */
 function retrieveAll(req, res, next){
    // *Getting the filters from the query string:
-   let id = req.query.id;
+   let schedule_id = req.query.schedule_id;
    let status = req.query.status;
    let from_date = !isNaN(Date.parse(req.query.from_date)) ? req.query.from_date : undefined;
    let to_date = !isNaN(Date.parse(req.query.to_date)) ? req.query.to_date : undefined;
+   let vehicle_id = req.query.vehicle_id;
+   let user_id = req.query.user_id;
 
    // *Getting the sort headers:
    let sort_field = req.get('Sort-Field');
@@ -21,12 +23,12 @@ function retrieveAll(req, res, next){
    let sql = 'select ??.*, ??.*, ??.* from ?? inner join ?? on ?? = ??.?? inner join ?? on ?? = ??.??';
    let values = ['user', 'schedule', 'vehicle', 'schedule', 'user', 'id_user_fk', 'user', 'id', 'vehicle', 'id_vehicle_fk', 'vehicle', 'id'];
 
-   // *Checking if the id filtering is set:
-   if(id){
+   // *Checking if the schedule id filtering is set:
+   if(schedule_id){
       // *If it is:
       // *Adding it to the query:
       sql += ' and ??.?? = ?';
-      values.push('schedule', 'id', id);
+      values.push('schedule', 'id', schedule_id);
    }
 
    // *Checking if the confirmed status filtering is set:
@@ -65,6 +67,22 @@ function retrieveAll(req, res, next){
       // *Adding it to the query:
       sql += ' and (? >= DATE(??.??))';
       values.push(to_date, 'schedule', 'start_date');
+   }
+
+   // *Checking if the vehicle id filtering is set:
+   if(vehicle_id){
+      // *If it is:
+      // *Adding it to the query:
+      sql += ' and ??.?? = ?';
+      values.push('vehicle', 'id', vehicle_id);
+   }
+
+   // *Checking if the user id filtering is set:
+   if(user_id){
+      // *If it is:
+      // *Adding it to the query:
+      sql += ' and ??.?? = ?';
+      values.push('user', 'id', user_id);
    }
 
    // *Checking if the sorting is set:

@@ -42,12 +42,25 @@ function retrieveAllOnDate(req, res, next){
    let id = req.params.id;
    let date = req.params.date;
 
+   // *Getting the sort headers:
+   let sort_field = req.get('Sort-Field');
+   let sort_type = req.get('Sort-Type');
+
+   // *Preparing the query:
+   let sql = 'select ??.*, ??.* from ?? inner join ?? on ?? = ??.?? where ?? = ? and ? between DATE(??) and DATE(??)';
+   let values = ['user', 'schedule', 'user', 'schedule', 'id_user_fk', 'user', 'id', 'id_vehicle_fk', id, date, 'start_date', 'end_date'];
+
+   // *Checking if the sorting is set:
+   if(sort_field){
+      // *If it is:
+      // *Adding it to the query:
+      sort_type = (sort_type==='desc') ? 'desc' : 'asc';
+      sql += ' order by ??.?? ' + sort_type;
+      values.push('schedule', sort_field);
+   }
+
    // *Querying the database for all resources:
-   let options = {
-      sql: 'select ??.*, ??.* from ?? inner join ?? on ?? = ??.?? where ?? = ? and ? between DATE(??) and DATE(??)',
-      nestTables: true
-   };
-   pooler.query(options, ['user', 'schedule', 'user', 'schedule', 'id_user_fk', 'user', 'id', 'id_vehicle_fk', id, date, 'start_date', 'end_date'])
+   pooler.query({sql: sql, nestTables: true}, values)
       .then(result => {
          // *Sending the resources as response:
          res.status(200)

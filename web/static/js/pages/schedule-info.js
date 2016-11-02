@@ -31,6 +31,9 @@ spa.onNavigate('schedule-info', (page, params) => {
                   $('#schedule-info-confirmed-true').parent().parent('.row').hide();
                }
 
+               // *Setting the schedule code:
+               $('#schedule-info-code').text(data.id);
+
                // *Setting the schedule reason:
                $('#schedule-info-reason').text(data.reason);
 
@@ -119,13 +122,29 @@ spa.onNavigate('schedule-info', (page, params) => {
                      console.log(xhr.responseJSON);
                   });
             });
-     }
+      }
 
-     // *When a user to click in update button:
-    $('#schedule-info-edit-fab').on('click', function(){
-        // *Sending the id of the schedule-update by parameter:
-        spa.navigateTo('schedule-update', {id: id});
-     });
+      // *When a user to click in update button:
+      $('#schedule-info-edit-fab').on('click', e => {
+         // *Sending the id of the schedule-update by parameter:
+         spa.navigateTo('schedule-update', {id: id});
+      });
+
+      // *When a user clicks on delete button:
+      $('#schedule-info-delete-fab').on('click', e => {
+         // *Asking if the user wants to delete:
+         dialogger.open('default-consent', {title: srm.get('schedule-info-dialog-consent-delete-title'), message: srm.get('schedule-info-dialog-consent-delete-message')}, (dialog, status, params) => {
+            // *Checking the button clicked:
+            switch(status){
+            case dialogger.DIALOG_STATUS_POSITIVE:
+               // *If the user clicked at 'ok':
+               // *Deleting the schedule:
+               deleteSchedule(id);
+               break;
+            }
+         });
+      });
+
    } else {
       // *Is not diferent of null ou undefined:
       // *Redirecting the user to index page:
@@ -134,9 +153,58 @@ spa.onNavigate('schedule-info', (page, params) => {
 });
 
 
+
 // *When user left the page:
 spa.onLeft('schedule-info', (page) => {
-
    // *Removing the event click:
    $('#schedule-info-edit-fab').off('click');
+   $('#schedule-info-delete-fab').off('click');
 });
+
+
+
+/**
+ * Deletes a schedule, and handles the response
+ * @param  {number} id The schedule's id to delete
+ * @author Guilherme Reginaldo Ruella
+ */
+function deleteSchedule(id){
+   request.deleteSchedule(id)
+      .done(data => {
+         // *Showing a success snackbar:
+         snack.open(srm.get('schedule-info-delete-successful-snack'), snack.TIME_SHORT);
+         // *Going back to schedule list:
+         spa.goBack();
+      })
+      .fail(xhr => {
+         // *Checking if the request's status is 401, sending the user to the login page if it is:
+         if(xhr.status === 401){
+            spa.navigateTo('login');
+            return;
+         }
+         // *Declaring the dialog text object:
+         let text = {title: '', message: ''};
+
+         // *Checking the error code:
+         switch(xhr.responseJSON.err_code){
+         case 'ERR_NOT_FOUND':
+            // *If the resource could not be found:
+            text.title = srm.get('schedule-info-dialog-error-not-found-title');
+            text.message = srm.get('schedule-info-dialog-error-not-found-message');
+            break;
+         case 'ERR_NOT_AUTHORIZED':
+            // *If the user doesn't have authorization to remove this resource:
+            text.title = srm.get('schedule-info-dialog-error-not-authorized-title');
+            text.message = srm.get('schedule-info-dialog-error-not-authorized-message');
+            break;
+         default:
+            // *If none of above:
+            text.title = srm.get('schedule-info-dialog-error-default-title');
+            text.message = srm.get('schedule-info-dialog-error-default-message');
+            break;
+         }
+
+         // *Opening the notice dialog:
+         dialogger.open('default-notice', text);
+      });
+}
