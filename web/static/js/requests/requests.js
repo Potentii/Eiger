@@ -69,6 +69,20 @@ const request = (function(){
    }
 
 
+
+   /**
+    * Clears the user's information from the cache
+    * @author Guilherme Reginaldo Ruella
+    */
+   function clearAccessInfo(){
+      // *Removing the user's info from the cache:
+      localStorage.removeItem('token');
+      localStorage.removeItem('id');
+      localStorage.removeItem('key');
+   }
+
+
+
 // *------------------------ GETS -------------------------------:
 
 
@@ -679,6 +693,7 @@ const request = (function(){
       deleteSchedule: deleteSchedule,
 
       retrieveAccessInfo: retrieveAccessInfo,
-      saveAccessInfo: saveAccessInfo
+      saveAccessInfo: saveAccessInfo,
+      clearAccessInfo: clearAccessInfo
    };
 })();

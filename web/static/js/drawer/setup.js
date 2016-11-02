@@ -1,11 +1,14 @@
 // *When the page gets loaded:
 $(() => {
-   let info = request.retrieveAccessInfo();
-   let info_id = info.id;
-   // *When the user click in their Login/Name/Photo send's to their personal user information page:
-   $('#drawer-login-info').on('click', function(){
-      spa.navigateTo('user-info', {id: info_id});
+   // *When the user clicks on their info on drawer:
+   $('#drawer-login-info').on('click', e => {
+      // *Navigating to user info page:
+      spa.navigateTo('user-info', {id: request.retrieveAccessInfo().id});
+      // *Dismissing the navigation drawer:
+      drawer.dismiss();
    });
+
+
    // *When the user click one of the navigation buttons:
    $('#drawer > .drawer-navigation > button').on('click', e => {
       // *Dismissing the navigation drawer:
@@ -13,11 +16,12 @@ $(() => {
    });
 });
 
+
+
 // *When the user opens the drawer:
-drawer.onOpen(function(){
-   let user_info = request.retrieveAccessInfo();
-   let user_id = user_info.id;
-   request.getUser(user_id)
+drawer.onOpen(() => {
+   // *Getting the user info from database:
+   request.getUser(request.retrieveAccessInfo().id)
       .done(data => {
 
          // *Setting the user's photo:
@@ -35,12 +39,20 @@ drawer.onOpen(function(){
       });
 });
 
+
+
 /**
- * Remove cache and auth and go to login page
- * @author Dennis Sakaki Fujiki
+ * Removes cache and auth and go to login page
+ * @author Dennis Sakaki Fujiki, Guilherme Reginaldo Ruella
  */
 function logoff(){
-   request.removeAccessInfo();
-   request.deleteAuth();
-   spa.navigateTo('login');
+   // *Removing user's token from database:
+   request.deleteAuth()
+      .always(() => {
+         // *Removing user data from cache:
+         request.clearAccessInfo();
+         // *Navigating to login page:
+         spa.navigateTo('login');
+      })
+      .fail(xhr => console.log(xhr.responseJSON));
 }

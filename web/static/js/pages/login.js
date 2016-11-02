@@ -18,13 +18,16 @@ spa.onNavigate('login', (page, params) => {
       let text_username = $('#login-username-in').val();
       let text_pass = $('#login-pass-in').val();
 
+      // *Cleaning the login error output:
+      $('#login-error-output').text('');
+
       // *Saving all values in a object_data:
       let object_data = {login: text_username, pass: text_pass};
 
+      // *Sending the login info to REST:
       request.postAuth(object_data)
          .done(data => {
 
-            $('#login-error-output').text();
             // *Saving user authentication data:
             request.saveAccessInfo({id: data.user.id, key: data.user.login, token: data.token});
 
@@ -35,30 +38,36 @@ spa.onNavigate('login', (page, params) => {
             spa.navigateTo('');
          })
          .fail(xhr => {
+            // *Declaring the text variable:
+            let text = '';
 
             // *Checking the error code:
             switch(xhr.responseJSON.err_code){
-            // *Case the credentials aren't valid:
             case 'ERR_INVALID_CREDENTIALS':
-               $('#login-error-output').text("Wrong login or password");
+               // *If the credentials aren't valid:
+               text = srm.get('login-error-invalid-credentials');
                break;
 
-            // *Case the user isn't active:
             case 'ERR_USER_NOT_ACTIVE':
-                $('#login-error-output').text('The current user is not active');
-                break;
+               // *If the user isn't active:
+               text = srm.get('login-error-user-not-active');
+               break;
 
             default:
-                $('#login-error-output').text('Error');
-                break;
+               // *If none of the above:
+               text = srm.get('login-error-default');
+               break;
             }
+
+            // *Displaying the error text:
+            $('#login-error-output').text(text);
          });
    });
 });
 
 
 
-// *The page loading:
+// *When the SPA gets ready:
 spa.onReady(() => {
 
    // *Getting name previous page:
@@ -85,7 +94,7 @@ spa.onNavigate('auth', (page, params) => {
       // *Redirecting the user to login page:
       spa.navigateTo('login');
 
-   } else {
+   } else{
       // *If not null:
 
       // *Checking if the previous page name is set:

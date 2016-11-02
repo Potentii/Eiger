@@ -282,6 +282,12 @@ body{
 
 	overflow: visible;
 }
+.drawer-login-info:hover, .drawer-login-info *:hover{
+	cursor: pointer;
+}
+.drawer-login-info .mdl-ripple{
+	background: #fff;
+}
 .drawer-login-info > .round-thumbnail{
 	border: 3px solid var(--bg-color);
 	min-width: 5em;
