@@ -3,6 +3,8 @@
 // *When the user navigates to this page:
 spa.onNavigate('email-settings', (page, params) => {
 
+   let fileText = '';
+
    // *Getting module settings:
    const settings_module = modules.get('settings');
 
@@ -31,9 +33,6 @@ spa.onNavigate('email-settings', (page, params) => {
          // *Setting email settings subject:
          $('#email-settings-confirmation-subject').val(file.confirmation_subject);
 
-         // *Setting email settings body confrmation:
-         $('#email-settings-confirmation-body-name').text(file.confirmation_body);
-
          // *Updating MDL Textfields:
          mdl_util.updateTextFields('#email-settings-section');
 
@@ -43,7 +42,8 @@ spa.onNavigate('email-settings', (page, params) => {
 
       })
       .catch(err => {
-
+         // *Printing a error when load lettings on a file:
+         console.log(err);
       });
 
    // *Listening event of submit:
@@ -51,33 +51,33 @@ spa.onNavigate('email-settings', (page, params) => {
       // *Preventing action default of browser happen:
       e.preventDefault();
       // *Calling a function to save a file:
-      saveFile();
-   })
+      saveFile(fileText);
+   });
+
    // *Listening when the user choose a file:
    $('#email-settings-confirmation-body').on('change', (e) => {
       let getFile = e.target.files[0].name;
+      // *Setting name of a file in spam:
       $('#email-settings-confirmation-body-name').text(getFile);
-   })
 
+      // *Getting a file selected:
+      let file = document.querySelector('#email-settings-confirmation-body').files[0];
+      // *Setting a text of a file selected:
+      file_encoder.asText(file, res => {
+         fileText = res;
+      });
+   });
 
-   $('#email-settings-confirmation-body').on('change', (e) => {
-   let reader = new FileReader();
-   let file ='';
-
-   reader.onload = function (e) {
-                file = e.target.result;
-                console.log(file);
-            };
-         })
-})
+});
 
 
 
 /**
- * Save a file with date of email settings
+ * Save a file with mail configuration
+ * @param  {file} fileText   File as a Text
  * @author Willian Conti Rezende
  */
-function saveFile(file){
+function saveFile(fileText){
 
    // *Getting module settings:
    const settings_module = modules.get('settings');
@@ -90,20 +90,20 @@ function saveFile(file){
       pass: $('#email-settings-password').val(),
       confirmation_account: $('#email-settings-confirmation-email').val(),
       confirmation_subject: $('#email-settings-confirmation-subject').val(),
-      confirmation_body:
+      confirmation_body: fileText
    });
 
    // *Saving a file:
    settings_module.saveSettings(settings_module.EMAIL_SETTINGS_FILE, content_inputs)
       .then(() => {
-         console.log('File Save Success!');
          // *Going to logs page:
          spa.navigateTo('log');
       })
+         // *Printing a error when save a file:
       .catch(err =>{
-         console.log('Error Saving File');
+         console.log(err);
 
-   });
+      });
 }
 
 
