@@ -86,6 +86,13 @@ spa.onNavigate('', (page, params) => {
       // *Sending the user's to the vehicle-create page:
       spa.navigateTo('vehicle-create');
    });
+
+
+   // *When the user clicks on select date FAB:
+   $('#vehicles-select-date-fab').on('click', e => {
+      // *Opening a dialog informing that this feature is not available yet:
+      dialogger.open('default-notice', {title: srm.get('vehicles-select-date-dialog-not-available-title'), message: srm.get('vehicles-select-date-dialog-not-available-message')});
+   });
 });
 
 
@@ -104,6 +111,7 @@ spa.onLeft('', (page) => {
    // *Removing the event click:
    $('#vehicles-list .schedules').off('click');
    $('#vehicles-add-fab').off('click');
+   $('#vehicles-select-date-fab').off('click');
 });
 
 
