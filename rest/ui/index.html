@@ -28,8 +28,6 @@
       <script src="../../web/static/js/util/AutoConsumableQueue.js"></script>
 
       <!-- * Modules * -->
-      <script src="./js/modules/modules.js"></script>
-
       <script src="../../web/static/js/srm/srm.js"></script>
 
       <script src="./js/intl/intl.js"></script>
@@ -41,7 +39,7 @@
       <script src="../../web/static/js/snack/snack.js"></script>
 
       <script src="../../web/static/js/drawer/drawer.js"></script>
-      <script src="../../web/static/js/drawer/setup.js"></script>
+      <script src="./js/drawer/setup.js"></script>
 
       <script src="../../web/static/js/dialog/Dialog.js"></script>
       <script src="../../web/static/js/dialog/dialogger.js"></script>
@@ -51,6 +49,8 @@
 
       <script src="./js/pages/subscriptions.js"></script>
 
+      <script src="../../web/static/js/file-encoder/file-encoder.js"></script>
+
       <script src="../../web/static/js/mdl/mdl-util.js"></script>
 
       <script src="./js/dev-tools.js"></script>
@@ -58,6 +58,7 @@
       <!-- * Pages * -->
       <script src="../../web/static/js/pages/splash.js"></script>
       <script src="./js/pages/log.js"></script>
+      <script src="./js/pages/email-settings.js"></script>
 
       <title>Eiger REST API</title>
    </head>
@@ -146,7 +147,7 @@
          </header>
 
 
-         <!-- Vehicle update form -->
+         <!-- Email update form -->
          <form id="email-settings-form" class="form content-before-fab" autocomplete="off">
 
             <!-- SMTP server input -->
@@ -189,20 +190,11 @@
 
             <div class="horizontal-separator"></div>
 
-            <!-- Confirmation send input -->
-            <div class="row mdl-input-row">
-               <i class="material-icons">email</i>
-               <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="email-settings-confirmation-send">
-                  <input id="email-settings-confirmation-send" type="checkbox" class="mdl-checkbox__input">
-                  <span class="mdl-checkbox__label" data-intl="email-settings-confirmation-send"></span>
-               </label>
-            </div>
-
             <!-- Confirmation E-mail input -->
             <div class="row mdl-input-row">
-               <i class="material-icons">_</i>
+               <i class="material-icons">email</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input id="email-settings-confirmation-email" class="mdl-textfield__input" type="email" required="true" disabled="true">
+                  <input id="email-settings-confirmation-email" class="mdl-textfield__input" type="email" required="true">
                   <label class="mdl-textfield__label" for="email-settings-confirmation-email" data-intl="email-settings-confirmation-email"></label>
                </span>
             </div>
@@ -211,7 +203,7 @@
             <div class="row mdl-input-row">
                <i class="material-icons">_</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input id="email-settings-confirmation-subject" class="mdl-textfield__input" type="text" disabled="true">
+                  <input id="email-settings-confirmation-subject" class="mdl-textfield__input" type="text">
                   <label class="mdl-textfield__label" for="email-settings-confirmation-subject" data-intl="email-settings-confirmation-subject"></label>
                </span>
             </div>
@@ -222,7 +214,7 @@
                <span class="file-input vertical-layout">
                   <label class="output-label" data-intl="email-settings-confirmation-body-name"></label>
 
-                  <input id="email-settings-confirmation-body" type="file" accept="text/html" disabled="true">
+                  <input id="email-settings-confirmation-body" type="file" accept="text/html">
 
                   <div class="horizontal-layout">
                      <button type="button" class="middle material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect fab" onclick="$('#email-settings-confirmation-body').click()">note_add</button>
