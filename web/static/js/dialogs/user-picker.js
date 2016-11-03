@@ -3,14 +3,6 @@
 // *Browsing the user-picker dialog:
 dialogger.onOpen('user-picker', (dialog, params) => {
 
-      // *Checking if the previous selected user was set:
-   if(!params || (params.previous_selected_user === null || params.previous_selected_user === undefined)){
-      // *If it wasn't:
-      // *Assigning status neutral to the dialog:
-      dialogger.dismiss(dialogger.DIALOG_STATUS_NEUTRAL);
-      return;
-   }
-
    // *Setting the id of the user selected previous:
    let selected_user = params.previous_selected_user;
 

@@ -143,7 +143,7 @@ function updateVehicle(id, vehicle_photo_base64){
    let vehicle_revavam = $('#vehicle-update-renavam').val();
    let vehicle_active = $('#vehicle-update-active').is(':checked');
 
-   // *Create a objetct to receiva values to update a vehicle:
+   // *Create a object to receiva values to update a vehicle:
    let data_update_vehicle = {
       title: vehicle_title,
       manufacturer: vehicle_manufacturer,

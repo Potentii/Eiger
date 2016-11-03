@@ -79,7 +79,7 @@ function createVehicle(vehicle_photo_base64){
    let vehicle_revavam = $('#vehicle-create-renavam').val();
    let vehicle_active = $('#vehicle-create-active').is(':checked');
 
-   // *Create a objetct to receiva values to create a vehicle:
+   // *Create a object to receiva values to create a vehicle:
    let object_data = {
       title: vehicle_title,
       manufacturer: vehicle_manufacturer,

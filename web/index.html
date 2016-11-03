@@ -82,6 +82,7 @@
       <script src="./static/js/dialogs/default-select.js"></script>
       <script src="./static/js/dialogs/user-picker.js"></script>
       <script src="./static/js/dialogs/vehicle-picker.js"></script>
+      <script src="./static/js/dialogs/reservations-filters.js"></script>
 
       <!-- * Pages * -->
       <script src="./static/js/pages/splash.js"></script>
@@ -1830,13 +1831,18 @@
                      <label class="output-label" data-intl="reservations-filters-confirmed"></label>
 
                      <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="reservations-filters-confirmed-false">
-                        <input id="reservations-filters-confirmed-false" name="reservations-filters-confirmed" type="radio" value="planned" class="mdl-radio__button" checked>
+                        <input id="reservations-filters-confirmed-false" name="reservations-filters-confirmed" type="radio" value="planned" class="mdl-radio__button">
                         <span class="mdl-radio__label" data-intl="reservations-filters-confirmed-false"></span>
                      </label>
 
                      <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="reservations-filters-confirmed-true">
                         <input id="reservations-filters-confirmed-true" name="reservations-filters-confirmed" type="radio" value="confirmed" class="mdl-radio__button">
                         <span class="mdl-radio__label" data-intl="reservations-filters-confirmed-true"></span>
+                     </label>
+
+                     <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="reservations-filters-confirmed-both">
+                        <input id="reservations-filters-confirmed-both" name="reservations-filters-confirmed" type="radio" value="both" class="mdl-radio__button" checked>
+                        <span class="mdl-radio__label" data-intl="reservations-filters-confirmed-both"></span>
                      </label>
                   </div>
                </div>

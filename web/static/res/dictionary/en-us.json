@@ -181,6 +181,7 @@
    ["reservations-filters-confirmed", "${schedule-info-confirmed}"],
    ["reservations-filters-confirmed-false", "${schedule-info-confirmed-false}"],
    ["reservations-filters-confirmed-true", "${schedule-info-confirmed-true}"],
+   ["reservations-filters-confirmed-both", "Both"],
    ["reservations-filters-from-date", "From"],
    ["reservations-filters-to-date", "To"],
    ["reservations-filters-cancel", "cancel"],
@@ -320,5 +321,11 @@
    ["user-update-dialog-error-duplicate-title", "${dialog-error-default-send-request-title}"],
    ["user-update-dialog-error-duplicate-message", "${dialog-error-default-duplicate-message}"],
    ["user-update-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
-   ["user-update-dialog-error-default-message", "${dialog-error-default-send-request-message}"]
+   ["user-update-dialog-error-default-message", "${dialog-error-default-send-request-message}"],
+
+   ["reservations-filters-dialog-error-invalid-filters-title", "${dialog-error-default-send-request-title}"],
+   ["reservations-filters-dialog-error-invalid-filters-message", "The informed period isn't valid"],
+   ["reservations-filters-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
+   ["reservations-filters-dialog-error-default-message", "${dialog-error-default-send-request-message}"]
+
 ]

@@ -3,14 +3,6 @@
 // *Browsing the vehicle-picker dialog:
 dialogger.onOpen('vehicle-picker', (dialog, params) => {
 
-   // *Checking if the previous selected vehicle was set:
-   if(!params || (params.previous_selected_vehicle === null || params.previous_selected_vehicle === undefined)){
-      // *If it wasn't:
-      // *Assigning status neutral to the dialog:
-      dialogger.dismiss(dialogger.DIALOG_STATUS_NEUTRAL);
-      return;
-   }
-
    // *Setting the id of the user selected previous:
    let selected_vehicle = params.previous_selected_vehicle;
 
