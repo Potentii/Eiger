@@ -18,9 +18,13 @@ spa.onNavigate('login', (page, params) => {
       let text_username = $('#login-username-in').val();
       let text_pass = $('#login-pass-in').val();
 
+      // *Cleaning the login error output:
+      $('#login-error-output').text('');
+
       // *Saving all values in a object_data:
       let object_data = {login: text_username, pass: text_pass};
 
+      // *Sending the login info to REST:
       request.postAuth(object_data)
          .done(data => {
 
@@ -34,19 +38,36 @@ spa.onNavigate('login', (page, params) => {
             spa.navigateTo('');
          })
          .fail(xhr => {
-            // *Checking if the request's status is 401, sending the user to the login page if it is:
-            if(xhr.status === 401){
-               spa.navigateTo('login');
-               return;
+            // *Declaring the text variable:
+            let text = '';
+
+            // *Checking the error code:
+            switch(xhr.responseJSON.err_code){
+            case 'ERR_INVALID_CREDENTIALS':
+               // *If the credentials aren't valid:
+               text = srm.get('login-error-invalid-credentials');
+               break;
+
+            case 'ERR_USER_NOT_ACTIVE':
+               // *If the user isn't active:
+               text = srm.get('login-error-user-not-active');
+               break;
+
+            default:
+               // *If none of the above:
+               text = srm.get('login-error-default');
+               break;
             }
-            console.log(xhr.responseJSON);
+
+            // *Displaying the error text:
+            $('#login-error-output').text(text);
          });
    });
 });
 
 
 
-// *The page loading:
+// *When the SPA gets ready:
 spa.onReady(() => {
 
    // *Getting name previous page:
@@ -73,7 +94,7 @@ spa.onNavigate('auth', (page, params) => {
       // *Redirecting the user to login page:
       spa.navigateTo('login');
 
-   } else {
+   } else{
       // *If not null:
 
       // *Checking if the previous page name is set:

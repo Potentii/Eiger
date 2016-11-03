@@ -12,6 +12,8 @@
    ["login-password", "Password"],
    ["login-login", "Login"],
 
+   ["vehicles-header", "Vehicles"],
+
    ["vehicle-info-header", "Vehicle"],
    ["vehicle-info-active", "Active status"],
    ["vehicle-info-active-true", "Vehicle is active"],
@@ -40,6 +42,7 @@
    ["schedules-header", "Schedules"],
 
    ["schedule-info-header", "Schedule"],
+   ["schedule-info-code", "Code"],
    ["schedule-info-reason", "Reason"],
    ["schedule-info-duration", "Duration"],
    ["schedule-info-confirmed", "Status"],
@@ -143,6 +146,7 @@
    ["empty-list-text-vehicles", "No vehicles found"],
    ["empty-list-text-schedules", "No schedules on this day"],
    ["empty-list-text-users", "No users found"],
+   ["empty-list-text-reservations", "No reservations found"],
    ["empty-list-text-default-select", "No items available"],
    ["empty-list-text-user-picker", "${empty-list-text-users}"],
    ["empty-list-text-vehicle-picker", "${empty-list-text-vehicles}"],
