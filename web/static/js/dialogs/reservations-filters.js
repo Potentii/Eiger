@@ -3,6 +3,9 @@
 // *Browsing the reservations-filters dialog:
 dialogger.onOpen('reservations-filters', (dialog, params) => {
 
+   // *Removing the invalid state on the fields:
+   mdl_util.clearTextFieldsValidity('#reservations-filters-form');
+
    // *Setting the schedule id:
    $('#reservations-filters-schedule-id').val(params.schedule_id);
 
@@ -16,6 +19,12 @@ dialogger.onOpen('reservations-filters', (dialog, params) => {
 
    // *Setting the reservations filter from date:
    $('#reservations-filters-to-date').val(params.to_date);
+
+   // *Updating MDL Textfields:
+   mdl_util.updateTextFields('#reservations-filters-form');
+
+   // *Updating MDL Radios:
+   mdl_util.updateRadios('#reservations-filters-form');
 
 
 
@@ -67,9 +76,9 @@ dialogger.onDismiss('reservations-filters', (dialog, status, params) => {
 
    // *Cleaning inputs when the page is left:
    $('#reservations-filters-schedule-id').val('');
-   $('input:radio[name="reservations-filters-confirmed"][value="both"]').prop('checked', true);
    $('#reservations-filters-from-date').val('');
    $('#reservations-filters-to-date').val('');
+   $('input:radio[name="reservations-filters-confirmed"][value="both"]').prop('checked', true);
 
    // *Removing the event click:
    $('#reservations-filters-cancel-button').off('click');

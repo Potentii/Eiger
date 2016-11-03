@@ -116,12 +116,21 @@ spa.onNavigate('reservations', (page, params) => {
 
 
 
-      // *Clicking on a reservations li:
+      // *Clicking on a reservations:
       $('#reservations-list').on('click', 'li', function(){
          let id = $(this).data('id');
 
          // *Sending the id the li by parameter:
          spa.navigateTo('schedule-info', {id: id});
+      });
+
+
+
+      // *When a user to click in add button:
+      $('#reservations-add-fab').on('click', function(){
+
+         // *Sending the user for schedule-create page:
+         spa.navigateTo('schedule-create');
       });
    }
 });
@@ -257,6 +266,29 @@ function reservationsUtil(){
                spa.navigateTo('login');
                return;
             }
+
+            // *Adding the empty class to list:
+            $('#reservations-list').addClass('empty');
+
+            let text = {title: '', message: ''};
+
+            // *Checking the error code:
+            switch(xhr.responseJSON.err_code){
+
+            // *When the from_date and to_date doesn't forms a valid period
+            case 'ERR_INVALID_FILTERS':
+               text.title = srm.get('reservations-filters-dialog-error-invalid-filters-title');
+               text.message = srm.get('reservations-filters-dialog-error-invalid-filters-message');
+               break;
+
+            default:
+               text.title = srm.get('reservations-filters-dialog-error-default-title');
+               text.message = srm.get('reservations-filters-dialog-error-default-message');
+               break;
+            }
+
+            // *Opening a dialog notice for the user:
+            dialogger.open('default-notice', text);
          });
    }
 
