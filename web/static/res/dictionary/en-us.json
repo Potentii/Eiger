@@ -321,5 +321,11 @@
    ["user-update-dialog-error-duplicate-title", "${dialog-error-default-send-request-title}"],
    ["user-update-dialog-error-duplicate-message", "${dialog-error-default-duplicate-message}"],
    ["user-update-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
-   ["user-update-dialog-error-default-message", "${dialog-error-default-send-request-message}"]
+   ["user-update-dialog-error-default-message", "${dialog-error-default-send-request-message}"],
+
+   ["reservations-filters-dialog-error-invalid-filters-title", "${dialog-error-default-send-request-title}"],
+   ["reservations-filters-dialog-error-invalid-filters-message", "The informed period isn't valid"],
+   ["reservations-filters-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
+   ["reservations-filters-dialog-error-default-message", "${dialog-error-default-send-request-message}"]
+
 ]

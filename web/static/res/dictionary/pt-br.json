@@ -321,5 +321,10 @@
    ["user-update-dialog-error-duplicate-title", "${dialog-error-default-send-request-title}"],
    ["user-update-dialog-error-duplicate-message", "${dialog-error-default-duplicate-message}"],
    ["user-update-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
-   ["user-update-dialog-error-default-message", "${dialog-error-default-send-request-message}"]
+   ["user-update-dialog-error-default-message", "${dialog-error-default-send-request-message}"],
+
+   ["reservations-filters-dialog-error-invalid-filters-title", "${dialog-error-default-send-request-title}"],
+   ["reservations-filters-dialog-error-invalid-filters-message", "O período informado não é válido"],
+   ["reservations-filters-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
+   ["reservations-filters-dialog-error-default-message", "${dialog-error-default-send-request-message}"]
 ]
