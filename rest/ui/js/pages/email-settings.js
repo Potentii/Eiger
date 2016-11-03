@@ -2,49 +2,54 @@
 
 // *When the user navigates to this page:
 spa.onNavigate('email-settings', (page, params) => {
-
    let fileText = '';
 
-   // *Getting module settings:
-   const settings_module = modules.get('settings');
+   // *Getting the ipc renderer:
+   const {ipcRenderer} = require('electron');
 
-   // *Loading a file dates:
-   settings_module.loadSettings(settings_module.EMAIL_SETTINGS_FILE)
-      .then(content => {
+   // *When the loading retrieves the data successfully:
+   ipcRenderer.on('load-email-settings-success', (e, content) => {
+      //* Converting string to a object:
+      let file = JSON.parse(content);
 
-         //* Converting string to a object:
-         let file = JSON.parse(content);
+      // *Setting email settings smtp server:
+      $('#email-settings-smtp-server').val(file.smtp_server);
 
-         // *Setting email settings smtp server:
-         $('#email-settings-smtp-server').val(file.smtp_server);
+      // *Setting email settings smtp port:
+      $('#email-settings-smtp-port').val(file.smtp_port);
 
-         // *Setting email settings smtp port:
-         $('#email-settings-smtp-port').val(file.smtp_port);
+      // *Setting email settings user:
+      $('#email-settings-user').val(file.user);
 
-         // *Setting email settings user:
-         $('#email-settings-user').val(file.user);
+      // *Setting email settings password:
+      $('#email-settings-password').val(file.pass);
 
-         // *Setting email settings password:
-         $('#email-settings-password').val(file.pass);
+      // *Setting email settings email:
+      $('#email-settings-confirmation-email').val(file.confirmation_account);
 
-         // *Setting email settings email:
-         $('#email-settings-confirmation-email').val(file.confirmation_account);
+      // *Setting email settings subject:
+      $('#email-settings-confirmation-subject').val(file.confirmation_subject);
 
-         // *Setting email settings subject:
-         $('#email-settings-confirmation-subject').val(file.confirmation_subject);
+      // *Updating MDL Textfields:
+      mdl_util.updateTextFields('#email-settings-section');
 
-         // *Updating MDL Textfields:
-         mdl_util.updateTextFields('#email-settings-section');
-
-         // *Updating MDL Textfields:
-         mdl_util.updateCheckBoxes('#email-settings-section');
+      // *Updating MDL Textfields:
+      mdl_util.updateCheckBoxes('#email-settings-section');
+   });
 
 
-      })
-      .catch(err => {
-         // *Printing a error when load lettings on a file:
-         console.log(err);
-      });
+   // *When the loading retrieves an error:
+   ipcRenderer.on('load-email-settings-fail', (e, err) => {
+      // *Printing a error when load lettings on a file:
+      console.log(err);
+   });
+
+
+
+   // *Retrieving the previous saved settings:
+   ipcRenderer.send('load-email-settings');
+
+
 
    // *Listening event of submit:
    $('#email-settings-form').submit((e) => {
@@ -53,6 +58,8 @@ spa.onNavigate('email-settings', (page, params) => {
       // *Calling a function to save a file:
       saveFile(fileText);
    });
+
+
 
    // *Listening when the user choose a file:
    $('#email-settings-confirmation-body').on('change', (e) => {
@@ -67,7 +74,6 @@ spa.onNavigate('email-settings', (page, params) => {
          fileText = res;
       });
    });
-
 });
 
 
@@ -79,11 +85,25 @@ spa.onNavigate('email-settings', (page, params) => {
  */
 function saveFile(fileText){
 
-   // *Getting module settings:
-   const settings_module = modules.get('settings');
+   // *Getting the ipc renderer:
+   const {ipcRenderer} = require('electron');
 
-   // *Getting content of inpus in string format:
-   let content_inputs = JSON.stringify({
+   // *When the saving goes ok:
+   ipcRenderer.on('save-email-settings-success', (e, content) => {
+      // *Going to logs page:
+      spa.navigateTo('log');
+   });
+
+   // *When something wrong happens with the saving:
+   ipcRenderer.on('save-email-settings-fail', (e, err) => {
+      // *Printing a error when save a file:
+      console.log(err);
+   });
+
+
+
+   // *Saving a file:
+   ipcRenderer.send('save-email-settings', JSON.stringify({
       smtp_server: $('#email-settings-smtp-server').val(),
       smtp_port: $('#email-settings-smtp-port').val(),
       user: $('#email-settings-user').val(),
@@ -91,25 +111,15 @@ function saveFile(fileText){
       confirmation_account: $('#email-settings-confirmation-email').val(),
       confirmation_subject: $('#email-settings-confirmation-subject').val(),
       confirmation_body: fileText
-   });
-
-   // *Saving a file:
-   settings_module.saveSettings(settings_module.EMAIL_SETTINGS_FILE, content_inputs)
-      .then(() => {
-         // *Going to logs page:
-         spa.navigateTo('log');
-      })
-         // *Printing a error when save a file:
-      .catch(err =>{
-         console.log(err);
-
-      });
+   }));
 }
 
 
 
 // *When the user left this page:
 spa.onLeft('email-settings', (page) => {
+   // *Getting the ipc renderer:
+   const {ipcRenderer} = require('electron');
 
    // *Cleaning values of inputs:
    $('#email-settings-smtp-server').val('');
@@ -119,5 +129,16 @@ spa.onLeft('email-settings', (page) => {
    $('#email-settings-confirmation-email').val('');
    $('#email-settings-confirmation-subject').val('');
    $('#email-settings-confirmation-body').val('');
-   $('#email-settings-confirmation-body-name').val('');
+   $('#email-settings-confirmation-body-name').text('');
+
+   // *Removing all event listeners:
+   $('#email-settings-form').off('submit');
+   $('#email-settings-confirmation-body').off('change');
+
+   // *Removing ipc channels:
+   ipcRenderer.removeAllListeners('load-email-settings-success');
+   ipcRenderer.removeAllListeners('load-email-settings-fail');
+
+   ipcRenderer.removeAllListeners('save-email-settings-success');
+   ipcRenderer.removeAllListeners('save-email-settings-fail');
 });

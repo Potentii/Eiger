@@ -32,6 +32,8 @@ function createWindow(){
       win = null;
    });
 
+   // *Setting up all the IPC main channels:
+   setupChannels();
 
    // *Removing the default toolbar:
    win.setMenu(null);
@@ -86,10 +88,45 @@ app.on('activate', () => {
 /**
  * Retrieves the main window frame
  * @return {BrowserWindow}  The window frame
+ * @author Guilherme Reginaldo Ruella
  */
 function getWindow(){
    return win;
 }
+
+
+
+/**
+ * Sets all the IPC main channels
+ * @author Guilherme Reginaldo Ruella
+ */
+function setupChannels(){
+   // *Getting the ipc main module:
+   const {ipcMain} = require('electron');
+
+   // *Setting up the e-mail settings saving channel:
+   ipcMain.on('save-email-settings', (e, content) => {
+      // *Getting the settings module:
+      const settings = require('./settings/settings');
+
+      // *Saving the given settings into a file:
+      settings.saveSettings(settings.EMAIL_SETTINGS_FILE, content)
+         .then(() => e.sender.send('save-email-settings-success'))
+         .catch(err => e.sender.send('save-email-settings-fail', err));
+   });
+
+   // *Setting up the e-mail settings loading channel:
+   ipcMain.on('load-email-settings', (e) => {
+      // *Getting the settings module:
+      const settings = require('./settings/settings');
+
+      // *Retrieving the settings from a file:
+      settings.loadSettings(settings.EMAIL_SETTINGS_FILE)
+         .then(content => e.sender.send('load-email-settings-success', content))
+         .catch(err => e.sender.send('load-email-settings-fail', err));
+   });
+}
+
 
 
 // *Exporting the module:

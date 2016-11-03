@@ -122,14 +122,14 @@ function setupService(){
                .catch(err => {
                   // *If the settings wasn't valid:
                   // *Rejecting the promise:
-                  reject();
+                  reject(err);
                });
          })
          .catch(err => {
             // *If it couldn't read the settings file:
             // *Creating a blank file:
             createBlankSettingsFile()
-               .then(() => resolve())
+               .then(() => reject())
                .catch(err => reject(err));
          });
    });
