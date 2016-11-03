@@ -199,7 +199,7 @@ function scheduleUpdateUtil(){
       let start_date_schedule = schedule_start_date + ' ' + schedule_start_time;
       let end_date_schedule = schedule_end_date + ' ' + schedule_end_time;
 
-      // *Create a objetct to receiva values to update a schedule:
+      // *Create a object to receive values to update a schedule:
       let data_update_schedule = {
          reason: schedule_reason,
          confirmed: confirmed,

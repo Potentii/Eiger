@@ -177,6 +177,7 @@
    ["reservations-filters-confirmed", "${schedule-info-confirmed}"],
    ["reservations-filters-confirmed-false", "${schedule-info-confirmed-false}"],
    ["reservations-filters-confirmed-true", "${schedule-info-confirmed-true}"],
+   ["reservations-filters-confirmed-both", "Both"],
    ["reservations-filters-from-date", "From"],
    ["reservations-filters-to-date", "To"],
    ["reservations-filters-cancel", "cancel"],
