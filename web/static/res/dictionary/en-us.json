@@ -222,6 +222,9 @@
    ["user-info-dialog-consent-delete-message", "${dialog-default-sure}"],
    ["user-info-delete-successful-snack", "User removed"],
 
+   ["vehicles-select-date-dialog-not-available-title", "Feature not available"],
+   ["vehicles-select-date-dialog-not-available-message", "This feature is not available yet"],
+
    ["settings-saved-language", "Language changed"],
 
 
