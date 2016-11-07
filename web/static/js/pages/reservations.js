@@ -2,10 +2,15 @@
 
 // *When the user navigates to this page:
 spa.onNavigate('reservations', (page, params) => {
+   // *Getting the user permission:
+   let permission = request.retrieveUserPermissions();
 
    // *Checking if the user was authenticated:
    if(authenticated == true) {
       // *If true:
+      // *Checking the permission to the manage schedules:
+      if(!permission.permissions.manage_schedules) $('#reservations-add-fab').hide();
+
       // *Setting the variables for filter use:
       let filters = {
          schedule_id: undefined,
@@ -159,6 +164,9 @@ spa.onLeft('reservations', (page) => {
    $('#reservations-list').off('click');
    $('#reservations-vehicle-clear').off('click');
    $('#reservations-user-clear').off('click');
+
+   // *Showing the 'Add schedules' FAB:
+   $('#reservations-add-fab').show();
 });
 
 

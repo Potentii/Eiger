@@ -29,7 +29,22 @@ spa.onNavigate('login', (page, params) => {
          .done(data => {
 
             // *Saving user authentication data:
-            request.saveAccessInfo({id: data.user.id, key: data.user.login, token: data.token});
+            request.saveAccessInfo(
+               {
+                  id: data.user.id,
+                  key: data.user.login,
+                  token: data.token
+               });
+
+            // *Saving user permissions data:
+            request.saveUserPermissions(
+               {
+                  permissions: {
+                     manage_schedules: data.user.permission_schedules,
+                     manage_users: data.user.permission_users,
+                     manage_vehicles: data.user.permission_vehicles
+                  }
+               });
 
             // *Setting the variable value for true:
             authenticated = true;

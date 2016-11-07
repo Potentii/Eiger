@@ -2,10 +2,13 @@
 
 // *When the user navigate to the users page:
 spa.onNavigate('users', (page, params) => {
+   // *Getting the user permission:
+   let permission = request.retrieveUserPermissions();
 
    // *Checking if the user was authenticated:
    if(authenticated == true) {
       // *If true:
+
       // *Listing the users:
       request.getUsers()
          .done(data =>{
@@ -48,14 +51,27 @@ spa.onNavigate('users', (page, params) => {
                   anim.inflate(img_div);
                }, index * 125);
             });
+   
+            // *Checking the permission to the manage users:
+            if(!permission.permissions.manage_users){
+                $('#users-list').on('click', 'li', function(){
+                  let id = $(this).data('id');
 
-            // *Clicking on an user:
-            user_ul.on('click', 'li', function(){
-               let user_id = $(this).data('id');
+                  // *Sending the id of the li by parameter:
+                  spa.navigateTo('account-info', {id: id});
+                  console.log('Não pode');
+               });
+            } else{
 
-               // *Sending the id of the li by parameter:
-               spa.navigateTo('user-info', {id: user_id});
-            });
+               // *Clicking on an user:
+                $('#users-list').on('click', 'li', function(){
+                  let user_id = $(this).data('id');
+
+                  // *Sending the id of the li by parameter:
+                  spa.navigateTo('user-info', {id: user_id});
+                  console.log('Pode');
+               });
+            }
          })
          .fail(xhr => {
             // *Checking if the request's status is 401, sending the user to the login page if it is:

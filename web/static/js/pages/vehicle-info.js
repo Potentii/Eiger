@@ -2,6 +2,8 @@
 
 // *Browsing the vehicle-info page:
 spa.onNavigate('vehicle-info', (page, params) => {
+   // *Getting the user permission:
+   let permission = request.retrieveUserPermissions();
 
    // *Checking if the params is diferent undefined ou null:
    if(params && (params.id !== null && params.id !== undefined)){
@@ -9,6 +11,10 @@ spa.onNavigate('vehicle-info', (page, params) => {
       // *Checking if the user was authenticated:
       if(authenticated == true) {
          // *If true:
+         // *Checking the permission to the manage vehicles:
+         if(!permission.permissions.manage_vehicles) $('#vehicle-info-edit-fab').hide();
+         if(!permission.permissions.manage_vehicles) $('#vehicle-info-delete-fab').hide();
+
          // *Listing the vehicle:
          request.getVehicle(id)
             .done(data => {
@@ -89,6 +95,10 @@ spa.onLeft('vehicle-info', (page) => {
    // *Removing the event click:
    $('#vehicle-info-edit-fab').off('click');
    $('#vehicle-info-delete-fab').off('click');
+
+   // *Showing the 'Edit vehicle and Delete vehicle' FAB:
+   $('#vehicle-info-edit-fab').show();
+   $('#vehicle-info-delete-fab').show();
 });
 
 

@@ -2,6 +2,8 @@
 
 // *Browsing the schedule-info page:
 spa.onNavigate('schedule-info', (page, params) => {
+   // *Getting the user permission:
+   let permission = request.retrieveUserPermissions();
 
    // *Checking if the params is diferent undefined ou null:
    if(params && (params.id !== null && params.id !== undefined)){
@@ -10,6 +12,10 @@ spa.onNavigate('schedule-info', (page, params) => {
       // *Checking if the user was authenticated:
       if(authenticated == true) {
          // *If true:
+         // *Checking the permission to the manage schedules:
+         if(!permission.permissions.manage_schedules) $('#schedule-info-edit-fab').hide();
+         if(!permission.permissions.manage_schedules) $('#schedule-info-delete-fab').hide();
+
          // *Listing the reserve info of that vehicle:
          request.getSchedule(id)
             .done(data => {
@@ -159,6 +165,10 @@ spa.onLeft('schedule-info', (page) => {
    // *Removing the event click:
    $('#schedule-info-edit-fab').off('click');
    $('#schedule-info-delete-fab').off('click');
+
+   // *Showing the 'Edit schedule and Delete schedule' FAB:
+   $('#schedule-info-edit-fab').show();
+   $('#schedule-info-delete-fab').show();
 });
 
 
