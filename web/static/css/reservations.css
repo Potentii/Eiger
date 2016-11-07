@@ -10,3 +10,23 @@
 #reservations-list li .schedule-duration-output{
    font-size: 0.9em;
 }
+
+#reservations-list li.confirmed::before{
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 3px;
+   height: 100%;
+   background: #009688;
+}
+
+#reservations-list li.planned::before{
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 3px;
+   height: 100%;
+   background: #C62828;
+}

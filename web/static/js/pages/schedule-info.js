@@ -80,8 +80,8 @@ spa.onNavigate('schedule-info', (page, params) => {
                      // *Setting the vehicle's title and plate:
                      $('#schedule-info-vehicle-title').text(data.title + " - " + data.plate);
 
-                     // *Setting the vehicle's type, year and manufacturer:
-                     $('#schedule-info-vehicle-description').text(data.type + " - " + data.year + " - " + data.manufacturer);
+                     // *Setting the vehicle's year and manufacturer:
+                     $('#schedule-info-vehicle-description').text(data.year + " - " + data.manufacturer);
 
                   })
                   .fail(xhr => {

@@ -21,8 +21,8 @@ spa.onNavigate('schedules', (page, params) => {
                // *Setting the vehicle's title and plate:
                $('#schedules-vehicle-title').text(data.title + " - " + data.plate);
 
-               // *Setting the vehicle's type, year and manufacturer:
-               $('#schedules-vehicle-description').text(data.type + " - " + data.year + " - " + data.manufacturer);
+               // *Setting the vehicle's year and manufacturer:
+               $('#schedules-vehicle-description').text(data.year + " - " + data.manufacturer);
 
                // *Setting the vehicle schedule date:
                $('#schedules-vehicle-date').text(df.asFullDate(new Date(date + ' 00:00:00')));
