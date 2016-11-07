@@ -13,19 +13,6 @@ spa.onNavigate('schedule-create', (page, params) => {
       // *Removing the invalid state on the fields:
       mdl_util.clearTextFieldsValidity('#schedule-create-section');
 
-      // *Setting up the initial date suggestion:
-      let initial_start_datetime = (params && params.date) ? addHours(new Date(params.date + ' ' + df.asShorterTime(new Date())), 1) : addHours(new Date(), 1);
-      let initial_end_datetime = addHours(initial_start_datetime, 4);
-
-      // *Setting the initial period values:
-      $('#schedule-create-start-date').val(df.asMysqlDate(initial_start_datetime));
-      $('#schedule-create-start-time').val(df.asShorterTime(initial_start_datetime));
-      $('#schedule-create-end-date').val(df.asMysqlDate(initial_end_datetime));
-      $('#schedule-create-end-time').val(df.asShorterTime(initial_end_datetime));
-
-      // *Updating MDL Textfields:
-      mdl_util.updateTextFields('#schedule-create-section');
-
       // *Checking if the previous selected vehicle was set:
       if(params && (params.id !== null && params.id !== undefined)){
          // *If it was:
@@ -303,8 +290,8 @@ function scheduleCreateUtil(){
             // *Setting the vehicle's title and plate:
             $('#schedule-create-vehicle-title').text(data.title + " - " + data.plate);
 
-            // *Setting the vehicle's type, year and manufacturer:
-            $('#schedule-create-vehicle-description').text(data.type + " - " + data.year + " - " + data.manufacturer);
+            // *Setting the vehicle's year and manufacturer:
+            $('#schedule-create-vehicle-description').text(data.year + " - " + data.manufacturer);
          })
          .fail(xhr => {
             // *Checking if the request's status is 401, sending the user to the login page if it is:

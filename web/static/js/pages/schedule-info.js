@@ -17,16 +17,21 @@ spa.onNavigate('schedule-info', (page, params) => {
                // *Checking if the reserve is confirmed:
                if(data.confirmed === 1){
                   // *If true:
+
+                  $('#schedule-info-confirmation-fab').text('lock_outline');
                   // *Showing schedule-info-confirmed-true:
                   // *Hiding schedule-info-confirmed-false:
                   $('#schedule-info-confirmed-true').parent().parent('.row').show();
                   $('#schedule-info-confirmed-false').parent().parent('.row').hide();
 
-                 // *Checking if the user isn't active:
-              } else if (data.confirmed === 0) {
-                 // *If true:
-                 // *Showing schedule-info-confirmed-false:
-                 // *Hiding schedule-info-confirmed-true:
+               // *Checking if the user isn't active:
+               } else if (data.confirmed === 0) {
+                  $('#schedule-info-confirmed-false').parent().parent('.row').show();
+                  // *If true:
+
+                  $('#schedule-info-confirmation-fab').text('lock_open');
+                  // *Showing schedule-info-confirmed-false:
+                  // *Hiding schedule-info-confirmed-true:
                   $('#schedule-info-confirmed-false').parent().parent('.row').show();
                   $('#schedule-info-confirmed-true').parent().parent('.row').hide();
                }
@@ -57,6 +62,14 @@ spa.onNavigate('schedule-info', (page, params) => {
                let create_date = new Date(data.date);
                $('#schedule-info-date').text(df.asFullDate(create_date));
 
+               // *When the user clicks to toggle the schedule status:
+               $('#schedule-info-confirmation-fab').on('click', e => {
+                  // *Toggling the schedule status:
+                  changeScheduleStatus(id);
+               });
+
+
+
                // *Showing the vehicle in app bar:
                request.getVehicle(data.id_vehicle_fk)
                   .done(data => {
@@ -67,8 +80,8 @@ spa.onNavigate('schedule-info', (page, params) => {
                      // *Setting the vehicle's title and plate:
                      $('#schedule-info-vehicle-title').text(data.title + " - " + data.plate);
 
-                     // *Setting the vehicle's type, year and manufacturer:
-                     $('#schedule-info-vehicle-description').text(data.type + " - " + data.year + " - " + data.manufacturer);
+                     // *Setting the vehicle's year and manufacturer:
+                     $('#schedule-info-vehicle-description').text(data.year + " - " + data.manufacturer);
 
                   })
                   .fail(xhr => {
@@ -159,7 +172,104 @@ spa.onLeft('schedule-info', (page) => {
    // *Removing the event click:
    $('#schedule-info-edit-fab').off('click');
    $('#schedule-info-delete-fab').off('click');
+   $('#schedule-info-confirmation-fab').off('click');
 });
+
+
+
+/**
+ * Changes the status of the schedule
+ * @param  {number} id The schedule's id to change status
+ * @author Guilherme Reginaldo Ruella
+ */
+function changeScheduleStatus(id){
+   // *Getting the schedule's current info:
+   request.getSchedule(id)
+      .done(data => {
+         // *Update the status os this schedule:
+         request.putSchedule(id, {confirmed: !data.confirmed})
+            .done(() => {
+               // *Checking if the schedule was confirmed before:
+               if(data.confirmed){
+                  // *If it was:
+                  // *Shoing a successful snack:
+                  snack.open(srm.get('schedule-info-confirmation-true-success'), snack.TIME_SHORT);
+               } else{
+                  // *If it wasn't:
+                  // *Shoing a successful snack:
+                  snack.open(srm.get('schedule-info-confirmation-false-success'), snack.TIME_SHORT);
+               }
+               // *Going back to previous page:
+               spa.goBack();
+            })
+            .fail(xhr => {
+               // *Checking if the request's status is 401, sending the user to the login page if it is:
+               if(xhr.status === 401){
+                  spa.navigateTo('login');
+                  return;
+               }
+               let text = {title: '', message: ''};
+
+               // *Checking the error code:
+               switch(xhr.responseJSON.err_code){
+
+               // *When the user or the vehicle referenced doesn't exist:
+               case 'ERR_REF_NOT_FOUND':
+                  text.title = srm.get('schedule-info-confirmation-dialog-error-ref-title');
+                  text.message = srm.get('schedule-info-confirmation-dialog-error-ref-message');
+                  break;
+
+               // *When the vehicle selected is not active:
+               case 'ERR_VEHICLE_NOT_ACTIVE':
+                  text.title = srm.get('schedule-info-confirmation-dialog-error-vehicle-not-active-title');
+                  text.message = srm.get('schedule-info-confirmation-dialog-error-vehicle-not-active-message');
+                  break;
+
+               // *When the user is not active:
+               case 'ERR_USER_NOT_ACTIVE':
+                  text.title = srm.get('schedule-info-confirmation-dialog-error-user-not-active-title');
+                  text.message = srm.get('schedule-info-confirmation-dialog-error-user-not-active-message');
+                  break;
+
+               // *When the user not authorized:
+               case 'ERR_NOT_AUTHORIZED':
+                  text.title = srm.get('schedule-info-confirmation-dialog-error-not-authorized-title');
+                  text.message = srm.get('schedule-info-confirmation-dialog-error-not-authorized-message');
+                  break;
+
+               // *When the vehicle selected is not availabe:
+               case 'ERR_RES_UNAVAILABLE':
+                  text.title = srm.get('schedule-info-confirmation-dialog-error-unavailable-title');
+                  text.message = srm.get('schedule-info-confirmation-dialog-error-unavailable-message');
+                  break;
+
+
+               // *When the period is invalid:
+               case 'ERR_INVALID_TIMESPAN':
+                  text.title = srm.get('schedule-info-confirmation-dialog-error-timespan-title');
+                  text.message = srm.get('schedule-info-confirmation-dialog-error-timespan-message');
+                  break;
+
+               // *When schedule not found:
+               case 'ERR_NOT_FOUND':
+                  text.title = srm.get('schedule-info-confirmation-dialog-error-notfound-schedule-title');
+                  text.message = srm.get('schedule-info-confirmation-dialog-error-notfound-schedule-message');
+                  break;
+
+               default:
+                  text.title = srm.get('schedule-info-confirmation-dialog-error-default-title');
+                  text.message = srm.get('schedule-info-confirmation-dialog-error-default-message');
+                  break;
+               }
+
+               // *Opening a dialog notice for the user:
+               dialogger.open('default-notice', text);
+            });
+      })
+      .fail(xhr => {
+         console.log(xhr.responseJSON);
+      });
+}
 
 
 

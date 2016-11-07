@@ -193,7 +193,7 @@ const dialogger = (function(){
    /**
     * Retrieves the overlay container
     * @private
-    * @return {[type]} The overlay container if set, or an empty jQuery element otherwise
+    * @return {[jQuery]} The overlay container if set, or an empty jQuery element otherwise
     * @author Guilherme Reginaldo Ruella
     */
    function getOverlay(){

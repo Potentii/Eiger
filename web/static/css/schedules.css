@@ -7,6 +7,25 @@
    align-items: flex-start;
 }
 
+#schedules-list li.confirmed::before{
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 3px;
+   height: 100%;
+   background: #009688;
+}
+
+#schedules-list li.planned::before{
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 3px;
+   height: 100%;
+   background: #C62828;
+}
 
 /**
  * Schedule user and reason

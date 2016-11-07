@@ -46,7 +46,7 @@ spa.onLeft('vehicle-create', (page) => {
    $('#vehicle-create-pic').val('');
    $('#vehicle-create-title').val('');
    $('#vehicle-create-manufacturer').val('');
-   $('#vehicle-create-type').val('');
+   $('#vehicle-create-owner').val('');
    $('#vehicle-create-year').val('');
    $('#vehicle-create-plate').val('');
    $('#vehicle-create-renavam').val('');
@@ -73,7 +73,7 @@ function createVehicle(vehicle_photo_base64){
    let vehicle_pic = $('#vehicle-create-pic').val();
    let vehicle_title = $('#vehicle-create-title').val();
    let vehicle_manufacturer = $('#vehicle-create-manufacturer').val();
-   let vehicle_type = $('#vehicle-create-type').val();
+   let vehicle_owner = $('#vehicle-create-owner').val();
    let vehicle_year = $('#vehicle-create-year').val();
    let vehicle_plate = $('#vehicle-create-plate').val();
    let vehicle_revavam = $('#vehicle-create-renavam').val();
@@ -83,7 +83,7 @@ function createVehicle(vehicle_photo_base64){
    let object_data = {
       title: vehicle_title,
       manufacturer: vehicle_manufacturer,
-      type: vehicle_type,
+      owner: vehicle_owner,
       year: vehicle_year,
       plate: vehicle_plate,
       renavam: vehicle_revavam,

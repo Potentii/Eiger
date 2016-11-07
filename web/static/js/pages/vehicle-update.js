@@ -26,8 +26,8 @@ spa.onNavigate('vehicle-update', (page, params) => {
                // *Setting the vehicle's update manufacturer:
                $('#vehicle-update-manufacturer').val(data.manufacturer);
 
-               // *Setting the vehicle's update type:
-               $('#vehicle-update-type').val(data.type);
+               // *Setting the vehicle's update owner:
+               $('#vehicle-update-owner').val(data.owner);
 
                // *Setting the Vechicle's update year:
                $('#vehicle-update-year').val(data.year);
@@ -109,7 +109,7 @@ spa.onLeft('vehicle-update', (page) => {
    $('#vehicle-update-pic').val('');
    $('#vehicle-update-title').val('');
    $('#vehicle-update-manufacturer').val('');
-   $('#vehicle-update-type').val('');
+   $('#vehicle-update-owner').val('');
    $('#vehicle-update-year').val('');
    $('#vehicle-update-plate').val('');
    $('#vehicle-update-renavam').val('');
@@ -137,7 +137,7 @@ function updateVehicle(id, vehicle_photo_base64){
    let vehicle_pic = $('#vehicle-update-pic').val();
    let vehicle_title = $('#vehicle-update-title').val();
    let vehicle_manufacturer = $('#vehicle-update-manufacturer').val();
-   let vehicle_type = $('#vehicle-update-type').val();
+   let vehicle_owner = $('#vehicle-update-owner').val();
    let vehicle_year = $('#vehicle-update-year').val();
    let vehicle_plate = $('#vehicle-update-plate').val();
    let vehicle_revavam = $('#vehicle-update-renavam').val();
@@ -147,7 +147,7 @@ function updateVehicle(id, vehicle_photo_base64){
    let data_update_vehicle = {
       title: vehicle_title,
       manufacturer: vehicle_manufacturer,
-      type: vehicle_type,
+      owner: vehicle_owner,
       year: vehicle_year,
       plate: vehicle_plate,
       renavam: vehicle_revavam,

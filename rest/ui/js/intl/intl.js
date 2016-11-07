@@ -10,8 +10,15 @@ srm.onDictionaryChange(() => {
 });
 
 
-// *When the page loads:
-$(() => {
-   // *Loading the default dictionary:
-   srm.loadDictionary('./res/dictionary/en-us.json');
-});
+const getAvailableLanguages = (() => {
+   // *Defining the available languages:
+   let available_languages = new Map([
+      ['en-us', 'English (US)'],
+      ['pt-br', 'Português (BR)']
+   ]);
+
+
+   return () => {
+      return available_languages;
+   };
+})();

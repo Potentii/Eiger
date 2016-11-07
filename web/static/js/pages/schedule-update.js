@@ -303,8 +303,8 @@ function scheduleUpdateUtil(){
             // *Setting the vehicle's title and plate:
             $('#schedule-update-vehicle-title').text(data.title + " - " + data.plate);
 
-            // *Setting the vehicle's type, year and manufacturer:
-            $('#schedule-update-vehicle-description').text(data.type + " - " + data.year + " - " + data.manufacturer);
+            // *Setting the vehicle's year and manufacturer:
+            $('#schedule-update-vehicle-description').text(data.year + " - " + data.manufacturer);
          })
          .fail(xhr => {
             // *Checking if the request's status is 401, sending the user to the login page if it is:

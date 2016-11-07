@@ -36,8 +36,8 @@ dialogger.onOpen('vehicle-picker', (dialog, params) => {
             // *Building and setting the vehicle's title and plate:
             $('<span>').addClass('primary').text(vehicle.title + ' - ' + vehicle.plate).appendTo(vertical_layout_div);
 
-            // *Building and setting the vehicle's year, type and manufacturer:
-            $('<span>').addClass('secondary').text(vehicle.year + ' - ' + vehicle.type + ' - ' + vehicle.manufacturer).appendTo(vertical_layout_div);
+            // *Building and setting the vehicle's year and manufacturer:
+            $('<span>').addClass('secondary').text(vehicle.year + ' - ' + vehicle.manufacturer).appendTo(vertical_layout_div);
 
             // *Checking if the vehicle selected is exactly equals vehicle.id:
             if(vehicle.id === selected_vehicle){

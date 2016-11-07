@@ -199,7 +199,7 @@ function reservationsUtil(){
 
                // *Building the reservations li:
                let reservations_li = $('<li>');
-               reservations_li.attr('data-id', reservations.schedule.id).addClass('row card box raised flex-horizontal-layout').appendTo(reservations_ul);
+               reservations_li.attr('data-id', reservations.schedule.id).addClass('row card box raised flex-horizontal-layout ' + (reservations.schedule.confirmed?'confirmed':'planned')).appendTo(reservations_ul);
 
                // *Building the reservations div:
                let vertical_layout_div = $('<div>').addClass('vertical-layout').appendTo(reservations_li);
@@ -217,7 +217,7 @@ function reservationsUtil(){
                $('<span>').addClass('primary').text(reservations.vehicle.title + ' - ' + reservations.vehicle.plate).appendTo(vertical_layout_vehicle);
 
                // *Building and setting the reservations vehicle description:
-               $('<span>').addClass('secondary').text(reservations.vehicle.year + ' - ' + reservations.vehicle.type + ' - ' + reservations.vehicle.manufacturer).appendTo(vertical_layout_vehicle);
+               $('<span>').addClass('secondary').text(reservations.vehicle.year + ' - ' + reservations.vehicle.manufacturer).appendTo(vertical_layout_vehicle);
 
                // *Building the reservations user div:
                let horizontal_layout_user = $('<div>').addClass('flex-horizontal-layout thumbnailed-info').appendTo(vertical_layout_div);
@@ -315,8 +315,8 @@ function reservationsUtil(){
             // *Setting the vehicle's title and plate:
             $('#reservations-vehicle-title').text(data.title + " - " + data.plate);
 
-            // *Setting the vehicle's type, year and manufacturer:
-            $('#reservations-vehicle-description').text(data.type + " - " + data.year + " - " + data.manufacturer);
+            // *Setting the vehicle's year and manufacturer:
+            $('#reservations-vehicle-description').text(data.year + " - " + data.manufacturer);
          })
          .fail(xhr => {
             // *Checking if the request's status is 401, sending the user to the login page if it is:

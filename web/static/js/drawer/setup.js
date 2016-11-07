@@ -3,7 +3,7 @@ $(() => {
    // *When the user clicks on their info on drawer:
    $('#drawer-login-info').on('click', e => {
       // *Navigating to user info page:
-      spa.navigateTo('user-info', {id: request.retrieveAccessInfo().id});
+      spa.navigateTo('account-info', {id: request.retrieveAccessInfo().id});
       // *Dismissing the navigation drawer:
       drawer.dismiss();
    });
@@ -27,11 +27,11 @@ drawer.onOpen(() => {
          // *Setting the user's photo:
          $('#drawer-login-info-photo').css('background-image', data.photo?'url(' + rest_url + '/media/u/p/'+ data.photo +')':'');
 
-         // *Setting the user's login:
-         $('#drawer-login-info-name').text(data.login);
-
          // *Setting the user's name:
-         $('#drawer-login-info-login').text(data.name);
+         $('#drawer-login-info-name').text(data.name);
+
+         // *Setting the user's login:
+         $('#drawer-login-info-login').text(data.login);
 
       })
       .fail(xhr => {

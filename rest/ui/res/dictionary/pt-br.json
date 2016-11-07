@@ -14,5 +14,17 @@
    ["email-settings-confirmation-send", "Enviar e-mails de confirmação de reservas"],
    ["email-settings-confirmation-email", "Conta de e-mail para confirmação de reservas"],
    ["email-settings-confirmation-subject", "Assunto para confirmação de reservas"],
-   ["email-settings-confirmation-body-name", "Corpo para confirmação de reservas"]
+   ["email-settings-confirmation-body-name", "Corpo para confirmação de reservas"],
+
+   ["settings-header", "Configurações"],
+   ["settings-language", "Idioma"],
+
+   ["default-select-header", "Selecione um item"],
+   ["default-select-cancel", "cancelar"],
+   ["default-select-ok", "ok"],
+
+   ["default-select-translate-header", "Escolha um idioma"],
+   ["empty-list-text-default-select-translate", "Nenhum idioma disponível"],
+
+   ["settings-saved-language", "Idioma alterado"]
 ]

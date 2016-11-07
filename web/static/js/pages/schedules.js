@@ -21,8 +21,8 @@ spa.onNavigate('schedules', (page, params) => {
                // *Setting the vehicle's title and plate:
                $('#schedules-vehicle-title').text(data.title + " - " + data.plate);
 
-               // *Setting the vehicle's type, year and manufacturer:
-               $('#schedules-vehicle-description').text(data.type + " - " + data.year + " - " + data.manufacturer);
+               // *Setting the vehicle's year and manufacturer:
+               $('#schedules-vehicle-description').text(data.year + " - " + data.manufacturer);
 
                // *Setting the vehicle schedule date:
                $('#schedules-vehicle-date').text(df.asFullDate(new Date(date + ' 00:00:00')));
@@ -61,7 +61,7 @@ spa.onNavigate('schedules', (page, params) => {
                data.forEach(function(reservations){
 
                   // *Building the schedule's li:
-                  let schedules_li = $('<li>').attr('data-id', reservations.schedule.id).addClass('card box raised').appendTo(schedules_ul);
+                  let schedules_li = $('<li>').attr('data-id', reservations.schedule.id).addClass('card box raised ' + (reservations.schedule.confirmed?'confirmed':'planned')).appendTo(schedules_ul);
 
                   // *Building the schedule's div:
                   let vertical_layout_div = $('<div>').addClass('user vertical-layout').appendTo(schedules_li);
