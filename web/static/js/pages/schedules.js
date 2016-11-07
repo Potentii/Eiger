@@ -61,7 +61,7 @@ spa.onNavigate('schedules', (page, params) => {
                data.forEach(function(reservations){
 
                   // *Building the schedule's li:
-                  let schedules_li = $('<li>').attr('data-id', reservations.schedule.id).addClass('card box raised').appendTo(schedules_ul);
+                  let schedules_li = $('<li>').attr('data-id', reservations.schedule.id).addClass('card box raised ' + (reservations.schedule.confirmed?'confirmed':'planned')).appendTo(schedules_ul);
 
                   // *Building the schedule's div:
                   let vertical_layout_div = $('<div>').addClass('user vertical-layout').appendTo(schedules_li);

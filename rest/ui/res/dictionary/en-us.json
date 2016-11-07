@@ -14,5 +14,17 @@
    ["email-settings-confirmation-send", "Send schedule confirmation e-mails"],
    ["email-settings-confirmation-email", "Schedule Confirmation E-mail account"],
    ["email-settings-confirmation-subject", "Schedule Confirmation subject"],
-   ["email-settings-confirmation-body-name", "Schedule Confirmation body"]
+   ["email-settings-confirmation-body-name", "Schedule Confirmation body"],
+
+   ["settings-header", "Settings"],
+   ["settings-language", "Language"],
+
+   ["default-select-header", "Select an item"],
+   ["default-select-cancel", "cancel"],
+   ["default-select-ok", "ok"],
+
+   ["default-select-translate-header", "Choose a language"],
+   ["empty-list-text-default-select-translate", "No languages available"],
+
+   ["settings-saved-language", "Language changed"]
 ]

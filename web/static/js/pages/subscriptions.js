@@ -16,6 +16,7 @@ spa.subscribe(new Page('schedule-update'));
 spa.subscribe(new Page('reservations'));
 
 spa.subscribe(new Page('users'));
+spa.subscribe(new Page('account-info'));
 spa.subscribe(new Page('user-info'));
 spa.subscribe(new Page('user-create'));
 spa.subscribe(new Page('user-update'));

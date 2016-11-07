@@ -39,6 +39,25 @@
 }
 
 
+#login-language-container{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin: 2em auto 0 auto;
+}
+#login-language-container > *{
+   margin: 0 0.5em;
+}
+#login-language-container > .material-icons{
+   color: var(--bg-color-contrast-icon);
+}
+#login-language{
+   color: var(--bg-color-contrast);
+   background: rgba(0, 0, 0, 0.2);
+   padding: 0.8em 3em;
+}
+
+
 /**
  * When portrait, assumes an vertical layout
  */
@@ -66,7 +85,8 @@
 @media (orientation: landscape){
    #login-container{
       top: 10vh;
-      width: 100%;
+      width: 70%;
+      min-width: 30em;
       height: 80vh;
       flex-direction: row;
    } #login-container > .horizontal-line{

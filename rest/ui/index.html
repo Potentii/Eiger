@@ -34,6 +34,9 @@
 
       <script src="../../web/static/js/date-format/date-format.js"></script>
 
+      <script src="../../web/static/js/settings/settings.js"></script>
+      <script src="./js/settings/apply.js"></script>
+
       <script src="../../web/static/js/anim/anim.js"></script>
 
       <script src="../../web/static/js/snack/snack.js"></script>
@@ -43,6 +46,8 @@
 
       <script src="../../web/static/js/dialog/Dialog.js"></script>
       <script src="../../web/static/js/dialog/dialogger.js"></script>
+
+      <script src="./js/dialogs/subscriptions.js"></script>
 
       <script src="../../web/static/js/spa/Page.js"></script>
       <script src="../../web/static/js/spa/spa.js"></script>
@@ -55,10 +60,14 @@
 
       <script src="./js/dev-tools.js"></script>
 
+      <!-- * Dialogs * -->
+      <script src="../../web/static/js/dialogs/default-select.js"></script>
+
       <!-- * Pages * -->
       <script src="../../web/static/js/pages/splash.js"></script>
       <script src="./js/pages/log.js"></script>
       <script src="./js/pages/email-settings.js"></script>
+      <script src="./js/pages/settings.js"></script>
 
       <title>Eiger REST API</title>
    </head>
@@ -229,5 +238,75 @@
             <button id="email-settings-done-fab" type="submit" form="email-settings-form" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">done</button>
          </div>
       </section>
+
+
+
+      <!--
+      Settings Page
+      -->
+      <section id="settings-section" data-page="settings">
+         <!-- Appbar -->
+         <header class="app-bar flex-horizontal-layout tinted">
+            <button type="button" onclick="spa.goBack()" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
+            <span data-intl="settings-header"></span>
+         </header>
+
+         <!-- Vehicle update form -->
+         <form id="settings-form" class="form content-before-fab" autocomplete="off">
+
+            <!-- Language input -->
+            <div class="row">
+               <i class="material-icons">translate</i>
+               <div class="vertical-layout">
+                  <label class="output-label" data-intl="settings-language"></label>
+                  <button id="settings-language" type="button" name="button"></button>
+               </div>
+            </div>
+
+         </form>
+      </section>
+
+
+
+      <!--
+      Dialogs
+      -->
+      <div id="dialog-overlay" class="dialogs">
+         <!--
+         Default select Dialog
+         -->
+         <section class="dialog card raised" data-dialog="default-select">
+            <!-- Appbar -->
+            <header class="app-bar flex-horizontal-layout">
+               <i id="default-select-icon" class="material-icons">_</i>
+               <span id="default-select-title"></span>
+            </header>
+
+            <!-- Select list -->
+            <ul class="list" id="default-select-list">
+               <span class="empty-list-text box card raised" data-intl="empty-list-text-default-select"></span>
+            </ul>
+
+            <!-- Button container -->
+            <div class="flat-button-container">
+               <button id="default-select-cancel-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect" data-intl="default-select-cancel"></button>
+               <button id="default-select-ok-button" type="button" class="flat-button mdl-js-button mdl-js-ripple-effect highlighted" data-intl="default-select-ok"></button>
+            </div>
+         </section>
+      </div>
+
+
+
+      <!--
+      Snackbar
+      -->
+      <div id="snackbar" class="snackbar raised">
+         <!-- Snackbar text -->
+         <span></span>
+         <!-- Snackbar button -->
+         <button type="button" class="mdl-js-button mdl-js-ripple-effect"></button>
+         <!-- Snackbar dismiss button -->
+         <button type="button" class="material-icons mdl-js-button mdl-js-ripple-effect">close</button>
+      </div>
    </body>
 </html>

@@ -93,7 +93,6 @@
       <script src="./static/js/pages/vehicle-create.js"></script>
       <script src="./static/js/pages/vehicle-update.js"></script>
 
-      <script src="./static/js/pages/schedule-date-validation.js"></script>
       <script src="./static/js/pages/schedules.js"></script>
       <script src="./static/js/pages/schedule-info.js"></script>
       <script src="./static/js/pages/schedule-create.js"></script>
@@ -101,6 +100,7 @@
       <script src="./static/js/pages/reservations.js"></script>
 
       <script src="./static/js/pages/users.js"></script>
+      <script src="./static/js/pages/account-info.js"></script>
       <script src="./static/js/pages/user-info.js"></script>
       <script src="./static/js/pages/user-create.js"></script>
       <script src="./static/js/pages/user-update.js"></script>
@@ -215,6 +215,13 @@
 
                <!-- Submit button -->
                <button type="submit" class="mdl-js-button mdl-js-ripple-effect box card tinted raised" data-intl="login-login"></button>
+
+               <!-- Language -->
+               <div id="login-language-container">
+                  <i class="material-icons">language</i>
+                  <button id="login-language" type="button" class="mdl-js-button mdl-js-ripple-effect card raised"></button>
+               </div>
+
             </form>
          </div>
       </section>
@@ -671,8 +678,13 @@
                </div>
             </div>
 
-            <!-- Delete FAB -->
-            <button id="schedule-info-delete-fab" type="button" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab boundary right">delete</button>
+            <div class="fab-container-app-bar-boundary">
+               <!-- Confirmation FAB -->
+               <button id="schedule-info-confirmation-fab" type="button" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab"></button>
+
+               <!-- Delete FAB -->
+               <button id="schedule-info-delete-fab" type="button" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">delete</button>
+            </div>
          </header>
 
          <!-- Schedule' info form -->
@@ -1024,6 +1036,114 @@
          <div class="fab-container">
             <button id="users-create-done-fab" type="button" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">add</button>
          </div>
+      </section>
+
+
+
+      <!--
+      Account info Page
+      -->
+      <section id="account-info-section" data-page="account-info">
+         <!-- Appbar -->
+         <header class="app-bar flex-horizontal-layout tinted">
+            <button type="button" onclick="spa.goBack()" class="inflate material-icons mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored raised fab">arrow_back</button>
+            <span data-intl="account-info-header"></span>
+         </header>
+
+         <!-- Sub appbar -->
+         <header class="app-bar flex-horizontal-layout tinted raised vehicle-info-app-bar">
+
+            <!-- User appbar info -->
+            <div class="flex-horizontal-layout">
+               <div id="account-info-photo" class="inflate round-thumbnail size-3"></div>
+               <div class="vertical-layout">
+                  <span id="account-info-title" class="primary"><!--[user-name]--></span>
+                  <span id="account-info-description" class="secondary"><!--[login]--></span>
+               </div>
+            </div>
+
+         </header>
+
+         <!-- User info form -->
+         <form id="account-info-form" class="form content-before-fab">
+
+            <!-- Active status output true -->
+            <div class="row active-true-container">
+               <i class="material-icons">lock_open</i>
+               <div class="vertical-layout">
+                  <label class="output-label" data-intl="account-info-active"></label>
+                  <span id="account-info-active-true" class="labeled-output" data-intl="account-info-active-true"></span>
+               </div>
+            </div>
+
+            <!-- Active status output false -->
+            <div class="row active-false-container">
+               <i class="material-icons">lock_outline</i>
+               <div class="vertical-layout">
+                  <label class="output-label" data-intl="account-info-active"></label>
+                  <span id="account-info-active-false" class="labeled-output" data-intl="account-info-active-false"></span>
+               </div>
+            </div>
+
+            <!-- E-mail output -->
+            <div class="row">
+               <i class="material-icons">account_circle</i>
+               <div class="vertical-layout">
+                  <label class="output-label" data-intl="account-info-email"></label>
+                  <span id="account-info-email" class="labeled-output"><!--[email]--></span>
+               </div>
+            </div>
+
+            <!-- Department output -->
+            <div class="row">
+               <i class="material-icons">_</i>
+               <div class="vertical-layout">
+                  <label class="output-label" data-intl="account-info-department"></label>
+                  <span id="account-info-department" class="labeled-output"><!--[department]--></span>
+               </div>
+            </div>
+
+            <div class="horizontal-separator"></div>
+
+            <!-- Permissions output -->
+            <div class="row">
+               <i class="material-icons">security</i>
+               <div class="vertical-layout boolean-output-group">
+                  <label class="output-label" data-intl="account-info-permission"></label>
+
+                  <div id="account-info-permission-none" class="vertical-layout">
+                     <span class="labeled-output" data-intl="account-info-permission-none"></span>
+                     <label class="output-label detail-label" data-intl="account-info-permission-none-detail"></label>
+                  </div>
+
+                  <div id="account-info-permission-schedules" class="vertical-layout">
+                     <span class="labeled-output" data-intl="account-info-permission-schedules"></span>
+                     <label class="output-label detail-label" data-intl="account-info-permission-schedules-detail"></label>
+                  </div>
+
+                  <div id="account-info-permission-users" class="vertical-layout">
+                     <span class="labeled-output" data-intl="account-info-permission-users"></span>
+                     <label class="output-label detail-label" data-intl="account-info-permission-users-detail"></label>
+                  </div>
+
+                  <div id="account-info-permission-vehicles" class="vertical-layout">
+                     <span class="labeled-output" data-intl="account-info-permission-vehicles"></span>
+                     <label class="output-label detail-label" data-intl="account-info-permission-vehicles-detail"></label>
+                  </div>
+               </div>
+            </div>
+
+            <div class="horizontal-separator"></div>
+
+            <!-- Added date output -->
+            <div class="row">
+               <i class="material-icons">today</i>
+               <div class="vertical-layout">
+                  <label class="output-label" data-intl="account-info-date"></label>
+                  <span id="account-info-date" class="labeled-output"><!--[date]--></span>
+               </div>
+            </div>
+         </form>
       </section>
 
 
