@@ -8,6 +8,8 @@ spa.onNavigate('users', (page, params) => {
    // *Checking if the user was authenticated:
    if(authenticated == true) {
       // *If true:
+      // *Checking the permission to the manage users:
+      if(!permission.permissions.manage_users) $('#users-create-done-fab').hide();
 
       // *Listing the users:
       request.getUsers()
@@ -102,4 +104,7 @@ spa.onLeft('users', (page) => {
 
    // *Removing the event click from button:
    $('#users-create-done-fab').off('click');
+
+   // *Showing the 'Create user' FAB:
+   $('#users-create-done-fab').show();
 });

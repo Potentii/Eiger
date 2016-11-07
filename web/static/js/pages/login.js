@@ -156,12 +156,15 @@ spa.onReady(() => {
 
 // *Browsing the auth page:
 spa.onNavigate('auth', (page, params) => {
+   // *Getting the user permission:
+   let permission = {};
+   permission = request.retrieveUserPermissions().permissions;
 
    // *Getting the key and the token:
    let auth = request.retrieveAccessInfo();
 
-   // *Checking if the token or key is null:
-   if(auth.token == null || auth.key == null) {
+   // *Checking if the token or key or permissions is null:
+   if(auth.token == null || auth.key == null || permission == null || permission.manage_schedules == null || permission.manage_users == null || permission.manage_vehicles == null) {
 
       // *If null:
       // *Redirecting the user to login page:
