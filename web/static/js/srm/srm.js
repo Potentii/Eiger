@@ -19,7 +19,7 @@ const srm = (function(){
       // *Requesting the dictionary file via ajax:
       jQuery.ajax({
          url: file_path,
-         type: 'GET',
+         method: 'GET',
          dataType: 'json'
       }).done(dictionary => {
          // *Setting the dictionary:

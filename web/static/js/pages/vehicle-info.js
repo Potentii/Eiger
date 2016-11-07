@@ -42,11 +42,14 @@ spa.onNavigate('vehicle-info', (page, params) => {
                // *Setting the vehicle's title and plate:
                $('#vehicle-info-title').text(data.title + ' - ' + data.plate);
 
-               // *Setting the vehicle's type, year and manufacturer:
-               $('#vehicle-info-description').text(data.type + ' - ' + data.year + ' - ' + data.manufacturer);
+               // *Setting the vehicle's year and manufacturer:
+               $('#vehicle-info-description').text(data.year + ' - ' + data.manufacturer);
 
                // *Setting the vehicle's renavam and registred date:
                $('#vehicle-info-renavam').text(data.renavam);
+
+               $('#vehicle-info-owner').text(data.owner);
+
                let date = new Date(data.date);
                $('#vehicle-info-date').text(df.asFullDate(date));
             })

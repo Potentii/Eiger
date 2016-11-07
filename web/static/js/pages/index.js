@@ -44,8 +44,8 @@ spa.onNavigate('', (page, params) => {
                let vehicle_title = $('<span>').addClass('primary').text(vehicle.title + ' - ' + vehicle.plate).appendTo(vertical_layout_div);
                $('<br>').appendTo(vehicle_title);
 
-               // *Building and setting the vehicle's year, type and manufacturer:
-               let vehicle_description = $('<span>').addClass('secondary').text(vehicle.year + ' - ' + vehicle.type + ' - ' + vehicle.manufacturer).appendTo(vertical_layout_div);
+               // *Building and setting the vehicle's year and manufacturer:
+               let vehicle_description = $('<span>').addClass('secondary').text(vehicle.year + ' - ' + vehicle.manufacturer).appendTo(vertical_layout_div);
 
                // *Building the vehicle's divs:
                let horizontal_line_div = $('<div>').addClass('horizontal-line').appendTo(card_li);

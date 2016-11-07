@@ -14,12 +14,12 @@ insert into `user` (`name`, `login`, `pass`, `email`, `cpf`, `phone`, `driver_li
 
 
 -- *Registering some vehicles:
-insert into `vehicle` (`title`, `plate`, `year`, `type`, `renavam`, `manufacturer`, `photo`, `active`)
-	values ('V12 Vantage Coupe', 'BGQ8456', 2016, 'Sport', '56281020499','Audi', '01.jpg', true);
-insert into `vehicle` (`title`, `plate`, `year`, `type`, `renavam`, `manufacturer`, `photo`, `active`)
-	values ('CRV', 'MWL1385', 2011, 'SUV', '46778167745', 'Honda', '02.jpg', true);
-insert into `vehicle` (`title`, `plate`, `year`, `type`, `renavam`, `manufacturer`, `photo`, `active`)
-	values ('New Fiesta Hatch', 'JVH3845', 2013, 'Hatch Médio', '38164557560', 'Ford', '03.jpg', true);
+insert into `vehicle` (`title`, `plate`, `year`, `owner`, `renavam`, `manufacturer`, `photo`, `active`)
+	values ('V12 Vantage Coupe', 'BGQ8456', 2016, 'Mario', '56281020499','Audi', '01.jpg', true);
+insert into `vehicle` (`title`, `plate`, `year`, `owner`, `renavam`, `manufacturer`, `photo`, `active`)
+	values ('CRV', 'MWL1385', 2011, 'John', '46778167745', 'Honda', '02.jpg', true);
+insert into `vehicle` (`title`, `plate`, `year`, `owner`, `renavam`, `manufacturer`, `photo`, `active`)
+	values ('New Fiesta Hatch', 'JVH3845', 2013, 'Andressa', '38164557560', 'Ford', '03.jpg', true);
 
 
 -- *Booking new schedules:

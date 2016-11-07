@@ -2,8 +2,6 @@
 
 // *When the user navigates to this page:
 spa.onNavigate('settings', (page, params) => {
-   // *Checking if the user is authenticated, returning if they're not:
-   if(!authenticated) return;
 
    // *Defining the available languages:
    let languages_available = getAvailableLanguages();

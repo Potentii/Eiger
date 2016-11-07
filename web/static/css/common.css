@@ -572,7 +572,7 @@ button.raised:active, a.raised:active, .dragging.raised {
 	justify-content: flex-start;
 
 	max-width: 100%;
-	padding: 2em;
+	padding: 1em 2em;
 
 	transition: background 0.2s ease;
 }

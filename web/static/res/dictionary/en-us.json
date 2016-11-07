@@ -11,6 +11,9 @@
    ["login-username", "Username"],
    ["login-password", "Password"],
    ["login-login", "Login"],
+   ["login-error-invalid-credentials", "Incorrect login or password"],
+   ["login-error-user-not-active", "You are not active yet"],
+   ["login-error-default", "Some internal error just happened"],
 
    ["vehicles-header", "Vehicles"],
 
@@ -19,12 +22,13 @@
    ["vehicle-info-active-true", "Vehicle is active"],
    ["vehicle-info-active-false", "Vehicle inactive"],
    ["vehicle-info-renavam", "Renavam"],
+   ["vehicle-info-owner", "Owner's name"],
    ["vehicle-info-date", "Registered in"],
 
    ["vehicle-create-header", "Create new vehicle"],
    ["vehicle-create-title", "Vehicle title"],
    ["vehicle-create-manufacturer", "Manufacturer"],
-   ["vehicle-create-type", "Type"],
+   ["vehicle-create-owner", "Owner's name"],
    ["vehicle-create-year", "Year"],
    ["vehicle-create-plate", "Licence plate"],
    ["vehicle-create-renavam", "Renavam"],
@@ -33,7 +37,7 @@
    ["vehicle-update-header", "Update vehicle"],
    ["vehicle-update-title", "${vehicle-create-title}"],
    ["vehicle-update-manufacturer", "${vehicle-create-manufacturer}"],
-   ["vehicle-update-type", "${vehicle-create-type}"],
+   ["vehicle-update-owner", "${vehicle-create-owner}"],
    ["vehicle-update-year", "${vehicle-create-year}"],
    ["vehicle-update-plate", "${vehicle-create-plate}"],
    ["vehicle-update-renavam", "${vehicle-create-renavam}"],
@@ -95,6 +99,23 @@
    ["user-info-permission-users-detail", "(See sensitive information, create, edit and remove users)"],
    ["user-info-permission-vehicles", "Manage vehicles"],
    ["user-info-permission-vehicles-detail", "(Create, edit and remove vehicles)"],
+
+   ["account-info-header", "${user-info-header}"],
+   ["account-info-active", "${user-info-active}"],
+   ["account-info-active-true", "${user-info-active-true}"],
+   ["account-info-active-false", "${user-info-active-false}"],
+   ["account-info-email", "${user-info-email}"],
+   ["account-info-department", "${user-info-department}"],
+   ["account-info-date", "${user-info-date}"],
+   ["account-info-permission", "${user-info-permission}"],
+   ["account-info-permission-none", "${user-info-permission-none}"],
+   ["account-info-permission-none-detail", "${user-info-permission-none-detail}"],
+   ["account-info-permission-schedules", "${user-info-permission-schedules}"],
+   ["account-info-permission-schedules-detail", "${user-info-permission-schedules-detail}"],
+   ["account-info-permission-users", "${user-info-permission-users}"],
+   ["account-info-permission-users-detail", "${user-info-permission-users-detail}"],
+   ["account-info-permission-vehicles", "${user-info-permission-vehicles}"],
+   ["account-info-permission-vehicles-detail", "${user-info-permission-vehicles-detail}"],
 
    ["user-create-header", "Create new user"],
    ["user-create-name", "User's name"],
@@ -218,6 +239,9 @@
    ["schedule-info-dialog-consent-delete-message", "${dialog-default-sure}"],
    ["schedule-info-delete-successful-snack", "Schedule removed"],
 
+   ["schedule-info-confirmation-true-success", "Schedule status set to planned"],
+   ["schedule-info-confirmation-false-success", "Schedule confirmed"],
+
    ["user-info-dialog-consent-delete-title", "Remove this user"],
    ["user-info-dialog-consent-delete-message", "${dialog-default-sure}"],
    ["user-info-delete-successful-snack", "User removed"],
@@ -305,6 +329,23 @@
    ["schedule-update-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
    ["schedule-update-dialog-error-default-message", "${dialog-error-default-send-request-message}"],
 
+   ["schedule-info-confirmation-dialog-error-ref-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-info-confirmation-dialog-error-ref-message", "${dialog-error-default-ref-message}"],
+   ["schedule-info-confirmation-dialog-error-vehicle-not-active-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-info-confirmation-dialog-error-vehicle-not-active-message", "${schedule-create-dialog-error-vehicle-not-active-message}"],
+   ["schedule-info-confirmation-dialog-error-user-not-active-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-info-confirmation-dialog-error-user-not-active-message", "${schedule-create-dialog-error-user-not-active-message}"],
+   ["schedule-info-confirmation-dialog-error-not-authorized-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-info-confirmation-dialog-error-not-authorized-message", "${schedule-create-dialog-error-not-authorized-message}"],
+   ["schedule-info-confirmation-dialog-error-unavailable-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-info-confirmation-dialog-error-unavailable-message", "${schedule-create-dialog-error-unavailable-message}"],
+   ["schedule-info-confirmation-dialog-error-timespan-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-info-confirmation-dialog-error-timespan-message", "This schedule occurs in the past, so it cannot be modified"],
+   ["schedule-info-confirmation-dialog-error-notfound-schedule-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-info-confirmation-dialog-error-notfound-schedule-message", "${dialog-error-default-send-request-message}"],
+   ["schedule-info-confirmation-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
+   ["schedule-info-confirmation-dialog-error-default-message", "${dialog-error-default-send-request-message}"],
+
    ["user-info-dialog-error-not-found-title", "${dialog-error-default-send-request-title}"],
    ["user-info-dialog-error-not-found-message", "${dialog-error-default-not-found-message}"],
    ["user-info-dialog-error-ref-left-title", "${dialog-error-default-send-request-title}"],
@@ -330,5 +371,4 @@
    ["reservations-filters-dialog-error-invalid-filters-message", "The informed period isn't valid"],
    ["reservations-filters-dialog-error-default-title", "${dialog-error-default-send-request-title}"],
    ["reservations-filters-dialog-error-default-message", "${dialog-error-default-send-request-message}"]
-
 ]

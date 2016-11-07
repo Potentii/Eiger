@@ -16,7 +16,7 @@ create table if not exists `vehicle`(
 	`title` 		TEXT not null,
 	`plate` 		VARCHAR(7) not null,
 	`year` 			INTEGER not null,
-	`type`			TEXT not null,
+	`owner`			TEXT not null,
 	`renavam` 		VARCHAR(11) not null unique,
 	`manufacturer` 	TEXT not null,
 	`photo`			TEXT,
