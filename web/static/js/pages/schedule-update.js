@@ -101,23 +101,30 @@ spa.onNavigate('schedule-update', (page, params) => {
 
 
 
-      // *Clicking on a user header:
-      $('#schedule-update-user-app-bar').on('click', e => {
+      // *Checking the permission to the manage schedule:
+      if(!permission.permissions.manage_schedules){
+         // *If not permission:
+         // *Disabling click the selected user:
+         $('#schedule-update-user-app-bar').off('click');
+      } else{
+         // *Enabling click the selected user:
+         $('#schedule-update-user-app-bar').on('click', e => {
 
-         // *Opening the user-picker page:
-         dialogger.open('user-picker', {previous_selected_user: selected_user}, (dialog, status, params) => {
+            // *Opening the user-picker page:
+            dialogger.open('user-picker', {previous_selected_user: selected_user}, (dialog, status, params) => {
 
-            // *Checking if the case was positive:
-            switch(status){
-            case dialogger.DIALOG_STATUS_POSITIVE:
-               // *Setting the id the user selected by parameter:
-               selected_user = params.id;
-               // *Updating the user info selected:
-               scheduleUpdateUtil().updateUserInfo(selected_user);
-               break;
-            }
+               // *Checking if the case was positive:
+               switch(status){
+               case dialogger.DIALOG_STATUS_POSITIVE:
+                  // *Setting the id the user selected by parameter:
+                  selected_user = params.id;
+                  // *Updating the user info selected:
+                  scheduleUpdateUtil().updateUserInfo(selected_user);
+                  break;
+               }
+            });
          });
-      });
+      }
 
 
 

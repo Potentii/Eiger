@@ -4,6 +4,7 @@
 spa.onNavigate('schedule-info', (page, params) => {
    // *Getting the user permission:
    let permission = request.retrieveUserPermissions();
+   let auth = request.retrieveAccessInfo();
 
    // *Checking if the params is diferent undefined ou null:
    if(params && (params.id !== null && params.id !== undefined)){
@@ -12,13 +13,22 @@ spa.onNavigate('schedule-info', (page, params) => {
       // *Checking if the user was authenticated:
       if(authenticated == true) {
          // *If true:
-         // *Checking the permission to the manage schedules:
-         if(!permission.permissions.manage_schedules) $('#schedule-info-edit-fab').hide();
-         if(!permission.permissions.manage_schedules) $('#schedule-info-delete-fab').hide();
-
          // *Listing the reserve info of that vehicle:
          request.getSchedule(id)
             .done(data => {
+
+               // *Checking if the schedule info is of the user or user is admin:
+               if(auth.id === data.id_user_fk || permission.permissions.manage_schedules){
+                  // *If it is:
+                  $('#schedule-info-edit-fab').show();
+                  $('#schedule-info-delete-fab').show();
+                  $('#schedule-info-confirmation-fab').show();
+               } else{
+                  // *If not:
+                  $('#schedule-info-edit-fab').hide();
+                  $('#schedule-info-delete-fab').hide();
+                  $('#schedule-info-confirmation-fab').hide();
+               }
 
                // *Checking if the reserve is confirmed:
                if(data.confirmed === 1){
@@ -183,6 +193,7 @@ spa.onLeft('schedule-info', (page) => {
    // *Showing the 'Edit schedule and Delete schedule' FAB:
    $('#schedule-info-edit-fab').show();
    $('#schedule-info-delete-fab').show();
+   $('#schedule-info-confirmation-fab').show();
 });
 
 

@@ -2,8 +2,6 @@
 
 // *Browsing the schedules page:
 spa.onNavigate('schedules', (page, params) => {
-   // *Getting the user permission:
-   let permission = request.retrieveUserPermissions();
 
    // *Checking if the params is diferent undefined ou null:
    if(params && (params.id !== null && params.id !== undefined) && (params.date !== null && params.date !== undefined)){
@@ -13,9 +11,6 @@ spa.onNavigate('schedules', (page, params) => {
       // *Checking if the user was authenticated:
       if(authenticated == true) {
          // *If true:
-         // *Checking the permission to the manage schedules:
-         if(!permission.permissions.manage_schedules) $('#schedules-create-done-fab').hide();
-
          // *Showing the vehicle in app bar:
          request.getVehicle(id, date)
             .done(data => {

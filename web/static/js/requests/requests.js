@@ -46,8 +46,7 @@ const request = (function(){
       let token = JSON.parse(localStorage.getItem('token'));
       let key = JSON.parse(localStorage.getItem('key'));
       let id = JSON.parse(localStorage.getItem('id'));
-      let permissions = JSON.parse(localStorage.getItem('permissions'));
-      return {token: token, key: key, id: id, permissions: permissions};
+      return {token: token, key: key, id: id};
    }
 
 

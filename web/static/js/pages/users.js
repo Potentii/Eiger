@@ -51,7 +51,7 @@ spa.onNavigate('users', (page, params) => {
                   anim.inflate(img_div);
                }, index * 125);
             });
-   
+
             // *Checking the permission to the manage users:
             if(!permission.permissions.manage_users){
                 $('#users-list').on('click', 'li', function(){
@@ -59,7 +59,6 @@ spa.onNavigate('users', (page, params) => {
 
                   // *Sending the id of the li by parameter:
                   spa.navigateTo('account-info', {id: id});
-                  console.log('Não pode');
                });
             } else{
 
@@ -69,7 +68,6 @@ spa.onNavigate('users', (page, params) => {
 
                   // *Sending the id of the li by parameter:
                   spa.navigateTo('user-info', {id: user_id});
-                  console.log('Pode');
                });
             }
          })
