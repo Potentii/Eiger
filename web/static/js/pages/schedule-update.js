@@ -100,7 +100,9 @@ spa.onNavigate('schedule-update', (page, params) => {
       });
 
 
-
+      // *Getting the user permission:
+      let permission = request.retrieveUserPermissions();
+      
       // *Checking the permission to the manage schedule:
       if(!permission.permissions.manage_schedules){
          // *If not permission:

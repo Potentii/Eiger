@@ -156,15 +156,12 @@ spa.onReady(() => {
 
 // *Browsing the auth page:
 spa.onNavigate('auth', (page, params) => {
-   // *Getting the user permission:
-   let permission = {};
-   permission = request.retrieveUserPermissions().permissions;
 
    // *Getting the key and the token:
    let auth = request.retrieveAccessInfo();
 
    // *Checking if the token or key or permissions is null:
-   if(auth.token == null || auth.key == null || permission == null || permission.manage_schedules == null || permission.manage_users == null || permission.manage_vehicles == null) {
+   if(auth.token == null || auth.key == null) {
 
       // *If null:
       // *Redirecting the user to login page:
@@ -179,6 +176,16 @@ spa.onNavigate('auth', (page, params) => {
       // *Requesting for the user authentication:
       request.getAuth()
          .done(data => {
+            
+            // *Saving user permissions data:
+            request.saveUserPermissions(
+               {
+                  permissions: {
+                     manage_schedules: data.user.permission_schedules,
+                     manage_users: data.user.permission_users,
+                     manage_vehicles: data.user.permission_vehicles
+                  }
+               });
 
             // *Setting the authenticated variable value as true:
             authenticated = true;
