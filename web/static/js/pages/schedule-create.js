@@ -97,7 +97,7 @@ spa.onNavigate('schedule-create', (page, params) => {
       if(!permission.permissions.manage_schedules){
          // *If not permission:
          // *Disabling click the selected user:
-         $('#schedule-create-user-app-bar').off('click');
+         $('#schedule-create-user-app-bar').addClass('inactive').off('click');
       } else{
          // *Enabling click the selected user:
          $('#schedule-create-user-app-bar').on('click', e => {
@@ -164,7 +164,7 @@ spa.onLeft('schedule-create', (page) => {
 
    // *Removing the event onClick:
    $('#schedule-create-up-button').off('click');
-   $('#schedule-create-user-app-bar').off('click');
+   $('#schedule-create-user-app-bar').removeClass('inactive').off('click');
    $('#schedule-create-vehicle-app-bar').off('click');
 
    // *Updating MDL Textfields:

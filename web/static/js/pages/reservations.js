@@ -8,8 +8,6 @@ spa.onNavigate('reservations', (page, params) => {
    // *Checking if the user was authenticated:
    if(authenticated == true) {
       // *If true:
-      // *Checking the permission to the manage schedules:
-      if(!permission.permissions.manage_schedules) $('#reservations-add-fab').hide();
 
       // *Setting the variables for filter use:
       let filters = {

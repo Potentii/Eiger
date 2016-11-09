@@ -102,12 +102,12 @@ spa.onNavigate('schedule-update', (page, params) => {
 
       // *Getting the user permission:
       let permission = request.retrieveUserPermissions();
-      
+
       // *Checking the permission to the manage schedule:
       if(!permission.permissions.manage_schedules){
          // *If not permission:
          // *Disabling click the selected user:
-         $('#schedule-update-user-app-bar').off('click');
+         $('#schedule-update-user-app-bar').addClass('inactive').off('click');
       } else{
          // *Enabling click the selected user:
          $('#schedule-update-user-app-bar').on('click', e => {
@@ -168,7 +168,7 @@ spa.onLeft('schedule-update', (page) => {
 
    // *Removing the event onClick:
    $('#schedule-update-vehicle-app-bar').off('click');
-   $('#schedule-update-user-app-bar').off('click');
+   $('#schedule-update-user-app-bar').removeClass('inactive').off('click');
 
    // *Updating MDL Textfields:
    mdl_util.updateTextFields('#schedule-update-section');

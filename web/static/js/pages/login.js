@@ -51,6 +51,9 @@ spa.onNavigate('login', (page, params) => {
 
             // *Redirecting the user to index page:
             spa.navigateTo('');
+
+            // *Loading the user info on drawer:
+            updateDrawerUserInfo();
          })
          .fail(xhr => {
             // *Declaring the text variable:
@@ -76,6 +79,9 @@ spa.onNavigate('login', (page, params) => {
 
             // *Displaying the error text:
             $('#login-error-output').text(text);
+
+            // *Cleaning the password field:
+            $('#login-pass-in').val('');
          });
    });
 
@@ -176,7 +182,7 @@ spa.onNavigate('auth', (page, params) => {
       // *Requesting for the user authentication:
       request.getAuth()
          .done(data => {
-            
+
             // *Saving user permissions data:
             request.saveUserPermissions(
                {
@@ -191,6 +197,9 @@ spa.onNavigate('auth', (page, params) => {
             authenticated = true;
             // *Redirecting the user to previous page:
             spa.navigateTo(params.previous_page_name);
+
+            // *Loading the user info on drawer:
+            updateDrawerUserInfo();
          })
          .fail(xhr => {
             // *Redirecting the user to login page:
@@ -215,6 +224,10 @@ spa.onLeft('login', (page) => {
 
    // *Cleaning the texts:
    $('#login-language').text('');
+
+   // *Cleaning the inputs:
+   $('#login-username-in').val('');
+   $('#login-pass-in').val('');
 
    // *Removing the click listeners:
    $('#login-language').off('click');
