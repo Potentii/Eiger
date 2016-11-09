@@ -56,16 +56,40 @@ const request = (function(){
    * @param  {object} data The token and the user key
    * @author Ralf Pablo Braga Soares
    */
-   function saveAccessInfo({ id, token, key }) {
+   function saveAccessInfo({id, token, key}) {
 
-      // *Setting token as an access key to the token code in cache:
+      // *Saving token as an access key to the token code in cache:
       if(token) localStorage.setItem('token', JSON.stringify(token));
 
       // *Saving id as an access key to the id code in cache:
       if(id) localStorage.setItem('id', JSON.stringify(id));
 
-      // *Setting key as an access key to the key code in cache:
+      // *Saving key as an access key to the key code in cache:
       if(key) localStorage.setItem('key', JSON.stringify(key));
+   }
+
+
+
+   /**
+   * Recovers the user permissions in cache
+   * @return {object} JSON The user permissions
+   * @author Ralf Pablo Braga Soares
+   */
+   function retrieveUserPermissions() {
+      let permissions = JSON.parse(localStorage.getItem('permissions'));
+      return {permissions: permissions};
+   }
+
+
+
+   /**
+   * Saves the user permissions in cache
+   * @param  {object} data The user permissions
+   * @author Ralf Pablo Braga Soares
+   */
+   function saveUserPermissions({permissions}) {
+      // *Saving permissions of the user in cache:
+      if(permissions) localStorage.setItem('permissions', JSON.stringify(permissions));
    }
 
 
@@ -79,6 +103,7 @@ const request = (function(){
       localStorage.removeItem('token');
       localStorage.removeItem('id');
       localStorage.removeItem('key');
+      localStorage.removeItem('permissions');
    }
 
 
@@ -694,6 +719,8 @@ const request = (function(){
 
       retrieveAccessInfo: retrieveAccessInfo,
       saveAccessInfo: saveAccessInfo,
+      retrieveUserPermissions: retrieveUserPermissions,
+      saveUserPermissions: saveUserPermissions,
       clearAccessInfo: clearAccessInfo
    };
 })();

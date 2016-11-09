@@ -28,12 +28,8 @@ spa.onNavigate('schedules', (page, params) => {
                $('#schedules-vehicle-date').text(df.asFullDate(new Date(date + ' 00:00:00')));
 
                // *Checking if the vehicle is active:
-               if(data.active){
+               if(!data.active){
                   // *If it is:
-                  // *Showing the 'Add schedules' FAB:
-                  $('#schedules-create-done-fab').show();
-               } else{
-                  // *If it isn't:
                   // *Hiding the 'Add schedules' FAB:
                   $('#schedules-create-done-fab').hide();
                }
@@ -148,6 +144,6 @@ spa.onLeft('schedules', (page) => {
    // *Removing the event click from button:
    $('#schedules-create-done-fab').off('click');
 
-   // *Hiding the 'Add schedules' FAB:
+   // *Showing the 'Add schedules' FAB:
    $('#schedules-create-done-fab').show();
 });

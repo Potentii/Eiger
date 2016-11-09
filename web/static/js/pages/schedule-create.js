@@ -2,6 +2,8 @@
 
 // *Browsing the schedule-create page:
 spa.onNavigate('schedule-create', (page, params) => {
+   // *Getting the user permission:
+   let permission = request.retrieveUserPermissions();
 
    let selected_user;
    let selected_vehicle;
@@ -91,23 +93,30 @@ spa.onNavigate('schedule-create', (page, params) => {
 
 
 
-      // *Clicking on a user header:
-      $('#schedule-create-user-app-bar').on('click', e => {
+      // *Checking the permission to the manage schedule:
+      if(!permission.permissions.manage_schedules){
+         // *If not permission:
+         // *Disabling click the selected user:
+         $('#schedule-create-user-app-bar').addClass('inactive').off('click');
+      } else{
+         // *Enabling click the selected user:
+         $('#schedule-create-user-app-bar').on('click', e => {
 
-         // *Opening the user-picker page:
-         dialogger.open('user-picker', {previous_selected_user: selected_user}, (dialog, status, params) => {
+            // *Opening the user-picker page:
+            dialogger.open('user-picker', {previous_selected_user: selected_user}, (dialog, status, params) => {
 
-            // *Checking if the case was positive:
-            switch(status){
-            case dialogger.DIALOG_STATUS_POSITIVE:
-               // *Setting the id the user selected by parameter:
-               selected_user = params.id;
-               // *Updating the user info selected:
-               scheduleCreateUtil().updateUserInfo(selected_user);
-               break;
-            }
+               // *Checking if the case was positive:
+               switch(status){
+               case dialogger.DIALOG_STATUS_POSITIVE:
+                  // *Setting the id the user selected by parameter:
+                  selected_user = params.id;
+                  // *Updating the user info selected:
+                  scheduleCreateUtil().updateUserInfo(selected_user);
+                  break;
+               }
+            });
          });
-      });
+      }
 
 
 
@@ -155,7 +164,7 @@ spa.onLeft('schedule-create', (page) => {
 
    // *Removing the event onClick:
    $('#schedule-create-up-button').off('click');
-   $('#schedule-create-user-app-bar').off('click');
+   $('#schedule-create-user-app-bar').removeClass('inactive').off('click');
    $('#schedule-create-vehicle-app-bar').off('click');
 
    // *Updating MDL Textfields:

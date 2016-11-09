@@ -82,7 +82,7 @@ section > .list{
 /**
  * Clickable app bar
  */
-.clickable-app-bar::after{
+.clickable-app-bar:not(.inactive)::after{
    content: '';
    position: absolute;
    opacity: 0;
@@ -95,14 +95,20 @@ section > .list{
    background: rgba(255, 255, 255, 0.08);
    transition: opacity 0.2s ease;
 }
-.clickable-app-bar:hover::after{
+.clickable-app-bar:not(.inactive):hover::after{
    opacity: 1;
 }
-.clickable-app-bar *:hover{
+.clickable-app-bar:not(.inactive) *:hover{
    cursor: pointer;
 }
-.clickable-app-bar .mdl-ripple{
+.clickable-app-bar:not(.inactive) .mdl-ripple{
    background: #fff;
+}
+.clickable-app-bar.inactive .mdl-ripple{
+   background: rgba(0, 0, 0, 0);
+}
+.clickable-app-bar.inactive > *{
+   opacity: 0.7;
 }
 
 /**

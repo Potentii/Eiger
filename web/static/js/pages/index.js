@@ -2,10 +2,15 @@
 
 // *Browsing the index page:
 spa.onNavigate('', (page, params) => {
+   // *Getting the user permission:
+   let permission = request.retrieveUserPermissions();
 
    // *Checking if the user was authenticated:
    if(authenticated == true) {
       // *If true:
+      // *Checking the permission to the manage vehicles:
+      if(!permission.permissions.manage_vehicles) $('#vehicles-add-fab').hide();
+
       // *Listing the vehicles:
       request.getVehicles()
          .done(data => {
@@ -112,6 +117,9 @@ spa.onLeft('', (page) => {
    $('#vehicles-list .schedules').off('click');
    $('#vehicles-add-fab').off('click');
    $('#vehicles-select-date-fab').off('click');
+
+   // *Showing the 'Add vehicles' FAB:
+   $('#vehicles-add-fab').show();
 });
 
 

@@ -29,13 +29,31 @@ spa.onNavigate('login', (page, params) => {
          .done(data => {
 
             // *Saving user authentication data:
-            request.saveAccessInfo({id: data.user.id, key: data.user.login, token: data.token});
+            request.saveAccessInfo(
+               {
+                  id: data.user.id,
+                  key: data.user.login,
+                  token: data.token
+               });
+
+            // *Saving user permissions data:
+            request.saveUserPermissions(
+               {
+                  permissions: {
+                     manage_schedules: data.user.permission_schedules,
+                     manage_users: data.user.permission_users,
+                     manage_vehicles: data.user.permission_vehicles
+                  }
+               });
 
             // *Setting the variable value for true:
             authenticated = true;
 
             // *Redirecting the user to index page:
             spa.navigateTo('');
+
+            // *Loading the user info on drawer:
+            updateDrawerUserInfo();
          })
          .fail(xhr => {
             // *Declaring the text variable:
@@ -61,6 +79,9 @@ spa.onNavigate('login', (page, params) => {
 
             // *Displaying the error text:
             $('#login-error-output').text(text);
+
+            // *Cleaning the password field:
+            $('#login-pass-in').val('');
          });
    });
 
@@ -145,7 +166,7 @@ spa.onNavigate('auth', (page, params) => {
    // *Getting the key and the token:
    let auth = request.retrieveAccessInfo();
 
-   // *Checking if the token or key is null:
+   // *Checking if the token or key or permissions is null:
    if(auth.token == null || auth.key == null) {
 
       // *If null:
@@ -162,10 +183,23 @@ spa.onNavigate('auth', (page, params) => {
       request.getAuth()
          .done(data => {
 
+            // *Saving user permissions data:
+            request.saveUserPermissions(
+               {
+                  permissions: {
+                     manage_schedules: data.user.permission_schedules,
+                     manage_users: data.user.permission_users,
+                     manage_vehicles: data.user.permission_vehicles
+                  }
+               });
+
             // *Setting the authenticated variable value as true:
             authenticated = true;
             // *Redirecting the user to previous page:
             spa.navigateTo(params.previous_page_name);
+
+            // *Loading the user info on drawer:
+            updateDrawerUserInfo();
          })
          .fail(xhr => {
             // *Redirecting the user to login page:
@@ -190,6 +224,10 @@ spa.onLeft('login', (page) => {
 
    // *Cleaning the texts:
    $('#login-language').text('');
+
+   // *Cleaning the inputs:
+   $('#login-username-in').val('');
+   $('#login-pass-in').val('');
 
    // *Removing the click listeners:
    $('#login-language').off('click');

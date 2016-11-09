@@ -2,8 +2,20 @@
 $(() => {
    // *When the user clicks on their info on drawer:
    $('#drawer-login-info').on('click', e => {
-      // *Navigating to user info page:
-      spa.navigateTo('account-info', {id: request.retrieveAccessInfo().id});
+      // *Getting the user permission:
+      let permission = request.retrieveUserPermissions();
+
+      // *Checking if the user can manage other users' accounts:
+      if(permission && permission.permissions && permission.permissions.manage_users){
+         // *If they can:
+         // *Navigating to user info page:
+         spa.navigateTo('user-info', {id: request.retrieveAccessInfo().id});
+      } else{
+         // *If they can't:
+         // *Navigating to user account page:
+         spa.navigateTo('account-info', {id: request.retrieveAccessInfo().id});
+      }
+
       // *Dismissing the navigation drawer:
       drawer.dismiss();
    });
@@ -19,7 +31,15 @@ $(() => {
 
 
 // *When the user opens the drawer:
-drawer.onOpen(() => {
+drawer.onOpen(updateDrawerUserInfo);
+
+
+
+/**
+ * Updates the user info on drawer
+ * @author Dennis Sakaki Fujiki
+ */
+function updateDrawerUserInfo(){
    // *Getting the user info from database:
    request.getUser(request.retrieveAccessInfo().id)
       .done(data => {
@@ -37,7 +57,7 @@ drawer.onOpen(() => {
       .fail(xhr => {
          console.log(xhr.responseJSON);
       });
-});
+}
 
 
 

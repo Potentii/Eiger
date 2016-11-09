@@ -2,10 +2,15 @@
 
 // *When the user navigate to the users page:
 spa.onNavigate('users', (page, params) => {
+   // *Getting the user permission:
+   let permission = request.retrieveUserPermissions();
 
    // *Checking if the user was authenticated:
    if(authenticated == true) {
       // *If true:
+      // *Checking the permission to the manage users:
+      if(!permission.permissions.manage_users) $('#users-create-done-fab').hide();
+
       // *Listing the users:
       request.getUsers()
          .done(data =>{
@@ -49,13 +54,24 @@ spa.onNavigate('users', (page, params) => {
                }, index * 125);
             });
 
-            // *Clicking on an user:
-            user_ul.on('click', 'li', function(){
-               let user_id = $(this).data('id');
+            // *Checking the permission to the manage users:
+            if(!permission.permissions.manage_users){
+                $('#users-list').on('click', 'li', function(){
+                  let id = $(this).data('id');
 
-               // *Sending the id of the li by parameter:
-               spa.navigateTo('user-info', {id: user_id});
-            });
+                  // *Sending the id of the li by parameter:
+                  spa.navigateTo('account-info', {id: id});
+               });
+            } else{
+
+               // *Clicking on an user:
+                $('#users-list').on('click', 'li', function(){
+                  let user_id = $(this).data('id');
+
+                  // *Sending the id of the li by parameter:
+                  spa.navigateTo('user-info', {id: user_id});
+               });
+            }
          })
          .fail(xhr => {
             // *Checking if the request's status is 401, sending the user to the login page if it is:
@@ -88,4 +104,7 @@ spa.onLeft('users', (page) => {
 
    // *Removing the event click from button:
    $('#users-create-done-fab').off('click');
+
+   // *Showing the 'Create user' FAB:
+   $('#users-create-done-fab').show();
 });
