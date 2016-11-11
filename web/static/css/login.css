@@ -1,61 +1,67 @@
+#login-section{
+   overflow-y: auto;
+}
 /**
  * Component that holds the logo, the line, and the login form
  */
 #login-container{
    display: flex;
    align-items: center;
-   justify-content: center;
+   justify-content: flex-start;
+   max-width: 100%;
 }
 
 
-/**
- * TODO Replace this with an image
- */
+
 #login-logo{
    flex-grow: 0;
    flex-shrink: 0;
-   /*background: var(--primary-color-dark);*/
-   background: url('/static/res/image/eiger-logo.png');
+   background: url('/static/res/image/eiger-logo-contrast.svg');
    background-position: center;
    background-size: contain;
    background-repeat: no-repeat;
 }
+
+#login-container > .horizontal-line, #login-container > .vertical-line{
+   background: rgba(255, 255, 255, 0.3);
+}
+
 
 
 /**
  * Adjusting the form width, and the submit vertical spacing
  */
 #login-form{
-   flex-grow: 1;
-   width: 80%;
-} #login-form > button[type="submit"]{
-   margin: 4em auto 0 auto;
+   max-width: 100%;
 } #login-form > *{
    width: 100%;
-}
-
-#login-error-output{
+} #login-error-output{
+   display: block;
    color: #D32F2F;
-}
-
-
-#login-language-container{
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   margin: 2em auto 0 auto;
-}
-#login-language-container > *{
-   margin: 0 0.5em;
-}
-#login-language-container > .material-icons{
-   color: var(--bg-color-contrast-icon);
-}
-#login-language{
+} #login-form > button{
+   min-width: 10em;
+   max-width: 100%;
+   padding: 0.6em;
+} #login-form > button[type="submit"]{
+   font-size: 1.2em;
+   width: 70%;
+   background: var(--bg-color);
+   color: var(--bg-color-contrast);
+} #login-language{
+   margin: 3em auto 0 auto;
+   font-size: 0.9em;
+   width: auto;
    color: var(--bg-color-contrast);
    background: rgba(0, 0, 0, 0.2);
-   padding: 0.8em 3em;
+} #login-language > .material-icons, #login-language-output{
+   vertical-align: middle;
+   margin: 0 0.3em;
+} #login-language .mdl-ripple{
+   background: rgba(255, 255, 255, 0.5);
+} #login-language-output{
+   text-decoration: underline;
 }
+
 
 
 /**
@@ -69,14 +75,17 @@
       display: none;
    }
    #login-logo{
-      margin: 4em 0;
+      margin: 2em 0;
       height: 8em;
       width: 8em;
    }
    #login-form{
-      margin: 4em 0;
+      margin: 2em 0;
+   } #login-form > button{
+      margin: 2em auto 0 auto;
    }
 }
+
 
 
 /**
@@ -85,8 +94,6 @@
 @media (orientation: landscape){
    #login-container{
       top: 10vh;
-      width: 70%;
-      min-width: 30em;
       height: 80vh;
       flex-direction: row;
    } #login-container > .horizontal-line{
@@ -98,14 +105,26 @@
       width: 5em;
    }
    #login-form{
-      margin: 0 4em;
+      margin: 0 2.5em;
+      width: 50%;
+   } #login-form > button{
+      margin: 1em auto 0 auto;
+   } #login-form > #login-language{
+      margin: 2em auto 0 auto;
    }
 }
 
-@media (min-width: 700px){
+@media (min-width: 800px){
    #login-logo{
       margin: 0 4em;
-      height: 8em;
-      width: 8em;
+      height: 10em;
+      width: 10em;
+   }
+   #login-form{
+      margin: 0 4em;
+   } #login-form > button{
+      margin: 2em auto 0 auto;
+   } #login-form > #login-language{
+      margin: 4em auto 0 auto;
    }
 }
