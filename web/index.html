@@ -186,14 +186,14 @@
       <!--
       Login Page
       -->
-      <section id="login-section" data-page="login">
+      <section id="login-section" data-page="login" class="tinted">
          <div id="login-container" class="center">
 
             <!-- Branding -->
             <div id="login-logo" class="inflate center"></div>
 
             <!-- Separators -->
-            <div class="horizontal-line"></div>
+            <!--<div class="horizontal-line"></div>-->
             <div class="vertical-line"></div>
 
             <!-- Login form -->
@@ -214,14 +214,10 @@
                <span id="login-error-output"><!--[error-message]--></span>
 
                <!-- Submit button -->
-               <button type="submit" class="mdl-js-button mdl-js-ripple-effect box card tinted raised" data-intl="login-login"></button>
+               <button type="submit" class="mdl-js-button mdl-js-ripple-effect box card raised" data-intl="login-login"></button>
 
                <!-- Language -->
-               <div id="login-language-container">
-                  <i class="material-icons">language</i>
-                  <button id="login-language" type="button" class="mdl-js-button mdl-js-ripple-effect card raised"></button>
-               </div>
-
+               <button id="login-language" type="button" class="mdl-js-button mdl-js-ripple-effect box card raised"><i class="material-icons">language</i><span id="login-language-output"><!--[language]--></span></button>
             </form>
          </div>
       </section>
@@ -439,7 +435,7 @@
             <div class="row mdl-input-row">
                <i class="material-icons">_</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input id="vehicle-create-year" class="mdl-textfield__input" type="number" required="true">
+                  <input id="vehicle-create-year" class="mdl-textfield__input" type="text" pattern="\d{4}" required="true">
                   <label class="mdl-textfield__label" for="vehicle-create-year" data-intl="vehicle-create-year"></label>
                </span>
             </div>
@@ -542,7 +538,7 @@
             <div class="row mdl-input-row">
                <i class="material-icons">_</i>
                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input id="vehicle-update-year" class="mdl-textfield__input" type="number" required="true">
+                  <input id="vehicle-update-year" class="mdl-textfield__input" type="text" pattern="\d{4}" required="true">
                   <label class="mdl-textfield__label" for="vehicle-update-year" data-intl="vehicle-update-year"></label>
                </span>
             </div>

@@ -91,7 +91,7 @@ spa.onNavigate('login', (page, params) => {
    let languages_available = getAvailableLanguages();
 
    // *Setting the language button text:
-   $('#login-language').text(languages_available.get(settings.get().language));
+   $('#login-language-output').text(languages_available.get(settings.get().language));
    // *When the user clicks on the language button:
    $('#login-language').on('click', e => {
       // *Preparing the language picker dialog options:
@@ -132,7 +132,7 @@ spa.onNavigate('login', (page, params) => {
             if(settings.set({language: params.selected})){
                // *If they were:
                // *Changing the button text:
-               $('#login-language').text(languages_available.get(params.selected));
+               $('#login-language-output').text(languages_available.get(params.selected));
             } else{
                // *If they not:
                // *Removing the dictionary change listener:
@@ -223,7 +223,7 @@ spa.onLeft('login', (page) => {
    $('#login-form').off('submit');
 
    // *Cleaning the texts:
-   $('#login-language').text('');
+   $('#login-language-output').text('');
 
    // *Cleaning the inputs:
    $('#login-username-in').val('');
