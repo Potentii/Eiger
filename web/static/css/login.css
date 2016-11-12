@@ -37,7 +37,10 @@
    width: 100%;
 } #login-error-output{
    display: block;
-   color: #D32F2F;
+   height: 1.1em;
+   font-style: italic;
+   font-size: 1.1em;
+   color: #FF5252;
 } #login-form > button{
    min-width: 10em;
    max-width: 100%;
@@ -46,7 +49,7 @@
    font-size: 1.2em;
    width: 70%;
    background: var(--bg-color);
-   color: var(--bg-color-contrast);
+   color: var(--primary-color);
 } #login-language{
    margin: 3em auto 0 auto;
    font-size: 0.9em;
