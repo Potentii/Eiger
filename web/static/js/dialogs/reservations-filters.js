@@ -36,6 +36,29 @@ dialogger.onOpen('reservations-filters', (dialog, params) => {
 
 
 
+   // *Setting an action for when the user clicks the 'RESET' button:
+   $('#reservations-filters-reset-button').on('click', e => {
+
+      // *Reseting the fields:
+      $('#reservations-filters-schedule-id').val('');
+      $('#reservations-filters-from-date').val('');
+      $('#reservations-filters-to-date').val('');
+      $('input:radio[name="reservations-filters-confirmed"][value="both"]').prop('checked', true);
+
+      params.schedule_id = undefined;
+      params.from_date = undefined;
+      params.to_date = undefined;
+      params.status = undefined;
+
+      // *Updating the MDL textfields:
+      mdl_util.updateTextFields('#reservations-filters-form');
+
+      // *Updating MDL Radios:
+      mdl_util.updateRadios('#reservations-filters-form');
+   });
+
+
+
    // *When the user click on a apply button the dialog:
    $('#reservations-filters-apply-button').on('click', e => {
 
@@ -82,6 +105,7 @@ dialogger.onDismiss('reservations-filters', (dialog, status, params) => {
 
    // *Removing the event click:
    $('#reservations-filters-cancel-button').off('click');
+   $('#reservations-filters-reset-button').off('click');
    $('#reservations-filters-apply-button').off('click');
 
    // *Updating MDL Textfields:
