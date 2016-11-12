@@ -22,6 +22,23 @@ section > .list{
 }
 
 
+#settings-language{
+   padding: 0.6em;
+   margin: 0;
+   font-size: 0.9em;
+   width: auto;
+   color: var(--bg-color-contrast-faded);
+   background: rgba(0, 0, 0, 0.2);
+} #settings-language > .material-icons, #settings-language-output{
+   vertical-align: middle;
+   margin: 0 0.3em;
+} #settings-language .mdl-ripple{
+   background: rgba(255, 255, 255, 0.5);
+} #settings-language-output{
+   color: var(--bg-color-contrast-icon);
+   text-decoration: underline;
+}
+
 
 /**
  * Vehicle info on app-bar

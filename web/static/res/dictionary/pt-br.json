@@ -206,7 +206,14 @@
    ["reservations-filters-from-date", "De"],
    ["reservations-filters-to-date", "Até"],
    ["reservations-filters-cancel", "cancelar"],
+   ["reservations-filters-reset", "apagar"],
    ["reservations-filters-apply", "aplicar"],
+
+   ["date-picker-header", "Selecione uma data"],
+   ["date-picker-date", "Data"],
+   ["date-picker-cancel", "cancelar"],
+   ["date-picker-reset", "apagar"],
+   ["date-picker-ok", "ok"],
 
 
 
@@ -245,9 +252,6 @@
    ["user-info-dialog-consent-delete-title", "Remover este usuário"],
    ["user-info-dialog-consent-delete-message", "${dialog-default-sure}"],
    ["user-info-delete-successful-snack", "Usuário removido"],
-
-   ["vehicles-select-date-dialog-not-available-title", "Funcionalidade não disponível"],
-   ["vehicles-select-date-dialog-not-available-message", "Esta funcionalidade não está disponível ainda"],
 
    ["settings-saved-language", "Idioma alterado"],
 

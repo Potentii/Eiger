@@ -5,6 +5,9 @@ spa.onNavigate('', (page, params) => {
    // *Getting the user permission:
    let permission = request.retrieveUserPermissions();
 
+   // *Starting the selected date variable:
+   let selected_date = undefined;
+
    // *Checking if the user was authenticated:
    if(authenticated == true) {
       // *If true:
@@ -95,8 +98,19 @@ spa.onNavigate('', (page, params) => {
 
    // *When the user clicks on select date FAB:
    $('#vehicles-select-date-fab').on('click', e => {
-      // *Opening a dialog informing that this feature is not available yet:
-      dialogger.open('default-notice', {title: srm.get('vehicles-select-date-dialog-not-available-title'), message: srm.get('vehicles-select-date-dialog-not-available-message')});
+      // *Opening the date picker dialog, passing the previous selected date:
+      dialogger.open('date-picker', {date: selected_date}, (dialog, status, params) => {
+         // *Checking the dialog status:
+         switch(status){
+         case dialogger.DIALOG_STATUS_POSITIVE:
+            // *If the user clicked on OK:
+            // *Updating the date variable:
+            selected_date = params.date;
+            // TODO update the schedule listing with this new selected date
+
+            break;
+         }
+      });
    });
 });
 

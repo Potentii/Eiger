@@ -7,7 +7,7 @@ spa.onNavigate('settings', (page, params) => {
    let languages_available = getAvailableLanguages();
 
    // *Setting the language button text:
-   $('#settings-language').text(languages_available.get(settings.get().language));
+   $('#settings-language-output').text(languages_available.get(settings.get().language));
    // *When the user clicks on the language button:
    $('#settings-language').on('click', e => {
       // *Preparing the language picker dialog options:
@@ -48,7 +48,7 @@ spa.onNavigate('settings', (page, params) => {
             if(settings.set({language: params.selected})){
                // *If they were:
                // *Changing the button text:
-               $('#settings-language').text(languages_available.get(params.selected));
+               $('#settings-language-output').text(languages_available.get(params.selected));
             } else{
                // *If they not:
                // *Removing the dictionary change listener:
@@ -65,7 +65,7 @@ spa.onNavigate('settings', (page, params) => {
 // *When the user left this page:
 spa.onLeft('settings', (page) => {
    // *Cleaning the texts:
-   $('#settings-language').text('');
+   $('#settings-language-output').text('');
 
    // *Removing the click listeners:
    $('#settings-language').off('click');

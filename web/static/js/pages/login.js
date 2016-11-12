@@ -8,6 +8,9 @@ var authenticated = false;
 // *Browsing the login page:
 spa.onNavigate('login', (page, params) => {
 
+   // *Updating the MDL textfields:
+   mdl_util.updateTextFields('#login-form');
+
    // *Building the event to the login form:
    $('#login-form').submit((e) => {
 
@@ -19,7 +22,7 @@ spa.onNavigate('login', (page, params) => {
       let text_pass = $('#login-pass-in').val();
 
       // *Cleaning the login error output:
-      $('#login-error-output').text('');
+      $('#login-error-output').hide();
 
       // *Saving all values in a object_data:
       let object_data = {login: text_username, pass: text_pass};
@@ -78,7 +81,7 @@ spa.onNavigate('login', (page, params) => {
             }
 
             // *Displaying the error text:
-            $('#login-error-output').text(text);
+            $('#login-error-output').text(text).show();
 
             // *Cleaning the password field:
             $('#login-pass-in').val('');
@@ -228,6 +231,9 @@ spa.onLeft('login', (page) => {
    // *Cleaning the inputs:
    $('#login-username-in').val('');
    $('#login-pass-in').val('');
+
+   // *Updating the MDL textfields:
+   mdl_util.updateTextFields('#login-form');
 
    // *Removing the click listeners:
    $('#login-language').off('click');
