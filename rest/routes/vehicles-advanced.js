@@ -99,7 +99,7 @@ function getAvailability(day, schedules){
    ms_left = (ms_left<0) ? 0 : ms_left;
 
    // *Returning the availability:
-   return {schedules: schedules.length, availability: (ms_left/DAY_MS)*100};
+   return {date: day, schedules: schedules.length, availability: (ms_left/DAY_MS)*100};
 }
 
 
