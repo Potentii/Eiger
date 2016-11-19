@@ -2,15 +2,25 @@
 
 // *Browsing the index page:
 spa.onNavigate('', (page, params) => {
+   // *Setting the default availability load chunk size:
+   const CHUNK_SIZE = 7;
+
    // *Getting the user permission:
    let permission = request.retrieveUserPermissions();
 
-   // *Starting the selected date variable:
-   let selected_date = undefined;
 
    // *Checking if the user was authenticated:
    if(authenticated == true) {
       // *If true:
+
+      // *Getting the previous selected date from cache:
+      let selected_date = sessionStorage.getItem('index-selected-date');
+      // *Validating the cache data:
+      selected_date = /\d{4}-\d{2}-\d{2}/.test(selected_date) ? new Date(selected_date + ' 00:00:00'):undefined;
+
+      // *Declaring the last chunk dates array loaded:
+      let dates = [];
+
       // *Checking the permission to the manage vehicles:
       if(!permission.permissions.manage_vehicles) $('#vehicles-add-fab').hide();
 
@@ -55,10 +65,33 @@ spa.onNavigate('', (page, params) => {
                let vertical_line_div = $('<div>').addClass('vertical-line').appendTo(card_li);
 
                // *Building the schedule's balls ul:
-               let button_ul = $('<ul>').addClass('schedules flex-horizontal-layout').appendTo(card_li);
+               let balls_container = $('<ul>').addClass('schedules flex-horizontal-layout').appendTo(card_li);
+
+               // *Getting the next two date chunks:
+               dates = getNextDays(CHUNK_SIZE * 2, selected_date?selected_date:new Date());
 
                // *Building the schedule's balls and add amount of the schedules number:
-               requestSchedules(vehicle.id, button_ul);
+               loadChunk(vehicle.id, balls_container, dates)
+                  .then(() => {
+                     // *Configuring the lazy loading:
+                     setupHorizontalLazyLoad(balls_container, () => {
+                        // *Getting the last loaded date:
+                        let last_date = dates[dates.length-1];
+                        // *Getting the next chunk's date:
+                        dates = getNextDays(CHUNK_SIZE, addDays(last_date, 1));
+                        // *Loading the chunk:
+                        loadChunk(vehicle.id, balls_container, dates);
+                     });
+
+                     // *Clicking on a schedule's button:
+                     balls_container.on('click', 'li', function(){
+                        let id = $(this).parent().parent().data('id');
+                        let date = $(this).data('date');
+
+                        // *Sending the id and date of the li by parameter:
+                        spa.navigateTo('schedules', {id: id, date: date});
+                     });
+                  });
 
                // *Hiding the vehicle's photo:
                image_div.css('visibility', 'hidden');
@@ -87,31 +120,65 @@ spa.onNavigate('', (page, params) => {
             }
             console.log(xhr.responseJSON);
          });
-   }
-
-   // *When a user to click in add button:
-   $('#vehicles-add-fab').on('click', function(){
-      // *Sending the user's to the vehicle-create page:
-      spa.navigateTo('vehicle-create');
-   });
 
 
-   // *When the user clicks on select date FAB:
-   $('#vehicles-select-date-fab').on('click', e => {
-      // *Opening the date picker dialog, passing the previous selected date:
-      dialogger.open('date-picker', {date: selected_date}, (dialog, status, params) => {
-         // *Checking the dialog status:
-         switch(status){
-         case dialogger.DIALOG_STATUS_POSITIVE:
-            // *If the user clicked on OK:
-            // *Updating the date variable:
-            selected_date = params.date;
-            // TODO update the schedule listing with this new selected date
-
-            break;
-         }
+      // *When a user to click in add button:
+      $('#vehicles-add-fab').on('click', function(){
+         // *Sending the user's to the vehicle-create page:
+         spa.navigateTo('vehicle-create');
       });
-   });
+
+
+      // *When the user clicks on select date FAB:
+      $('#vehicles-select-date-fab').on('click', e => {
+         // *Opening the date picker dialog, passing the previous selected date:
+         dialogger.open('date-picker', {date: selected_date}, (dialog, status, params) => {
+            // *Checking the dialog status:
+            switch(status){
+            case dialogger.DIALOG_STATUS_POSITIVE:
+               // *If the user clicked on OK:
+               // *Updating the date variable:
+               selected_date = params.date;
+
+               // *Updating the selected date on cache:
+               sessionStorage.setItem('index-selected-date', selected_date?df.asMysqlDate(selected_date):undefined);
+
+               // *Getting the next two date chunks:
+               dates = getNextDays(CHUNK_SIZE * 2, selected_date?selected_date:new Date());
+
+               // *Getting each vehicle card element:
+               $('#vehicles-list > li').each(function(){
+                  let card = $(this);
+                  // *Getting the vehicle's id:
+                  let vehicle_id = card.attr('data-id');
+                  // *Getting the balls container:
+                  let balls_container = card.children('.schedules');
+
+                  // *Removing the lazy loading:
+                  balls_container.off('scroll');
+
+                  // *Cleaning the balls container:
+                  balls_container.empty();
+
+                  // *Building the schedule's balls and add amount of the schedules number:
+                  loadChunk(vehicle_id, balls_container, dates)
+                     .then(() => {
+                        // *Configuring the lazy loading:
+                        setupHorizontalLazyLoad(balls_container, () => {
+                           // *Getting the last loaded date:
+                           let last_date = dates[dates.length-1];
+                           // *Getting the next chunk's date:
+                           dates = getNextDays(CHUNK_SIZE, addDays(last_date, 1));
+                           // *Loading the chunk:
+                           loadChunk(vehicle_id, balls_container, dates);
+                        });
+                     });
+               });
+               break;
+            }
+         });
+      });
+   }
 });
 
 
@@ -139,39 +206,88 @@ spa.onLeft('', (page) => {
 
 
 /**
- * Request all the schedules from vehicle
- * @param  {number} id        The vehicle's id
- * @param  {button} button_ul The schedules container
- * @author Willian Conti Rezende
+ * Loads an availability chunk for a given vehicle
+ * @param  {number} vehicle_id      The vehicle's id
+ * @param  {jQuery} balls_container The balls container
+ * @param  {[Date]} dates           An array of dates
+ * @return {Promise}                The resolving promise
+ * @author Guilherme Reginaldo Ruella
  */
-function requestSchedules(id, button_ul) {
+function loadChunk(vehicle_id, balls_container, dates){
+   // *Returning a promise:
+   return new Promise((resolve, reject) => {
+      // *Transforming a Date array into a string formatted date array (yyyy-MM-dd):
+      dates = dates.map(d => df.asMysqlDate(d));
 
-   // *Getting next days:
-   let dates = getNextDays(14);
-
-   // *Listing schedules of a vehicle on each day:
-   dates.forEach((date, index) => {
-
-      // *Building the schedules dates:
-      let button_li = $('<li>').addClass('vertical-layout').attr('data-date', df.asMysqlDate(date)).appendTo(button_ul);
-      let date_span = $('<span>').addClass('secondary').text(df.asShortDate(date)).appendTo(button_li);
-      let button_schedule = $('<button>').attr("type", 'button').addClass('round').appendTo(button_li);
-
-      // *Retrieving the quantity of reservations on a date:
-      request.getVehiclesReservationsOnDate(id, df.asMysqlDate(date))
-         .done(data => {
-            // *Printing the quantity of reservations:
-            button_schedule.text(data.length);
+      // *Retrieving the vehicle's availabilities:
+      request.getVehiclesAvailability(vehicle_id, {dates: dates})
+         .done(availabilities => {
+            // *Getting each availability:
+            availabilities.forEach(availability => {
+               // *Building the ball, and adding it to the balls list:
+               balls_container.append(availabityBallFactory(availability));
+            });
+            // *Resolving the promise:
+            resolve();
+         })
+         .fail(xhr => {
+            console.log(xhr.responseJSON);
+            // *Rejecting the promise:
+            reject();
          });
    });
+}
 
-   // *Clicking on a schedule's button:
-   button_ul.on('click', 'li', function(){
-      let id = $(this).parent().parent().data('id');
-      let date = $(this).data('date');
 
-      // *Sending the id and date of the li by parameter:
-      spa.navigateTo('schedules', {id: id, date: date});
+
+/**
+ * Builds a new ball element
+ * @param  {object} availability The availability info
+ * @return {jQuery}              The ball element
+ * @author Guilherme Reginaldo Ruella
+ */
+function availabityBallFactory(availability){
+   // *Initializing the date object:
+   let date = new Date(availability.date + ' 00:00:00');
+
+   // *Building the availability ball element:
+   let ball = $('<li>').addClass('vertical-layout').attr('data-date', availability.date);
+   $('<span>').addClass('secondary').text(df.asShortDate(date)).appendTo(ball);
+   $('<button>').attr('type', 'button').addClass('round').text(availability.schedules).appendTo(ball);
+
+   // *Returning the ball element:
+   return ball;
+}
+
+
+
+/**
+ * Sets the lazy loading functionality on a given DOM element
+ * @param  {jQuery}   target   The element to apply the lazy loading
+ * @param  {function} callback The 'on near bottom' callback
+ * @author Guilherme Reginaldo Ruella
+ */
+function setupHorizontalLazyLoad(target, callback){
+   // *Starting the 'on near end' flag:
+   var near_end = false;
+   // *When the user scrolls this element:
+   $(target).on('scroll', function(){
+      // *Checking if the scrollbar is near the end:
+      if($(this).scrollLeft() + $(this).innerWidth() >= $(this)[0].scrollWidth-50) {
+         // *If it is:
+         // *Checking if the flag is set to false:
+         if(!near_end){
+            // *If it is:
+            // *Changing the flag status:
+            near_end = true;
+            // *Executing the callback:
+            callback();
+         }
+      } else{
+         // *If it's not:
+         // *Checking if the flag is true, changing the flag status, if it is:
+         if(near_end) near_end = false;
+      }
    });
 }
 
@@ -208,4 +324,17 @@ function getNextDays(days_quantity, from_date){
 function addHours(date, hours){
    date = new Date(date);
    return new Date(date.setHours(date.getHours() + hours));
+}
+
+
+/**
+ * Adds days given a timestamp
+ * @param {Date} date     The date object
+ * @param {number} days  The ammount of days to add
+ * @author Guilherme Reginaldo Ruella
+ * @return {Date}  The new date with the added days
+ */
+function addDays(date, days){
+   date = new Date(date);
+   return new Date(date.setDate(date.getDate() + days));
 }

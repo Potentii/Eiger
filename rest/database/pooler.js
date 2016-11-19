@@ -16,7 +16,7 @@ const pool = mysql.createPool({
 
 // *When connections get queued:
 pool.on('enqueue', () => {
-  console.log('>> POOLER: Connections are queueing up!');
+   //console.log('>> POOLER: Connections are queueing up!');
 });
 
 
