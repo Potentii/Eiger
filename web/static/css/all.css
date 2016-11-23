@@ -144,6 +144,7 @@ section > .list{
 .clickable-app-bar.none-selected .none-selected-text{
    visibility: visible;
    background-color: var(--primary-color);
+   text-decoration: underline;
 }
 
 /**

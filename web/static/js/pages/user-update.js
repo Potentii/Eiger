@@ -186,8 +186,44 @@ function updateUser(user_id, user_photo_base64){
       .done(data => {
          // *Showing the snack with the message:
          snack.open(srm.get('user-update-successful-snack'), snack.TIME_SHORT);
-         // *Going back to user-info:
-         spa.goBack();
+
+         // *Checking if the updated user is the current one:
+         if(user_id === request.retrieveAccessInfo().id){
+            // *If it was:
+            // *Requesting for the user authentication:
+            request.getAuth()
+               .done(data => {
+                  // *Updating user permissions data:
+                  request.saveUserPermissions(
+                     {permissions: {
+                           manage_schedules: data.user.permission_schedules,
+                           manage_users: data.user.permission_users,
+                           manage_vehicles: data.user.permission_vehicles
+                        }});
+
+                  // *Checking if the user can manage other users:
+                  if(data.user.permission_users){
+                     // *If they are:
+                     // *Going back to user-info:
+                     spa.goBack();
+                  } else{
+                     // *If they aren't:
+                     // *Navigating to account info page:
+                     spa.navigateTo('account-info', {id: user_id});
+                  }
+
+                  // *Loading the user info on drawer:
+                  updateDrawerUserInfo();
+               })
+               .fail(xhr => {
+                  // *Redirecting the user to login page:
+                  spa.navigateTo('login');
+               });
+         } else{
+            // *If it wasn't:
+            // *Going back to user-info:
+            spa.goBack();
+         }
       })
       .fail(xhr => {
          // *Checking if the request's status is 401, sending the user to the login page if it is:

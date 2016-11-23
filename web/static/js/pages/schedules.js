@@ -29,9 +29,13 @@ spa.onNavigate('schedules', (page, params) => {
 
                // *Checking if the vehicle is active:
                if(!data.active){
-                  // *If it is:
+                  // *If it's not:
                   // *Hiding the 'Add schedules' FAB:
                   $('#schedules-create-done-fab').hide();
+               } else{
+                  // *If it is:
+                  // *Showing the 'Add schedules' FAB:
+                  $('#schedules-create-done-fab').show();
                }
             })
             .fail(xhr => {

@@ -10,6 +10,15 @@ spa.onNavigate('user-info', (page, params) => {
       // *Checking if the user was authenticated:
       if(authenticated == true) {
          // *If true:
+
+         // *Checking if the current user has permission to manage other user's account:
+         if(!request.retrieveUserPermissions().permissions.manage_users){
+            // *If they're:
+            // *Navigating to account-info page:
+            spa.navigateTo('account-info', {id: user_id});
+            return;
+         }
+
          // *Listing the user:
          request.getUserSensitive(user_id)
             .done(data => {

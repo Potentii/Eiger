@@ -219,7 +219,7 @@ body{
 	flex-shrink: 0;
 }
 .vertical-separator, .horizontal-separator{
-	margin: 2em 0;
+	margin: 1.5em 0;
 }
 .vertical-separator, .vertical-line{
 	display: inline-block;
