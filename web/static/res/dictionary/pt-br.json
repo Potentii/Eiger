@@ -156,8 +156,8 @@
    ["user-update-permission-vehicles-detail", "${user-create-permission-vehicles-detail}"],
 
    ["reservations-header", "Procurar reservas"],
-   ["none-selected-text-reservations-vehicle", "Nenhum veículo selecionado"],
-   ["none-selected-text-reservations-user", "Nenhum usuário selecionado"],
+   ["none-selected-text-reservations-vehicle", "Escolha um veículo"],
+   ["none-selected-text-reservations-user", "Escolha um usuário"],
 
    ["settings-header", "Configurações"],
    ["settings-language", "Idioma"],
