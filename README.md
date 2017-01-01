@@ -1,3 +1,7 @@
+<p align="center"><img width="128" src="http://i.imgur.com/osM4Rn0.png"></p>
+
+<br>
+
 # Eiger
 >_This is an academic project, so it's not designed to be used in production or other scenarios_
 
@@ -39,4 +43,4 @@ After download this project, you should see 4 `.cmd` files inside Eiger's root f
 <br>
 
 ## License
-Copyright (c) 2016 Guilherme Reginaldo Ruella (potentii@gmail.com)
+Copyright (c) 2016-2017 Guilherme Reginaldo Ruella (potentii@gmail.com)
